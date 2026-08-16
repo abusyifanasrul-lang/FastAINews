@@ -79,6 +79,7 @@ jobs:
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+          REMOTION_BROWSER_EXECUTABLE: /usr/bin/google-chrome-stable
         run: npx tsx scripts/full-pipeline.ts --content-id=15
 
       - name: Upload video artifacts
