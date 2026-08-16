@@ -28,6 +28,9 @@ jobs:
         run: npm install
         working-directory: ./
 
+      - name: Fetch OpenMontage vendor
+        run: npx tsx scripts/fetch-openmontage.ts
+
       - name: Debug LLM endpoint
         env:
           ENDPOINT: ${{ secrets.LLM_ENDPOINT }}
