@@ -28,8 +28,21 @@ jobs:
         run: npm install
         working-directory: ./
 
-      - name: Fetch OpenMontage vendor
+      - name: Cache OpenMontage vendor
+        id: cache-vendor
+        uses: actions/cache@v4
+        with:
+          path: vendor-openmontage
+          key: vendor-openmontage-${{ runner.os }}-${{ hashFiles('scripts/fetch-openmontage.ts') }}
+          restore-keys: |
+            vendor-openmontage-${{ runner.os }}-
+
+      - name: Fetch OpenMontage vendor (if cache miss)
+        if: steps.cache-vendor.outputs.cache-hit != 'true'
         run: npx tsx scripts/fetch-openmontage.ts
+
+      - name: Install OpenMontage dependencies
+        run: npm install --prefix vendor-openmontage
 
       - name: Debug LLM endpoint
         env:
