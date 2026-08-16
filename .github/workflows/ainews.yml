@@ -2,8 +2,8 @@ name: AI News Daily Pipeline
 
 on:
   schedule:
-    - cron: '0 8 * * *'   # setiap hari 08:00 UTC (15:00 WIB)
-  workflow_dispatch:       # bisa di-run manual
+    - cron: '0 8 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,14 +21,13 @@ jobs:
 
       - name: Install system dependencies
         run: |
-          sudo -S -p '' apt-get update
-          sudo -S -p '' apt-get install -y google-chrome-stable ffmpeg
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable ffmpeg
 
       - name: Install npm dependencies
         run: npm install
-        working-directory: ./bot
 
-      - name: Run pipeline for content #15
+      - name: Run pipeline
         env:
           LLM_ENDPOINT: ${{ secrets.LLM_ENDPOINT }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
@@ -37,13 +36,11 @@ jobs:
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
-        run: |
-          npx tsx scripts/full-pipeline.ts --content-id=15
-        working-directory: ./bot
+        run: npx tsx scripts/full-pipeline.ts --content-id=15
 
       - name: Upload video artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: video-output
-          path: bot/content/
+          path: content/
