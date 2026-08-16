@@ -26,6 +26,7 @@ jobs:
 
       - name: Install npm dependencies
         run: npm install
+        working-directory: ./
 
       - name: Run pipeline
         env:
