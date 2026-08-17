@@ -66,13 +66,15 @@ export async function renderVideos(date: string): Promise<{ shorts: string; dura
 function renderComposition(comp: string, outFile: string, propsPath: string, width: number, height: number) {
   // panggil remotion CLI via node langsung (bukan npx/npx.cmd — .cmd shim gagal di spawnSync Windows)
   const cli = join(COMPOSER, "node_modules", "@remotion", "cli", "remotion-cli.js");
-  const CHROME = process.env.REMOTION_CHROMIUM_EXECUTABLE || "C:/Program Files/Google/Chrome/Application/chrome.exe";
+  // priority: REMOTION_BROWSER_EXECUTABLE (standard) → REMOTION_CHROMIUM_EXECUTABLE (legacy) → null (Remotion auto-download)
+  const CHROME = process.env.REMOTION_BROWSER_EXECUTABLE || process.env.REMOTION_CHROMIUM_EXECUTABLE || "";
   const args = [cli, "render", "src/index.tsx", comp, outFile,
-    `--props=${propsPath}`, "--codec=h264", `--width=${width}`, `--height=${height}`, "--fps=24", "--concurrency=1", "--quality=60", "--gl=swangle", `--browser-executable=${CHROME}`];
+    `--props=${propsPath}`, "--codec=h264", `--width=${width}`, `--height=${height}`, "--fps=24", "--concurrency=1", "--quality=60", "--gl=swangle"];
+  if (CHROME) args.push(`--browser-executable=${CHROME}`);
   const r = spawnSync(process.execPath, args, {
     cwd: COMPOSER,
     timeout: 7200000,
-    env: { ...process.env, REMOTION_CHROMIUM_EXECUTABLE: CHROME },
+    env: CHROME ? { ...process.env, REMOTION_CHROMIUM_EXECUTABLE: CHROME } : process.env,
   });
   if (r.status !== 0) {
     const err = r.stderr?.toString() || r.stdout?.toString() || `exit code ${r.status}`;
