@@ -85,7 +85,7 @@ async function synthSegment(text: string, outPath: string): Promise<{ dur: numbe
       return { dur, provider: "gemini" };
     } catch (e: any) {
       const msg = e?.message ?? "";
-      if (msg.includes("429") || msg.includes("quota") || msg.includes("503") || msg.includes("502")) {
+      if (msg.includes("429") || msg.includes("400") || msg.includes("quota") || msg.includes("503") || msg.includes("502")) {
         console.log("  [tts] ⚠️ Gemini error → fallback Edge TTS");
         geminiDown = true;
       } else if (msg.includes("GOOGLE_API_KEY")) {

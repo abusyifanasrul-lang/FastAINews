@@ -57,7 +57,7 @@ export async function renderVideos(date: string): Promise<{ shorts: string; dura
 
   // render vertical (480p)
   const shorts = join(outDir, "shorts-916.mp4");
-  renderComposition("NewsShort", shorts, propsPath, 480, 854);
+  renderComposition("Explainer", shorts, propsPath, 480, 854);
 
   db.prepare("UPDATE contents SET video_916_path = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?").run(shorts, c.id);
   return { shorts, durationSec: dur };
