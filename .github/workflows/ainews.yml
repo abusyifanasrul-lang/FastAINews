@@ -44,6 +44,16 @@ jobs:
       - name: Install OpenMontage dependencies
         run: npm install --prefix vendor-openmontage
 
+      - name: Add missing StatCard component
+        run: |
+          mkdir -p vendor-openmontage/src/components
+          cat > vendor-openmontage/src/components/StatCard.tsx << 'EOF'
+          import React from 'react';
+          export const StatCard = ({ title, value, ...props }) => {
+            return <div {...props}>{title}: {value}</div>;
+          };
+          EOF
+
       - name: Debug LLM endpoint
         env:
           ENDPOINT: ${{ secrets.LLM_ENDPOINT }}
