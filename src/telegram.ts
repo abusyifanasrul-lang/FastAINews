@@ -3,7 +3,7 @@ import "dotenv/config";
 import { db, getContentWithSources, updateContentStatus, addRevision } from "./db.js";
 import { existsSync } from "node:fs";
 import { publishAll } from "./publisher.js";
-import { runRevision } from "./pipeline.js";
+// import { runRevision } from "./pipeline.js"; // no longer used locally
 
 const token = process.env.BOT_TOKEN;
 if (!token) throw new Error("BOT_TOKEN missing");
@@ -94,7 +94,7 @@ bot.command("start", async (ctx) => {
   await ctx.reply("Halo! Saya pegawai digital AInews. Kirim /run untuk mulai produksi konten hari ini.");
 });
 
-// /run — trigger manual (konten hari ini)
+// /run — trigger manual (konten hari ini) via GitHub Actions
 bot.command("run", async (ctx) => {
   const date = new Date().toISOString().slice(0, 10);
   const existing = getContentWithSources(date);
@@ -102,43 +102,58 @@ bot.command("run", async (ctx) => {
     await ctx.reply(`Sudah ada konten hari ini (status: ${existing.status}).`);
     return;
   }
-  await ctx.reply("⏳ Memulai riset & produksi...");
+  await ctx.reply("⏳ Memicu pipeline di GitHub Actions...");
+  try {
+    await triggerWorkflow({});
+    await ctx.reply("✅ Pipeline triggered. Tunggu beberapa menit untuk preview.");
+  } catch (e) {
+    await ctx.reply(`❌ Gagal trigger: ${e instanceof Error ? e.message : String(e)}`);
+  }
 });
 
 // Callback: Approve
 bot.callbackQuery(/^approve_(\d+)$/, async (ctx) => {
   const id = Number(ctx.match[1]);
-  if (ctx.from.id.toString() !== ownerId) {
-    await ctx.answerCallbackQuery("Bukan owner.");
-    return;
-  }
-  const row = db.prepare("SELECT status FROM contents WHERE id = ?").get(id) as { status: string } | undefined;
-  if (!row || row.status === "APPROVED" || row.status === "PUBLISHING" || row.status === "PUBLISHED") {
-    await ctx.answerCallbackQuery("Sudah diproses.");
-    return;
-  }
-  updateContentStatus(id, "APPROVED");
-  await editMsg(ctx, "✅ Konten disetujui! Memulai auto-posting...");
-  await ctx.answerCallbackQuery("Approved!");
   try {
-    const { results } = await publishAll(id);
-    const lines = results.map(r => `${r.ok ? "✅" : "❌"} ${r.platform}: ${r.url ?? r.error ?? "ok"}`).join("\n");
-    await editMsg(ctx, `✅ *Auto\\-posting selesai*\n${esc(lines)}`, { parse_mode: "MarkdownV2" });
+    if (ctx.from.id.toString() !== ownerId) {
+      await ctx.answerCallbackQuery("Bukan owner.").catch(() => {});
+      return;
+    }
+    const row = db.prepare("SELECT status FROM contents WHERE id = ?").get(id) as { status: string } | undefined;
+    if (!row || row.status === "APPROVED" || row.status === "PUBLISHING" || row.status === "PUBLISHED") {
+      await ctx.answerCallbackQuery("Sudah diproses.").catch(() => {});
+      return;
+    }
+    updateContentStatus(id, "APPROVED");
+    await editMsg(ctx, "✅ Konten disetujui! Memulai auto-posting...");
+    await ctx.answerCallbackQuery("Approved!").catch(() => {});
+    try {
+      const { results } = await publishAll(id);
+      const lines = results.map(r => `${r.ok ? "✅" : "❌"} ${r.platform}: ${r.url ?? r.error ?? "ok"}`).join("\n");
+      await editMsg(ctx, `✅ *Auto\\-posting selesai*\n${esc(lines)}`, { parse_mode: "MarkdownV2" });
+    } catch (e) {
+      await editMsg(ctx, `❌ Auto\\-posting gagal: ${esc((e as Error).message)}`, { parse_mode: "MarkdownV2" });
+    }
   } catch (e) {
-    await editMsg(ctx, `❌ Auto\\-posting gagal: ${esc((e as Error).message)}`, { parse_mode: "MarkdownV2" });
+    console.error(`[approve] #${id} error:`, e);
   }
 });
 
 // Callback: Revisi
 bot.callbackQuery(/^revisi_(\d+)$/, async (ctx) => {
   const id = Number(ctx.match[1]);
-  if (ctx.from.id.toString() !== ownerId) {
-    await ctx.answerCallbackQuery("Bukan owner.");
-    return;
+  console.log(`[revisi callback] received for id ${id}`);
+  try {
+    if (ctx.from.id.toString() !== ownerId) {
+      await ctx.answerCallbackQuery("Bukan owner.").catch(() => {});
+      return;
+    }
+    ctx.session.waitingRevisionFor = id;
+    await editMsg(ctx, "✏️ Kirim catatan revisi (teks bebas).");
+    await ctx.answerCallbackQuery("Revisi dimulai.").catch(() => {});
+  } catch (e) {
+    console.error(`[revisi callback] #${id} error:`, e);
   }
-  ctx.session.waitingRevisionFor = id;
-  await editMsg(ctx, "✏️ Kirim catatan revisi (teks bebas).");
-  await ctx.answerCallbackQuery("Revisi dimulai.");
 });
 
 // Callback: Skip
@@ -153,25 +168,22 @@ bot.callbackQuery(/^skip_(\d+)$/, async (ctx) => {
   await ctx.answerCallbackQuery("Skipped.");
 });
 
-// Handler text untuk catatan revisi
+// Handler text untuk catatan revisi — trigger GitHub Actions workflow
 bot.on("message:text", async (ctx) => {
   const id = ctx.session.waitingRevisionFor;
   if (!id) return;
   const note = ctx.message.text;
   if (!note) return;
 
-  addRevision(id, note, null, null, null);
-  updateContentStatus(id, "REVISION_PENDING");
   ctx.session.waitingRevisionFor = undefined;
-  await ctx.reply(`📝 Revisi diterima. Memproses ulang konten #${id}...`);
+  await ctx.reply(`📝 Revisi diterima. Memicu pipeline ulang untuk #${id}...`);
   try {
-    const rev = await runRevision(id, note);
-    await ctx.reply(`✅ Revisi ke-${rev.version} selesai. Preview dikirim ulang.`);
+    await triggerWorkflow({ content_id: String(id), revision_note: note });
+    await ctx.reply(`✅ Pipeline revisi triggered untuk #${id}. Tunggu preview baru.`);
   } catch (e) {
     const msg = (e as Error).message ?? String(e);
-    console.error(`[revisi] #${id} GAGAL:`, msg);
-    updateContentStatus(id, "REVISION_FAILED");
-    await ctx.reply(`❌ Revisi gagal: ${msg}`);
+    console.error(`[revisi] #${id} GAGAL trigger:`, msg);
+    await ctx.reply(`❌ Gagal trigger revisi: ${msg}`);
   }
 });
 
@@ -184,6 +196,36 @@ export async function sendAlert(msg: string) {
   } catch {}
 }
 
+// Trigger GitHub Actions workflow
+async function triggerWorkflow(inputs: { content_id?: string; revision_note?: string } = {}) {
+  const pat = process.env.GITHUB_PAT;
+  if (!pat) throw new Error("GITHUB_PAT not set in .env");
+  const owner = "abusyifanasrul-lang";
+  const repo = "FastAINews";
+  const workflow = "ainews.yml";
+  const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow}/dispatches`;
+
+  const payload = {
+    ref: "master",
+    inputs: inputs.content_id || inputs.revision_note ? inputs : {}
+  };
+
+  const resp = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${pat}`,
+      "Accept": "application/vnd.github.v3+json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  });
+  if (!resp.ok) {
+    const err = await resp.text();
+    throw new Error(`GitHub API error ${resp.status}: ${err}`);
+  }
+  // 204 No Content on success
+}
+
 // start bot jika dijalankan langsung (bukan di-import)
 const isMain = process.argv[1]?.includes("telegram");
 if (isMain) {
@@ -194,6 +236,20 @@ if (isMain) {
   process.on("uncaughtException", (err) => {
     console.error("[bot] uncaughtException:", err);
   });
+
+  // hapus webhook untuk polling
+  bot.api.deleteWebhook().then(() => {
+    console.log("✅ Webhook cleared");
+  }).catch((e) => {
+    console.error("Gagal clear webhook:", e.message);
+  });
+
+  // log semua update
+  bot.use(async (ctx, next) => {
+    console.log("📨 Update:", JSON.stringify(ctx.update, null, 2));
+    await next();
+  });
+
   bot.start();
   console.log("🤖 Telegram bot running");
 }

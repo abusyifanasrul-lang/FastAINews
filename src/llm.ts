@@ -10,12 +10,25 @@ if (!endpoint) throw new Error("LLM_ENDPOINT missing");
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
+// rate-limit guard: 2 detik antar panggilan
+let lastCall = 0;
+const MIN_INTERVAL_MS = 2000;
+async function rateLimit() {
+  const now = Date.now();
+  const elapsed = now - lastCall;
+  if (elapsed < MIN_INTERVAL_MS) {
+    await sleep(MIN_INTERVAL_MS - elapsed);
+  }
+  lastCall = Date.now();
+}
+
 export interface LlmMessage { role: "system" | "user"; content: string }
 
 async function chat(messages: LlmMessage[], maxTokens = 2000): Promise<string> {
   const MAX_RETRIES = 3;
 
   async function callApi(url: string, token: string): Promise<string> {
+    await rateLimit(); // jeda 2 detik antar panggilan
     const res = await fetch(`${url}/chat/completions`, {
       method: "POST",
       headers: {
