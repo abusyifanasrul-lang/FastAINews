@@ -4,6 +4,15 @@ on:
   schedule:
     - cron: '0 8 * * *'
   workflow_dispatch:
+    inputs:
+      content_id:
+        description: 'Content ID to process (revision or specific)'
+        required: false
+        type: string
+      revision_note:
+        description: 'Revision note for updating content'
+        required: false
+        type: string
 
 jobs:
   build:
@@ -80,7 +89,7 @@ jobs:
           fi
           echo "LLM endpoint OK"
 
-      - name: Run pipeline
+      - name: Run pipeline (with retry)
         env:
           LLM_ENDPOINT: ${{ secrets.LLM_ENDPOINT }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
@@ -90,7 +99,22 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
           REMOTION_BROWSER_EXECUTABLE: /usr/bin/google-chrome-stable
-        run: npx tsx scripts/full-pipeline.ts --content-id=15
+          CONTENT_ID: ${{ github.event.inputs.content_id }}
+          REVISION_NOTE: ${{ github.event.inputs.revision_note }}
+        run: |
+          for attempt in 1 2 3; do
+            echo "Attempt $attempt..."
+            if [ -n "$CONTENT_ID" ] && [ -n "$REVISION_NOTE" ]; then
+              npx tsx scripts/full-pipeline.ts --content-id="$CONTENT_ID" --revision-note="$REVISION_NOTE"
+            elif [ -n "$CONTENT_ID" ]; then
+              npx tsx scripts/full-pipeline.ts --content-id="$CONTENT_ID"
+            else
+              npx tsx scripts/full-pipeline.ts
+            fi && exit 0
+            echo "Attempt $attempt failed. Retrying in $((attempt*60)) seconds..."
+            sleep $((attempt*60))
+          done
+          exit 1
 
       - name: Upload video artifacts
         if: always()
