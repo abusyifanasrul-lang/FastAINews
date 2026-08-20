@@ -151,8 +151,8 @@ export function buildProps(title: string, script: string, dur: number, images: s
   if (ctaStart > t + 0.5) {
     addCut({
       id: `c${CUTS.length + 1}`, type: "callout",
-      text: "Kesimpulan: " + (sentences[sentences.length - 1] ?? "Tetap update dengan AI."),
-      title: "💡 Intisari", callout_type: "tip",
+      text: sentences[sentences.length - 1] ?? "Tetap update dengan AI.",
+      title: "💡 Kesimpulan", callout_type: "tip",
       in_seconds: t, out_seconds: ctaStart,
       backgroundColor: "#1E293B",
     });
@@ -166,8 +166,8 @@ export function buildProps(title: string, script: string, dur: number, images: s
   } else {
     addCut({
       id: `c${CUTS.length + 1}`, type: "callout",
-      text: "Kesimpulan: " + (sentences[sentences.length - 1] ?? "Tetap update dengan AI."),
-      title: "💡 Intisari", callout_type: "tip",
+      text: sentences[sentences.length - 1] ?? "Tetap update dengan AI.",
+      title: "💡 Kesimpulan", callout_type: "tip",
       in_seconds: t, out_seconds: dur,
       backgroundColor: "#1E293B",
     });

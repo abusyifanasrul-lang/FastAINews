@@ -56,21 +56,33 @@ async function run() {
       const videoDur = parseFloat(videoDurStr) || 0;
       console.log("Video durasi (raw):", videoDur, "s");
 
-      // kompres dan potong video ke durasi audio
+      // kompres dan potong video ke durasi audio (trimmed)
+      const finalAudioDur = audioDur > 0.1 ? audioDur : (() => {
+        const fallback = execFileSync("ffprobe", [
+          "-v", "error",
+          "-show_entries", "format=duration",
+          "-of", "csv=p=0",
+          trimmedAudioPath
+        ]).toString().trim();
+        const d = parseFloat(fallback) || 0;
+        console.log("Fallback audio duration for trim:", d, "s");
+        return d;
+      })();
       const args = [
         "-y", "-v", "error", "-i", v.shorts,
         "-vf", "scale=480:854",
         "-c:v", "libx264", "-preset", "fast", "-crf", "32",
         "-c:a", "aac", "-b:a", "96k",
       ];
-      if (audioDur > 0) {
-        args.push("-t", String(audioDur));
-        console.log("Trim video ke", audioDur, "s");
+      if (finalAudioDur > 0.1) {
+        args.push("-t", String(finalAudioDur));
+        console.log("Trim video ke", finalAudioDur, "s");
       } else {
-        console.warn("Audio duration not found, skip trim");
+        console.warn("Final audio duration invalid, skip trim");
       }
       args.push(previewPath);
-      execFileSync("ffmpeg", args, { stdio: "pipe" });
+      console.log("[pipeline] running ffmpeg with args:", args.join(" "));
+      execFileSync("ffmpeg", args, { stdio: "inherit" });
 
       // durasi hasil
       const outDurStr = execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", previewPath]).toString().trim();
