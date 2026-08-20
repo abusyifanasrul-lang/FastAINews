@@ -89,6 +89,7 @@ Struktur wajib:
 5. CTA penutup (minta subscribe/ikuti)
 Bila durasi terasa penuh, prioritaskan kerangka fakta tiap topik tetap ada (boleh ringkas), jangan dihilangkan.
 Gunakan Bahasa Indonesia natural, gaya news presenter, tanpa kata "menurut sumber", tanpa markdown, tanpa emoji.
+Tulis naskah dengan setiap topik pada baris baru, dimulai dengan tanda strip (-) atau bullet (•). Pastikan setiap topik berada di baris terpisah.
 PENTING: sebut tiap topik dengan label jelas (mis. "Di sisi lain, ..." / "Sementara itu, ...") supaya auditor bisa kenali tiap topik. Hanya gunakan fakta dari daftar sumber, jangan halusinasi.
 Berikan judul topik singkat (<=8 kata) di baris pertama dengan format: JUDUL: <judul>`;
 

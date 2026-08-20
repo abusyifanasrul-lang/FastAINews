@@ -111,13 +111,38 @@ async function synthSegment(text: string, outPath: string): Promise<{ dur: numbe
  * hook = kalimat pertama; sisanya di-split per colon-publisher.
  */
 export function chunkScript(script: string, _size = 1): string[] {
+  // First, try splitting by newline and bullet points.
+  const lines = script.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+  // Check if lines start with bullet or number.
+  const bulletRegex = /^[-•*]\s+/;
+  const numberRegex = /^\d+[\.\)]\s+/;
+  const hasBullet = lines.some(l => bulletRegex.test(l) || numberRegex.test(l));
+  if (hasBullet) {
+    // Each bullet line is a chunk.
+    // Keep the first line as hook if it doesn't start with bullet.
+    const chunks: string[] = [];
+    let current = '';
+    for (const line of lines) {
+      if (bulletRegex.test(line) || numberRegex.test(line)) {
+        if (current) { chunks.push(current.trim()); current = ''; }
+        current = line.replace(/^[-•*]\s+/, '').replace(/^\d+[\.\)]\s+/, '');
+      } else {
+        current += (current ? ' ' : '') + line;
+      }
+    }
+    if (current) chunks.push(current.trim());
+    return chunks.filter(c => c.length > 0);
+  }
+
+  // Fallback: sentence-based detection.
   const sentences = script.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(s => s.length > 0);
   const hook = sentences[0] ?? "";
   const rest = sentences.slice(1).join(" ");
   const chunks: string[] = [hook];
   let cur = "";
   for (const s of rest ? rest.split(/(?<=[.!?])\s+/) : []) {
-    const isTopicStart = /^[A-Za-zÀ-ÿ][^:]{2,40}:\s/.test(s) || /^\s*(Sementara itu|Terakhir|Di sisi lain)[,:]\s/.test(s);
+    const isTopicStart = /^[A-Za-zÀ-ÿ][^:]{2,40}:\s/.test(s) ||
+                         /^\s*(Sementara itu|Terakhir|Di sisi lain|Selanjutnya|Kedua|Ketiga|Berikutnya|Lainnya)[,:]\s/.test(s);
     if (isTopicStart && cur) { chunks.push(cur.trim()); cur = ""; }
     cur += (cur ? " " : "") + s;
   }

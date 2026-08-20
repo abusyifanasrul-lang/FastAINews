@@ -110,6 +110,8 @@ export function buildProps(title: string, script: string, dur: number, images: s
     id: "c1", type: "hero_title", text: title,
     heroSubtitle: "Ringkasan AI Harian", in_seconds: 0, out_seconds: Math.min(2.5, dur),
     accentColor: "#22D3EE",
+    backgroundColor: "#0A0F1A",
+    textColor: "#FFFFFF",
     ...(heroImg ? { backgroundImage: heroImg, backgroundOverlay: 0.6 } : {}),
   });
 
@@ -158,6 +160,8 @@ export function buildProps(title: string, script: string, dur: number, images: s
       id: `c${CUTS.length + 1}`, type: "hero_title", text: "Ikuti terus kabar AI terbaru!",
       heroSubtitle: "Sampai jumpa besok! 👋", in_seconds: ctaStart, out_seconds: dur,
       accentColor: "#22D3EE",
+      backgroundColor: "#0A0F1A",
+      textColor: "#FFFFFF",
     });
   } else {
     addCut({
@@ -167,6 +171,12 @@ export function buildProps(title: string, script: string, dur: number, images: s
       in_seconds: t, out_seconds: dur,
       backgroundColor: "#1E293B",
     });
+  }
+
+  // Trim last cut out_seconds to audio duration to avoid trailing silence
+  if (CUTS.length > 0) {
+    const last = CUTS[CUTS.length - 1];
+    if (last.out_seconds > dur) last.out_seconds = dur;
   }
 
   return {
