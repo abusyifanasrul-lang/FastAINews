@@ -90,6 +90,8 @@ async function run() {
       
       // ganti file audio dengan yang sudah ditrim
       renameSync(trimmedAudioPath, audioPath);
+      // ganti file video dengan hasil trim
+      renameSync(previewPath, v.shorts);
     } catch (e) {
       console.warn("Kompres/trim gagal, pakai original:", e);
     }
