@@ -35,13 +35,12 @@ async function run() {
   const v = await renderVideos(date);
   console.log("Video:", v.shorts);
 
-  // 4. kompres + potong ke durasi audio + log
+  // 4. kompres + potong ke durasi audio
   console.log("[pipeline] 4/4 kompres + trim ke audio...");
   const previewPath = join(outDir, "shorts-preview.mp4");
-  const audioPath = join(outDir, "voiceover.mp3");
+  // audioPath already from generateTtsChunks (line 30)
   if (existsSync(v.shorts) && existsSync(audioPath)) {
     try {
-      // durasi audio asli
       const durStr = execFileSync("ffprobe", [
         "-v", "error",
         "-show_entries", "format=duration",
@@ -49,50 +48,25 @@ async function run() {
         audioPath
       ]).toString().trim();
       const audioDur = parseFloat(durStr) || 0;
-      console.log("Audio durasi (voiceover):", audioDur, "s");
-
-      // durasi video asli
-      const videoDurStr = execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", v.shorts]).toString().trim();
-      const videoDur = parseFloat(videoDurStr) || 0;
-      console.log("Video durasi (raw):", videoDur, "s");
-
-      // kompres dan potong video ke durasi audio (trimmed)
-      const finalAudioDur = audioDur > 0.1 ? audioDur : (() => {
-        const fallback = execFileSync("ffprobe", [
-          "-v", "error",
-          "-show_entries", "format=duration",
-          "-of", "csv=p=0",
-          trimmedAudioPath
-        ]).toString().trim();
-        const d = parseFloat(fallback) || 0;
-        console.log("Fallback audio duration for trim:", d, "s");
-        return d;
-      })();
-      const args = [
-        "-y", "-v", "error", "-i", v.shorts,
-        "-vf", "scale=480:854",
-        "-c:v", "libx264", "-preset", "fast", "-crf", "32",
-        "-c:a", "aac", "-b:a", "96k",
-      ];
-      if (finalAudioDur > 0.1) {
-        args.push("-t", String(finalAudioDur));
-        console.log("Trim video ke", finalAudioDur, "s");
+      console.log("Audio durasi:", audioDur, "s");
+      if (audioDur > 0) {
+        const args = [
+          "-y", "-v", "error", "-i", v.shorts,
+          "-vf", "scale=480:854",
+          "-c:v", "libx264", "-preset", "fast", "-crf", "32",
+          "-c:a", "aac", "-b:a", "96k",
+          "-t", String(audioDur),
+          previewPath
+        ];
+        console.log("[pipeline] running ffmpeg with args:", args.join(" "));
+        execFileSync("ffmpeg", args, { stdio: "inherit" });
+        renameSync(previewPath, v.shorts);
+        console.log("[pipeline] video replaced with trimmed version");
       } else {
-        console.warn("Final audio duration invalid, skip trim");
+        console.warn("Audio duration invalid, skip trim");
       }
-      args.push(previewPath);
-      console.log("[pipeline] running ffmpeg with args:", args.join(" "));
-      execFileSync("ffmpeg", args, { stdio: "inherit" });
-
-      // durasi hasil
-      const outDurStr = execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", previewPath]).toString().trim();
-      const outDur = parseFloat(outDurStr) || 0;
-      console.log("Video kompres (final):", outDur, "s");
-      
-      // ganti file video dengan hasil trim
-      renameSync(previewPath, v.shorts);
     } catch (e) {
-      console.warn("Kompres/trim gagal, pakai original:", e);
+      console.warn("Trim failed:", e);
     }
   }
 
