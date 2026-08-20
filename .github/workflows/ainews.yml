@@ -63,31 +63,8 @@ jobs:
           };
           EOF
 
-      - name: Debug LLM endpoint
-        env:
-          ENDPOINT: ${{ secrets.LLM_ENDPOINT }}
-          API_KEY: ${{ secrets.LLM_API_KEY }}
-          MODEL: ${{ secrets.LLM_MODEL }}
-        run: |
-          echo "ENDPOINT: ${ENDPOINT:0:30}..."
-          set +e
-          curl -s -w "\n%{http_code}" -X POST "${ENDPOINT}/chat/completions" \
-            -H "Content-Type: application/json" \
-            -H "Authorization: Bearer ${API_KEY}" \
-            -d "{\"model\":\"${MODEL}\",\"messages\":[{\"role\":\"user\",\"content\":\"test\"}],\"max_tokens\":5}" > /tmp/llm_test.out 2>&1
-          exit_code=$?
-          if [ $exit_code -ne 0 ]; then
-            echo "Curl failed with exit code $exit_code"
-            cat /tmp/llm_test.out
-            exit 1
-          fi
-          http_code=$(tail -n1 /tmp/llm_test.out)
-          if [ "$http_code" != "200" ]; then
-            echo "LLM endpoint returned HTTP $http_code"
-            head -n -1 /tmp/llm_test.out | tail -n +2
-            exit 1
-          fi
-          echo "LLM endpoint OK"
+      - name: Debug LLM endpoint (skipped to avoid 429)
+        run: echo "LLM debug skipped"
 
       - name: Run pipeline (with retry)
         env:
