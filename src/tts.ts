@@ -142,7 +142,7 @@ export function chunkScript(script: string, _size = 1): string[] {
   let cur = "";
   for (const s of rest ? rest.split(/(?<=[.!?])\s+/) : []) {
     const isTopicStart = /^[A-Za-zÀ-ÿ][^:]{2,40}:\s/.test(s) ||
-                         /^\s*(Sementara itu|Terakhir|Di sisi lain|Selanjutnya|Kedua|Ketiga|Berikutnya|Lainnya)[,:]\s/.test(s);
+                         /^\s*(Sementara itu|Terakhir|Di sisi lain|Selanjutnya|Kedua|Ketiga|Berikutnya|Lainnya|Analisis|Peluang)[,:]\s/.test(s);
     if (isTopicStart && cur) { chunks.push(cur.trim()); cur = ""; }
     cur += (cur ? " " : "") + s;
   }

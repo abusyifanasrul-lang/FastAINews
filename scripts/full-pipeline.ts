@@ -35,21 +35,33 @@ async function run() {
   const v = await renderVideos(date);
   console.log("Video:", v.shorts);
 
-  // 4. kompres sebelum kirim Telegram (limit 50MB)
-  console.log("[pipeline] 4/4 kompres + preview...");
+  // 4. kompres + potong ke durasi audio
+  console.log("[pipeline] 4/4 kompres + trim ke audio...");
   const previewPath = join(outDir, "shorts-preview.mp4");
   if (existsSync(v.shorts)) {
     try {
-      execFileSync("ffmpeg", [
+      // dapatkan durasi audio
+      const audioPath = join(outDir, "voiceover.mp3");
+      let audioDur = 0;
+      if (existsSync(audioPath)) {
+        const durStr = execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", audioPath]).toString().trim();
+        audioDur = parseFloat(durStr) || 0;
+      }
+      // kompres dan potong ke durasi audio
+      const args = [
         "-y", "-v", "error", "-i", v.shorts,
         "-vf", "scale=480:854",
         "-c:v", "libx264", "-preset", "fast", "-crf", "32",
         "-c:a", "aac", "-b:a", "96k",
-        previewPath,
-      ], { stdio: "pipe" });
+      ];
+      if (audioDur > 0) {
+        args.push("-t", String(audioDur));
+      }
+      args.push(previewPath);
+      execFileSync("ffmpeg", args, { stdio: "pipe" });
       console.log("Kompres:", previewPath);
-    } catch {
-      console.warn("Kompres gagal, pakai original");
+    } catch (e) {
+      console.warn("Kompres/trim gagal, pakai original:", e);
     }
   }
 
