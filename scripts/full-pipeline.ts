@@ -41,33 +41,22 @@ async function run() {
   const audioPath = join(outDir, "voiceover.mp3");
   if (existsSync(v.shorts) && existsSync(audioPath)) {
     try {
-      // 4a. trim trailing silence dari audio
-      console.log("[pipeline] trim trailing silence dari audio...");
-      const trimmedAudioPath = join(outDir, "voiceover-trimmed.mp3");
-      execFileSync("ffmpeg", [
-        "-y",
-        "-i", audioPath,
-        "-af", "silenceremove=stop_periods=-1:stop_duration=0.5:stop_threshold=-50dB",
-        "-c:a", "libmp3lame",
-        trimmedAudioPath
-      ], { stdio: "inherit" });
-      
-      // dapatkan durasi audio trimmed
+      // durasi audio asli
       const durStr = execFileSync("ffprobe", [
         "-v", "error",
         "-show_entries", "format=duration",
         "-of", "csv=p=0",
-        trimmedAudioPath
+        audioPath
       ]).toString().trim();
       const audioDur = parseFloat(durStr) || 0;
-      console.log("Audio duration (trimmed):", audioDur, "s");
+      console.log("Audio durasi (voiceover):", audioDur, "s");
 
       // durasi video asli
       const videoDurStr = execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", v.shorts]).toString().trim();
       const videoDur = parseFloat(videoDurStr) || 0;
       console.log("Video durasi (raw):", videoDur, "s");
 
-      // kompres dan potong video ke durasi audio (trimmed)
+      // kompres dan potong video ke durasi audio
       const args = [
         "-y", "-v", "error", "-i", v.shorts,
         "-vf", "scale=480:854",
@@ -88,8 +77,6 @@ async function run() {
       const outDur = parseFloat(outDurStr) || 0;
       console.log("Video kompres (final):", outDur, "s");
       
-      // ganti file audio dengan yang sudah ditrim
-      renameSync(trimmedAudioPath, audioPath);
       // ganti file video dengan hasil trim
       renameSync(previewPath, v.shorts);
     } catch (e) {
