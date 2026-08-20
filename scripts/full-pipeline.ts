@@ -5,7 +5,7 @@ import { getContentByDate, updateContentStatus } from "../src/db.js";
 import { sendPreview } from "../src/telegram.js";
 import { sendAlert } from "../src/telegram.js";
 import { join } from "node:path";
-import { mkdirSync, existsSync } from "node:fs";
+import { mkdirSync, existsSync, renameSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 
 const date = new Date().toISOString().slice(0, 10);
@@ -38,23 +38,36 @@ async function run() {
   // 4. kompres + potong ke durasi audio + log
   console.log("[pipeline] 4/4 kompres + trim ke audio...");
   const previewPath = join(outDir, "shorts-preview.mp4");
-  if (existsSync(v.shorts)) {
+  const audioPath = join(outDir, "voiceover.mp3");
+  if (existsSync(v.shorts) && existsSync(audioPath)) {
     try {
+      // 4a. trim trailing silence dari audio
+      console.log("[pipeline] trim trailing silence dari audio...");
+      const trimmedAudioPath = join(outDir, "voiceover-trimmed.mp3");
+      execFileSync("ffmpeg", [
+        "-y",
+        "-i", audioPath,
+        "-af", "silenceremove=stop_periods=-1:stop_duration=0.5:stop_threshold=-50dB",
+        "-c:a", "libmp3lame",
+        trimmedAudioPath
+      ], { stdio: "inherit" });
+      
+      // dapatkan durasi audio trimmed
+      const durStr = execFileSync("ffprobe", [
+        "-v", "error",
+        "-show_entries", "format=duration",
+        "-of", "csv=p=0",
+        trimmedAudioPath
+      ]).toString().trim();
+      const audioDur = parseFloat(durStr) || 0;
+      console.log("Audio duration (trimmed):", audioDur, "s");
+
       // durasi video asli
       const videoDurStr = execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", v.shorts]).toString().trim();
       const videoDur = parseFloat(videoDurStr) || 0;
       console.log("Video durasi (raw):", videoDur, "s");
 
-      // durasi audio (voiceover)
-      const audioPath = join(outDir, "voiceover.mp3");
-      let audioDur = 0;
-      if (existsSync(audioPath)) {
-        const durStr = execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", audioPath]).toString().trim();
-        audioDur = parseFloat(durStr) || 0;
-        console.log("Audio durasi (voiceover):", audioDur, "s");
-      }
-
-      // kompres dan potong ke durasi audio
+      // kompres dan potong video ke durasi audio (trimmed)
       const args = [
         "-y", "-v", "error", "-i", v.shorts,
         "-vf", "scale=480:854",
@@ -74,6 +87,9 @@ async function run() {
       const outDurStr = execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", previewPath]).toString().trim();
       const outDur = parseFloat(outDurStr) || 0;
       console.log("Video kompres (final):", outDur, "s");
+      
+      // ganti file audio dengan yang sudah ditrim
+      renameSync(trimmedAudioPath, audioPath);
     } catch (e) {
       console.warn("Kompres/trim gagal, pakai original:", e);
     }
