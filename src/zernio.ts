@@ -1,5 +1,5 @@
 import Zernio from "@zernio/node";
-import { readFileSync, statSync } from "node:fs";
+import { readFileSync, statSync, existsSync } from "node:fs";
 import { db } from "./db.js";
 import type { PublishResult } from "./publisher.js";
 
@@ -28,7 +28,10 @@ export async function publishToSocial(contentId: number): Promise<PublishResult[
   const srcLines = sources.map((s, i) => `${i + 1}. ${s.publisher ?? "Sumber"}: ${s.title}`).join("\n");
   const caption = `${summary}\n\n📰 Sumber:\n${srcLines}\n\n#AI #BeritaAI #Teknologi`;
 
-  // List connected accounts
+  return publishToSocialDirect(videoPath, caption, c.date, contentId);
+}
+
+export async function publishToSocialDirect(videoPath: string, caption: string, date: string, contentId?: number, thumbnailPath?: string): Promise<PublishResult[]> {
   const accounts = await listZernioAccounts();
   const tiktok = accounts.find(a => a.platform === "tiktok");
   const instagram = accounts.find(a => a.platform === "instagram");
@@ -38,9 +41,8 @@ export async function publishToSocial(contentId: number): Promise<PublishResult[
     return [{ platform: "social", ok: false, error: "No TikTok/Instagram accounts connected" }];
   }
 
-  // Upload video via presigned URL
   const bytes = readFileSync(videoPath);
-  const fileName = `ainews-${c.date}.mp4`;
+  const fileName = `ainews-${date}.mp4`;
   const { data: presign } = await z.media.getMediaPresignedUrl({
     body: { filename: fileName, contentType: "video/mp4", size: statSync(videoPath).size },
   });
@@ -52,7 +54,20 @@ export async function publishToSocial(contentId: number): Promise<PublishResult[
     headers: { "Content-Type": "video/mp4" },
   });
 
-  // Build platform targets
+  const mediaItems: any[] = [{ type: "video", url: presign.publicUrl }];
+  if (thumbnailPath && existsSync(thumbnailPath)) {
+    const thumbBytes = readFileSync(thumbnailPath);
+    const thumbPresign = await z.media.getMediaPresignedUrl({
+      body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: statSync(thumbnailPath).size },
+    });
+    await fetch(thumbPresign.uploadUrl, {
+      method: "PUT",
+      body: new Blob([thumbBytes]),
+      headers: { "Content-Type": "image/jpeg" },
+    });
+    mediaItems.push({ type: "image", url: thumbPresign.publicUrl });
+  }
+
   const platforms: any[] = [];
   if (tiktok) platforms.push({ platform: "tiktok", accountId: tiktok.id });
   if (instagram) platforms.push({ platform: "instagram", accountId: instagram.id });
@@ -61,7 +76,7 @@ export async function publishToSocial(contentId: number): Promise<PublishResult[
   const { data: post } = await z.posts.createPost({
     body: {
       content: caption,
-      mediaItems: [{ type: "video", url: presign.publicUrl }],
+      mediaItems,
       platforms,
       publishNow: true,
     },
@@ -69,9 +84,11 @@ export async function publishToSocial(contentId: number): Promise<PublishResult[
 
   for (const p of post.platforms ?? []) {
     const ok = p.status === "published" || p.status === "pending" || p.status === "processing";
-    db.prepare(
-      "INSERT INTO publications (content_id, platform, status, external_id, url, error) VALUES (?,?,?,?,?,?)"
-    ).run(contentId, p.platform, ok ? "SUCCESS" : "FAILED", p.postId ?? post.id, p.url ?? null, p.error ?? null);
+    if (contentId) {
+      db.prepare(
+        "INSERT INTO publications (content_id, platform, status, external_id, url, error) VALUES (?,?,?,?,?,?)"
+      ).run(contentId, p.platform, ok ? "SUCCESS" : "FAILED", p.postId ?? post.id, p.url ?? null, p.error ?? null);
+    }
     results.push({ platform: p.platform, ok, externalId: p.postId, url: p.url, error: p.error });
     console.log(`[zernio] ${p.platform} → ${p.status}`);
   }

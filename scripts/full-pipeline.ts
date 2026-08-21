@@ -1,7 +1,7 @@
 import { runPipeline } from "../src/pipeline.js";
 import { generateTtsChunks } from "../src/tts.js";
 import { renderVideos } from "../src/video.js";
-import { getContentByDate, updateContentStatus } from "../src/db.js";
+import { getContentByDate, getContentWithSources, updateContentStatus } from "../src/db.js";
 import { sendPreview } from "../src/telegram.js";
 import { sendAlert } from "../src/telegram.js";
 import { join } from "node:path";
@@ -68,6 +68,22 @@ async function run() {
     } catch (e) {
       console.warn("Trim failed:", e);
     }
+  }
+
+  // 4.5 generate thumbnail
+  console.log("[pipeline] generate thumbnail...");
+  const cFull = getContentWithSources(date);
+  if (cFull && cFull.sources.length > 0) {
+    try {
+      const { generateThumbnail } = await import("../src/thumbnail.js");
+      const hook = cFull.topic_title ?? "Berita AI Hari Ini";
+      const thumb = generateThumbnail(date, cFull.sources, hook, v.shorts);
+      console.log("Thumbnail:", thumb);
+    } catch (e) {
+      console.error("Thumbnail generation error:", e);
+    }
+  } else {
+    console.warn("Tidak ada sumber untuk thumbnail");
   }
 
   // 5. kirim preview ke Telegram

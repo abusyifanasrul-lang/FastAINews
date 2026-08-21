@@ -2,7 +2,12 @@ import { Bot, InlineKeyboard, session, type Context } from "grammy";
 import "dotenv/config";
 import { db, getContentWithSources, updateContentStatus, addRevision } from "./db.js";
 import { existsSync } from "node:fs";
-import { publishAll } from "./publisher.js";
+import { publishAll, uploadYoutube } from "./publisher.js";
+import { publishToSocialDirect } from "./zernio.js";
+import { extractThumbnailFromVideo } from "./thumbnail.js";
+import { writeFileSync, unlinkSync } from "node:fs";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
 // import { runRevision } from "./pipeline.js"; // no longer used locally
 
 const token = process.env.BOT_TOKEN;
@@ -70,18 +75,34 @@ export async function sendPreview(contentId: number, revision = 0) {
   if (videoPath && existsSync(videoPath)) {
     const { InputFile } = await import("grammy");
     const opts = { caption, parse_mode: "Markdown" as const, reply_markup: keyboard, supports_streaming: true };
+    let sent = false;
     let lastErr: unknown;
     for (let i = 0; i < 3; i++) {
       try {
         await bot.api.sendVideo(ownerId as string, new InputFile(videoPath), opts);
-        return;
+        sent = true;
+        break;
       } catch (e) {
         lastErr = e;
         console.error(`sendVideo attempt ${i+1} gagal:`, e instanceof Error ? e.message : String(e));
         if (i < 2) await new Promise(r => setTimeout(r, 1500 * (i+1)));
       }
     }
-    throw new Error(`sendVideo retry gagal: ${lastErr instanceof Error ? lastErr.message : String(lastErr)}`);
+    if (!sent) throw new Error(`sendVideo retry gagal: ${lastErr instanceof Error ? lastErr.message : String(lastErr)}`);
+
+    // kirim thumbnail sbg foto terpisah — biar owner lihat cover sebelum approve
+    const thumbPath = join(process.cwd(), "content", data.date, "thumbnail.jpg");
+    if (existsSync(thumbPath)) {
+      try {
+        const { InputFile: IF } = await import("grammy");
+        await bot.api.sendPhoto(ownerId as string, new IF(thumbPath), {
+          caption: "📸 Thumbnail (background dari gambar sumber berita)",
+        });
+      } catch (e) {
+        console.warn("Gagal kirim thumbnail photo:", e instanceof Error ? e.message : e);
+      }
+    }
+    return;
   } else {
     const script = data.script_text ?? "(kosong)";
     const msg = caption + `\n\n*Naskah:*\n${script.slice(0, 1200)}`;
@@ -111,31 +132,61 @@ bot.command("run", async (ctx) => {
   }
 });
 
-// Callback: Approve
+// Callback: Approve — tanpa DB lokal, ambil dari pesan Telegram
 bot.callbackQuery(/^approve_(\d+)$/, async (ctx) => {
-  const id = Number(ctx.match[1]);
   try {
     if (ctx.from.id.toString() !== ownerId) {
       await ctx.answerCallbackQuery("Bukan owner.").catch(() => {});
       return;
     }
-    const row = db.prepare("SELECT status FROM contents WHERE id = ?").get(id) as { status: string } | undefined;
-    if (!row || row.status === "APPROVED" || row.status === "PUBLISHING" || row.status === "PUBLISHED") {
-      await ctx.answerCallbackQuery("Sudah diproses.").catch(() => {});
+    const msg = ctx.callbackQuery?.message;
+    if (!msg) {
+      await ctx.answerCallbackQuery("Pesan tidak ditemukan.").catch(() => {});
       return;
     }
-    updateContentStatus(id, "APPROVED");
-    await editMsg(ctx, "✅ Konten disetujui! Memulai auto-posting...");
-    await ctx.answerCallbackQuery("Approved!").catch(() => {});
-    try {
-      const { results } = await publishAll(id);
-      const lines = results.map(r => `${r.ok ? "✅" : "❌"} ${r.platform}: ${r.url ?? r.error ?? "ok"}`).join("\n");
-      await editMsg(ctx, `✅ *Auto\\-posting selesai*\n${esc(lines)}`, { parse_mode: "MarkdownV2" });
-    } catch (e) {
-      await editMsg(ctx, `❌ Auto\\-posting gagal: ${esc((e as Error).message)}`, { parse_mode: "MarkdownV2" });
+    const caption = (msg as any).caption || (msg as any).text || "";
+    const fileId = (msg as any).video?.file_id;
+    if (!fileId) {
+      await ctx.answerCallbackQuery("Tidak ada video di pesan ini.").catch(() => {});
+      return;
     }
+
+    await ctx.answerCallbackQuery("Approved, memproses...").catch(() => {});
+    await editMsg(ctx, "✅ Disetujui. Mengunduh video & posting ke sosial media...");
+
+    // download video dari Telegram
+    const file = await bot.api.getFile(fileId);
+    const url = `https://api.telegram.org/file/bot${token}/${file.file_path}`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`Download gagal: ${resp.status}`);
+    const buf = await resp.arrayBuffer();
+    const tmpPath = join(tmpdir(), `ainews-${Date.now()}.mp4`);
+    writeFileSync(tmpPath, Buffer.from(buf));
+
+    // parse caption
+    const dateMatch = caption.match(/— (\d{4}-\d{2}-\d{2})/);
+    const date = dateMatch ? dateMatch[1] : new Date().toISOString().slice(0, 10);
+
+    const thumbPath = join(process.cwd(), "content", date, "thumbnail.jpg");
+    let thumb: string | undefined;
+    if (existsSync(thumbPath)) {
+      thumb = thumbPath;
+    } else {
+      try {
+        thumb = extractThumbnailFromVideo(tmpPath, thumbPath);
+        console.log("Thumbnail extracted from video:", thumbPath);
+      } catch (e) {
+        console.warn("Gagal extract thumbnail dari video:", e);
+      }
+    }
+    const results = await publishToSocialDirect(tmpPath, caption, date, undefined, thumb);
+    unlinkSync(tmpPath);
+
+    const lines = results.map(r => `${r.ok ? "✅" : "❌"} ${r.platform}: ${r.url ?? r.error ?? "ok"}`).join("\n");
+    await editMsg(ctx, `✅ *Auto\\-posting selesai*\n${esc(lines)}`, { parse_mode: "MarkdownV2" });
   } catch (e) {
-    console.error(`[approve] #${id} error:`, e);
+    console.error(`[approve] error:`, e);
+    await editMsg(ctx, `❌ Auto\\-posting gagal: ${esc((e as Error).message)}`, { parse_mode: "MarkdownV2" });
   }
 });
 
