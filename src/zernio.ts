@@ -1,5 +1,6 @@
 import Zernio from "@zernio/node";
 import { readFileSync, statSync, existsSync } from "node:fs";
+import { join } from "node:path";
 import { db } from "./db.js";
 import type { PublishResult } from "./publisher.js";
 
@@ -28,7 +29,8 @@ export async function publishToSocial(contentId: number): Promise<PublishResult[
   const srcLines = sources.map((s, i) => `${i + 1}. ${s.publisher ?? "Sumber"}: ${s.title}`).join("\n");
   const caption = `${summary}\n\n📰 Sumber:\n${srcLines}\n\n#AI #BeritaAI #Teknologi`;
 
-  return publishToSocialDirect(videoPath, caption, c.date, contentId);
+  const thumbPath = join(process.cwd(), "content", c.date, "thumbnail.jpg");
+  return publishToSocialDirect(videoPath, caption, c.date, contentId, existsSync(thumbPath) ? thumbPath : undefined);
 }
 
 export async function publishToSocialDirect(videoPath: string, caption: string, date: string, contentId?: number, thumbnailPath?: string): Promise<PublishResult[]> {
@@ -41,6 +43,7 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
     return [{ platform: "social", ok: false, error: "No TikTok/Instagram accounts connected" }];
   }
 
+  // upload video
   const bytes = readFileSync(videoPath);
   const fileName = `ainews-${date}.mp4`;
   const { data: presign } = await z.media.getMediaPresignedUrl({
@@ -54,33 +57,46 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
     headers: { "Content-Type": "video/mp4" },
   });
 
+  // mediaItems HANYA video — TikTok tolak campuran foto+video dalam satu post.
+  // Thumbnail dikirim sbg custom cover via platformSpecificData (bukan media item).
   const mediaItems: any[] = [{ type: "video", url: presign.publicUrl }];
+
+  // upload thumbnail → publicUrl utk cover TikTok/IG
+  let thumbUrl: string | undefined;
   if (thumbnailPath && existsSync(thumbnailPath)) {
     try {
       const thumbBytes = readFileSync(thumbnailPath);
       const { data: thumbPresign } = await z.media.getMediaPresignedUrl({
         body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: statSync(thumbnailPath).size },
       });
-      console.log("[zernio] thumbnail presign response:", JSON.stringify(thumbPresign).slice(0, 500));
       if (thumbPresign.uploadUrl && thumbPresign.publicUrl) {
         await fetch(thumbPresign.uploadUrl, {
           method: "PUT",
           body: new Blob([thumbBytes]),
           headers: { "Content-Type": "image/jpeg" },
         });
-        mediaItems.push({ type: "image", url: thumbPresign.publicUrl });
+        thumbUrl = thumbPresign.publicUrl;
+        console.log("[zernio] thumbnail uploaded:", thumbUrl);
       } else {
-        console.warn("[zernio] presign thumbnail tidak lengkap — posting tanpa thumbnail");
+        console.warn("[zernio] presign thumbnail tidak lengkap — cover pakai frame default video");
       }
     } catch (e) {
-      // thumbnail gagal ≠ posting gagal — lanjut video saja
-      console.warn("[zernio] upload thumbnail gagal, lanjut tanpa thumbnail:", e instanceof Error ? e.message : e);
+      // thumbnail gagal ≠ posting gagal — lanjut tanpa custom cover
+      console.warn("[zernio] upload thumbnail gagal, lanjut tanpa cover:", e instanceof Error ? e.message : e);
     }
   }
 
   const platforms: any[] = [];
-  if (tiktok) platforms.push({ platform: "tiktok", accountId: tiktok.id });
-  if (instagram) platforms.push({ platform: "instagram", accountId: instagram.id });
+  if (tiktok) platforms.push({
+    platform: "tiktok",
+    accountId: tiktok.id,
+    ...(thumbUrl ? { platformSpecificData: { videoCoverImageUrl: thumbUrl } } : {}),
+  });
+  if (instagram) platforms.push({
+    platform: "instagram",
+    accountId: instagram.id,
+    ...(thumbUrl ? { platformSpecificData: { instagramThumbnail: thumbUrl } } : {}),
+  });
 
   const results: PublishResult[] = [];
   const { data: post } = await z.posts.createPost({
