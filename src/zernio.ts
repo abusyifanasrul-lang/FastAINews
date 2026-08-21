@@ -15,6 +15,26 @@ export async function listZernioAccounts(): Promise<{ platform: string; id: stri
   }));
 }
 
+/** Upload file gambar ke storage Zernio, return publicUrl */
+export async function uploadImageToZernio(imagePath: string, date: string): Promise<string | undefined> {
+  try {
+    const bytes = readFileSync(imagePath);
+    const { data: presign } = await z.media.getMediaPresignedUrl({
+      body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: statSync(imagePath).size },
+    });
+    if (!presign.uploadUrl || !presign.publicUrl) return undefined;
+    await fetch(presign.uploadUrl, {
+      method: "PUT",
+      body: new Blob([bytes]),
+      headers: { "Content-Type": "image/jpeg" },
+    });
+    return presign.publicUrl;
+  } catch (e) {
+    console.warn("[zernio] uploadImage gagal:", e instanceof Error ? e.message : e);
+    return undefined;
+  }
+}
+
 export async function publishToSocial(contentId: number): Promise<PublishResult[]> {
   const c = db.prepare(
     "SELECT id, date, video_916_path, video_169_path, topic_title, script_text, caption FROM contents WHERE id = ?"
@@ -33,7 +53,7 @@ export async function publishToSocial(contentId: number): Promise<PublishResult[
   return publishToSocialDirect(videoPath, caption, c.date, contentId, existsSync(thumbPath) ? thumbPath : undefined);
 }
 
-export async function publishToSocialDirect(videoPath: string, caption: string, date: string, contentId?: number, thumbnailPath?: string): Promise<PublishResult[]> {
+export async function publishToSocialDirect(videoPath: string, caption: string, date: string, contentId?: number, thumbnailPath?: string, thumbnailUrl?: string): Promise<PublishResult[]> {
   const accounts = await listZernioAccounts();
   const tiktok = accounts.find(a => a.platform === "tiktok");
   const instagram = accounts.find(a => a.platform === "instagram");
@@ -61,9 +81,9 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
   // Thumbnail dikirim sbg custom cover via platformSpecificData (bukan media item).
   const mediaItems: any[] = [{ type: "video", url: presign.publicUrl }];
 
-  // upload thumbnail → publicUrl utk cover TikTok/IG
-  let thumbUrl: string | undefined;
-  if (thumbnailPath && existsSync(thumbnailPath)) {
+  // upload thumbnail → publicUrl utk cover TikTok/IG (skip jika URL sudah disediakan)
+  let thumbUrl: string | undefined = thumbnailUrl;
+  if (!thumbUrl && thumbnailPath && existsSync(thumbnailPath)) {
     try {
       const thumbBytes = readFileSync(thumbnailPath);
       const { data: thumbPresign } = await z.media.getMediaPresignedUrl({

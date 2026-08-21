@@ -70,15 +70,19 @@ async function run() {
     }
   }
 
-  // 4.5 generate thumbnail
+  // 4.5 generate thumbnail + upload ke Zernio (URL ikut caption preview)
   console.log("[pipeline] generate thumbnail...");
   const cFull = getContentWithSources(date);
+  let thumbUrl: string | undefined;
   if (cFull && cFull.sources.length > 0) {
     try {
       const { generateThumbnail } = await import("../src/thumbnail.js");
+      const { uploadImageToZernio } = await import("../src/zernio.js");
       const hook = cFull.topic_title ?? "Berita AI Hari Ini";
       const thumb = generateThumbnail(date, cFull.sources, hook, v.shorts);
       console.log("Thumbnail:", thumb);
+      thumbUrl = await uploadImageToZernio(thumb, date);
+      console.log("Thumbnail URL:", thumbUrl ?? "(gagal upload)");
     } catch (e) {
       console.error("Thumbnail generation error:", e);
     }
@@ -86,8 +90,8 @@ async function run() {
     console.warn("Tidak ada sumber untuk thumbnail");
   }
 
-  // 5. kirim preview ke Telegram
-  await sendPreview(contentId);
+  // 5. kirim preview ke Telegram — thumbnail URL ditempel di caption
+  await sendPreview(contentId, 0, thumbUrl);
   updateContentStatus(contentId, "PENDING_REVIEW");
   console.log("Preview terkirim → PENDING_REVIEW");
 }

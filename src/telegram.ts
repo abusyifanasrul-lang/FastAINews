@@ -60,15 +60,17 @@ async function editMsg(ctx: MyContext, text: string, extra?: Record<string, unkn
 }
 
 // kirim preview: video 9:16 (jika ada) + caption; fallback naskah text
-export async function sendPreview(contentId: number, revision = 0) {
+export async function sendPreview(contentId: number, revision = 0, thumbUrl?: string) {
   const data = loadContent(contentId);
   const keyboard = buildKeyboard(contentId);
   const revLabel = revision > 0 ? ` — Revisi ke-${revision}` : "";
   const srcText = data.sources.slice(0, 6).map(s => `- ${s.publisher ?? "sumber"}: ${s.url}`).join("\n");
   const srcMore = data.sources.length > 6 ? `\n… +${data.sources.length - 6} sumber lain` : "";
 
+  // thumbnail URL ditempel di caption — approve callback membacanya dari sini
+  const thumbLine = thumbUrl ? `\n🖼 Thumbnail: ${thumbUrl}\n` : "";
   const caption = `📰 *Konten AI News*${revLabel} — ${data.date}\n\n` +
-    `*Topik:* ${data.topic_title ?? "(tanpa judul)"}\n\n` +
+    `*Topik:* ${data.topic_title ?? "(tanpa judul)"}\n${thumbLine}\n` +
     `*Sumber:*\n${srcText}${srcMore}`;
 
   const videoPath = data.video_916_path ?? data.video_169_path;
@@ -167,19 +169,26 @@ bot.callbackQuery(/^approve_(\d+)$/, async (ctx) => {
     const dateMatch = caption.match(/— (\d{4}-\d{2}-\d{2})/);
     const date = dateMatch ? dateMatch[1] : new Date().toISOString().slice(0, 10);
 
-    const thumbPath = join(process.cwd(), "content", date, "thumbnail.jpg");
+    // thumbnail: prioritas URL dari caption (di-generate runner) → file lokal → extract frame video
+    const thumbUrlMatch = caption.match(/🖼 Thumbnail: (https?:\/\/\S+)/);
+    let thumbUrl = thumbUrlMatch?.[1];
+    // baris thumbnail adalah metadata internal — jangan ikut terposting ke sosmed
+    const postCaption = caption.replace(/\n?🖼 Thumbnail: https?:\/\/\S+\n?/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
     let thumb: string | undefined;
-    if (existsSync(thumbPath)) {
-      thumb = thumbPath;
-    } else {
-      try {
-        thumb = extractThumbnailFromVideo(tmpPath, thumbPath);
-        console.log("Thumbnail extracted from video:", thumbPath);
-      } catch (e) {
-        console.warn("Gagal extract thumbnail dari video:", e);
+    if (!thumbUrl) {
+      const thumbPath = join(process.cwd(), "content", date, "thumbnail.jpg");
+      if (existsSync(thumbPath)) {
+        thumb = thumbPath;
+      } else {
+        try {
+          thumb = extractThumbnailFromVideo(tmpPath, thumbPath);
+          console.log("Thumbnail extracted from video:", thumbPath);
+        } catch (e) {
+          console.warn("Gagal extract thumbnail dari video:", e);
+        }
       }
     }
-    const results = await publishToSocialDirect(tmpPath, caption, date, undefined, thumb);
+    const results = await publishToSocialDirect(tmpPath, postCaption, date, undefined, thumb, thumbUrl);
     unlinkSync(tmpPath);
 
     const lines = results.map(r => `${r.ok ? "✅" : "❌"} ${r.platform}: ${r.url ?? r.error ?? "ok"}`).join("\n");
