@@ -56,16 +56,26 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
 
   const mediaItems: any[] = [{ type: "video", url: presign.publicUrl }];
   if (thumbnailPath && existsSync(thumbnailPath)) {
-    const thumbBytes = readFileSync(thumbnailPath);
-    const thumbPresign = await z.media.getMediaPresignedUrl({
-      body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: statSync(thumbnailPath).size },
-    });
-    await fetch(thumbPresign.uploadUrl, {
-      method: "PUT",
-      body: new Blob([thumbBytes]),
-      headers: { "Content-Type": "image/jpeg" },
-    });
-    mediaItems.push({ type: "image", url: thumbPresign.publicUrl });
+    try {
+      const thumbBytes = readFileSync(thumbnailPath);
+      const { data: thumbPresign } = await z.media.getMediaPresignedUrl({
+        body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: statSync(thumbnailPath).size },
+      });
+      console.log("[zernio] thumbnail presign response:", JSON.stringify(thumbPresign).slice(0, 500));
+      if (thumbPresign.uploadUrl && thumbPresign.publicUrl) {
+        await fetch(thumbPresign.uploadUrl, {
+          method: "PUT",
+          body: new Blob([thumbBytes]),
+          headers: { "Content-Type": "image/jpeg" },
+        });
+        mediaItems.push({ type: "image", url: thumbPresign.publicUrl });
+      } else {
+        console.warn("[zernio] presign thumbnail tidak lengkap — posting tanpa thumbnail");
+      }
+    } catch (e) {
+      // thumbnail gagal ≠ posting gagal — lanjut video saja
+      console.warn("[zernio] upload thumbnail gagal, lanjut tanpa thumbnail:", e instanceof Error ? e.message : e);
+    }
   }
 
   const platforms: any[] = [];
