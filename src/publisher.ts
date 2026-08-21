@@ -29,7 +29,7 @@ async function getGoogleAccessToken(): Promise<string> {
 }
 
 /** Upload video ke YouTube (resumable), return video id */
-export async function uploadYoutube(videoPath: string, title: string, description: string, privacy: "private" | "unlisted" | "public" = "private"): Promise<string> {
+export async function uploadYoutube(videoPath: string, title: string, description: string, privacy: "private" | "unlisted" | "public" = "private", thumbnailUrl?: string): Promise<string> {
   const token = await getGoogleAccessToken();
   const meta = {
     snippet: {
@@ -62,6 +62,25 @@ export async function uploadYoutube(videoPath: string, title: string, descriptio
   });
   const upJson = await up.json() as { id?: string; error?: { message?: string } };
   if (!up.ok || !upJson.id) throw new Error(`YouTube upload ${up.status}: ${JSON.stringify(upJson).slice(0, 300)}`);
+
+  // set custom thumbnail dari URL (non-fatal — video sudah aman ter-upload)
+  if (thumbnailUrl) {
+    try {
+      const imgResp = await fetch(thumbnailUrl);
+      if (imgResp.ok) {
+        const imgBuf = Buffer.from(await imgResp.arrayBuffer());
+        const tRes = await fetch(`https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${upJson.id}`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}`, "Content-Type": "image/jpeg" },
+          body: imgBuf,
+        });
+        console.log(tRes.ok ? "[youtube] thumbnail custom diset" : `[youtube] set thumbnail gagal ${tRes.status} (video tetap live)`);
+      }
+    } catch (e) {
+      console.warn("[youtube] set thumbnail error:", e instanceof Error ? e.message : e);
+    }
+  }
+
   return upJson.id;
 }
 

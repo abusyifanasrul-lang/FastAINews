@@ -189,6 +189,18 @@ bot.callbackQuery(/^approve_(\d+)$/, async (ctx) => {
       }
     }
     const results = await publishToSocialDirect(tmpPath, postCaption, date, undefined, thumb, thumbUrl);
+
+    // YouTube: langsung via Data API v3 (bukan Zernio) — thumbnail custom ikut diset
+    try {
+      const topicLine = postCaption.match(/\*?Topik:\*?\s*(.+)/)?.[1] ?? "Berita AI Hari Ini";
+      const ytId = await uploadYoutube(tmpPath, `${topicLine} | AI News ${date}`, postCaption, "public", thumbUrl);
+      results.push({ platform: "youtube", ok: true, externalId: ytId, url: `https://youtu.be/${ytId}` });
+    } catch (e) {
+      const msg = (e as Error).message;
+      console.error("[approve] youtube gagal:", msg);
+      results.push({ platform: "youtube", ok: false, error: msg });
+    }
+
     unlinkSync(tmpPath);
 
     const lines = results.map(r => `${r.ok ? "✅" : "❌"} ${r.platform}: ${r.url ?? r.error ?? "ok"}`).join("\n");
