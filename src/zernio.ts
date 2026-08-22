@@ -1,3 +1,4 @@
+import { setDefaultResultOrder } from "node:dns";
 import Zernio from "@zernio/node";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -7,9 +8,7 @@ import type { PublishResult } from "./publisher.js";
 const z = new Zernio({ apiKey: process.env.ZERNIO_API_KEY! });
 
 // Node fetch di Windows kadang timeout DNS — paksa IPv4-first
-if (!process.env.NODE_OPTIONS?.includes("ipv4first")) {
-  require("node:dns").setDefaultResultOrder("ipv4first");
-}
+setDefaultResultOrder("ipv4first");
 
 export async function listZernioAccounts(): Promise<{ platform: string; id: string; username: string }[]> {
   const { data } = await z.accounts.listAccounts({});
