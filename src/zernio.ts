@@ -92,7 +92,8 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
     if (thumbnailPath && existsSync(thumbnailPath)) {
       thumbBytes = new Uint8Array(readFileSync(thumbnailPath));
     } else if (thumbnailUrl) {
-      const imgResp = await fetch(thumbnailUrl);
+      // timeout 30s — fetch ke media.zernio.com bisa menggantung tanpa batas
+      const imgResp = await fetch(thumbnailUrl, { signal: AbortSignal.timeout(30000) });
       if (imgResp.ok) thumbBytes = new Uint8Array(Buffer.from(await imgResp.arrayBuffer()));
     }
     if (thumbBytes) {
