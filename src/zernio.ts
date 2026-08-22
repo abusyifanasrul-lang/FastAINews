@@ -53,6 +53,38 @@ export async function publishToSocial(contentId: number): Promise<PublishResult[
   return publishToSocialDirect(videoPath, caption, c.date, contentId, existsSync(thumbPath) ? thumbPath : undefined);
 }
 
+/** PUT ke presigned URL + verifikasi. Retry 2x dgn presign baru. Throw jika tetap gagal. */
+async function putMediaVerified(presignFn: () => Promise<{ uploadUrl?: string; publicUrl?: string }>, body: Uint8Array, contentType: string, label: string): Promise<string> {
+  let lastErr = "";
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    const presign = await presignFn();
+    if (!presign.uploadUrl || !presign.publicUrl) {
+      lastErr = `${label}: presign tidak lengkap`;
+      continue;
+    }
+    const resp = await fetch(presign.uploadUrl, {
+      method: "PUT",
+      body: new Blob([new Uint8Array(body)]),
+      headers: { "Content-Type": contentType },
+    });
+    if (!resp.ok) {
+      lastErr = `${label}: PUT ${resp.status} ${(await resp.text()).slice(0, 200)}`;
+      console.warn(`[zernio] ${lastErr} (attempt ${attempt})`);
+      continue;
+    }
+    // verifikasi file benar-benar ada di storage sebelum createPost
+    const head = await fetch(presign.publicUrl);
+    if (!head.ok) {
+      lastErr = `${label}: verifikasi publicUrl ${head.status}`;
+      console.warn(`[zernio] ${lastErr} (attempt ${attempt})`);
+      continue;
+    }
+    console.log(`[zernio] ${label} ter-upload & terverifikasi`);
+    return presign.publicUrl;
+  }
+  throw new Error(`Gagal upload media ke storage — ${lastErr}`);
+}
+
 export async function publishToSocialDirect(videoPath: string, caption: string, date: string, contentId?: number, thumbnailPath?: string, thumbnailUrl?: string): Promise<PublishResult[]> {
   const accounts = await listZernioAccounts();
   const tiktok = accounts.find(a => a.platform === "tiktok");
@@ -63,43 +95,36 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
     return [{ platform: "social", ok: false, error: "No TikTok/Instagram accounts connected" }];
   }
 
-  // upload video
+  // upload video (verified + retry)
   const bytes = readFileSync(videoPath);
-  const fileName = `ainews-${date}.mp4`;
-  const { data: presign } = await z.media.getMediaPresignedUrl({
-    body: { filename: fileName, contentType: "video/mp4", size: statSync(videoPath).size },
-  });
-  if (!presign.uploadUrl) throw new Error("Gagal dapat presigned URL");
-
-  await fetch(presign.uploadUrl, {
-    method: "PUT",
-    body: new Blob([bytes]),
-    headers: { "Content-Type": "video/mp4" },
-  });
+  const videoUrl = await putMediaVerified(
+    async () => {
+      const { data } = await z.media.getMediaPresignedUrl({
+        body: { filename: `ainews-${date}.mp4`, contentType: "video/mp4", size: bytes.length },
+      });
+      return data;
+    },
+    bytes, "video/mp4", "video"
+  );
 
   // mediaItems HANYA video — TikTok tolak campuran foto+video dalam satu post.
   // Thumbnail dikirim sbg custom cover via platformSpecificData (bukan media item).
-  const mediaItems: any[] = [{ type: "video", url: presign.publicUrl }];
+  const mediaItems: any[] = [{ type: "video", url: videoUrl }];
 
   // upload thumbnail → publicUrl utk cover TikTok/IG (skip jika URL sudah disediakan)
   let thumbUrl: string | undefined = thumbnailUrl;
   if (!thumbUrl && thumbnailPath && existsSync(thumbnailPath)) {
     try {
       const thumbBytes = readFileSync(thumbnailPath);
-      const { data: thumbPresign } = await z.media.getMediaPresignedUrl({
-        body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: statSync(thumbnailPath).size },
-      });
-      if (thumbPresign.uploadUrl && thumbPresign.publicUrl) {
-        await fetch(thumbPresign.uploadUrl, {
-          method: "PUT",
-          body: new Blob([thumbBytes]),
-          headers: { "Content-Type": "image/jpeg" },
-        });
-        thumbUrl = thumbPresign.publicUrl;
-        console.log("[zernio] thumbnail uploaded:", thumbUrl);
-      } else {
-        console.warn("[zernio] presign thumbnail tidak lengkap — cover pakai frame default video");
-      }
+      thumbUrl = await putMediaVerified(
+        async () => {
+          const { data } = await z.media.getMediaPresignedUrl({
+            body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: thumbBytes.length },
+          });
+          return data;
+        },
+        thumbBytes, "image/jpeg", "thumbnail"
+      );
     } catch (e) {
       // thumbnail gagal ≠ posting gagal — lanjut tanpa custom cover
       console.warn("[zernio] upload thumbnail gagal, lanjut tanpa cover:", e instanceof Error ? e.message : e);

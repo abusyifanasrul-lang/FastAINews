@@ -4,6 +4,7 @@ import { db, getContentWithSources, updateContentStatus, addRevision } from "./d
 import { existsSync } from "node:fs";
 import { publishAll, uploadYoutube } from "./publisher.js";
 import { publishToSocialDirect } from "./zernio.js";
+import type { PublishResult } from "./publisher.js";
 import { extractThumbnailFromVideo } from "./thumbnail.js";
 import { writeFileSync, unlinkSync } from "node:fs";
 import { join } from "node:path";
@@ -188,7 +189,15 @@ bot.callbackQuery(/^approve_(\d+)$/, async (ctx) => {
         }
       }
     }
-    const results = await publishToSocialDirect(tmpPath, postCaption, date, undefined, thumb, thumbUrl);
+    // TikTok + IG via Zernio — gagal tidak memblokir YouTube
+    const results: PublishResult[] = [];
+    try {
+      results.push(...await publishToSocialDirect(tmpPath, postCaption, date, undefined, thumb, thumbUrl));
+    } catch (e) {
+      const msg = (e as Error).message;
+      console.error("[approve] zernio gagal:", msg);
+      results.push({ platform: "tiktok+instagram", ok: false, error: msg });
+    }
 
     // YouTube: langsung via Data API v3 (bukan Zernio) — thumbnail custom ikut diset
     try {
