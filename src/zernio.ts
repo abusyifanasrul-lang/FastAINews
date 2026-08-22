@@ -131,6 +131,30 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
     }
   }
 
+  // thumbnail URL eksternal (dari runner) → re-upload inline sesi ini.
+  // Zernio validasi createPost thd file yang di-upload DALAM SESI YANG SAMA;
+  // URL dari sesi lain dianggap "missing file" walau publik & accessible.
+  if (thumbUrl && !thumbUrl.includes(date)) {
+    try {
+      const imgResp = await fetch(thumbUrl);
+      if (imgResp.ok) {
+        const imgBuf = Buffer.from(await imgResp.arrayBuffer());
+        thumbUrl = await putMediaVerified(
+          async () => {
+            const { data } = await z.media.getMediaPresignedUrl({
+              body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: imgBuf.length },
+            });
+            return data;
+          },
+          imgBuf, "image/jpeg", "thumbnail(re-upload)"
+        );
+      }
+    } catch (e) {
+      console.warn("[zernio] re-upload thumbnail gagal, lanjut tanpa cover:", e instanceof Error ? e.message : e);
+      thumbUrl = undefined;
+    }
+  }
+
   const platforms: any[] = [];
   if (tiktok) platforms.push({
     platform: "tiktok",
@@ -144,14 +168,21 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
   });
 
   const results: PublishResult[] = [];
-  const { data: post } = await z.posts.createPost({
-    body: {
-      content: caption,
-      mediaItems,
-      platforms,
-      publishNow: true,
-    },
-  });
+  // retry createPost — registry media Zernio butuh waktu sinkron setelah PUT
+  let post: any;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      ({ data: post } = await z.posts.createPost({
+        body: { content: caption, mediaItems, platforms, publishNow: true },
+      }));
+      break;
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      if (!msg.includes("media files failed") || attempt === 3) throw e;
+      console.warn(`[zernio] createPost attempt ${attempt} gagal, retry: ${msg}`);
+      await new Promise(r => setTimeout(r, attempt * 5000));
+    }
+  }
 
   for (const p of post.platforms ?? []) {
     const ok = p.status === "published" || p.status === "pending" || p.status === "processing";
