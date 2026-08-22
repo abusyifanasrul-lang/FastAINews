@@ -1,10 +1,15 @@
 import Zernio from "@zernio/node";
-import { readFileSync, statSync, existsSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { db } from "./db.js";
 import type { PublishResult } from "./publisher.js";
 
 const z = new Zernio({ apiKey: process.env.ZERNIO_API_KEY! });
+
+// Node fetch di Windows kadang timeout DNS — paksa IPv4-first
+if (!process.env.NODE_OPTIONS?.includes("ipv4first")) {
+  require("node:dns").setDefaultResultOrder("ipv4first");
+}
 
 export async function listZernioAccounts(): Promise<{ platform: string; id: string; username: string }[]> {
   const { data } = await z.accounts.listAccounts({});
@@ -15,20 +20,30 @@ export async function listZernioAccounts(): Promise<{ platform: string; id: stri
   }));
 }
 
+/**
+ * Upload media via endpoint RESMI z.messages.uploadMediaDirect (multipart).
+ * Ini satu-satunya jalur yang mendaftarkan file ke registry internal Zernio —
+ * PUT manual ke presigned URL tidak terdaftar → createPost menolak "missing files".
+ * Return publicUrl (path /media/... permanen).
+ */
+async function uploadMediaRegistered(bytes: Uint8Array, contentType: string, label: string): Promise<string> {
+  const { data, error } = await (z as any).messages.uploadMediaDirect({
+    body: {
+      file: new Blob([new Uint8Array(bytes)], { type: contentType }),
+      contentType,
+    },
+  });
+  if (error || !data?.url) {
+    throw new Error(`${label}: uploadMediaDirect gagal — ${JSON.stringify(error ?? data)}`);
+  }
+  console.log(`[zernio] ${label} ter-upload (registered): ${data.url} (${data.size ?? bytes.length} bytes)`);
+  return data.url;
+}
+
 /** Upload file gambar ke storage Zernio, return publicUrl */
 export async function uploadImageToZernio(imagePath: string, date: string): Promise<string | undefined> {
   try {
-    const bytes = readFileSync(imagePath);
-    const { data: presign } = await z.media.getMediaPresignedUrl({
-      body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: statSync(imagePath).size },
-    });
-    if (!presign.uploadUrl || !presign.publicUrl) return undefined;
-    await fetch(presign.uploadUrl, {
-      method: "PUT",
-      body: new Blob([bytes]),
-      headers: { "Content-Type": "image/jpeg" },
-    });
-    return presign.publicUrl;
+    return await uploadMediaRegistered(new Uint8Array(readFileSync(imagePath)), "image/jpeg", `thumbnail-${date}`);
   } catch (e) {
     console.warn("[zernio] uploadImage gagal:", e instanceof Error ? e.message : e);
     return undefined;
@@ -53,38 +68,6 @@ export async function publishToSocial(contentId: number): Promise<PublishResult[
   return publishToSocialDirect(videoPath, caption, c.date, contentId, existsSync(thumbPath) ? thumbPath : undefined);
 }
 
-/** PUT ke presigned URL + verifikasi. Retry 2x dgn presign baru. Throw jika tetap gagal. */
-async function putMediaVerified(presignFn: () => Promise<{ uploadUrl?: string; publicUrl?: string }>, body: Uint8Array, contentType: string, label: string): Promise<string> {
-  let lastErr = "";
-  for (let attempt = 1; attempt <= 2; attempt++) {
-    const presign = await presignFn();
-    if (!presign.uploadUrl || !presign.publicUrl) {
-      lastErr = `${label}: presign tidak lengkap`;
-      continue;
-    }
-    const resp = await fetch(presign.uploadUrl, {
-      method: "PUT",
-      body: new Blob([new Uint8Array(body)]),
-      headers: { "Content-Type": contentType },
-    });
-    if (!resp.ok) {
-      lastErr = `${label}: PUT ${resp.status} ${(await resp.text()).slice(0, 200)}`;
-      console.warn(`[zernio] ${lastErr} (attempt ${attempt})`);
-      continue;
-    }
-    // verifikasi file benar-benar ada di storage sebelum createPost
-    const head = await fetch(presign.publicUrl);
-    if (!head.ok) {
-      lastErr = `${label}: verifikasi publicUrl ${head.status}`;
-      console.warn(`[zernio] ${lastErr} (attempt ${attempt})`);
-      continue;
-    }
-    console.log(`[zernio] ${label} ter-upload & terverifikasi`);
-    return presign.publicUrl;
-  }
-  throw new Error(`Gagal upload media ke storage — ${lastErr}`);
-}
-
 export async function publishToSocialDirect(videoPath: string, caption: string, date: string, contentId?: number, thumbnailPath?: string, thumbnailUrl?: string): Promise<PublishResult[]> {
   const accounts = await listZernioAccounts();
   const tiktok = accounts.find(a => a.platform === "tiktok");
@@ -95,64 +78,30 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
     return [{ platform: "social", ok: false, error: "No TikTok/Instagram accounts connected" }];
   }
 
-  // upload video (verified + retry)
-  const bytes = readFileSync(videoPath);
-  const videoUrl = await putMediaVerified(
-    async () => {
-      const { data } = await z.media.getMediaPresignedUrl({
-        body: { filename: `ainews-${date}.mp4`, contentType: "video/mp4", size: bytes.length },
-      });
-      return data;
-    },
-    bytes, "video/mp4", "video"
-  );
+  // upload video via jalur resmi (terdaftar di registry Zernio)
+  const bytes = new Uint8Array(readFileSync(videoPath));
+  const videoUrl = await uploadMediaRegistered(bytes, "video/mp4", "video");
 
   // mediaItems HANYA video — TikTok tolak campuran foto+video dalam satu post.
-  // Thumbnail dikirim sbg custom cover via platformSpecificData (bukan media item).
   const mediaItems: any[] = [{ type: "video", url: videoUrl }];
 
-  // upload thumbnail → publicUrl utk cover TikTok/IG (skip jika URL sudah disediakan)
-  let thumbUrl: string | undefined = thumbnailUrl;
-  if (!thumbUrl && thumbnailPath && existsSync(thumbnailPath)) {
-    try {
-      const thumbBytes = readFileSync(thumbnailPath);
-      thumbUrl = await putMediaVerified(
-        async () => {
-          const { data } = await z.media.getMediaPresignedUrl({
-            body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: thumbBytes.length },
-          });
-          return data;
-        },
-        thumbBytes, "image/jpeg", "thumbnail"
-      );
-    } catch (e) {
-      // thumbnail gagal ≠ posting gagal — lanjut tanpa custom cover
-      console.warn("[zernio] upload thumbnail gagal, lanjut tanpa cover:", e instanceof Error ? e.message : e);
+  // thumbnail: URL eksternal (dari runner) → download; file lokal → langsung.
+  // Selalu re-upload VIA JALUR RESMI supaya masuk registry sesi ini.
+  let thumbUrl: string | undefined;
+  try {
+    let thumbBytes: Uint8Array | undefined;
+    if (thumbnailPath && existsSync(thumbnailPath)) {
+      thumbBytes = new Uint8Array(readFileSync(thumbnailPath));
+    } else if (thumbnailUrl) {
+      const imgResp = await fetch(thumbnailUrl);
+      if (imgResp.ok) thumbBytes = new Uint8Array(Buffer.from(await imgResp.arrayBuffer()));
     }
-  }
-
-  // thumbnail URL eksternal (dari runner) → re-upload inline sesi ini.
-  // Zernio validasi createPost thd file yang di-upload DALAM SESI YANG SAMA;
-  // URL dari sesi lain dianggap "missing file" walau publik & accessible.
-  if (thumbUrl && !thumbUrl.includes(date)) {
-    try {
-      const imgResp = await fetch(thumbUrl);
-      if (imgResp.ok) {
-        const imgBuf = Buffer.from(await imgResp.arrayBuffer());
-        thumbUrl = await putMediaVerified(
-          async () => {
-            const { data } = await z.media.getMediaPresignedUrl({
-              body: { filename: `thumbnail-${date}.jpg`, contentType: "image/jpeg", size: imgBuf.length },
-            });
-            return data;
-          },
-          imgBuf, "image/jpeg", "thumbnail(re-upload)"
-        );
-      }
-    } catch (e) {
-      console.warn("[zernio] re-upload thumbnail gagal, lanjut tanpa cover:", e instanceof Error ? e.message : e);
-      thumbUrl = undefined;
+    if (thumbBytes) {
+      thumbUrl = await uploadMediaRegistered(thumbBytes, "image/jpeg", "thumbnail");
     }
+  } catch (e) {
+    // thumbnail gagal ≠ posting gagal — lanjut tanpa custom cover
+    console.warn("[zernio] thumbnail gagal, lanjut tanpa cover:", e instanceof Error ? e.message : e);
   }
 
   const platforms: any[] = [];
@@ -168,28 +117,19 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
   });
 
   const results: PublishResult[] = [];
-  // retry createPost — registry media Zernio butuh waktu sinkron setelah PUT
-  let post: any;
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    try {
-      ({ data: post } = await z.posts.createPost({
-        body: { content: caption, mediaItems, platforms, publishNow: true },
-      }));
-      break;
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e);
-      if (!msg.includes("media files failed") || attempt === 3) throw e;
-      console.warn(`[zernio] createPost attempt ${attempt} gagal, retry: ${msg}`);
-      await new Promise(r => setTimeout(r, attempt * 5000));
-    }
+  const { data: post, error: postErr } = await z.posts.createPost({
+    body: { content: caption, mediaItems, platforms, publishNow: true },
+  });
+  if (postErr || !post) {
+    throw new Error(`createPost gagal: ${JSON.stringify(postErr ?? post)}`);
   }
 
-  for (const p of post.platforms ?? []) {
+  for (const p of (post as any).platforms ?? []) {
     const ok = p.status === "published" || p.status === "pending" || p.status === "processing";
     if (contentId) {
       db.prepare(
         "INSERT INTO publications (content_id, platform, status, external_id, url, error) VALUES (?,?,?,?,?,?)"
-      ).run(contentId, p.platform, ok ? "SUCCESS" : "FAILED", p.postId ?? post.id, p.url ?? null, p.error ?? null);
+      ).run(contentId, p.platform, ok ? "SUCCESS" : "FAILED", p.postId ?? (post as any).id, p.url ?? null, p.error ?? null);
     }
     results.push({ platform: p.platform, ok, externalId: p.postId, url: p.url, error: p.error });
     console.log(`[zernio] ${p.platform} → ${p.status}`);
