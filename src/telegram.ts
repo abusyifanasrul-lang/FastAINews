@@ -333,6 +333,25 @@ if (isMain) {
 
   bot.start();
   console.log("🤖 Telegram bot running");
+
+  // watchdog: kalau polling mati (error network, 409 conflict), restart otomatis
+  const restartBot = (reason: string) => {
+    console.warn(`[bot] ${reason} — restart dalam 5 detik...`);
+    setTimeout(() => {
+      bot.start().catch((e) => {
+        console.error("[bot] restart gagal:", e.message);
+        restartBot("restart gagal lagi");
+      });
+      console.log("🤖 Telegram bot re-started");
+    }, 5000);
+  };
+  bot.catch((err) => {
+    console.error("[bot] error handler:", err.error ?? err);
+    const msg = String((err as any).error ?? err);
+    if (msg.includes("409") || msg.includes("Conflict")) {
+      restartBot("deteksi konflik instance lain / polling mati");
+    }
+  });
 }
 
 export { bot, ownerId };
