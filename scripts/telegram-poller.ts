@@ -36,7 +36,8 @@ async function tg(method: string, body: any): Promise<any> {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(30000),
+    // harus > timeout long-polling (45s)
+    signal: AbortSignal.timeout(60000),
   });
   const j = await r.json();
   if (!j.ok) throw new Error(`tg ${method}: ${JSON.stringify(j).slice(0, 200)}`);
