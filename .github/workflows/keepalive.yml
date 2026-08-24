@@ -1,0 +1,37 @@
+name: Keepalive
+
+# Anti-suspend: GitHub menandai repo scheduled-workflow idle setelah 60 hari
+# tanpa commit. Job ini commit kosong mingguan supaya repo dianggap aktif.
+# (Poller juga sudah commit offset, tapi ini cadangan bila tidak ada update Telegram.)
+
+on:
+  schedule:
+    - cron: "0 3 * * 1" # Senin 03:00 UTC tiap minggu
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          token: ${{ secrets.GITHUB_PAT }}
+
+      - name: Commit kosong jika repo terakhir di-commit >50 hari lalu
+        run: |
+          git config user.name "ainews-keepalive[bot]"
+          git config user.email "keepalive@users.noreply.github.com"
+          LAST=$(git log -1 --format=%ct)
+          NOW=$(date +%s)
+          AGE_DAYS=$(( (NOW - LAST) / 86400 ))
+          echo "commit terakhir ${AGE_DAYS} hari lalu"
+          if [ "$AGE_DAYS" -ge 50 ]; then
+            git commit --allow-empty -m "chore: keepalive — cegah suspend scheduled workflows [skip ci]"
+            git push origin master
+          else
+            echo "masih segar — tanpa commit"
+          fi

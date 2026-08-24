@@ -1,0 +1,66 @@
+name: Telegram Poller
+
+# Pengganti bot listener lokal: baca update Telegram, proses approve/skip/revisi.
+# Juga berfungsi sebagai keepalive repo (commit state tiap ada perubahan)
+# agar GitHub tidak menandai repo idle >60 hari.
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: telegram-poller
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repo (dengan state offset)
+        uses: actions/checkout@v4
+        with:
+          # paksa branch terbaru supaya tidak bentrok dgn commit keepalive lain
+          ref: master
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_PAT }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install npm dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Jalankan poller
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: npx tsx scripts/telegram-poller.ts
+
+      - name: Commit offset/state (juga keepalive anti-suspend)
+        run: |
+          git config user.name "ainews-poller[bot]"
+          git config user.email "poller@users.noreply.github.com"
+          if [[ -n $(git status --porcelain .github/poller-state.json) ]]; then
+            git pull --rebase origin master || true
+            git add .github/poller-state.json
+            git commit -m "chore(poller): update offset [skip ci]"
+            if ! git push origin master; then
+              echo "::warning::push gagal — rebase dan coba lagi"
+              git pull --rebase origin master
+              git push origin master
+            fi
+          else
+            echo "tidak ada perubahan state — tanpa commit"
+          fi
