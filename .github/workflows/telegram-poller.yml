@@ -6,7 +6,7 @@ name: Telegram Poller
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/30 * * * *" # tiap 30 menit; job hidup 25 menit dgn long-polling (hemat kuota)
   workflow_dispatch:
 
 permissions:
@@ -19,7 +19,7 @@ concurrency:
 jobs:
   poll:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 28
     steps:
       - name: Checkout repo (dengan state offset)
         uses: actions/checkout@v4

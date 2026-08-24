@@ -122,21 +122,32 @@ async function handleApprove(cb: any): Promise<string> {
 
 async function main(): Promise<void> {
   const state = loadState();
+  const deadline = Date.now() + Number(process.env.RUN_MINUTES ?? 25) * 60 * 1000;
 
-  // 1) drain getUpdates sejak offset tersimpan
-  const updates = await tg("getUpdates", {
-    offset: state.offset,
-    timeout: 0,
-    allowed_updates: ["message", "callback_query"],
-  });
+  // loop long-polling selama job hidup — respons cepat tanpa banyak job
+  let processed = 0;
+  while (Date.now() < deadline) {
+    // getUpdates dgn server-side wait: koneksi terjaga, update diterima hampir instan
+    let updates: any[] = [];
+    try {
+      updates = await tg("getUpdates", {
+        offset: state.offset,
+        timeout: 45,
+        allowed_updates: ["message", "callback_query"],
+      });
+    } catch (e) {
+      console.warn("[poller] getUpdates error, tunggu 10s:", e instanceof Error ? e.message : e);
+      await new Promise(r => setTimeout(r, 10000));
+      continue;
+    }
 
-  for (const u of updates as any[]) {
-    state.offset = u.update_id + 1;
+    for (const u of updates as any[]) {
+      state.offset = u.update_id + 1;
 
-    // --- callback tombol ---
-    const cb = u.callback_query;
-    if (cb) {
-      if (String(cb.from.id) !== OWNER) { await tg("answerCallbackQuery", { callback_query_id: cb.id, text: "Bukan owner." }).catch(() => {}); continue; }
+      // --- callback tombol ---
+      const cb = u.callback_query;
+      if (cb) {
+        if (String(cb.from.id) !== OWNER) { await tg("answerCallbackQuery", { callback_query_id: cb.id, text: "Bukan owner." }).catch(() => {}); continue; }
       const mApprove = /^approve_(\d+)$/.exec(cb.data ?? "");
       const mSkip = /^skip_(\d+)$/.exec(cb.data ?? "");
       const mRevisi = /^revisi_(\d+)$/.exec(cb.data ?? "");
@@ -190,13 +201,15 @@ async function main(): Promise<void> {
       // teks lain tanpa konteks — abaikan
       console.log("[poller] teks diabaikan (bukan reply revisi / perintah)");
     }
+    }
+    processed += updates.length;
   }
 
-  // 2) simpan offset hanya jika berubah
+  // simpan offset hanya jika berubah
   const before = existsSync(STATE_FILE) ? readFileSync(STATE_FILE, "utf8") : "";
   const after = JSON.stringify(state, null, 2);
   if (before !== after) saveState(state);
-  console.log(`[poller] selesai — ${updates.length} update diproses, offset=${state.offset ?? "-"}`);
+  console.log(`[poller] selesai — ${processed} update diproses, offset=${state.offset ?? "-"}`);
 }
 
 main().catch(e => { console.error("[poller] FATAL:", e); process.exit(1); });
