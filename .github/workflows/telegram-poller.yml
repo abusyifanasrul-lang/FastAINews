@@ -27,7 +27,7 @@ jobs:
           # paksa branch terbaru supaya tidak bentrok dgn commit keepalive lain
           ref: master
           fetch-depth: 1
-          token: ${{ secrets.GITHUB_PAT }}
+          token: ${{ secrets.REPO_PAT }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -41,7 +41,7 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
-          GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+          GITHUB_PAT: ${{ secrets.REPO_PAT }}
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}

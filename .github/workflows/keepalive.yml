@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: master
-          token: ${{ secrets.GITHUB_PAT }}
+          token: ${{ secrets.REPO_PAT }}
 
       - name: Commit kosong jika repo terakhir di-commit >50 hari lalu
         run: |
