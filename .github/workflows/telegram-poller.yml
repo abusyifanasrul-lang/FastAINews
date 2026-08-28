@@ -5,8 +5,9 @@ name: Telegram Poller
 # agar GitHub tidak menandai repo idle >60 hari.
 
 on:
-  schedule:
-    - cron: "*/30 * * * *" # tiap 30 menit; job hidup 25 menit dgn long-polling (hemat kuota)
+  # schedule disabled — Cloudflare Worker webhook aktif
+  # schedule:
+    # - cron: "*/30 * * * *"
   workflow_dispatch:
 
 permissions:
