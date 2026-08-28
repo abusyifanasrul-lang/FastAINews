@@ -29,7 +29,6 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     if (request.method !== "POST") return new Response("OK", { status: 200 });
 
-    // Verify webhook secret
     const url = new URL(request.url);
     const secret = url.searchParams.get("secret");
     if (secret !== env.WEBHOOK_SECRET) return new Response("Forbidden", { status: 403 });
@@ -38,7 +37,6 @@ export default {
     const cb = update.callback_query;
     const msg = update.message;
 
-    // Handle callback queries (button clicks)
     if (cb) {
       const fromId = String(cb.from?.id);
       if (fromId !== env.OWNER_CHAT_ID) {
@@ -50,7 +48,6 @@ export default {
       const chatId = cb.message?.chat?.id;
       const messageId = cb.message?.message_id;
 
-      // ACK immediately — user sees feedback <1s
       await tg(env.BOT_TOKEN, "answerCallbackQuery", { callback_query_id: cb.id });
 
       if (/^approve_\d+$/.test(data)) {
@@ -61,7 +58,6 @@ export default {
         });
         const ok = await ghDispatch(env.GITHUB_PAT, env.REPO, "ainews-publish.yml", { content_id: contentId, action: "approve" });
         if (!ok) {
-          // Fallback: dispatch main pipeline with content_id
           await ghDispatch(env.GITHUB_PAT, env.REPO, "ainews.yml", { content_id: contentId });
         }
       } else if (/^skip_\d+$/.test(data)) {
@@ -79,22 +75,19 @@ export default {
       return new Response("OK");
     }
 
-    // Handle text messages
     if (msg?.text && String(msg.from?.id) === env.OWNER_CHAT_ID) {
       const text: string = msg.text.trim();
 
-      // /run command
       if (text === "/run") {
         await tg(env.BOT_TOKEN, "sendMessage", { chat_id: msg.chat.id, text: "🏃 Memicu pipeline harian..." });
         await ghDispatch(env.GITHUB_PAT, env.REPO, "ainews.yml", {});
         return new Response("OK");
       }
 
-      // Reply to preview message = revision note
       if (msg.reply_to_message) {
         await tg(env.BOT_TOKEN, "sendMessage", {
           chat_id: msg.chat.id,
-          text: `📝 Revisi diterima. Memicu pipeline ulang...`,
+          text: "📝 Revisi diterima. Memicu pipeline ulang...",
         });
         await ghDispatch(env.GITHUB_PAT, env.REPO, "ainews.yml", {
           revision_note: text,
@@ -107,7 +100,3 @@ export default {
     return new Response("OK");
   },
 };
-
-</parameter>
-</invoke>
-</content>
