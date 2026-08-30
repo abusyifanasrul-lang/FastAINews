@@ -97,7 +97,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add content/ainews.db
+          git add -f content/ainews.db
           git diff --staged --quiet || git commit -m "chore: update DB after pipeline [skip ci]"
           git push https://x-access-token:${{ secrets.REPO_PAT }}@github.com/abusyifanasrul-lang/FastAINews.git HEAD:master
         env:
