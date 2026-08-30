@@ -78,12 +78,11 @@ export async function sendPreview(contentId: number, revision = 0, thumbUrl?: st
   if (videoPath && existsSync(videoPath)) {
     const { InputFile } = await import("grammy");
     const opts = { caption, parse_mode: "Markdown" as const, reply_markup: keyboard, supports_streaming: true };
-    let sent = false;
+    let sentMsg: any = null;
     let lastErr: unknown;
     for (let i = 0; i < 3; i++) {
       try {
-        await bot.api.sendVideo(ownerId as string, new InputFile(videoPath), opts);
-        sent = true;
+        sentMsg = await bot.api.sendVideo(ownerId as string, new InputFile(videoPath), opts);
         break;
       } catch (e) {
         lastErr = e;
@@ -91,11 +90,10 @@ export async function sendPreview(contentId: number, revision = 0, thumbUrl?: st
         if (i < 2) await new Promise(r => setTimeout(r, 1500 * (i+1)));
       }
     }
-    if (!sent) throw new Error(`sendVideo retry gagal: ${lastErr instanceof Error ? lastErr.message : String(lastErr)}`);
+    if (!sentMsg) throw new Error(`sendVideo retry gagal: ${lastErr instanceof Error ? lastErr.message : String(lastErr)}`);
 
 
     // simpan file_id ke DB untuk approve workflow (download dari Telegram nanti)
-    const sentMsg = sent as any;
     const fileId = sentMsg?.video?.file_id;
     if (fileId) {
       db.prepare("UPDATE contents SET telegram_file_id = ? WHERE id = ?").run(fileId, contentId);
