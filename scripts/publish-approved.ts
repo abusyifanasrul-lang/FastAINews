@@ -1,4 +1,7 @@
 import { parseArgs } from "node:util";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
+import { tmpdir } from "node:os";
 import { db } from "../src/db.js";
 import { publishToSocialDirect } from "../src/zernio.js";
 import { uploadYoutube } from "../src/publisher.js";
@@ -12,7 +15,7 @@ if (!contentId || isNaN(contentId)) {
 }
 
 const c = db.prepare(
-  "SELECT id, date, video_916_path, video_169_path, topic_title, script_text, caption FROM contents WHERE id = ?"
+  "SELECT id, date, video_916_path, video_169_path, topic_title, script_text, caption, telegram_file_id FROM contents WHERE id = ?"
 ).get(contentId) as any;
 
 if (!c) {
@@ -20,10 +23,36 @@ if (!c) {
   process.exit(1);
 }
 
-const videoPath = c.video_916_path ?? c.video_169_path;
-if (!videoPath) {
-  console.error(`No video path for content ${contentId}`);
-  process.exit(1);
+// Resolve video path: local first, then download from Telegram
+let videoPath = c.video_916_path ?? c.video_169_path;
+if (!videoPath || !existsSync(videoPath)) {
+  if (c.telegram_file_id && process.env.BOT_TOKEN) {
+    console.log(`[publish] video lokal tidak ada, download dari Telegram (file_id: ${c.telegram_file_id})...`);
+    const fileResp = await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/getFile`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ file_id: c.telegram_file_id }),
+    });
+    const fileJson = await fileResp.json() as any;
+    if (!fileJson.ok || !fileJson.result?.file_path) {
+      console.error("[publish] getFile gagal:", JSON.stringify(fileJson));
+      process.exit(1);
+    }
+    const dlUrl = `https://api.telegram.org/file/bot${process.env.BOT_TOKEN}/${fileJson.result.file_path}`;
+    const dlResp = await fetch(dlUrl);
+    if (!dlResp.ok) {
+      console.error(`[publish] download gagal: ${dlResp.status}`);
+      process.exit(1);
+    }
+    const buf = Buffer.from(await dlResp.arrayBuffer());
+    const tmpPath = join(tmpdir(), `ainews-publish-${contentId}-${Date.now()}.mp4`);
+    writeFileSync(tmpPath, buf);
+    videoPath = tmpPath;
+    console.log(`[publish] downloaded: ${tmpPath} (${buf.length} bytes)`);
+  } else {
+    console.error(`No video path and no telegram_file_id for content ${contentId}`);
+    process.exit(1);
+  }
 }
 
 const summary = (c.script_text ?? c.caption ?? "").slice(0, 1500);

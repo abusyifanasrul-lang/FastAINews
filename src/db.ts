@@ -24,6 +24,13 @@ try {
   db.exec("ALTER TABLE sources ADD COLUMN image_path TEXT");
 }
 
+// migrasi: tambah kolom telegram_file_id jika belum ada
+try {
+  db.prepare("SELECT telegram_file_id FROM contents LIMIT 1").get();
+} catch {
+  db.exec("ALTER TABLE contents ADD COLUMN telegram_file_id TEXT");
+}
+
 export function upsertContent(content: {
   date: string;
   status?: string;

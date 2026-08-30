@@ -93,6 +93,13 @@ export async function sendPreview(contentId: number, revision = 0, thumbUrl?: st
     }
     if (!sent) throw new Error(`sendVideo retry gagal: ${lastErr instanceof Error ? lastErr.message : String(lastErr)}`);
 
+
+    // simpan file_id ke DB untuk approve workflow (download dari Telegram nanti)
+    const sentMsg = sent as any;
+    const fileId = sentMsg?.video?.file_id;
+    if (fileId) {
+      db.prepare("UPDATE contents SET telegram_file_id = ? WHERE id = ?").run(fileId, contentId);
+    }
     // kirim thumbnail sbg foto terpisah — biar owner lihat cover sebelum approve
     const thumbPath = join(process.cwd(), "content", data.date, "thumbnail.jpg");
     if (existsSync(thumbPath)) {
