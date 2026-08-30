@@ -1,6 +1,10 @@
 import { runPipeline } from "./pipeline.js";
 import { sendPreview } from "./telegram.js";
-import { getContentByDate, updateContentStatus } from "./db.js";
+import { getContentByDate, updateContentStatus, db } from "./db.js";
+import { generateTtsChunks } from "./tts.js";
+import { renderVideos } from "./video.js";
+import { mkdirSync } from "node:fs";
+import { join } from "node:path";
 
 /** Scheduler harian: 08:00 WITA = 08:00 UTC+8 = 00:00 UTC */
 const DAILY_HOUR_UTC = 0; // 08.00 WITA
@@ -41,14 +45,26 @@ async function dailyJob() {
     return;
   }
 
-  // tunggu sampai naskah siap, lalu kirim preview
+  // TTS + render sebelum preview — video path harus ada di DB untuk approve workflow
   const row = getContentByDate(date);
-  if (row && row.status === "NASKAH_READY") {
-    await sendPreview(row.id);
-    updateContentStatus(row.id, "PENDING_REVIEW");
-  } else {
+  if (!row || !row.script_text) {
     console.log("[daily] naskah belum siap — preview ditunda");
+    return;
   }
+
+  const outDir = join(process.cwd(), "content", date);
+  mkdirSync(outDir, { recursive: true });
+  console.log(`[daily] TTS...`);
+  const { audioPath } = await generateTtsChunks(row.script_text, outDir, "voiceover.mp3");
+  db.prepare("UPDATE contents SET audio_path = ? WHERE id = ?").run(audioPath, row.id);
+  console.log(`[daily] render video...`);
+  const v = await renderVideos(date);
+  db.prepare("UPDATE contents SET video_916_path = ? WHERE id = ?")
+    .run(v.shorts, row.id);
+  console.log(`[daily] video ready: ${v.shorts}`);
+
+  await sendPreview(row.id);
+  updateContentStatus(row.id, "PENDING_REVIEW");
 }
 
 // jika dijalankan langsung, mulai scheduler
