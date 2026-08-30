@@ -7,6 +7,10 @@ on:
         description: 'Content ID to publish'
         required: true
         type: string
+      video_file_id:
+        description: 'Telegram video file_id (optional, bypass DB lookup)'
+        required: false
+        type: string
 
 jobs:
   publish:
@@ -31,4 +35,5 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
           CONTENT_ID: ${{ github.event.inputs.content_id }}
+          VIDEO_FILE_ID: ${{ github.event.inputs.video_file_id }}
         run: npx tsx scripts/publish-approved.ts --content-id="$CONTENT_ID"
