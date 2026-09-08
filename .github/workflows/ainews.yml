@@ -18,6 +18,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    # cegah 2 run revisi paralel overwrite naskah yg sama
+    concurrency:
+      group: ainews-pipeline
+      cancel-in-progress: false
     permissions:
       contents: write
 

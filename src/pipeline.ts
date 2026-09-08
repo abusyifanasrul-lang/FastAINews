@@ -114,8 +114,10 @@ export async function runRevision(contentId: number, feedback: string): Promise<
       setTimeout(() => rej(new Error(`timeout: ${label} >${TIMEOUT_MS / 1000}s`)), TIMEOUT_MS)
     )]);
 
-  const c = getContentWithSources((db.prepare("SELECT date FROM contents WHERE id = ?").get(contentId) as { date: string }).date);
-  if (!c?.script_text) throw new Error("konten/naskah tidak ditemukan");
+  const row = db.prepare("SELECT date FROM contents WHERE id = ?").get(contentId) as { date: string } | undefined;
+  if (!row) throw new Error(`konten #${contentId} tidak ditemukan`);
+  const c = getContentWithSources(row.date);
+  if (!c?.script_text) throw new Error(`konten #${contentId}: naskah tidak ditemukan`);
 
   const sources = c.sources.map(s => ({
     title: s.title, url: s.url, publisher: s.publisher ?? undefined,

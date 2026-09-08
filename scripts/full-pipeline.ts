@@ -1,4 +1,5 @@
-import { runPipeline } from "../src/pipeline.js";
+import { parseArgs } from "node:util";
+import { runPipeline, runRevision } from "../src/pipeline.js";
 import { generateTtsChunks } from "../src/tts.js";
 import { renderVideos } from "../src/video.js";
 import { getContentByDate, getContentWithSources, updateContentStatus } from "../src/db.js";
@@ -10,7 +11,36 @@ import { execFileSync } from "node:child_process";
 
 const date = new Date().toISOString().slice(0, 10);
 
+// Revisi path: --content-id + --revision-note (flags dulu, fallback ke env
+// dari workflow). Tanpa ini argumen workflow diabaikan dan revisi selalu
+// membuat konten baru dari nol.
+const { values: cliArgs } = parseArgs({
+  options: { "content-id": { type: "string" }, "revision-note": { type: "string" } },
+});
+const revIdRaw = cliArgs["content-id"] ?? process.env.CONTENT_ID ?? "";
+const revNoteRaw = cliArgs["revision-note"] ?? process.env.REVISION_NOTE ?? "";
+const revId = revIdRaw.trim() === "" ? NaN : Number(revIdRaw.trim());
+const revNote = revNoteRaw.trim();
+
+async function runRevisionPath(id: number, note: string) {
+  console.log(`[pipeline] revisi #${id}...`);
+  try {
+    const { version } = await runRevision(id, note);
+    console.log(`Preview revisi v${version} terkirim → PENDING_REVIEW`);
+  } catch (e) {
+    // jangan macet di REVISION_PENDING — tandai gagal eksplisit
+    try { updateContentStatus(id, "REVISION_FAILED"); } catch {}
+    throw e;
+  }
+}
+
 async function run() {
+  if (revIdRaw.trim() !== "" || revNote !== "") {
+    if (!Number.isInteger(revId)) throw new Error(`--content-id tidak valid: "${revIdRaw}"`);
+    if (!revNote) throw new Error("--revision-note kosong (wajib untuk revisi)");
+    await runRevisionPath(revId, revNote);
+    return;
+  }
   // 1. riset + naskah (LLM)
   console.log("[pipeline] 1/4 riset + naskah...");
   const result = await runPipeline({ hours: 48 });
