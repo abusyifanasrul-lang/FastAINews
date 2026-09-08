@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { randomUUID } from "node:crypto";
 import type { NewsItem } from "./research.js";
 
 const endpoint = process.env.LLM_ENDPOINT;
@@ -7,6 +8,15 @@ const endpointFallback = process.env.LLM_ENDPOINT_FALLBACK;
 const apiKeyFallback = process.env.LLM_API_KEY_FALLBACK;
 const model = process.env.LLM_MODEL ?? "Hermes";
 if (!endpoint) throw new Error("LLM_ENDPOINT missing");
+
+// OpenCode Go (enforced 2026-09-06): API requests must carry a stable
+// x-opencode-session per conversation + a real user-agent. Without them
+// the vendor rejects with MissingSessionID / "free tier can only be used
+// in OpenCode". One UUID per process = one pipeline run = one conversation.
+// ponytail: per-day stable ID via file/env if vendor starts requiring
+// same-session caching across retries; upgrade when they reject per-run IDs.
+const OPENCODE_SESSION_ID = process.env.OPENCODE_SESSION_ID ?? randomUUID();
+const OPENCODE_USER_AGENT = process.env.OPENCODE_USER_AGENT ?? "ainews-bot/1.0";
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
@@ -34,6 +44,8 @@ async function chat(messages: LlmMessage[], maxTokens = 2000): Promise<string> {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+        "x-opencode-session": OPENCODE_SESSION_ID,
+        "User-Agent": OPENCODE_USER_AGENT,
       },
       body: JSON.stringify({ model, messages, max_tokens: maxTokens, temperature: 0.7 }),
     });
