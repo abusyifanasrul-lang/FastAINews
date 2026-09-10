@@ -9,6 +9,8 @@
   },
   "scripts": {
     "dev": "tsx src/index.ts",
+    "dev:web": "npm --prefix frontend run dev",
+    "build:web": "npm --prefix frontend run build",
     "run-now": "tsx scripts/run-now.ts",
     "bot": "tsx src/telegram.ts",
     "build": "tsc -p tsconfig.json",
