@@ -1,0 +1,862 @@
+{
+  "date": "2026-09-11",
+  "title": "Nvidia Tumbuh 70 Persen dan Lima Topik AI Lainnya",
+  "chapters": [
+    {
+      "title": "Intro",
+      "startSec": 0
+    },
+    {
+      "title": "Sorotan 72 Jam",
+      "startSec": 45
+    },
+    {
+      "title": "Deep-Dive",
+      "startSec": 131
+    },
+    {
+      "title": "Analisis & Penutup",
+      "startSec": 282
+    }
+  ],
+  "beats": [
+    {
+      "i": 1,
+      "chapter": "Intro",
+      "startSec": 0,
+      "estSec": 8.3,
+      "text": "Hook pembuka  \nDalam 72 jam terakhir industri kecerdasan buatan menyajikan serangkaian kabar yang mengubah lanskap teknologi dan bisnis.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src1.jpg"
+    },
+    {
+      "i": 2,
+      "chapter": "Intro",
+      "startSec": 8.3,
+      "estSec": 6,
+      "text": "Kita akan membedah tujuh laporan utama yang baru saja dipublikasikan oleh media terkemuka.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src2.jpg"
+    },
+    {
+      "i": 3,
+      "chapter": "Intro",
+      "startSec": 14.3,
+      "estSec": 7.8,
+      "text": "Konteks 72 jam terakhir  \nTechCrunch melaporkan Jensen Huang menjelaskan mengapa Nvidia diproyeksikan tumbuh 70 persen tahun depan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src3.jpg"
+    },
+    {
+      "i": 4,
+      "chapter": "Intro",
+      "startSec": 22.1,
+      "estSec": 6.5,
+      "text": "The Verge memberitakan Meta mengubah saran AI setelah pertanyaan pribadi yang dianggap invasif muncul.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src4.jpg"
+    },
+    {
+      "i": 5,
+      "chapter": "Intro",
+      "startSec": 28.6,
+      "estSec": 6.9,
+      "text": "Wired mengutip salah satu kritik paling keras AI yang menyatakan narasi kiamat sengaja mengalihkan perhatian.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src5.png"
+    },
+    {
+      "i": 6,
+      "chapter": "Intro",
+      "startSec": 35.5,
+      "estSec": 6.5,
+      "text": "MIT Technology Review menegaskan bahwa menggerakkan AI adalah masalah arsitektur bukan sekadar daya komputasi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src7.jpg"
+    },
+    {
+      "i": 7,
+      "chapter": "Intro",
+      "startSec": 42,
+      "estSec": 8.8,
+      "text": "The Decoder mengungkap bagaimana peretas memanfaatkan Claude untuk senjata, drone swarm, dan surveilan sementara laboratorium China menambang data pelatihan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src1.jpg"
+    },
+    {
+      "i": 8,
+      "chapter": "Sorotan 72 Jam",
+      "startSec": 50.8,
+      "estSec": 6,
+      "text": "OpenAI Blog memperlihatkan peneliti menggunakan Codex dan ChatGPT untuk mencari molekul antimikroba baru.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src2.jpg"
+    },
+    {
+      "i": 9,
+      "chapter": "Sorotan 72 Jam",
+      "startSec": 56.8,
+      "estSec": 6,
+      "text": "Terakhir, TechCrunch kembali melaporkan OpenAI menunda langganan Pro karena permintaan Astra yang melonjak.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src3.jpg"
+    },
+    {
+      "i": 10,
+      "chapter": "Sorotan 72 Jam",
+      "startSec": 62.8,
+      "estSec": 10,
+      "text": "Deep-dive topik 1: Proyeksi pertumbuhan Nvidia  \nJensen Huang, CEO Nvidia, memberikan penjelasan mendetail soal angka pertumbuhan 70 persen yang diklaim untuk tahun depan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src4.jpg"
+    },
+    {
+      "i": 11,
+      "chapter": "Sorotan 72 Jam",
+      "startSec": 72.8,
+      "estSec": 8.8,
+      "text": "Ia menunjuk pada permintaan chip GPU yang terus meningkat dari pusat data, pelatihan model besar, dan inferensi skala masif.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src5.png"
+    },
+    {
+      "i": 12,
+      "chapter": "Sorotan 72 Jam",
+      "startSec": 81.6,
+      "estSec": 6.5,
+      "text": "Huang juga menyebutkan ekosistem perangkat lunak CUDA dan platform DGX sebagai pengunci retensi pelanggan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src7.jpg"
+    },
+    {
+      "i": 13,
+      "chapter": "Sorotan 72 Jam",
+      "startSec": 88.1,
+      "estSec": 9.7,
+      "text": "Laporan TechCrunch mencatat bahwa proyeksi ini didasarkan pada kontrak jangka panjang dengan penyedia cloud utama dan ekspansi ke pasar enterprise AI.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src1.jpg"
+    },
+    {
+      "i": 14,
+      "chapter": "Sorotan 72 Jam",
+      "startSec": 97.8,
+      "estSec": 10,
+      "text": "Deep-dive topik 2: Perubahan saran AI Meta  \nMeta mengakui bahwa sistem saran AI mereka pernah menampilkan pertanyaan pribadi yang dianggap invasif bagi pengguna.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src2.jpg"
+    },
+    {
+      "i": 15,
+      "chapter": "Sorotan 72 Jam",
+      "startSec": 107.8,
+      "estSec": 8.8,
+      "text": "The Verge melaporkan bahwa tim keamanan Meta segera mengubah algoritma rekomendasi untuk menghindari pengumpulan data sensitif tanpa persetujuan eksplisit.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src3.jpg"
+    },
+    {
+      "i": 16,
+      "chapter": "Sorotan 72 Jam",
+      "startSec": 116.6,
+      "estSec": 10,
+      "text": "Perubahan ini mencakup penambahan lapisan filter privasi dan penguatan transparansi pada antarmuka pengguna. Langkah ini diambil setelah laporan pengguna dan tekanan regulator di beberapa yurisdiksi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src4.jpg"
+    },
+    {
+      "i": 17,
+      "chapter": "Sorotan 72 Jam",
+      "startSec": 126.6,
+      "estSec": 10,
+      "text": "Deep-dive topik 3: Kritik keras AI menentang narasi kiamat  \nWired mewawancarai seorang akademisi yang dikenal sebagai kritik paling tajam terhadap perkembangan AI.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src5.png"
+    },
+    {
+      "i": 18,
+      "chapter": "Deep-Dive",
+      "startSec": 136.6,
+      "estSec": 10,
+      "text": "Beliau menyatakan bahwa narasi bencana dan kegagapan superintelijen sengaja diproyeksikan untuk mengalihkan perhatian dari isu nyata seperti bias data, konsentrasi kekuatan korporat, dan kurangnya akuntabilitas.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src7.jpg"
+    },
+    {
+      "i": 19,
+      "chapter": "Deep-Dive",
+      "startSec": 146.6,
+      "estSec": 9.2,
+      "text": "Argumen ini didukung oleh analisis sejarah kebijakan teknologi sebelumnya di mana ketakutan digunakan untuk mempercepat regulasi yang menguntungkan pemain besar.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src1.jpg"
+    },
+    {
+      "i": 20,
+      "chapter": "Deep-Dive",
+      "startSec": 155.8,
+      "estSec": 10,
+      "text": "Deep-dive topik 4: Arsitektur daya sebagai hambatan AI MIT Technology Review menegaskan bahwa tantangan utama menggerakkan AI bukan ketersediaan daya listrik melainkan arsitektur sistem yang",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src2.jpg"
+    },
+    {
+      "i": 21,
+      "chapter": "Deep-Dive",
+      "startSec": 165.8,
+      "estSec": 7.4,
+      "text": "tidak efisien. Artikel menguraikan bagaimana desain chip, interkoneksi memori, dan manajemen termal menentukan performa per watt.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src3.jpg"
+    },
+    {
+      "i": 22,
+      "chapter": "Deep-Dive",
+      "startSec": 173.2,
+      "estSec": 10,
+      "text": "Penulis menyarankan bahwa inovasi arsitektur heterogen dan komputasi dekat memori akan memberikan lompatan efisiensi yang jauh lebih besar dibanding sekadar menambah kapasitas pusat data.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src4.jpg"
+    },
+    {
+      "i": 23,
+      "chapter": "Deep-Dive",
+      "startSec": 183.2,
+      "estSec": 10,
+      "text": "Deep-dive topik 5: Penyalahgunaan Claude oleh peretas dan laboratorium China The Decoder mengungkap investigasi yang menunjukkan peretas menggunakan model Claude untuk mengembangkan sistem peluncuran rudal,",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src5.png"
+    },
+    {
+      "i": 24,
+      "chapter": "Deep-Dive",
+      "startSec": 193.2,
+      "estSec": 3.7,
+      "text": "mengkoordinasikan drone swarm, dan membangun jaringan surveilan massal.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src7.jpg"
+    },
+    {
+      "i": 25,
+      "chapter": "Deep-Dive",
+      "startSec": 196.9,
+      "estSec": 8.8,
+      "text": "Di sisi lain, laboratorium penelitian di China diketahui menambang data pelatihan Claude untuk melatih model mereka sendiri tanpa izin.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src1.jpg"
+    },
+    {
+      "i": 26,
+      "chapter": "Deep-Dive",
+      "startSec": 205.7,
+      "estSec": 6.9,
+      "text": "Laporan ini menyoroti risiko keamanan model terbuka dan perlunya pengendalian akses serta audit penggunaan API.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src2.jpg"
+    },
+    {
+      "i": 27,
+      "chapter": "Deep-Dive",
+      "startSec": 212.6,
+      "estSec": 10,
+      "text": "Deep-dive topik 6: Pencarian antimikroba dengan Codex dan ChatGPT OpenAI Blog mempublikasikan studi kasus peneliti yang memanfaatkan Codex dan ChatGPT untuk menyaring perpustakaan kimia virtual",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src3.jpg"
+    },
+    {
+      "i": 28,
+      "chapter": "Deep-Dive",
+      "startSec": 222.6,
+      "estSec": 3,
+      "text": "guna menemukan kandidat antimikroba baru.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src4.jpg"
+    },
+    {
+      "i": 29,
+      "chapter": "Deep-Dive",
+      "startSec": 225.6,
+      "estSec": 9.7,
+      "text": "Peneliti tersebut melaporkan percepatan identifikasi senyawa dari bulan menjadi hari, serta kemampuan model untuk menyarankan modifikasi struktur yang meningkatkan aktivitas biologis.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src5.png"
+    },
+    {
+      "i": 30,
+      "chapter": "Deep-Dive",
+      "startSec": 235.3,
+      "estSec": 4.6,
+      "text": "Hasil ini menunjukkan potensi AI generatif dalam mempercepat penemuan obat.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src7.jpg"
+    },
+    {
+      "i": 31,
+      "chapter": "Deep-Dive",
+      "startSec": 239.9,
+      "estSec": 10,
+      "text": "Deep-dive topik 7: Penundaan langganan Pro OpenAI karena permintaan Astra TechCrunch melaporkan OpenAI memutuskan menunda pendaftaran baru untuk paket Pro karena lonjakan permintaan layanan Astra,",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src1.jpg"
+    },
+    {
+      "i": 32,
+      "chapter": "Deep-Dive",
+      "startSec": 249.9,
+      "estSec": 9.7,
+      "text": "platform inferensi terbaru mereka. Keputusan ini diambil untuk menjamin kualitas layanan bagi pelanggan yang sudah terdaftar dan menghindari kelebihan beban infrastruktur.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src2.jpg"
+    },
+    {
+      "i": 33,
+      "chapter": "Deep-Dive",
+      "startSec": 259.6,
+      "estSec": 5.1,
+      "text": "OpenAI berjanji akan membuka kembali pendaftaran setelah peningkatan kapasitas server selesai.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src3.jpg"
+    },
+    {
+      "i": 34,
+      "chapter": "Deep-Dive",
+      "startSec": 264.7,
+      "estSec": 10,
+      "text": "Analisis dan prediksi Gabungan tujuh berita ini menggambarkan industri AI yang bergerak sangat cepat pada tiga sumbu: skalabilitas perangkat keras, keamanan dan etika model, serta",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src4.jpg"
+    },
+    {
+      "i": 35,
+      "chapter": "Deep-Dive",
+      "startSec": 274.7,
+      "estSec": 7.4,
+      "text": "aplikasi ilmiah nyata. Proyeksi pertumbuhan Nvidia menandakan bahwa permintaan komputasi akan terus mendominasi anggaran teknologi besar.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src5.png"
+    },
+    {
+      "i": 36,
+      "chapter": "Analisis & Penutup",
+      "startSec": 282.1,
+      "estSec": 8.8,
+      "text": "Perubahan kebijakan Meta dan kritik Wired menunjukkan tekanan masyarakat dan regulator yang semakin ketat soal privasi dan narasi ketakutan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src7.jpg"
+    },
+    {
+      "i": 37,
+      "chapter": "Analisis & Penutup",
+      "startSec": 290.9,
+      "estSec": 5.5,
+      "text": "Temuan MIT tentang arsitektur daya mengarahkan investasi ke desain chip generasi baru.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src1.jpg"
+    },
+    {
+      "i": 38,
+      "chapter": "Analisis & Penutup",
+      "startSec": 296.4,
+      "estSec": 10,
+      "text": "Insiden penyalahgunaan Claude memperkuat argumen untuk kontrol akses model terbuka dan standar audit internasional. Sukses peneliti antimikroba membuktikan nilai ekonomi dan kesehatan dari AI generatif.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src2.jpg"
+    },
+    {
+      "i": 39,
+      "chapter": "Analisis & Penutup",
+      "startSec": 306.4,
+      "estSec": 8.3,
+      "text": "Penundaan langganan Pro OpenAI mengindikasikan bahwa permintaan inferensi real-time sudah melebihi kapasitas saat ini, mendorong perlombaan infrastruktur cloud.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src3.jpg"
+    },
+    {
+      "i": 40,
+      "chapter": "Analisis & Penutup",
+      "startSec": 314.7,
+      "estSec": 7.4,
+      "text": "Peluang bagi orang awam  \nBagi Anda yang bukan insider industri, momen ini menawarkan beberapa peluang konkret.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src4.jpg"
+    },
+    {
+      "i": 41,
+      "chapter": "Analisis & Penutup",
+      "startSec": 322.1,
+      "estSec": 6.9,
+      "text": "Pertama, mempelajari dasar-dasar arsitektur komputasi heterogen bisa membuka karir di desain chip dan optimisasi model.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src5.png"
+    },
+    {
+      "i": 42,
+      "chapter": "Analisis & Penutup",
+      "startSec": 329,
+      "estSec": 7.8,
+      "text": "Kedua, memahami kerangka privasi dan etika AI akan menjadi keterampilan yang dicari di peran compliance dan produk.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src7.jpg"
+    },
+    {
+      "i": 43,
+      "chapter": "Analisis & Penutup",
+      "startSec": 336.8,
+      "estSec": 9.7,
+      "text": "Ketiga, eksplorasi alat seperti Codex dan ChatGPT untuk riset sains terbuka membuka peluang kontribusi pada proyek penemuan obat atau bahan baru.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src1.jpg"
+    },
+    {
+      "i": 44,
+      "chapter": "Analisis & Penutup",
+      "startSec": 346.5,
+      "estSec": 7.8,
+      "text": "Keempat, mengikuti perkembangan kebijakan akses model terbuka membantu Anda menilai risiko keamanan saat mengadopsi AI di organisasi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src2.jpg"
+    },
+    {
+      "i": 45,
+      "chapter": "Analisis & Penutup",
+      "startSec": 354.3,
+      "estSec": 6,
+      "text": "Kelima, mengetahui siklus kapasitas layanan cloud memungkinkan perencanaan anggaran IT yang lebih realistis.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src3.jpg"
+    },
+    {
+      "i": 46,
+      "chapter": "Analisis & Penutup",
+      "startSec": 360.3,
+      "estSec": 9.2,
+      "text": "CTA subscribe  \nJika Anda ingin tetap terinformasi tentang perkembangan AI yang cepat dan mendalam, langganan saluran ini dan aktifkan notifikasi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src4.jpg"
+    },
+    {
+      "i": 47,
+      "chapter": "Analisis & Penutup",
+      "startSec": 369.5,
+      "estSec": 6,
+      "text": "Kita akan terus menyajikan analisis berbasis fakta setiap minggu. Terima kasih sudah menonton.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "/home/runner/work/FastAINews/FastAINews/content/long/2026-09-11/images/src5.png"
+    }
+  ],
+  "midrollAtSec": 267,
+  "estTotalSec": 375.5,
+  "sources": [
+    {
+      "title": "Jensen Huang explains why Nvidia will grow an astounding 70% next year",
+      "url": "https://techcrunch.com/2026/09/10/jensen-huang-explains-why-nvidia-will-grow-an-astounding-70-next-year/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "Meta says it&#8217;s changing AI suggestions after posing invasive personal questions",
+      "url": "https://www.theverge.com/tech/993974/meta-ai-prompt-invasive-suggestions",
+      "publisher": "The Verge"
+    },
+    {
+      "title": "One of AI’s Fiercest Critics Says All the Doom Talk Is ‘Meant to Distract Us’",
+      "url": "https://www.wired.com/story/one-of-ais-fiercest-critics-says-all-the-doom-talk-is-meant-to-distract-us/",
+      "publisher": "Wired AI"
+    },
+    {
+      "title": "Powering AI is an architecture problem",
+      "url": "https://www.technologyreview.com/2026/09/10/1141649/powering-ai-is-an-architecture-problem/",
+      "publisher": "MIT Tech Review"
+    },
+    {
+      "title": "How hackers used Claude for missiles, drone swarms, and surveillance, while Chinese labs mined it for training data",
+      "url": "https://the-decoder.com/how-hackers-used-claude-for-missiles-drone-swarms-and-surveillance-while-chinese-labs-mined-it-for-training-data/",
+      "publisher": "The Decoder"
+    },
+    {
+      "title": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
+      "url": "https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials",
+      "publisher": "OpenAI Blog"
+    },
+    {
+      "title": "OpenAI puts Pro subscriptions on hold due to Astra demand",
+      "url": "https://techcrunch.com/2026/09/10/openai-puts-pro-subscriptions-on-hold-due-to-astra-demand/",
+      "publisher": "TechCrunch AI"
+    }
+  ]
+}
