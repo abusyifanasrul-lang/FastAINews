@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { db } from "./db.js";
-import { readFileSync } from "node:fs";
+import { statSync, openSync, readSync, closeSync } from "node:fs";
 import { publishToSocial } from "./zernio.js";
 
 export interface PublishResult {
@@ -28,7 +28,7 @@ async function getGoogleAccessToken(): Promise<string> {
   return j.access_token;
 }
 
-/** Upload video ke YouTube (resumable), return video id */
+/** Upload video ke YouTube (resumable, chunked 8MB via fd — aman utk 500MB-1.5GB) */
 export async function uploadYoutube(videoPath: string, title: string, description: string, privacy: "private" | "unlisted" | "public" = "private", thumbnailUrl?: string): Promise<string> {
   const token = await getGoogleAccessToken();
   const meta = {
@@ -40,14 +40,14 @@ export async function uploadYoutube(videoPath: string, title: string, descriptio
     },
     status: { privacyStatus: privacy, selfDeclaredMadeForKids: false },
   };
-  const bytes = readFileSync(videoPath);
+  const size = statSync(videoPath).size;
   const init = await fetch("https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json; charset=UTF-8",
       "X-Upload-Content-Type": "video/mp4",
-      "X-Upload-Content-Length": bytes.length.toString(),
+      "X-Upload-Content-Length": size.toString(),
     },
     body: JSON.stringify(meta),
   });
@@ -55,21 +55,55 @@ export async function uploadYoutube(videoPath: string, title: string, descriptio
   const uploadUrl = init.headers.get("location");
   if (!uploadUrl) throw new Error("YouTube: tidak ada upload URL");
 
-  const up = await fetch(uploadUrl, {
-    method: "PUT",
-    headers: { "Content-Type": "video/mp4", "Content-Length": bytes.length.toString() },
-    body: bytes,
-  });
-  const upJson = await up.json() as { id?: string; error?: { message?: string } };
-  if (!up.ok || !upJson.id) throw new Error(`YouTube upload ${up.status}: ${JSON.stringify(upJson).slice(0, 300)}`);
+  // PUT chunked — fd dibaca per 8MB, tidak pernah load penuh ke heap
+  const CHUNK = 8 * 1024 * 1024;
+  const fd = openSync(videoPath, "r");
+  try {
+    let offset = 0;
+    const buf = Buffer.alloc(CHUNK);
+    while (offset < size) {
+      const n = readSync(fd, buf, 0, Math.min(CHUNK, size - offset), offset);
+      if (n <= 0) throw new Error(`YouTube upload: baca file gagal di offset ${offset}`);
+      const chunk = buf.subarray(0, n);
+      let lastErr = "";
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        const up = await fetch(uploadUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "video/mp4",
+            "Content-Length": String(n),
+            "Content-Range": `bytes ${offset}-${offset + n - 1}/${size}`,
+          },
+          body: chunk,
+          // @ts-ignore duplex wajib utk body stream/Buffer di undici
+          duplex: "half",
+        });
+        // 200/201 = selesai; 308 = chunk diterima, lanjut
+        if (up.status === 308) break;
+        const upJson = await up.json() as { id?: string; error?: { message?: string } };
+        if (up.ok && upJson.id) return finishYoutubeUpload(token, upJson.id, thumbnailUrl);
+        lastErr = `YouTube upload ${up.status}: ${JSON.stringify(upJson).slice(0, 300)}`;
+        console.warn(`[youtube] chunk @${offset} percobaan ${attempt}/3 gagal: ${lastErr}`);
+        if (attempt < 3) await new Promise((r) => setTimeout(r, 2000 * attempt));
+      }
+      if (offset + n >= size) throw new Error(lastErr || "YouTube upload: chunk terakhir tanpa id");
+      offset += n;
+    }
+  } finally {
+    closeSync(fd);
+  }
+  throw new Error("YouTube upload: selesai tanpa video id (tak terduga)");
+}
 
+/** Set thumbnail custom pasca-upload (non-fatal). Return video id. */
+async function finishYoutubeUpload(token: string, videoId: string, thumbnailUrl?: string): Promise<string> {
   // set custom thumbnail dari URL (non-fatal — video sudah aman ter-upload)
   if (thumbnailUrl) {
     try {
       const imgResp = await fetch(thumbnailUrl);
       if (imgResp.ok) {
         const imgBuf = Buffer.from(await imgResp.arrayBuffer());
-        const tRes = await fetch(`https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${upJson.id}`, {
+        const tRes = await fetch(`https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${videoId}`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}`, "Content-Type": "image/jpeg" },
           body: imgBuf,
@@ -81,7 +115,7 @@ export async function uploadYoutube(videoPath: string, title: string, descriptio
     }
   }
 
-  return upJson.id;
+  return videoId;
 }
 
 /**

@@ -1,0 +1,63 @@
+name: AI News Long Curate (3-harian)
+
+on:
+  schedule:
+    - cron: '0 19 */3 * *'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Tanggal edisi (YYYY-MM-DD, default hari ini)'
+        required: false
+        type: string
+
+jobs:
+  curate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: ainews-long-curate
+      cancel-in-progress: false
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg curl
+
+      - name: Install npm dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Run long curate pipeline
+        env:
+          LLM_ENDPOINT: ${{ secrets.LLM_ENDPOINT }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            npx tsx scripts/full-long-pipeline.ts --date="${{ github.event.inputs.date }}"
+          else
+            npx tsx scripts/full-long-pipeline.ts
+          fi
+
+      - name: Commit long content + DB
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${REPO_PAT}@github.com/${{ github.repository }}.git"
+          git add -f content/long/ content/ainews.db
+          git diff --staged --quiet || git commit -m "chore(long): kurasi edisi long-form [skip ci]"
+          git push origin HEAD:master
+        env:
+          REPO_PAT: ${{ secrets.REPO_PAT }}

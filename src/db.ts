@@ -135,3 +135,75 @@ export function getRevisionCount(contentId: number): number {
 export function listRecentContent(limit = 7) {
   return db.prepare("SELECT * FROM contents ORDER BY date DESC LIMIT ?").all(limit);
 }
+
+export interface LongContentRow {
+  id: number;
+  date: string;
+  topic_title: string | null;
+  script_text: string | null;
+  storyboard_path: string | null;
+  gdrive_url: string | null;
+  youtube_id: string | null;
+  duration_sec: number | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export function upsertLongContent(data: {
+  date: string;
+  topicTitle?: string;
+  scriptText?: string;
+  storyboardPath?: string;
+  status?: string;
+}): number {
+  const existing = db.prepare("SELECT id FROM long_contents WHERE date = ?").get(data.date) as { id: number } | undefined;
+  if (existing) {
+    db.prepare(`
+      UPDATE long_contents 
+      SET topic_title = COALESCE(?, topic_title),
+          script_text = COALESCE(?, script_text),
+          storyboard_path = COALESCE(?, storyboard_path),
+          status = COALESCE(?, status),
+          updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?
+    `).run(data.topicTitle ?? null, data.scriptText ?? null, data.storyboardPath ?? null, data.status ?? null, existing.id);
+    return existing.id;
+  }
+  const info = db.prepare(`
+    INSERT INTO long_contents (date, topic_title, script_text, storyboard_path, status)
+    VALUES (?, ?, ?, ?, ?)
+  `).run(data.date, data.topicTitle ?? null, data.scriptText ?? null, data.storyboardPath ?? null, data.status ?? "DRAFT");
+  return Number(info.lastInsertRowid);
+}
+
+export function getLongContentByDate(date: string): LongContentRow | undefined {
+  return db.prepare("SELECT * FROM long_contents WHERE date = ?").get(date) as LongContentRow | undefined;
+}
+
+export function updateLongContentStatus(id: number, status: string) {
+  db.prepare("UPDATE long_contents SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?").run(status, id);
+}
+
+export function updateLongContentPublishResult(id: number, gdriveUrl: string, youtubeId: string, durationSec: number) {
+  db.prepare(`
+    UPDATE long_contents 
+    SET gdrive_url = ?, youtube_id = ?, duration_sec = ?, status = 'PUBLISHED', updated_at = CURRENT_TIMESTAMP 
+    WHERE id = ?
+  `).run(gdriveUrl, youtubeId, durationSec, id);
+}
+
+export function getRecentContentsForLong(limitDays = 3): { content: ContentRow; sources: SourceRow[] }[] {
+  const contents = db.prepare(`
+    SELECT * FROM contents 
+    WHERE script_text IS NOT NULL AND status != 'SKIPPED'
+    ORDER BY date DESC 
+    LIMIT ?
+  `).all(limitDays) as ContentRow[];
+
+  return contents.map(c => ({
+    content: c,
+    sources: db.prepare("SELECT * FROM sources WHERE content_id = ?").all(c.id) as SourceRow[]
+  }));
+}
+

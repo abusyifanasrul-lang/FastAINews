@@ -55,6 +55,22 @@ CREATE TABLE IF NOT EXISTS topic_hashes (
   similarity_checked INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE IF NOT EXISTS long_contents (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  date TEXT NOT NULL UNIQUE,            -- YYYY-MM-DD
+  topic_title TEXT,
+  script_text TEXT,
+  storyboard_path TEXT,
+  gdrive_url TEXT,
+  youtube_id TEXT,
+  duration_sec REAL,
+  status TEXT NOT NULL DEFAULT 'DRAFT', -- DRAFT|READY_FOR_ASSETS|PUBLISHING|PUBLISHED|FAILED
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
 CREATE INDEX IF NOT EXISTS idx_sources_content ON sources(content_id);
 CREATE INDEX IF NOT EXISTS idx_revisions_content ON revisions(content_id);
 CREATE INDEX IF NOT EXISTS idx_publications_content ON publications(content_id);
+CREATE INDEX IF NOT EXISTS idx_long_contents_date ON long_contents(date);
+

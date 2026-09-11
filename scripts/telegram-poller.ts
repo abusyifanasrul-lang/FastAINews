@@ -44,8 +44,8 @@ async function tg(method: string, body: any): Promise<any> {
   return j.result;
 }
 
-async function ghDispatch(inputs: Record<string, string>): Promise<void> {
-  const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/ainews.yml/dispatches`, {
+async function ghDispatch(inputs: Record<string, string>, workflow = "ainews.yml"): Promise<void> {
+  const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/${workflow}/dispatches`, {
     method: "POST",
     headers: { Authorization: `Bearer ${GH_PAT}`, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json" },
     body: JSON.stringify({ ref: "master", inputs }),
@@ -197,6 +197,19 @@ async function main(): Promise<void> {
       if (m.text.trim() === "/run") {
         await tg("sendMessage", { chat_id: String(m.chat.id), text: "🏃 Memicu pipeline harian..." }).catch(() => {});
         await ghDispatch({});
+        continue;
+      }
+      // perintah /publish_long [YYYY-MM-DD] <gdrive_url>
+      if (m.text.trim().startsWith("/publish_long")) {
+        try {
+          const { splitPublishLongArgs, parseGdriveId } = await import("../src/long/gdrive.js");
+          const { date, gdriveUrl } = splitPublishLongArgs(m.text.trim());
+          parseGdriveId(gdriveUrl); // validasi dini, error dilempar ke catch
+          await tg("sendMessage", { chat_id: String(m.chat.id), text: `⏳ Publish long ${date} diproses (±5-15 menit)...` }).catch(() => {});
+          await ghDispatch({ date, gdrive_url: gdriveUrl }, "ainews-long-publish.yml");
+        } catch (e) {
+          await tg("sendMessage", { chat_id: String(m.chat.id), text: `❌ ${(e as Error).message}` }).catch(() => {});
+        }
         continue;
       }
       // teks lain tanpa konteks — abaikan

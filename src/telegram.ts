@@ -283,17 +283,16 @@ export async function sendAlert(msg: string) {
 }
 
 // Trigger GitHub Actions workflow
-async function triggerWorkflow(inputs: { content_id?: string; revision_note?: string } = {}) {
+async function triggerWorkflow(inputs: Record<string, string> = {}, workflow = "ainews.yml") {
   const pat = process.env.GITHUB_PAT;
   if (!pat) throw new Error("GITHUB_PAT not set in .env");
   const owner = "abusyifanasrul-lang";
   const repo = "FastAINews";
-  const workflow = "ainews.yml";
   const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflow}/dispatches`;
 
   const payload = {
     ref: "master",
-    inputs: inputs.content_id || inputs.revision_note ? inputs : {}
+    inputs: Object.keys(inputs).length > 0 ? inputs : {}
   };
 
   const resp = await fetch(url, {
@@ -311,6 +310,21 @@ async function triggerWorkflow(inputs: { content_id?: string; revision_note?: st
   }
   // 204 No Content on success
 }
+
+// /publish_long [YYYY-MM-DD] <gdrive_url> — trigger publish long-form (dev lokal)
+bot.command("publish_long", async (ctx) => {
+  const raw = ctx.message?.text ?? "";
+  try {
+    const { splitPublishLongArgs, parseGdriveId } = await import("./long/gdrive.js");
+    const { date, gdriveUrl } = splitPublishLongArgs(raw);
+    parseGdriveId(gdriveUrl);
+    await ctx.reply(`⏳ Publish long ${date} diproses...`);
+    await triggerWorkflow({ date, gdrive_url: gdriveUrl }, "ainews-long-publish.yml");
+    await ctx.reply(`✅ Publish long ${date} triggered.`);
+  } catch (e) {
+    await ctx.reply(`❌ ${(e as Error).message}`);
+  }
+});
 
 // start bot jika dijalankan langsung (bukan di-import)
 const isMain = process.argv[1]?.includes("telegram");

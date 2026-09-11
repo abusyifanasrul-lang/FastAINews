@@ -34,7 +34,7 @@ async function rateLimit() {
 
 export interface LlmMessage { role: "system" | "user"; content: string }
 
-async function chat(messages: LlmMessage[], maxTokens = 2000): Promise<string> {
+export async function chat(messages: LlmMessage[], maxTokens = 2000): Promise<string> {
   const MAX_RETRIES = 3;
 
   async function callApi(url: string, token: string): Promise<string> {
