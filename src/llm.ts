@@ -57,9 +57,11 @@ async function chat(messages: LlmMessage[], maxTokens = 2000): Promise<string> {
     // Streaming leak: beberapa proxy menempelkan suffix SSE "data: [DONE]" tepat setelah "}"
     const cleaned = rawText.replace(/data:\s*\[DONE\]\s*$/, "").trim();
     const data = JSON.parse(cleaned) as { choices: { message: { content: string } }[] };
-    const content = data.choices?.[0]?.message?.content;
+    let content = data.choices?.[0]?.message?.content;
     if (!content) throw new Error("LLM: kosong");
-    return content.trim();
+    // Strip tag <think>...</think> jika model memancarkan thinking tokens (termasuk tag unclosed saat truncate)
+    content = content.replace(/<think>[\s\S]*?(?:<\/think>|$)/gi, "").trim();
+    return content;
   }
 
   async function withRetry(url: string, token: string): Promise<string> {
@@ -85,6 +87,72 @@ async function chat(messages: LlmMessage[], maxTokens = 2000): Promise<string> {
 }
 
 /**
+ * Validasi dan bersihkan output naskah dari LLM untuk mencegah kebocoran
+ * proses berpikir (chain-of-thought/reasoning) dan durasi berlebih.
+ */
+export function cleanAndValidateScript(raw: string, fallbackTitle: string): { script: string; topicTitle: string } {
+  let text = raw.replace(/<think>[\s\S]*?(?:<\/think>|$)/gi, "").trim();
+
+  // Cari posisi baris JUDUL: <judul>
+  let topicTitle = fallbackTitle;
+  let script = text;
+
+  const titleMatch = text.match(/(?:^|\n)\s*JUDUL:\s*([^\n]+)/i);
+  if (titleMatch) {
+    topicTitle = titleMatch[1].trim().replace(/^["'*]+|["'*]+$/g, "");
+    if (titleMatch.index! < text.length / 2) {
+      const titleEndIndex = titleMatch.index! + titleMatch[0].length;
+      script = text.slice(titleEndIndex).trim();
+    } else {
+      script = text.slice(0, titleMatch.index!).trim();
+    }
+  }
+
+  // Bersihkan markdown fences jika ada
+  script = script.replace(/^```[a-z]*\n?/i, "").replace(/\n?```$/i, "").trim();
+
+  // Potong teks pengantar/obrolan pembuka sebelum bullet point pertama
+  const firstBullet = script.search(/(?:^|\n)\s*[-•*]\s+/);
+  if (firstBullet !== -1) {
+    script = script.slice(firstBullet).trim();
+  }
+
+  // Deteksi sisa reasoning / monologue bahasa Inggris
+  const reasoningIndicators = [
+    /\bwe need to\b/i,
+    /\blet's craft\b/i,
+    /\bcount words\b/i,
+    /\bcount:\s*\w+\d+/i,
+    /\bstructure:\s*\n/i,
+    /\bhook line\b/i,
+    /\bfact \d+:/i,
+  ];
+  for (const regex of reasoningIndicators) {
+    if (regex.test(script)) {
+      throw new Error(`LLM output mengandung reasoning/monolog internal ("${regex.source}"). Script ditolak.`);
+    }
+  }
+
+  // Validasi bahasa: naskah berita wajib menggunakan Bahasa Indonesia yang wajar
+  const indonesianWords = ["yang", "dan", "di", "ini", "untuk", "dengan", "dari", "pada", "adalah", "ke"];
+  const lower = script.toLowerCase();
+  const matchedCount = indonesianWords.filter(w => new RegExp(`(?:^|[\\s.,!?])${w}(?:$|[\\s.,!?])`, "i").test(lower)).length;
+  if (matchedCount < 3) {
+    throw new Error(`LLM output terdeteksi bukan Bahasa Indonesia yang valid (hanya ditemukan ${matchedCount} kata penghubung). Script ditolak.`);
+  }
+
+  // Validasi panjang karakter (video 45-90s berkisar ~120-220 kata, normal 350-2000 char)
+  if (script.length < 250) {
+    throw new Error(`LLM output terlalu pendek (${script.length} char < 250 char). Script ditolak.`);
+  }
+  if (script.length > 2500) {
+    throw new Error(`LLM output terlalu panjang (${script.length} char > 2500 char). Script ditolak.`);
+  }
+
+  return { script, topicTitle };
+}
+
+/**
  * Susun naskah dari daftar sumber berita.
  * prompt guidance: hook→isi→analisis/prediksi→peluang awam→CTA, durasi 45-90 detik, Bahasa Indonesia.
  */
@@ -92,7 +160,7 @@ export async function generateScript(items: NewsItem[]): Promise<{ script: strin
   const list = items.map((i, idx) => `${idx + 1}. [${i.publisher}] ${i.title}\n   ${i.url}`).join("\n");
 
   const system = `Kamu penulis berita AI Bahasa Indonesia untuk video pendek (45-90 detik saat dibacakan, ~120-220 kata).
-Terdapat ${items.length} topik berita. KAMU WAJIB menyebut SEMUA ${items.length} topik dalam naskah — jangan buang satu pun. Alokasikan kata merata ke tiap topik (≈${Math.max(20, Math.round(140 / items.length))} kata per topik).
+Terdapat ${items.length} topik berita. KAMU WAJIB menyebut SEMUA ${items.length} topik dalam naskah — jangan buang satu pun. Tulis secara ringkas dan padat (1-2 kalimat per topik) agar total durasi naskah pas untuk video 45-90 detik.
 Struktur wajib:
 1. Hook pembuka (1 kalimat, menarik) — singgung topik utama
 2. Ringkasan fakta — sebut SEMUA ${items.length} topik, tiap topik 1 kalimat padat dengan nama/publisher diikutkan
@@ -103,18 +171,24 @@ Bila durasi terasa penuh, prioritaskan kerangka fakta tiap topik tetap ada (bole
 Gunakan Bahasa Indonesia natural, gaya news presenter, tanpa kata "menurut sumber", tanpa markdown, tanpa emoji.
 Tulis naskah dengan SETIAP bagian (hook, fakta per topik, analisis, peluang, CTA) pada baris baru, dimulai dengan tanda strip (-) atau bullet (•). Pastikan setiap bagian berada di baris terpisah.
 PENTING: sebut tiap topik dengan label jelas (mis. "Di sisi lain, ..." / "Sementara itu, ...") supaya auditor bisa kenali tiap topik. Hanya gunakan fakta dari daftar sumber, jangan halusinasi.
-Berikan judul topik singkat (<=8 kata) di baris pertama dengan format: JUDUL: <judul>`;
+DILARANG KERAS: Jangan menuliskan proses berpikir, analisis internal, coretan perhitungan kata, atau teks bahasa Inggris.
+LANGSUNG mulai output pada baris pertama dengan format: JUDUL: <judul topik singkat <=8 kata>`;
 
-  const user = `Daftar sumber berita hari ini:\n${list}\n\nTulis naskahnya.`;
+  const user = `Daftar sumber berita hari ini:\n${list}\n\nLANGSUNG tulis naskahnya dimulai dengan JUDUL:.`;
 
-  const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }]);
-
-  // parse judul dari baris pertama
-  const m = raw.match(/^JUDUL:\s*(.+)\n?/i);
-  const topicTitle = m?.[1]?.trim() ?? items[0]?.title ?? "Berita AI hari ini";
-  const script = m ? raw.slice(m[0].length).trim() : raw.trim();
-
-  return { script, topicTitle };
+  const MAX_ATTEMPTS = 3;
+  let lastErr: Error | undefined;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }], 900);
+      return cleanAndValidateScript(raw, items[0]?.title ?? "Berita AI hari ini");
+    } catch (err) {
+      lastErr = err as Error;
+      console.warn(`[llm] generateScript percobaan ${attempt}/${MAX_ATTEMPTS} gagal: ${lastErr.message}`);
+      if (attempt < MAX_ATTEMPTS) await sleep(1500 * attempt);
+    }
+  }
+  throw lastErr!;
 }
 
 /** Generate caption + hashtag untuk posting */
@@ -123,7 +197,8 @@ export async function generateCaption(script: string): Promise<{ title: string; 
 Format:
 TITLE: <judul YouTube, <=60 char>
 CAPTION: <caption menarik 1-3 kalimat untuk IG/TikTok>
-HASHTAGS: <10-12 hashtag dipisah spasi, termasuk #AI #Teknologi #BeritaAI dan yang relevan>`;
+HASHTAGS: <10-12 hashtag dipisah spasi, termasuk #AI #Teknologi #BeritaAI dan yang relevan>
+Dilarang menyertakan teks pengantar atau proses berpikir. Langsung format di atas.`;
   const raw = await chat([{ role: "system", content: system }, { role: "user", content: script }]);
   const t = raw.match(/^TITLE:\s*(.+)/im);
   const c = raw.match(/^CAPTION:\s*(.+)/im);
@@ -148,11 +223,22 @@ Terdapat ${items.length} topik berita. PERTAHANKAN cakupan SEMUA ${items.length}
 Struktur tetap: hook → fakta (semua topik) → analisis → peluang awam → CTA.
 Bahasa Indonesia natural, gaya news presenter, tanpa markdown, tanpa emoji, tanpa kata "menurut sumber".
 PENTING: revisi sesuai catatan reviewer. Tetap hanya gunakan fakta dari sumber.
-Berikan judul di baris pertama format: JUDUL: <judul>`;
-  const user = `Sumber:\n${list}\n\nNaskah lama:\n${currentScript}\n\nCatatan revisi dari reviewer:\n${feedback}\n\nTulis naskah revisi.`;
-  const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }]);
-  const m = raw.match(/^JUDUL:\s*(.+)\n?/i);
-  const topicTitle = m?.[1]?.trim() ?? items[0]?.title ?? "Berita AI hari ini";
-  const script = m ? raw.slice(m[0].length).trim() : raw.trim();
-  return { script, topicTitle };
+DILARANG KERAS: Jangan menuliskan proses berpikir, analisis internal, coretan perhitungan kata, atau teks bahasa Inggris.
+LANGSUNG mulai output pada baris pertama dengan format: JUDUL: <judul>`;
+
+  const user = `Sumber:\n${list}\n\nNaskah lama:\n${currentScript}\n\nCatatan revisi dari reviewer:\n${feedback}\n\nLANGSUNG tulis naskah revisi dimulai dengan JUDUL:.`;
+
+  const MAX_ATTEMPTS = 3;
+  let lastErr: Error | undefined;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }], 900);
+      return cleanAndValidateScript(raw, items[0]?.title ?? "Berita AI hari ini");
+    } catch (err) {
+      lastErr = err as Error;
+      console.warn(`[llm] generateScriptWithFeedback percobaan ${attempt}/${MAX_ATTEMPTS} gagal: ${lastErr.message}`);
+      if (attempt < MAX_ATTEMPTS) await sleep(1500 * attempt);
+    }
+  }
+  throw lastErr!;
 }

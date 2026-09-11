@@ -29,6 +29,9 @@ export async function renderVideos(date: string): Promise<{ shorts: string; dura
   copyFileSync(audioPath, join(pub, "voiceover.mp3"));
 
   const dur = parseFloat(execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", audioPath]).toString().trim());
+  if (!dur || isNaN(dur) || dur > 120 || dur < 20) {
+    throw new Error(`[video] Durasi audio tidak valid untuk render: ${dur}s (batas aman 20-120s)`);
+  }
 
   // timing chunk audio (dari TTS per-chunk) — sinkron cut↔narasi
   let chunkDurations: number[] = [];
@@ -68,17 +71,19 @@ function renderComposition(comp: string, outFile: string, propsPath: string, wid
   const cli = join(COMPOSER, "node_modules", "@remotion", "cli", "remotion-cli.js");
   // priority: REMOTION_BROWSER_EXECUTABLE (standard) → REMOTION_CHROMIUM_EXECUTABLE (legacy) → null (Remotion auto-download)
   const CHROME = process.env.REMOTION_BROWSER_EXECUTABLE || process.env.REMOTION_CHROMIUM_EXECUTABLE || "";
+  const concurrency = Math.max(1, Math.min(2, cpus().length || 1));
   const args = [cli, "render", "src/index.tsx", comp, outFile,
-    `--props=${propsPath}`, "--codec=h264", `--width=${width}`, `--height=${height}`, "--fps=24", "--concurrency=1", "--quality=60", "--gl=swangle"];
+    `--props=${propsPath}`, "--codec=h264", `--width=${width}`, `--height=${height}`, "--fps=24", `--concurrency=${concurrency}`, "--quality=60", "--gl=swangle"];
   if (CHROME) args.push(`--browser-executable=${CHROME}`);
   const r = spawnSync(process.execPath, args, {
     cwd: COMPOSER,
     timeout: 7200000,
+    stdio: "inherit",
     env: CHROME ? { ...process.env, REMOTION_CHROMIUM_EXECUTABLE: CHROME } : process.env,
   });
+  if (r.error) throw r.error;
   if (r.status !== 0) {
-    const err = r.stderr?.toString() || r.stdout?.toString() || `exit code ${r.status}`;
-    throw new Error(`render ${comp} gagal: ${err}`);
+    throw new Error(`render ${comp} gagal dengan exit code ${r.status}`);
   }
 }
 

@@ -59,6 +59,9 @@ async function run() {
   mkdirSync(outDir, { recursive: true });
   const { audioPath, durationSec } = await generateTtsChunks(c.script_text, outDir, "voiceover.mp3");
   console.log("TTS:", audioPath, `(${durationSec.toFixed(1)}s)`);
+  if (durationSec > 120 || durationSec < 20) {
+    throw new Error(`[pipeline] Durasi audio tidak wajar (${durationSec.toFixed(1)}s). Target 45-90s, batas aman 20-120s. Abort render.`);
+  }
 
   // 3. render video (shorts 9:16 only — master on-demand)
   console.log("[pipeline] 3/4 render...");

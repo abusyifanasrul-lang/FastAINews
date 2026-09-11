@@ -144,6 +144,9 @@ export async function runRevision(contentId: number, feedback: string): Promise<
     "TTS"
   );
   logRev(`#${contentId} — TTS ${durationSec.toFixed(1)}s`);
+  if (durationSec > 120 || durationSec < 20) {
+    throw new Error(`[revision] Durasi audio tidak wajar (${durationSec.toFixed(1)}s). Target 45-90s, batas aman 20-120s. Abort revision.`);
+  }
 
   // render ulang (shorts), pakai gambar existing
   logRev(`#${contentId} — render video...`);
