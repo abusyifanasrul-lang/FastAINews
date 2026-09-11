@@ -43,8 +43,8 @@ export default function Footer() {
           {/* brand */}
           <div>
             <Link to="/" onClick={scrollTop} className="flex items-center gap-2.5">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 via-sky-500 to-violet-600 shadow-[0_0_24px_rgba(0,229,255,0.4)]">
-                <Zap className="h-5 w-5 text-white" strokeWidth={2.5} fill="currentColor" />
+              <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-[0_0_24px_rgba(0,229,255,0.35)] ring-1 ring-white/30">
+                <img src="/logo.png" alt="Fast AI News" className="h-full w-full object-contain p-0.5" />
               </span>
               <span className="font-display text-lg font-bold tracking-tight text-white">Fast <span className="text-gradient">AI</span> News</span>
             </Link>

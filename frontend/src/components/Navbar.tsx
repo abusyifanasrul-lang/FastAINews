@@ -43,9 +43,8 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="group flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 via-sky-500 to-violet-600 shadow-[0_0_24px_rgba(0,229,255,0.45)]">
-            <Zap className="h-5 w-5 text-white" strokeWidth={2.5} fill="currentColor" />
-            <span className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/30" />
+          <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-white shadow-[0_0_24px_rgba(0,229,255,0.4)] ring-1 ring-white/30 transition-transform group-hover:scale-105">
+            <img src="/logo.png" alt="Fast AI News" className="h-full w-full object-contain p-0.5" />
           </span>
           <span className="font-display text-lg font-700 font-bold tracking-tight text-white">
             Fast <span className="text-gradient">AI</span> News

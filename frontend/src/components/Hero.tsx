@@ -73,8 +73,8 @@ function AgentVisual() {
             ))}
             {/* AI core */}
             <div className="relative mt-1 flex items-center gap-3 overflow-hidden rounded-xl border border-cyan-400/25 bg-gradient-to-r from-cyan-400/10 via-sky-500/10 to-violet-500/10 p-3">
-              <span className="pulse-ring relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-600">
-                <Bot className="h-5 w-5 text-white" />
+              <span className="pulse-ring relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white shadow-[0_0_20px_rgba(0,229,255,0.4)] ring-1 ring-white/30">
+                <img src="/logo.png" alt="Fast AI News Agent" className="h-full w-full object-contain p-0.5" />
               </span>
               <div>
                 <p className="flex items-center gap-1 text-xs font-semibold text-white">Summarizing <Sparkles className="h-3 w-3 text-cyan-300" /></p>
