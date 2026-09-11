@@ -16,7 +16,7 @@ import { splitBeats, validateChapters, chaptersToDescription } from "../src/long
 {
   assert.throws(() => validateLongScript("pendek"), /pendek/);
   const para = "Kita membahas kabar yang penting untuk Anda dengan data dari sumber ini. ";
-  const longId = Array(60).fill(para).join("\n\n"); // ~4800 char, ID valid
+  const longId = Array(110).fill(para).join("\n\n"); // ~8500 char / ~1320 kata, ID valid
   assert(longId.length > 4000, "fixture kurang panjang");
   validateLongScript(longId);
   assert.throws(() => validateLongScript(longId + " we need to craft hook line fact 1: x\nstructure:\n"), /reasoning/);

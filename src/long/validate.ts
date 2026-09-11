@@ -21,9 +21,15 @@ export function stripMidroll(script: string): { clean: string; atChar: number | 
   return { clean, atChar: m.index };
 }
 
-export function validateLongScript(text: string): void {
+export function countWords(text: string): number {
+  return text.split(/\s+/).filter(Boolean).length;
+}
+
+export function validateLongScript(text: string, minWords = 1250): void {
   if (text.length < 4000) throw new Error(`Naskah long terlalu pendek (${text.length} char < 4000).`);
-  if (text.length > 12000) throw new Error(`Naskah long terlalu panjang (${text.length} char > 12000).`);
+  if (text.length > 14000) throw new Error(`Naskah long terlalu panjang (${text.length} char > 14000).`);
+  const words = countWords(text);
+  if (words < minWords) throw new Error(`Naskah long terlalu pendek (${words} kata < ${minWords}).`);
   const hits = REASONING_PATTERNS.filter((r) => r.test(text));
   if (hits.length > 2) throw new Error(`Naskah mengandung reasoning internal (${hits.length} pola cocok).`);
   const paras = text.split(/\n{2,}|\n/).map((p) => p.trim()).filter((p) => p.length > 40);
