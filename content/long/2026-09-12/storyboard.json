@@ -1,0 +1,1546 @@
+{
+  "date": "2026-09-12",
+  "title": "Tujuh Peristiwa AI Mengguncang Industri Pekan Ini",
+  "chapters": [
+    {
+      "title": "Intro & Tesis Utama",
+      "startSec": 0
+    },
+    {
+      "title": "Konteks 72 Jam Terakhir",
+      "startSec": 71
+    },
+    {
+      "title": "Deep-Dive Berita AI",
+      "startSec": 208
+    },
+    {
+      "title": "Analisis & Prediksi Industri",
+      "startSec": 429
+    },
+    {
+      "title": "Peluang & Penutup",
+      "startSec": 524
+    }
+  ],
+  "beats": [
+    {
+      "i": 1,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 0,
+      "estSec": 9.2,
+      "text": "Dalam 72 jam terakhir, lanskap kecerdasan buatan bergerak dengan kecepatan yang sulit dikira, seolah setiap hari membawa lahirnya narasi baru",
+      "visual": "T2V_GENERATION",
+      "prompt": "A vast neon cityscape at dawn, data rivers flowing between skyscrapers, holographic AI symbols pulsing, representing rapid AI landscape transformation global network emergent intelligence unfolding, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "gentle electronic pulse, distant server hum, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 2,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 9.2,
+      "estSec": 5.1,
+      "text": "yang mengubah cara kita memandang teknologi, etika, dan masa depan kerja.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract laboratory merging with office towers, glowing equations drifting into cloud servers, symbolizing technology ethics and future work evolution continuous adaptation human centric design paradigm, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft keyboard clicks, low ambient tone, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 3,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 14.3,
+      "estSec": 9.2,
+      "text": "Kita menyaksikan bagaimana perangkat wearable mulai menormalisasi pengawasan suara terus-menerus, sementara laboratorium penelitian terdepan mengumumkan terobosan matematika yang menggemparkan akademisi",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Apple Watch Series 10 glowing on wrist, subtle microphone icon pulsing, ambient sound waves visualized, illustrating always‑listening AI normalization continuous audio surveillance integration daily life, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "watch vibration, faint microphone hiss, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src1.jpg"
+    },
+    {
+      "i": 4,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 23.5,
+      "estSec": 3,
+      "text": "seluruh dunia.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "OpenAI research lab illuminated, complex mathematical proof hologram hovering, scholars' silhouettes absent, conveying breakthrough shaking academia worldwide unprecedented implications theoretical foundations global dialogue intense scrutiny, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "chalkboard scribble echo, quiet academic murmur, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src2.jpg"
+    },
+    {
+      "i": 5,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 26.5,
+      "estSec": 9.2,
+      "text": "Di sisi lain, regulator kota San Francisco memaksa raksasa media sosial menghentikan iklan eksploitasi anak yang dihasilkan AI, dan keamanan",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "San Francisco city hall façade, official order document holographic, Meta logo fading, AI‑generated child protection graphics dissolving, representing regulatory intervention swift decisive policy enforcement public trust, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "city hall gavel strike, paper rustle, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src3.jpg"
+    },
+    {
+      "i": 6,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 35.7,
+      "estSec": 6,
+      "text": "siber kembali menjadi sorotan setelah token akses model bahasa ternama dicuri secara massal.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Dark server room, encrypted token streams siphoned by shadowy code tendrils, Claude logo flickering, depicting massive credential theft coordinated cyber operation global impact security alert, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "data breach alarm, rapid typing clicks, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src6.jpg"
+    },
+    {
+      "i": 7,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 41.7,
+      "estSec": 8.3,
+      "text": "Semua peristiwa ini saling berkaitan, membentuk mosaik yang menuntut perhatian serius dari pengembang, pengambil kebijakan, hingga pengguna biasa.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Interlocking puzzle pieces glowing, each piece labeled with icons of watch, math, regulation, security, forming a cohesive mosaic of AI events dynamic interconnected narrative emerging complexity, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "puzzle piece snap, subtle synth chord, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 8,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 50,
+      "estSec": 9.2,
+      "text": "Konteks makro yang muncul adalah pergeseran fundamental dari eksperimen laboratorium ke implementasi skala massal yang menyentuh privasi, keamanan, dan struktur",
+      "visual": "T2V_GENERATION",
+      "prompt": "Laboratory beakers morphing into city infrastructure, data cables weaving through streets, privacy shields and security locks appearing, symbolizing shift to mass deployment fundamental societal transformation ongoing, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "fluid morphing whoosh, lock click, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 9,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 59.2,
+      "estSec": 3,
+      "text": "ekonomi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A sleek digital globe pulsing with economic data streams, glowing charts of GDP, inflation, and AI investment, rendered in Unreal Engine 5 photorealism, high‑contrast neon lighting, subtle particle effects, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Soft data hum, subtle keyboard clicks, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 10,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 62.2,
+      "estSec": 9.2,
+      "text": "Perusahaan besar seperti Apple, Meta, OpenAI, dan Anthropic tidak lagi hanya bersaing pada kemampuan model, melainkan pada narasi kepercayaan publik",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close‑up of an Apple Watch Series 9 glowing with on‑device AI voice processing, subtle waveform rings expanding, sleek aluminum chassis, cinematic lighting, Unreal Engine 5 realism, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Gentle watch chime, faint electronic pulse, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src1.jpg"
+    },
+    {
+      "i": 11,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 71.4,
+      "estSec": 3,
+      "text": "dan kepatuhan hukum.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Quiet office air conditioning, distant printer whir, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src3.jpg"
+    },
+    {
+      "i": 12,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 74.4,
+      "estSec": 9.2,
+      "text": "Akademisi merasakan tekanan ketika bukti formal masalah klasik seperti Navier‑Stokes diklaim terpecahkan oleh AI, sedangkan analis ekonomi mencoba memodelkan dampak",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 13,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 83.6,
+      "estSec": 5.1,
+      "text": "otomatisasi terhadap lapangan kerja dengan skenario yang sengaja dikondisikan sebagai outlier.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic robotic mechanism performing ultra-precision calibration in high-tech laboratory, matte black carbon fiber and brushed titanium, laser scanning beam, clean ambient workshop lighting, Unreal Engine 5 render, faceless, no people, no human body, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical servo foley, precision pneumatic clicks, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 14,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 88.7,
+      "estSec": 9.2,
+      "text": "Di tengah itu, insiden pencurian kredensial mengingatkan kita bahwa infrastruktur akses model tetap rentan, dan regulasi lokal mulai berani menegakkan",
+      "visual": "T2V_GENERATION",
+      "prompt": "hyper-scale futuristic data center interior, endless corridors of humming high-density server racks, glowing blue LED status lights, liquid cooling conduits, atmospheric mist and volumetric light beams, Unreal Engine 5 cinematic photorealistic 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "deep ambient server room drone, low cooling airflow hum, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 15,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 97.9,
+      "estSec": 3.2,
+      "text": "sanksi terhadap konten berbahaya yang dihasilkan mesin.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 16,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 101.1,
+      "estSec": 7.4,
+      "text": "Semua ini terjadi bersamaan, menciptakan tekanan ganda: inovasi harus berjalan beriringan dengan tata kelola yang kuat.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 17,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 108.5,
+      "estSec": 9.2,
+      "text": "Topik pertama, Apple Watch, menurut laporan TechCrunch, memperkenalkan fitur AI yang secara terus‑menerus mendengarkan lingkungan pengguna untuk mengaktifkan asisten suara",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft watch tick, faint ambient hum, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src1.jpg"
+    },
+    {
+      "i": 18,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 117.7,
+      "estSec": 3,
+      "text": "dan mendeteksi pola kesehatan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "gentle heart beat pulse, subtle synth tone, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src1.jpg"
+    },
+    {
+      "i": 19,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 120.7,
+      "estSec": 9.2,
+      "text": "Perangkat ini memanfaatkan mikrofon permanen dan pemrosesan edge‑computing sehingga data suara tidak selalu dikirim ke cloud, namun praktik ini menormalkan",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "microchip whir, quiet data flow whisper, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src1.jpg"
+    },
+    {
+      "i": 20,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 129.9,
+      "estSec": 3,
+      "text": "asumsi bahwa teknologi selalu “mendengar”.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "ambient city murmur, distant surveillance drone hum, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src1.jpg"
+    },
+    {
+      "i": 21,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 132.9,
+      "estSec": 9.2,
+      "text": "Arsitektur di baliknya mengandalkan neural engine terbaru yang mampu menjalankan model pengenalan suara ringan dengan latensi di bawah sepuluh milidetik,",
+      "visual": "T2V_GENERATION",
+      "prompt": "Neural engine core of Apple Watch rendering voice recognition model, lightning-fast inference under ten milliseconds, glowing data pathways, futuristic silicon architecture, cinematic slow-motion, Unreal Engine 5 hyperrealism ultra responsive realtime processing, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "electric neural spark, rapid processing click, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 22,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 142.1,
+      "estSec": 5.1,
+      "text": "jauh lebih cepat dari generasi sebelumnya yang bergantung pada konektivitas jaringan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "sharp transition whoosh, crisp UI chime, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src1.jpg"
+    },
+    {
+      "i": 23,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 147.2,
+      "estSec": 9.2,
+      "text": "Implikasinya, industri wearable kini mendorong standar baru di mana privasi audio menjadi pertukaran nilai: kenyamanan real‑time lawan risiko surveilans laten.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Wearable industry landscape, privacy scales balancing convenience icons against surveillance symbols, data streams flowing into corporate servers, neon city backdrop, cinematic wide shot, Unreal Engine 5 dystopian aesthetic high contrast, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low synth drone, privacy alarm chime, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 24,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 156.4,
+      "estSec": 9.2,
+      "text": "Pengembang aplikasi kesehatan dan asuransi mulai mengevaluasi data ini untuk penilaian risiko, sementara regulasi GDPR dan CCPA dipaksa menyesuaikan definisi",
+      "visual": "T2V_GENERATION",
+      "prompt": "Developers analyzing health data dashboards on holographic screens, insurance risk models adjusting, GDPR and CCPA legal texts morphing into digital code, futuristic office ambience, Unreal Engine 5 photorealism high fidelity, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "keyboard clack, hologram flicker, regulation stamp thud, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 25,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 165.6,
+      "estSec": 4.2,
+      "text": "“pemrosesan data suara” dalam konteks perangkat yang selalu aktif.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of an Apple Watch glowing with subtle neural network visualizations, ambient sound waves radiating from the device, sleek metallic band reflecting soft light, conveying always-on voice data processing, ultra-realistic Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Soft electronic hum, faint microphone hiss, subtle wrist tap, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src1.jpg"
+    },
+    {
+      "i": 26,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 169.8,
+      "estSec": 9.2,
+      "text": "Topik kedua, terobosan matematika OpenAI, dilaporkan oleh The Verge dan MIT Technology Review sebagai klaim penyelesaian masalah Navier‑Stokes yang selama",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Dynamic visualization of Navier-Stokes equations solving in luminous fluid simulation, glowing mathematical symbols swirling around a central core, representing OpenAI's claimed breakthrough, cinematic lighting, Unreal Engine 5 hyperrealism, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Low resonant tone, fluid swirl whispers, distant server fans, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src2.jpg"
+    },
+    {
+      "i": 27,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 179,
+      "estSec": 3.2,
+      "text": "ini menjadi salah satu Millennium Prize Problem.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Paper rustle, quiet keyboard clicks, ambient room tone, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src4.jpg"
+    },
+    {
+      "i": 28,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 182.2,
+      "estSec": 9.2,
+      "text": "Menurut sumber tersebut, tim peneliti OpenAI mengemas bukti formal dalam kerangka lean theorem prover yang diverifikasi oleh komunitas matematika, meski",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract representation of a lean theorem prover interface, formal proof steps glowing in teal lines, verified by a network of nodes symbolizing mathematician community, sleek futuristic UI, Unreal Engine 5, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Digital chime, data stream whoosh, subtle processor whir, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 29,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 191.4,
+      "estSec": 3,
+      "text": "masih menunggu peer‑review resmi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Glitch static burst, low murmur, distant notification ping, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src7.jpg"
+    },
+    {
+      "i": 30,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 194.4,
+      "estSec": 9.2,
+      "text": "Teknisnya, model besar yang dilatih pada korpus bukti matematika dan dikombinasikan dengan pencarian heuristik berbasis reinforcement learning berhasil menyusun langkah‑langkah",
+      "visual": "T2V_GENERATION",
+      "prompt": "Massive transformer model visualized as a luminous neural lattice, training on mathematical proof corpus, reinforcement learning beams guiding heuristic search, unexpected logical pathways emerging, cinematic depth, Unreal Engine 5, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Neural pulse thrum, reinforcement learning click, soft wind, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 31,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 203.6,
+      "estSec": 3,
+      "text": "logis yang tidak terduga oleh manusia.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Surreal depiction of logical steps unfolding like glowing origami, each fold revealing non-human reasoning, ethereal light trails, high-fidelity Unreal Engine 5 rendering, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Ethereal chime, origami fold snap, faint echo, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 32,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 206.6,
+      "estSec": 9.2,
+      "text": "Komparasi dengan upaya sebelumnya, seperti pendekatan DeepMind pada AlphaGeometry, menunjukkan pergeseran dari pencarian simbolik murni ke pendekatan hibrid yang memanfaatkan",
+      "visual": "T2V_GENERATION",
+      "prompt": "Comparison scene: symbolic geometry engine AlphaGeometry rendered as crisp geometric shapes, transitioning into hybrid neuro-symbolic network with intertwined neural threads and logical gates, seamless morph, Unreal Engine 5, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Geometric snap, hybrid hum, smooth transition whoosh, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 33,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 215.8,
+      "estSec": 3.7,
+      "text": "representasi bahasa alami untuk mengarahkan pencarian ruang bukti.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A glowing neural network lattice visualizes natural language vectors guiding a luminous search through a vast evidence space, particles flowing along semantic pathways, cinematic lighting, Unreal Engine 5, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital hum, subtle data stream whoosh, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 34,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 219.5,
+      "estSec": 9.2,
+      "text": "Dampak industri nyata adalah percepatan penemuan ilmiah di fisika fluida, aerodinamika, dan modellik iklim, namun juga menimbulkan kekhawatiran tentang kredibilitas",
+      "visual": "T2V_GENERATION",
+      "prompt": "Turbulent fluid dynamics simulations accelerate in a high‑tech lab, swirling vortices and aerodynamic surfaces rendered in photorealistic detail, climate model grids glowing, Unreal Engine 5 cinematic, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low turbine whir, fluid simulation ripple, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 35,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 228.7,
+      "estSec": 4.2,
+      "text": "bukti yang dihasilkan mesin tanpa verifikasi manusia yang mendalam.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A cascade of algorithmic proof fragments assembles into a towering evidence structure, each block glowing with machine‑generated logic, lacking human verification stamps, Unreal Engine 5, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "quiet server rack buzz, algorithmic pulse echo, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 36,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 232.9,
+      "estSec": 9.2,
+      "text": "Topik ketiga, perintah San Francisco kepada Meta, mengungkapkan bahwa otoritas kota menemukan iklan yang dihasilkan AI menampilkan konten eksploitasi anak",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "San Francisco city hall hologram issues an urgent cease‑and‑desist order to Meta’s ad platform, AI‑generated child exploitation imagery flickers on transparent screens, dramatic neon glow, Unreal Engine 5, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "city alarm chime, urgent notification beep, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src3.jpg"
+    },
+    {
+      "i": 37,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 242.1,
+      "estSec": 9.2,
+      "text": "di platform iklan Meta. Menurut Wired, kota menerbitkan perintah henti segera dan meminta laporan kepatuhan dalam empat puluh delapan jam.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "timer tick, digital countdown beep, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src3.jpg"
+    },
+    {
+      "i": 38,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 251.3,
+      "estSec": 9.2,
+      "text": "Di balik layar, sistem moderasi otomatis Meta gagal mendeteksi pola visual dan tekstual yang dihasilkan model generatif terbaru, yang mampu",
+      "visual": "T2V_GENERATION",
+      "prompt": "Behind a translucent server wall, Meta’s automated moderation AI scans endless streams of synthetic images, missing subtle generative artifacts, glowing error nodes pulse, Unreal Engine 5, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server fan whir, scanning laser sweep, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 39,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 260.5,
+      "estSec": 3,
+      "text": "menciptakan gambar realistis tanpa metadata asal.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A hyper‑realistic portrait materializes from pure noise, no metadata tags, each pixel crafted by a diffusion model, subtle watermark absence highlighted clearly, Unreal Engine 5, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft pixel formation rustle, faint synth tone, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 40,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 263.5,
+      "estSec": 9.2,
+      "text": "Hal ini menunjukkan keterbatasan pendekatan filter berbasis hash dan klasifikator statis saat menghadapi konten sintetis yang tidak pernah ada di",
+      "visual": "T2V_GENERATION",
+      "prompt": "Hash‑based filter grids shatter as novel synthetic content flows past, static classifiers flicker and fail, data streams glow red, illustrating detection limits, Unreal Engine 5, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "filter crackle, classifier error buzz, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 41,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 272.7,
+      "estSec": 3,
+      "text": "basis data pelanggaran sebelumnya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract visualization of cyber security mainframe, geometric holographic firewall shields rotating around glowing cryptographic core, streams of encrypted binary telemetry, dark navy and teal aesthetic, Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital pulse, ominous low sub-bass hum, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 42,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 275.7,
+      "estSec": 9.2,
+      "text": "Implikasinya, industri iklan digital dipaksa mengadopsi deteksi berbasis watermarking model dan audit algoritma generatif, sementara regulator lain mulai mempertimbangkan kerangka",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 43,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 284.9,
+      "estSec": 5.5,
+      "text": "hukum serupa yang menargetkan platform sebagai penanggung jawab utama atas output AI.",
+      "visual": "T2V_GENERATION",
+      "prompt": "cinematic macro shot of advanced next-gen AI microchip, glowing gold and copper microscopic interconnects, pulsing volumetric cyan lighting, dark reflective obsidian substrate, depth of field, Unreal Engine 5 render, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic hum, high frequency data processing audio, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 44,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 290.4,
+      "estSec": 9.2,
+      "text": "Topik keempat, laporan The Decoder tentang model ekonomi Anthropic, menunjukkan bahwa perusahaan tersebut membangun simulasi makroekonomi yang memproyeksikan dampak otomatisasi",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src1.jpg"
+    },
+    {
+      "i": 45,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 299.6,
+      "estSec": 3,
+      "text": "AI terhadap lapangan kerja.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 46,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 302.6,
+      "estSec": 9.2,
+      "text": "Model ini sengaja mengatur skenario paling pesimistis — di mana CEO Anthropic memprediksi hilangnya puluhan juta pekerjaan — sebagai outlier",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src2.jpg"
+    },
+    {
+      "i": 47,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 311.8,
+      "estSec": 3,
+      "text": "statistik, bukan sebagai baseline.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 48,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 314.8,
+      "estSec": 9.2,
+      "text": "Metodologinya menggabungkan data tenaga kerja OECD, elastisitas substitusi modal‑tenaga kerja, dan kurva adopsi teknologi yang dikalibrasi dari riwayat revolusi industri",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 49,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 324,
+      "estSec": 3,
+      "text": "sebelumnya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 50,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 327,
+      "estSec": 9.2,
+      "text": "Hasilnya, bahkan dalam skenario outlier, pertumbuhan produktivitas mendorong ciptaan pekerjaan baru di sektor layanan AI, pendidikan ulang, dan pengawasan etika.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "dynamic holographic data telemetry of tech industry analytics, floating glowing charts and volumetric graph lines in modern architectural glass boardroom at night, Unreal Engine 5 aesthetic, cinematic moody lighting, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital clicks, ambient corporate atmospheric tone, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src3.jpg"
+    },
+    {
+      "i": 51,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 336.2,
+      "estSec": 9.2,
+      "text": "Namun, analisis ini juga mengakui ketidakpastian besar pada kecepatan adopsi model fondasi generatif, yang bisa mempercepat transisi lebih dari yang",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 52,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 345.4,
+      "estSec": 3,
+      "text": "diprediksi model historis.",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 53,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 348.4,
+      "estSec": 9.2,
+      "text": "Bagi kebijakan, temuan ini mendorong perlunya jaminan sosial fleksibel dan program reskilling berskala nasional yang tidak bergantung pada satu proyeksi",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 54,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 357.6,
+      "estSec": 3,
+      "text": "sempit.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 55,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 360.6,
+      "estSec": 9.2,
+      "text": "Topik kelima, insiden pencurian token Claude yang dilaporkan TechCrunch, mengungkapkan bahwa peretas mengeksploitasi kebocoran kredensial pengembang dan phishing terarah untuk",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src4.jpg"
+    },
+    {
+      "i": 56,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 369.8,
+      "estSec": 3,
+      "text": "mengumpulkan API key berbayar.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 57,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 372.8,
+      "estSec": 7.8,
+      "text": "Token tersebut kemudian dijual di forum gelap, memungkinkan pembeli mengakses model bahasa berkinerja tinggi tanpa biaya langganan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 58,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 380.6,
+      "estSec": 6.9,
+      "text": "Teknisnya, vektor serangan memanfaatkan kelemahan manajemen rahasia di lingkungan CI/CD dan kurangnya rotasi kunci otomatis.",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract visualization of cyber security mainframe, geometric holographic firewall shields rotating around glowing cryptographic core, streams of encrypted binary telemetry, dark navy and teal aesthetic, Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital pulse, ominous low sub-bass hum, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 59,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 387.5,
+      "estSec": 9.2,
+      "text": "Insiden ini mengingatkan bahwa keamanan rantai pasokan model — dari penyimpanan kunci hingga audit akses — menjadi lapisan pertahanan krusial",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 60,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 396.7,
+      "estSec": 3.7,
+      "text": "yang sering diabaikan saat fokus pada performa model.",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 61,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 400.4,
+      "estSec": 9.2,
+      "text": "Dampaknya, penyedia layanan AI kini dipaksa menerapkan zero‑trust architecture, pemantauan anomali permintaan API, dan program bug bounty yang lebih agresif",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 62,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 409.6,
+      "estSec": 3.2,
+      "text": "untuk melindungi investasi pelanggan dan reputasi merek.",
+      "visual": "T2V_GENERATION",
+      "prompt": "dynamic holographic data telemetry of tech industry analytics, floating glowing charts and volumetric graph lines in modern architectural glass boardroom at night, Unreal Engine 5 aesthetic, cinematic moody lighting, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital clicks, ambient corporate atmospheric tone, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 63,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 412.8,
+      "estSec": 9.2,
+      "text": "Topik keenam, drama di sekitar pencapaian matematika OpenAI, menurut The Verge, melibatkan perdebatan terbuka di komunitas ilmuwan tentang keaslian bukti,",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src5.png"
+    },
+    {
+      "i": 64,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 422,
+      "estSec": 3.2,
+      "text": "transparansi kode verifikasi, dan klaim prioritas penemuan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 65,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 425.2,
+      "estSec": 9.2,
+      "text": "Beberapa matematikawan menuduh OpenAI tidak membagikan seluruh rantai bukti dalam format yang dapat direproduksi, sementara pihak OpenAI menegaskan bahwa mereka",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src6.jpg"
+    },
+    {
+      "i": 66,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 434.4,
+      "estSec": 3.7,
+      "text": "akan merilis artefak verifikasi setelah proses review jurnal.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 67,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 438.1,
+      "estSec": 8.3,
+      "text": "Dinamika ini mencerminkan gesekan antara budaya open science tradisional dan model penelitian tertutup yang didorong oleh kepentingan komersial.",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 68,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 446.4,
+      "estSec": 9.2,
+      "text": "Jangka panjang, hal ini bisa memengaruhi kebijakan pembagian manfaat penemuan AI, termasuk hak paten dan lisensi penggunaan bukti formal dalam",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 69,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 455.6,
+      "estSec": 3,
+      "text": "sistem otomasi desain teknik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 70,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 458.6,
+      "estSec": 9.2,
+      "text": "Topik ketujuh, ringkasan MIT Technology Review tentang “The Download” menegaskan bahwa terobosan matematika OpenAI dan rekor baterai baru — yang",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src7.jpg"
+    },
+    {
+      "i": 71,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 467.8,
+      "estSec": 9.2,
+      "text": "dicapai melalui desain material berbantu AI — menandai titik balik ganda: AI tidak hanya memecahkan masalah abstrak, tapi juga mempercepat",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 72,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 477,
+      "estSec": 3,
+      "text": "inovasi keras seperti penyimpanan energi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "hyper-scale futuristic data center interior, endless corridors of humming high-density server racks, glowing blue LED status lights, liquid cooling conduits, atmospheric mist and volumetric light beams, Unreal Engine 5 cinematic photorealistic 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "deep ambient server room drone, low cooling airflow hum, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 73,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 480,
+      "estSec": 8.8,
+      "text": "Kombinasi ini memperkuat narasi bahwa AI generatif menjadi katalisator lintas disiplin, mengubah siklus R&D dari puluhan tahun menjadi bulan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 74,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 488.8,
+      "estSec": 9.2,
+      "text": "Sintesis dari ketujuh peristiwa ini menunjukkan konvergensi tiga aliran: normalisasi surveilans pasif melalui perangkat konsumen, percepatan penemuan ilmiah fundamental oleh",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "abstract visualization of cyber security mainframe, geometric holographic firewall shields rotating around glowing cryptographic core, streams of encrypted binary telemetry, dark navy and teal aesthetic, Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital pulse, ominous low sub-bass hum, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src1.jpg"
+    },
+    {
+      "i": 75,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 498,
+      "estSec": 5.1,
+      "text": "model besar, dan tekanan regulasi serta keamanan yang menuntut akuntabilitas nyata.",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 76,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 503.1,
+      "estSec": 9.2,
+      "text": "Dalam enam hingga dua belas bulan ke depan, kita akan melihat standar industri baru untuk “always‑listening” yang diatur oleh undang‑undang",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 77,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 512.3,
+      "estSec": 9.2,
+      "text": "privasi global, kerangka verifikasi bukti AI yang dikelola konsorsium akademisi‑industri, serta protokol keamanan token yang wajib bagi setiap penyedia API.",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 78,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 521.5,
+      "estSec": 7.4,
+      "text": "Perusahaan yang mampu mengintegrasikan etika desain, keamanan rantai pasokan, dan transparansi ilmiah akan memenangkan kepercayaan pasar.",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract visualization of cyber security mainframe, geometric holographic firewall shields rotating around glowing cryptographic core, streams of encrypted binary telemetry, dark navy and teal aesthetic, Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital pulse, ominous low sub-bass hum, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 79,
+      "chapter": "Peluang & Penutup",
+      "startSec": 528.9,
+      "estSec": 5.1,
+      "text": "Bagi publik dan profesional non‑teknis, peluang konkret hadir dalam tiga jalur.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 80,
+      "chapter": "Peluang & Penutup",
+      "startSec": 534,
+      "estSec": 9.2,
+      "text": "Pertama, pelatihan literasi data dan privasi — memahami bagaimana perangkat wearable memproses suara — memungkinkan individu membuat pilihan informasi yang",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src2.jpg"
+    },
+    {
+      "i": 81,
+      "chapter": "Peluang & Penutup",
+      "startSec": 543.2,
+      "estSec": 9.2,
+      "text": "lebih bijak. Kedua, keterampilan verifikasi model dan audit algoritma menjadi profesi baru yang dicari oleh lembaga regulasi dan firma konsultansi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 82,
+      "chapter": "Peluang & Penutup",
+      "startSec": 552.4,
+      "estSec": 9.2,
+      "text": "Ketiga, bidang reskilling di sektor energi, manufaktur, dan layanan AI menjanjikan lowongan yang tumbuh seiring adopsi material berbantu AI dan",
+      "visual": "T2V_GENERATION",
+      "prompt": "hyper-scale futuristic data center interior, endless corridors of humming high-density server racks, glowing blue LED status lights, liquid cooling conduits, atmospheric mist and volumetric light beams, Unreal Engine 5 cinematic photorealistic 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "deep ambient server room drone, low cooling airflow hum, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 83,
+      "chapter": "Peluang & Penutup",
+      "startSec": 561.6,
+      "estSec": 3,
+      "text": "otomasi desain teknik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 84,
+      "chapter": "Peluang & Penutup",
+      "startSec": 564.6,
+      "estSec": 9.2,
+      "text": "Mengambil sertifikasi keamanan siber dasar, mempelajari dasar pembelajaran mesin, dan mengikuti perkembangan kebijakan AI nasional akan menempatkan Anda di posisi",
+      "visual": "T2V_GENERATION",
+      "prompt": "abstract visualization of cyber security mainframe, geometric holographic firewall shields rotating around glowing cryptographic core, streams of encrypted binary telemetry, dark navy and teal aesthetic, Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital pulse, ominous low sub-bass hum, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 85,
+      "chapter": "Peluang & Penutup",
+      "startSec": 573.8,
+      "estSec": 3,
+      "text": "menguntungkan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 86,
+      "chapter": "Peluang & Penutup",
+      "startSec": 576.8,
+      "estSec": 9.2,
+      "text": "Kita mengundang Anda untuk berbagi pandangan di kolom komentar: manakah dari tujuh peristiwa ini yang menurut Anda paling mengubah aturan",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-12/images/src3.jpg"
+    },
+    {
+      "i": 87,
+      "chapter": "Peluang & Penutup",
+      "startSec": 586,
+      "estSec": 9.2,
+      "text": "main industri? Jangan lupa berlangganan dan aktifkan lonceng notifikasi agar tidak ketinggalan analisis mendalam minggu depan. Terima kasih telah menyimak.",
+      "visual": "T2V_GENERATION",
+      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null
+    }
+  ],
+  "midrollAtSec": 360,
+  "estTotalSec": 595.2,
+  "sources": [
+    {
+      "title": "Apple Watch’s new AI features are normalizing the idea that technology is always listening",
+      "url": "https://techcrunch.com/2026/09/09/apple-watchs-new-ai-features-are-normalizing-the-idea-that-technology-is-always-listening/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "OpenAI’s sly mathematical breakthrough sends a chill through academia",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/992953/openai-math-millennium-prize-navier-stokes",
+      "publisher": "The Verge"
+    },
+    {
+      "title": "San Francisco Orders Meta to Stop ‘Allowing’ AI Child Abuse Ads",
+      "url": "https://www.wired.com/story/san-francisco-orders-meta-to-stop-allowing-ai-child-abuse-ads/",
+      "publisher": "Wired AI"
+    },
+    {
+      "title": "The Download: OpenAI’s turning point for math and a battery record",
+      "url": "https://www.technologyreview.com/2026/09/09/1143767/the-download-openai-math-future-battery-record/",
+      "publisher": "MIT Tech Review"
+    },
+    {
+      "title": "Anthropic built an economic model that frames its CEO's bleakest job forecasts as an outlier scenario",
+      "url": "https://the-decoder.com/anthropic-built-an-economic-model-that-frames-its-ceos-bleakest-job-forecasts-as-an-outlier-scenario/",
+      "publisher": "The Decoder"
+    },
+    {
+      "title": "Hackers are stealing Claude tokens from subscribers",
+      "url": "https://techcrunch.com/2026/09/08/hackers-are-stealing-claude-tokens-from-subscribers/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "Drama swirls around OpenAI’s legendary mathematical milestone",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/991710/openai-navier-stokes-solution",
+      "publisher": "The Verge"
+    }
+  ]
+}
