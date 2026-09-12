@@ -3,6 +3,7 @@
 > Disusun: 2026-09-12. Target pembaca: agent AI lain yang melanjutkan pengembangan FastAINews.
 > Revisi 1: mikro-tweaks review agent kedua — retry batch 3x→2x, regex parser tahan teks pembuka ber-kurung-siku, guard STATIC-blank (edisi 0 gambar → T2V themed).
 > Revisi 2 (postmortem kegagalan CI riil): model men-ECHO input + output terpotong sebelum JSON → perbaikan berlapis: anti-echo prompt, temperature 0.2, batch 16→8, maxTokens 3200→4500, parser salvage objek utuh dari output terpotong + pad parsial, circuit breaker 2 batch beruntun fallback.
+> Revisi 3 (postmortem CI kedua): kegagalan bergeser ke Stage-1 — naskah overlong 17630 char > 15000 (`generateLongScript` lama tanpa retry langsung throw) → retry 3× dengan feedback korektif + fallback `trimNaskahToLength` di batas kalimat.
 > Scope: alasan keputusan Opsi A (Stage-2 storyboard kembali via LLM) + mekanisme detail implementasinya.
 > File yang relevan: `src/long/llm-long.ts`, `src/long/storyboard.ts`, `scripts/full-long-pipeline.ts`, `scripts/test-long-unit.ts`.
 
@@ -184,7 +185,7 @@ Yang **TIDAK diubah**: `generateLongScript` (Stage-1), chapters statis proporsio
 | Uji | Hasil |
 |---|---|
 | `npm run build` (`tsc -p tsconfig.json`, strict) | ✅ 0 error |
-| `npx tsx scripts/test-long-unit.ts` (10 grup: stripMidroll, validateLongScript, parseGdriveId+args, splitBeats, Thematic Visual Mapper, validateChapters+description, parseStoryboardJson, splitBeats srcImage hint, guard STATIC-blank, salvage echo/terpotong) | ✅ `SEMUA UJI LONG-FORM LOLOS` |
+| `npx tsx scripts/test-long-unit.ts` (11 grup: stripMidroll, validateLongScript, parseGdriveId+args, splitBeats, Thematic Visual Mapper, validateChapters+description, parseStoryboardJson, splitBeats srcImage hint, guard STATIC-blank, salvage echo/terpotong, trimNaskahToLength) | ✅ `SEMUA UJI LONG-FORM LOLOS` |
 
 Estimasi waktu CI setelah revisi postmortem (edisi 116 beat): Stage-2 worst-case SEHAT ≈ 15 batch × ~15-20 dtk ≈ 4-5 mnt; worst-case VENDOR RUSAK terikat circuit breaker ≈ 4 percobaan gagal (~2-4 mnt) + mapper instan; Stage-1 ≈ 1.5 mnt. Total workflow selalu < `timeout-minutes: 15` (kegagalan sebelumnya: 15 batch × 60 dtk retry → di-cancel).
 
@@ -193,6 +194,11 @@ Estimasi waktu CI setelah revisi postmortem (edisi 116 beat): Stage-2 worst-case
 - `percobaan 2/2 gagal: Unexpected token 'b', "[bab: Intro"... is not valid JSON` → echo memuat label `[bab: X]`; slicing lama `indexOf('[')` menangkap label, bukan JSON.
 - `batch 1/8 fallback... batch 2/8 fallback... batch 3/8 percobaan 1... Error: The operation was canceled` → kegagalan sistemik vendor (bukan glitch acak), retry semua batch memakan waktu hingga job di-cancel runtime.
 - Kesimpulan: kegagalan BUKAN pada resiliensi mapper (fallback bekerja persis seperti desain), tapi pada asumsi model patuh format + muat maxTokens 3200. Perbaikan berlapis (anti-echo/0.2/batch 8/4500/salvage/circuit breaker) menutup kelima asumsi itu.
+
+**Postmortem CI kedua (2026-09-12, run 34693094126):** kegagalan bergeser ke Stage-1 — naskah model over-produce **17630 char > 15000** (~2900 kata vs target 1300-1500; run sebelumnya 1825 kata → varians model tinggi), dan `generateLongScript` lama sengaja "tanpa retry" sehingga satu output overlong = pipeline mati sebelum Stage-2. Perbaikan:
+- Retry **3×** dengan feedback korektif pada user prompt (percobaan ulang diberi tahu panjang naskah sebelumnya + instruksi tegas 1250-1450 kata).
+- Fallback terakhir **`trimNaskahToLength(lastScript, 14500)`** (export baru di `src/long/validate.ts`): pangkas di batas kalimat terakhir sebelum batas, validasi ulang — edisi tetap terbit walau ekor naskah (sintesis/CTA) dibuang. Test #11.
+- MaxTokens Stage-1 tetap 6000 (output 17630 char ≈ 4400 token, tidak terpotong — ini kepatuhan model, bukan truncation).
 
 Catatan lingkungan: terminal shell sesi ini tidak stabil (integrasi output gagal), sehingga build/test diverifikasi via redirect output ke file sementara (lalu dihapus). Verifikasi ulang cukup: `npm run build` dan `npx tsx scripts/test-long-unit.ts`.
 

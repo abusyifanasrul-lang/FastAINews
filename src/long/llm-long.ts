@@ -5,7 +5,7 @@
 // Jaminan ketat: faceless, no people/animal, no background music, prompt murni Inggris Unreal Engine 5.
 import { chat } from "../llm.js";
 import type { NewsItem } from "../research.js";
-import { validateLongScript, countWords } from "./validate.js";
+import { trimNaskahToLength, validateLongScript, countWords } from "./validate.js";
 
 export const FACELESS_NEGATIVE =
   "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation";
@@ -41,18 +41,60 @@ ATURAN FORMAT WAJIB:
 - Dilarang teks bahasa Inggris selain istilah teknologi standar.
 - Hanya gunakan fakta dari daftar sumber yang diberikan, tanpa halusinasi.`;
 
-  const user = `Daftar sumber berita 72 jam terakhir:\n${list}\n\nTulis naskah mendalam, elaboratif, dan mengalir minimal 1100-1400 kata. LANGSUNG mulai output pada baris pertama dengan JUDUL:.`;
+  const userBase = `Daftar sumber berita 72 jam terakhir:\n${list}\n\nTulis naskah mendalam, elaboratif, dan mengalir minimal 1100-1400 kata. LANGSUNG mulai output pada baris pertama dengan JUDUL:.`;
 
-  const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }], 6000);
-  const m = raw.match(/(?:^|\n)\s*JUDUL:\s*([^\n]+)/i);
-  const mIdx = m?.index ?? -1;
-  const topicTitle = m?.[1]?.trim().replace(/^["'*]+|["'*]+$/g, "") ?? items[0]?.title ?? "Deep-dive AI 3 hari";
-  const script = m && mIdx >= 0 && mIdx < raw.length / 2 ? raw.slice(mIdx + m[0].length).trim() : raw.trim();
+  // Postmortem CI 2026-09-12 (kedua): model bisa over-produce (17630 char > batas 15000)
+  // dan versi lama "tanpa retry" langsung mematikan pipeline. Kini: retry 3x dengan
+  // feedback korektif, lalu fallback terakhir: pangkas naskah di batas kalimat.
+  const extract = (raw: string): { script: string; topicTitle: string } => {
+    const m = raw.match(/(?:^|\n)\s*JUDUL:\s*([^\n]+)/i);
+    const mIdx = m?.index ?? -1;
+    const topicTitle = m?.[1]?.trim().replace(/^["'*]+|["'*]+$/g, "") ?? items[0]?.title ?? "Deep-dive AI 3 hari";
+    const script = m && mIdx >= 0 && mIdx < raw.length / 2 ? raw.slice(mIdx + m[0].length).trim() : raw.trim();
+    return { script, topicTitle };
+  };
 
-  // Validasi tanpa retry: jika gagal, biarkan melempar error agar langsung tertangkap dan dikirim ke Telegram
-  validateLongScript(script, 900);
-  console.log(`[llm-long] naskah berhasil dibuat: ${countWords(script)} kata`);
-  return { script, topicTitle };
+  const MAX_ATTEMPTS = 3;
+  let lastScript = "";
+  let lastTitle = "";
+  let lastErr: Error | undefined;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    let user = userBase;
+    if (lastScript) {
+      const info = `${lastScript.length} char / ${countWords(lastScript)} kata`;
+      if (lastScript.length > 15000) {
+        user += `\n\nPERBAIKAN WAJIB (percobaan ${attempt}/${MAX_ATTEMPTS}): naskah sebelumnya TERLALU PANJANG (${info}; batas keras 15000 char). Tulis ulang TEPAT 1250-1450 kata: setiap topik cukup 1-2 paragraf padat, buang pengulangan dan basa-basi.`;
+      } else {
+        user += `\n\nPERBAIKAN WAJIB (percobaan ${attempt}/${MAX_ATTEMPTS}): naskah sebelumnya ditolak validasi (${info}): ${lastErr?.message}. Perbaiki dan tulis ulang.`;
+      }
+    }
+    const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }], 6000);
+    const { script, topicTitle } = extract(raw);
+    try {
+      validateLongScript(script, 900);
+      console.log(`[llm-long] naskah berhasil dibuat: ${countWords(script)} kata (percobaan ${attempt}/${MAX_ATTEMPTS})`);
+      return { script, topicTitle };
+    } catch (err) {
+      lastErr = err as Error;
+      lastScript = script;
+      lastTitle = topicTitle;
+      console.warn(`[llm-long] naskah percobaan ${attempt}/${MAX_ATTEMPTS} gagal validasi: ${lastErr.message}`);
+      if (attempt < MAX_ATTEMPTS) await sleep(1500 * attempt);
+    }
+  }
+
+  // Fallback terakhir: pangkas naskah overlong di batas kalimat supaya edisi tetap terbit
+  if (lastScript.length > 15000) {
+    const trimmed = trimNaskahToLength(lastScript, 14500);
+    if (trimmed) {
+      try {
+        validateLongScript(trimmed, 900);
+        console.warn(`[llm-long] naskah 3x gagal validasi — dipangkas ${lastScript.length} -> ${trimmed.length} char (fallback, ekor dibuang)`);
+        return { script: trimmed, topicTitle: lastTitle || items[0]?.title || "Deep-dive AI 3 hari" };
+      } catch {}
+    }
+  }
+  throw lastErr ?? new Error("generateLongScript gagal semua percobaan");
 }
 
 export type BeatVisual = "STATIC_IMAGE_MOTION" | "T2V_GENERATION" | "I2V_ANIMATE_IMAGE";

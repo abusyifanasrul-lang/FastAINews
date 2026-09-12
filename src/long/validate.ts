@@ -41,6 +41,15 @@ export function validateLongScript(text: string, minWords = 900): void {
   if (ok < paras.length * 0.6) throw new Error(`Bahasa non-Indonesia terdeteksi (${ok}/${paras.length} paragraf valid).`);
 }
 
+/** Pangkas naskah di batas kalimat terakhir sebelum maxChars (fallback naskah overlong). */
+export function trimNaskahToLength(text: string, maxChars: number): string | null {
+  if (text.length <= maxChars) return text;
+  const cut = text.slice(0, maxChars);
+  const idx = Math.max(cut.lastIndexOf("."), cut.lastIndexOf("!"), cut.lastIndexOf("?"), cut.lastIndexOf("\n"));
+  if (idx < 3500) return null; // tidak ada batas kalimat layak — tidak bisa diselamatkan
+  return cut.slice(0, idx + 1).trim();
+}
+
 export function formatTimestamp(sec: number): string {
   const s = Math.max(0, Math.floor(sec));
   return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;

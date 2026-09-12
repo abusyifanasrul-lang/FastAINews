@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { stripMidroll, validateLongScript, formatTimestamp } from "../src/long/validate.js";
+import { stripMidroll, validateLongScript, formatTimestamp, trimNaskahToLength } from "../src/long/validate.js";
 import { parseGdriveId, splitPublishLongArgs } from "../src/long/gdrive.js";
 import { splitBeats, validateChapters, chaptersToDescription } from "../src/long/storyboard.js";
 import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
@@ -148,5 +148,16 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
   const full = parseStoryboardJson(echo + JSON.stringify([{ visual: "T2V_GENERATION", prompt: "p", sfx: "s" }]), 1);
   assert.strictEqual(full.length, 1, "echo + array utuh gagal diparse");
   console.log("ok parseStoryboardJson salvage (echo/terpotong ditangani)");
+}
+// 11. trimNaskahToLength: pangkas di batas kalimat, null bila tak layak
+{
+  const panjang = ("Narasi ini cukup panjang untuk Anda dengan fakta penting yang menarik. ").repeat(400);
+  const potong = trimNaskahToLength(panjang, 15000);
+  assert(potong !== null, "trim gagal");
+  assert(potong.length <= 15000, `trim melebihi batas: ${potong.length}`);
+  assert(/[.!?]\s*$/.test(potong), "trim tidak berakhir di batas kalimat");
+  assert(trimNaskahToLength("pendek. tanpa batas layak", 3) === null, "trim pendek harus null");
+  assert(trimNaskahToLength("sudah pas.", 100) === "sudah pas.", "trim teks pendek mengubah teks");
+  console.log("ok trimNaskahToLength (batas kalimat, null bila tidak layak)");
 }
 console.log("SEMUA UJI LONG-FORM LOLOS");
