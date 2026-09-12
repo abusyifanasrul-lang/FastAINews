@@ -9,11 +9,16 @@ on:
         description: 'Tanggal edisi (YYYY-MM-DD, default hari ini)'
         required: false
         type: string
+      force:
+        description: 'Timpa edisi yang sudah READY'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   curate:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
     concurrency:
       group: ainews-long-curate
       cancel-in-progress: false
@@ -45,11 +50,14 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
         run: |
+          ARGS=""
           if [ -n "${{ github.event.inputs.date }}" ]; then
-            npx tsx scripts/full-long-pipeline.ts --date="${{ github.event.inputs.date }}"
-          else
-            npx tsx scripts/full-long-pipeline.ts
+            ARGS="$ARGS --date=${{ github.event.inputs.date }}"
           fi
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+          npx tsx scripts/full-long-pipeline.ts $ARGS
 
       - name: Commit long content + DB
         run: |

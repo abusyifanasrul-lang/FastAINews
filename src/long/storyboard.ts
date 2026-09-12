@@ -24,18 +24,18 @@ export function splitBeats(
   images: string[],
 ): Beat[] {
   const sentences = scriptClean.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
-  // potong kalimat raksasa (>25 kata) jadi potongan kata agar estimasi ≤10 dtk jujur
+  // potong kalimat raksasa (>20 kata) jadi potongan kata agar estimasi <=10 dtk jujur & muat di clip video AI 10s
   const units: string[] = [];
   for (const s of sentences) {
     const w = s.split(/\s+/);
-    if (w.length <= 25) { units.push(s); continue; }
-    for (let k = 0; k < w.length; k += 25) units.push(w.slice(k, k + 25).join(" "));
+    if (w.length <= 20) { units.push(s); continue; }
+    for (let k = 0; k < w.length; k += 20) units.push(w.slice(k, k + 20).join(" "));
   }
   const texts: string[] = [];
   let cur = "";
   for (const s of units) {
     const words = (cur + " " + s).trim().split(/\s+/).length;
-    if (cur && (words > 25 || (cur + " " + s).length >= 1000)) { texts.push(cur.trim()); cur = s; }
+    if (cur && (words > 20 || (cur + " " + s).length >= 1000)) { texts.push(cur.trim()); cur = s; }
     else cur = (cur + " " + s).trim();
   }
   if (cur.trim()) texts.push(cur.trim());

@@ -78,10 +78,15 @@ async function run(): Promise<void> {
   const shortWarn = durationSec < 480 ? "\n⚠️ <8 mnt — mid-roll berisiko ditolak YouTube." : "";
 
   // chapters dari storyboard.json bila ada
-  let chapters: Chapter[] = [{ title: "Intro", startSec: 0 }];
+  let chapters: Chapter[] = [{ title: "Intro & Tesis Utama", startSec: 0 }];
   try {
-    if (row.storyboard_path && existsSync(row.storyboard_path)) {
-      const sb = JSON.parse((await import("node:fs")).readFileSync(row.storyboard_path, "utf8"));
+    const sbPath = row.storyboard_path && existsSync(row.storyboard_path)
+      ? row.storyboard_path
+      : row.storyboard_path && existsSync(join(process.cwd(), row.storyboard_path))
+      ? join(process.cwd(), row.storyboard_path)
+      : join(process.cwd(), "content", "long", date, "storyboard.json");
+    if (existsSync(sbPath)) {
+      const sb = JSON.parse((await import("node:fs")).readFileSync(sbPath, "utf8"));
       if (Array.isArray(sb.chapters) && sb.chapters.length >= 3) chapters = sb.chapters;
     }
   } catch { console.warn("[publish-long] storyboard tak terbaca — chapters default"); }

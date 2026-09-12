@@ -25,9 +25,9 @@ export function countWords(text: string): number {
   return text.split(/\s+/).filter(Boolean).length;
 }
 
-export function validateLongScript(text: string, minWords = 1250): void {
-  if (text.length < 4000) throw new Error(`Naskah long terlalu pendek (${text.length} char < 4000).`);
-  if (text.length > 14000) throw new Error(`Naskah long terlalu panjang (${text.length} char > 14000).`);
+export function validateLongScript(text: string, minWords = 900): void {
+  if (text.length < 3500) throw new Error(`Naskah long terlalu pendek (${text.length} char < 3500).`);
+  if (text.length > 15000) throw new Error(`Naskah long terlalu panjang (${text.length} char > 15000).`);
   const words = countWords(text);
   if (words < minWords) throw new Error(`Naskah long terlalu pendek (${words} kata < ${minWords}).`);
   const hits = REASONING_PATTERNS.filter((r) => r.test(text));

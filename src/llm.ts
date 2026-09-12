@@ -6,7 +6,7 @@ const endpoint = process.env.LLM_ENDPOINT;
 const apiKey = process.env.LLM_API_KEY;
 const endpointFallback = process.env.LLM_ENDPOINT_FALLBACK;
 const apiKeyFallback = process.env.LLM_API_KEY_FALLBACK;
-const model = process.env.LLM_MODEL ?? "Hermes";
+const getModel = () => process.env.LLM_MODEL ?? "Hermes";
 if (!endpoint) throw new Error("LLM_ENDPOINT missing");
 
 // OpenCode Go (enforced 2026-09-06): API requests must carry a stable
@@ -37,7 +37,7 @@ export interface LlmMessage { role: "system" | "user"; content: string }
 export async function chat(messages: LlmMessage[], maxTokens = 2000): Promise<string> {
   const MAX_RETRIES = 3;
 
-  async function callApi(url: string, token: string): Promise<string> {
+  async function callApi(url: string, token: string, modelName = getModel()): Promise<string> {
     await rateLimit(); // jeda 2 detik antar panggilan
     const res = await fetch(`${url}/chat/completions`, {
       method: "POST",
@@ -47,18 +47,44 @@ export async function chat(messages: LlmMessage[], maxTokens = 2000): Promise<st
         "x-opencode-session": OPENCODE_SESSION_ID,
         "User-Agent": OPENCODE_USER_AGENT,
       },
-      body: JSON.stringify({ model, messages, max_tokens: maxTokens, temperature: 0.7 }),
+      body: JSON.stringify({ model: modelName, messages, max_tokens: maxTokens, temperature: 0.7 }),
     });
     if (!res.ok) {
       const body = await res.text();
       throw new Error(`LLM ${res.status}: ${body.slice(0, 300)}`);
     }
     const rawText = await res.text();
-    // Streaming leak: beberapa proxy menempelkan suffix SSE "data: [DONE]" tepat setelah "}"
-    const cleaned = rawText.replace(/data:\s*\[DONE\]\s*$/, "").trim();
-    const data = JSON.parse(cleaned) as { choices: { message: { content: string } }[] };
-    let content = data.choices?.[0]?.message?.content;
-    if (!content) throw new Error("LLM: kosong");
+    let content = "";
+
+    // Deteksi apakah response berupa SSE streaming chunks (data: {...})
+    if (rawText.startsWith("data:") || rawText.includes("\ndata:")) {
+      const lines = rawText.split("\n");
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed.startsWith("data:") || trimmed === "data: [DONE]") continue;
+        try {
+          const jsonStr = trimmed.replace(/^data:\s*/, "");
+          const chunk = JSON.parse(jsonStr);
+          const piece = chunk.choices?.[0]?.delta?.content ?? chunk.choices?.[0]?.message?.content ?? "";
+          content += piece;
+        } catch {}
+      }
+    } else {
+      // Streaming leak: beberapa proxy menempelkan suffix SSE "data: [DONE]" tepat setelah "}"
+      const cleaned = rawText.replace(/data:\s*\[DONE\]\s*$/, "").trim();
+      try {
+        const data = JSON.parse(cleaned) as { choices: { message: { content: string | null } }[] };
+        content = data.choices?.[0]?.message?.content ?? "";
+      } catch {}
+    }
+
+    if (!content) {
+      if (modelName === "Hermes") {
+        console.warn("[llm] model Hermes respons kosong, mencoba fallback ke kgw/kilo-auto/free...");
+        return callApi(url, token, "kgw/kilo-auto/free");
+      }
+      throw new Error("LLM: kosong");
+    }
     // Strip tag <think>...</think> jika model memancarkan thinking tokens (termasuk tag unclosed saat truncate)
     content = content.replace(/<think>[\s\S]*?(?:<\/think>|$)/gi, "").trim();
     return content;

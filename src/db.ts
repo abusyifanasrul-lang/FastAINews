@@ -193,13 +193,20 @@ export function updateLongContentPublishResult(id: number, gdriveUrl: string, yo
   `).run(gdriveUrl, youtubeId, durationSec, id);
 }
 
-export function getRecentContentsForLong(limitDays = 3): { content: ContentRow; sources: SourceRow[] }[] {
-  const contents = db.prepare(`
-    SELECT * FROM contents 
-    WHERE script_text IS NOT NULL AND status != 'SKIPPED'
-    ORDER BY date DESC 
-    LIMIT ?
-  `).all(limitDays) as ContentRow[];
+export function getRecentContentsForLong(limitDays = 3, beforeDate?: string): { content: ContentRow; sources: SourceRow[] }[] {
+  const contents = beforeDate
+    ? db.prepare(`
+        SELECT * FROM contents 
+        WHERE date <= ? AND date >= date(?, '-5 days') AND script_text IS NOT NULL AND status != 'SKIPPED'
+        ORDER BY date DESC 
+        LIMIT ?
+      `).all(beforeDate, beforeDate, limitDays) as ContentRow[]
+    : db.prepare(`
+        SELECT * FROM contents 
+        WHERE script_text IS NOT NULL AND status != 'SKIPPED'
+        ORDER BY date DESC 
+        LIMIT ?
+      `).all(limitDays) as ContentRow[];
 
   return contents.map(c => ({
     content: c,
