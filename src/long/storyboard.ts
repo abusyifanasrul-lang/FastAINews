@@ -1,7 +1,7 @@
 // Split beats + storyboard.json/md + chapter validator.
 // Estimasi durasi: WPM_ID=130 (kalibrasi kasar ID). ponytail: upgrade ke durasi
 // TTS riil per beat saat producer kirim durasi aktual — ceiling = estimasi.
-import { FACELESS_NEGATIVE, LONG_AUDIO_PROMPT, type BeatHint, type BeatVisual } from "./llm-long.js";
+import { FACELESS_NEGATIVE, LONG_AUDIO_PROMPT, themedHintFor, type BeatHint, type BeatVisual } from "./llm-long.js";
 import { formatTimestamp } from "./validate.js";
 
 export const WPM_ID = 130;
@@ -49,12 +49,31 @@ export function splitBeats(
     const chapter = [...chapters].reverse().find((c) => c.startSec <= t)?.title ?? chapters[0]?.title ?? "Intro";
     const hint = hints[k] ?? { visual: "STATIC_IMAGE_MOTION" as BeatVisual, sfx: "futuristic ambient hum, no music" };
     const needImg = hint.visual !== "T2V_GENERATION";
-    const srcImage = needImg && images.length > 0 ? (images[imgIdx++ % images.length] ?? null) : null;
+    // srcImage dari hint LLM dipakai bila path-nya benar-benar ada di daftar gambar edisi;
+    // selain itu fallback siklik (perilaku lama).
+    const hinted = hint.srcImage != null && images.includes(hint.srcImage) ? hint.srcImage : null;
+    let srcImage: string | null = null;
+    if (needImg) {
+      if (hinted) srcImage = hinted;
+      else if (images.length > 0) srcImage = images[imgIdx++ % images.length] ?? null;
+    }
+    let visual = hint.visual;
+    let prompt = hint.prompt ?? "";
+    let sfx = hint.sfx ?? LONG_AUDIO_PROMPT;
+    // Guard anti-blank: STATIC tanpa gambar ter-resolve (hanya terjadi bila edisi 0 gambar
+    // terdownload) tidak boleh tanpa arahan visual — alihkan ke T2V prompt tema deterministik.
+    if (visual === "STATIC_IMAGE_MOTION" && srcImage == null) {
+      const themed = themedHintFor(text);
+      visual = "T2V_GENERATION";
+      prompt = themed.prompt;
+      sfx = themed.sfx;
+      srcImage = null;
+    }
     const beat: Beat = {
       i: k + 1, chapter, startSec: Math.round(t * 10) / 10, estSec: dur, text,
-      visual: hint.visual, prompt: hint.prompt ?? "",
+      visual, prompt,
       faceless: true, negative_prompt: FACELESS_NEGATIVE,
-      audio: { music: false, ambient_sfx: true, audio_prompt: hint.sfx ?? LONG_AUDIO_PROMPT },
+      audio: { music: false, ambient_sfx: true, audio_prompt: sfx },
       srcImage,
     };
     t += dur;

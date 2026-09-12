@@ -5,7 +5,7 @@ import { parseArgs } from "node:util";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { curateLongNews } from "../src/long/curator.js";
-import { generateLongScript, classifyBeats } from "../src/long/llm-long.js";
+import { generateLongScript, generateLongStoryboard } from "../src/long/llm-long.js";
 import { splitBeats, validateChapters, buildStoryboardMd, type Chapter } from "../src/long/storyboard.js";
 import { stripMidroll } from "../src/long/validate.js";
 import { upsertLongContent, getLongContentByDate } from "../src/db.js";
@@ -70,8 +70,17 @@ async function run(): Promise<void> {
   }
   validateChapters(chapters, totalEst);
 
-  console.log("[long] 3/4 klasifikasi visual + storyboard...");
-  const fullHints = await classifyBeats(pass1.map((b) => b.text), chapters.map((c) => c.title), imgPaths);
+  console.log("[long] 3/4 storyboard visual per beat via LLM...");
+  // imgMeta paralel dengan items (index sama dengan images), agar LLM bisa
+  // memilih gambar sumber yang benar-benar relevan dengan isi beat.
+  const imgMeta = images
+    .map((p, i) => (p ? { path: p, title: items[i]?.title ?? "", publisher: items[i]?.publisher ?? "" } : null))
+    .filter((x): x is { path: string; title: string; publisher: string } => !!x);
+  const labeled = pass1.map((b) => ({
+    text: b.text,
+    chapter: [...chapters].reverse().find((c) => c.startSec <= b.startSec)?.title ?? "Intro & Tesis Utama",
+  }));
+  const fullHints = await generateLongStoryboard(labeled, imgMeta);
   const beats = splitBeats(clean, fullHints, chapters, imgPaths);
   for (const b of beats) {
     b.chapter = [...chapters].reverse().find((c) => c.startSec <= b.startSec)?.title ?? "Intro & Tesis Utama";

@@ -2,6 +2,7 @@ import assert from "node:assert";
 import { stripMidroll, validateLongScript, formatTimestamp } from "../src/long/validate.js";
 import { parseGdriveId, splitPublishLongArgs } from "../src/long/gdrive.js";
 import { splitBeats, validateChapters, chaptersToDescription } from "../src/long/storyboard.js";
+import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
 
 // 1. stripMidroll: marker hilang dari teks, posisi tersimpan
 {
@@ -63,7 +64,7 @@ import { splitBeats, validateChapters, chaptersToDescription } from "../src/long
     "Pasar enterprise AI mencatatkan pertumbuhan pendapatan hingga 70 persen dengan valuasi triliunan rupiah.",
     "Kita memasuki babak baru di mana adopsi teknologi cerdas mengubah seluruh aspek kehidupan.",
   ];
-  const hints = await (await import("../src/long/llm-long.js")).classifyBeats(sampleBeats, ["Intro", "Deep-Dive"], []);
+  const hints = await classifyBeats(sampleBeats, ["Intro", "Deep-Dive"], []);
   assert.strictEqual(hints.length, sampleBeats.length, "jumlah hint tidak cocok");
   const t2v = hints.filter((h) => h.visual === "T2V_GENERATION");
   assert(t2v.length >= Math.ceil(sampleBeats.length * 0.35), `T2V terlalu sedikit: ${t2v.length}/${sampleBeats.length}`);
@@ -87,5 +88,54 @@ import { splitBeats, validateChapters, chaptersToDescription } from "../src/long
   assert(d.includes("00:00 Intro") && d.includes("01:05 X"), "format chapters salah");
   assert.strictEqual(formatTimestamp(270), "04:30");
   console.log("ok validateChapters + description");
+}
+// 7. parseStoryboardJson: JSON valid/fenced, sanitasi jaminan paten, tolak format rusak
+{
+  const trio = Array(3).fill(0).map((_, i) => ({ visual: "T2V_GENERATION", prompt: `cinematic macro of next-gen chip ${i}, glowing interconnects`, sfx: "subtle electronic hum" }));
+  const good = JSON.stringify(trio);
+  const hints = parseStoryboardJson(good, 3);
+  assert.strictEqual(hints.length, 3, "jumlah hint salah");
+  assert(hints[0].prompt.includes("faceless, no people, no text"), "jaminan faceless tidak disuntik");
+  assert(hints[0].sfx.includes("no background music"), "jaminan no-music tidak disuntik");
+  const fenced = "```json\n" + good + "\n```";
+  assert.strictEqual(parseStoryboardJson(fenced, 3).length, 3, "fence gagal dibersihkan");
+  const withImg = JSON.stringify([{ visual: "I2V_ANIMATE_IMAGE", prompt: "animate data center image", sfx: "deep drone", srcImage: "content/long/x/images/src1.jpg" }]);
+  assert.strictEqual(parseStoryboardJson(withImg, 1)[0].srcImage, "content/long/x/images/src1.jpg", "srcImage hilang");
+  assert.strictEqual(parseStoryboardJson(JSON.stringify([{ visual: "STATIC_IMAGE_MOTION", prompt: "harus kosong", sfx: "sfx" }]), 1)[0].prompt, "", "prompt STATIC tidak dikosongkan");
+  const adversarial = "Berikut storyboard untuk [bab: Intro & Tesis Utama]: " + good;
+  assert.strictEqual(parseStoryboardJson(adversarial, 3).length, 3, "kurung siku teks pembuka merusak parsing");
+  assert.throws(() => parseStoryboardJson("bukan json sama sekali", 3), /JSON/);
+  assert.throws(() => parseStoryboardJson(good, 5), /Jumlah/);
+  assert.throws(() => parseStoryboardJson(JSON.stringify([{ visual: "DRAMA", prompt: "x", sfx: "y" }]), 1), /visual/);
+  console.log("ok parseStoryboardJson (JSON-only, sanitasi jaminan, tolak rusak)");
+}
+// 8. splitBeats: srcImage dari hint dipakai bila valid, dibuang bila path liar
+{
+  const imgA = "content/long/2026-09-12/images/src1.jpg";
+  const imgB = "content/long/2026-09-12/images/src2.jpg";
+  const text = `${Array(60).fill("narasi berita yang cukup panjang untuk Anda").join(" ")}.`;
+  const hintsValid = [{ visual: "I2V_ANIMATE_IMAGE" as const, prompt: "p", sfx: "s", srcImage: imgA }];
+  const beatsA = splitBeats(text, hintsValid, [{ title: "A", startSec: 0 }], [imgA, imgB]);
+  assert(beatsA.some((b) => b.srcImage === imgA), "srcImage valid dari hint tidak dipakai");
+  const hintsLiar = [{ visual: "I2V_ANIMATE_IMAGE" as const, prompt: "p", sfx: "s", srcImage: "/absent/path.jpg" }];
+  const beatsB = splitBeats(text, hintsLiar, [{ title: "A", startSec: 0 }], [imgA, imgB]);
+  for (const b of beatsB) assert(b.srcImage !== "/absent/path.jpg", "path liar dipakai");
+  console.log("ok splitBeats srcImage hint (valid dipakai, liar dibuang)");
+}
+// 9. guard STATIC-blank: STATIC tanpa gambar ter-resolve (edisi 0 gambar) → T2V themed, tidak blank
+{
+  const teks = "Narasi singkat tentang regulasi AI yang berdampak untuk Anda.";
+  const beatsBlank = splitBeats(teks, [{ visual: "STATIC_IMAGE_MOTION", prompt: "", sfx: "s" }], [{ title: "A", startSec: 0 }], []);
+  assert(beatsBlank.length > 0, "beats kosong");
+  for (const b of beatsBlank) {
+    assert(b.visual === "T2V_GENERATION", `STATIC blank tidak dialihkan: ${b.visual}`);
+    assert(b.prompt.includes("Unreal Engine 5") && b.prompt.includes("faceless, no people, no text"), "prompt themed rusak");
+    assert(b.srcImage == null, "srcImage harus null pada T2V");
+  }
+  // edisi DENGAN gambar: STATIC tetap STATIC (dapat gambar siklik — perilaku sumber berita)
+  const img = "content/long/2026-09-12/images/src1.jpg";
+  const beatsImg = splitBeats(teks, [{ visual: "STATIC_IMAGE_MOTION", prompt: "", sfx: "s" }], [{ title: "A", startSec: 0 }], [img]);
+  for (const b of beatsImg) assert(b.visual === "STATIC_IMAGE_MOTION" && b.srcImage === img, "STATIC dengan gambar ikut teralihkan");
+  console.log("ok guard STATIC-blank (0 gambar → T2V themed; dengan gambar tetap STATIC)");
 }
 console.log("SEMUA UJI LONG-FORM LOLOS");
