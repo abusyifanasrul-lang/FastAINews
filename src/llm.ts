@@ -34,7 +34,7 @@ async function rateLimit() {
 
 export interface LlmMessage { role: "system" | "user"; content: string }
 
-export async function chat(messages: LlmMessage[], maxTokens = 2000): Promise<string> {
+export async function chat(messages: LlmMessage[], maxTokens = 2000, temperature = 0.7): Promise<string> {
   const MAX_RETRIES = 3;
 
   async function callApi(url: string, token: string, modelName = getModel()): Promise<string> {
@@ -47,7 +47,7 @@ export async function chat(messages: LlmMessage[], maxTokens = 2000): Promise<st
         "x-opencode-session": OPENCODE_SESSION_ID,
         "User-Agent": OPENCODE_USER_AGENT,
       },
-      body: JSON.stringify({ model: modelName, messages, max_tokens: maxTokens, temperature: 0.7 }),
+      body: JSON.stringify({ model: modelName, messages, max_tokens: maxTokens, temperature }),
     });
     if (!res.ok) {
       const body = await res.text();

@@ -1,7 +1,8 @@
 # LAPORAN TEKNIS: Keputusan & Mekanisme Storyboard LLM (Stage-2 Long-Form)
 
 > Disusun: 2026-09-12. Target pembaca: agent AI lain yang melanjutkan pengembangan FastAINews.
-> Revisi 2026-09-12: 3 mikro-tweaks hasil review agent kedua — retry batch 3x→2x, regex parser tahan teks pembuka ber-kurung-siku, guard STATIC-blank (edisi 0 gambar → T2V themed).
+> Revisi 1: mikro-tweaks review agent kedua — retry batch 3x→2x, regex parser tahan teks pembuka ber-kurung-siku, guard STATIC-blank (edisi 0 gambar → T2V themed).
+> Revisi 2 (postmortem kegagalan CI riil): model men-ECHO input + output terpotong sebelum JSON → perbaikan berlapis: anti-echo prompt, temperature 0.2, batch 16→8, maxTokens 3200→4500, parser salvage objek utuh dari output terpotong + pad parsial, circuit breaker 2 batch beruntun fallback.
 > Scope: alasan keputusan Opsi A (Stage-2 storyboard kembali via LLM) + mekanisme detail implementasinya.
 > File yang relevan: `src/long/llm-long.ts`, `src/long/storyboard.ts`, `scripts/full-long-pipeline.ts`, `scripts/test-long-unit.ts`.
 
@@ -105,31 +106,40 @@ Prompt memerintahkan model berperan sebagai "visual director" faceless AI-news l
 
 Per batch, menyusun dua blok:
 - **AVAILABLE IMAGES**: daftar `N. <path> — [<publisher>] <judul-berita>` (atau teks "(kosong — jangan isi srcImage)"). Judul berita + publisher inilah yang membuat LLM bisa memilih gambar **secara semantik** (mengatasi KR-4).
-- **BEATS**: `N. [bab: <judul-chapter>] <teks-beat>` — label bab memberi konteks fase narasi (hook/deep-dive/analisis).
+- **BEATS**: `N. Bab: <judul-chapter> | <teks-beat>` — label bab TANPA kurung siku (pelajaran postmortem: label `[bab: X]` ber-kurung-siku ikut ter-echo model dan merusak slicing), memberi konteks fase narasi (hook/deep-dive/analisis). Diakhiri instruksi anti-echo: *"MULAI output langsung dengan karakter '[' — DILARANG keras mengulang/menyalin teks di atas."*
 
 ### 4.4 Parser anti-rusak — `parseStoryboardJson()` (llm-long.ts, export)
 
-Digunakan untuk validasi + retry, sanitasi jaminan paten:
+Digunakan untuk validasi + retry, sanitasi jaminan paten. **Revisi postmortem** — perilaku tahan benc:
 
-- Slicing tahan benc: regex greedy `\[\s*\{[\s\S]*\}\s*\]` mencari kurung siku pembuka-array-objek — teks pembuka LLM yang memuat kurung siku lain (mis. `[bab: Intro]:`) tidak merusak parsing; fallback `indexOf('[')..lastIndexOf(']')`; otomatis membersihkan code fence ```json dan teks pengantar.
-- **Tolak** (memicu retry): tidak ada array, jumlah objek ≠ jumlah beat, `visual` di luar 3 enum.
+- **Pencarian array**: `lastIndexOf("[{")` — mencari kurung siku yang DIIKUTI kurung kurawal (pembuka array JSON). Kebal label echo seperti `[bab: Intro & Tesis Utama]` (ber-`[b`, bukan `[{`) maupun code fence.
+- **Salvage output terpotong**: bila `JSON.parse` gagal (output habis di maxTokens/cap vendor sebelum `]` penutup), objek lengkap diselamatkan satu per satu via regex `\{[^{}]*\}`, difilter visual-enum valid, dan **dikembalikan PARSIAL** (tidak melempar error) — orchestrator mengisi sisanya.
+- **Tolak** (memicu retry): tidak ada `[{` sama sekali, array utuh tapi bukan-array, array utuh tapi jumlah ≠ jumlah beat, semua objek rusak, `visual` di luar 3 enum.
 - **Injeksi jaminan paten** (bila LLM lupa): non-STATIC + prompt tanpa "faceless" → suntik `", faceless, no people, no text"`; `sfx` tanpa larangan musik → suntik `", no background music"`.
 - **Sanitasi**: `prompt` STATIC dipaksa `""`; `srcImage` kosong → `null`; `sfx` kosong → default `LONG_AUDIO_PROMPT`.
 
 ### 4.5 Orkestrator batch — `generateLongStoryboard()` (llm-long.ts, export)
 
 ```
-for batch dari beats (16/batch, offset kumulatif):
-    retry 2x:  chat([SYSTEM_STORYBOARD, user], 3200) → parseStoryboardJson(raw, batch.length)
-    gagal 2x → hints = classifyBeats(batch)          ← fallback mapper regex (per batch)
+for batch dari beats (8/batch, offset kumulatif):
+    retry 2x:  chat([SYSTEM_STORYBOARD, user], 4500, temperature 0.2) → parseStoryboardJson(raw, batch.length)
+    gagal 2x → hints = classifyBeats(batch); consecutiveFallback++
+               circuit breaker: 2 batch beruntun fallback → LLM "tidak sehat",
+               sisa beat langsung classifyBeats (satu panggilan) → break
+    parsial  → pad sisanya dengan themedHintFor(text) visual T2V themed
     sanitasi: srcImage yang tidak ada di daftar edisi → null (anti-path-liar)
     kumpulkan
-log ringkasan: N beat → T2V/I2V/STATIC, jumlah batch
+log ringkasan: N beat → T2V/I2V/STATIC, X/Y batch via LLM
 ```
 
-Detail penting:
-- `STORYBOARD_BATCH = 16` — kalkulasi ukuran: 16 beat × (prompt 30-60 kata ≈ 60-100 token + sfx ≈ 20 token + JSON overhead) ≈ 1800-2400 token → `maxTokens 3200` memberi margin aman agar output tidak terpotong (terpotong = JSON rusak = retry).
-- Retry per batch **2×** dengan backoff `sleep(1500 * attempt)` (revisi hasil review agent kedua: percobaan ke-3 dengan mode gagal sama jarang menyelamatkan — lebih baik fallback cepat; worst-case 1 batch gagal ≈ 60 dtk, bukan 90 dtk; cascade 2 batch gagal ≈ +2 mnt, total workflow tetap < timeout 15 mnt).
+Detail penting (mengapa parameter sekarang):
+- `STORYBOARD_BATCH = 8` — **turun dari 16**. Postmortem CI 2026-09-12: model OpenCode free-tier men-ECHO seluruh input (16 beat × ≤1000 char ≈ 4000+ token) dan output terpotong SEBELUM JSON ditulis (bukti log: percobaan 1 tanpa `]` sama sekali; percobaan 2 `Unexpected token 'b', "[bab: Intro"...`). Batch 8 memotong input & output ~separuh sehingga bahkan echo pun muat sampai JSON selesai.
+- `maxTokens 4500` — **naik dari 3200**. JSON 8 objek ≈ 1200-1600 token; dengan skenario worst-case echo (~500-1000 token) masih muat. (Bila vendor punya cap output riil lebih rendah, salvage + pad menutupnya.)
+- `temperature 0.2` — **turun dari 0.7 default `chat()`**. `chat()` kini menerima parameter `temperature` opsional (default 0.7, backward compatible — Stage-1 dan shorts tidak berubah). Temperature rendah membuat model patuh format JSON dan menekan kecenderungan echo/rambling.
+- **Anti-echo**: aturan Rule 7 di system prompt (*first char '[' , last ']' , never copy input*) + label beat bracket-free + instruksi penutup user prompt.
+- **Salvage + pad**: output terpotong bukan kegagalan total — objek utuh dipertahankan, sisanya diisi `themedHintFor(text)` visual T2V themed (UE5 + faceless). Storyboard selalu penuh panjang.
+- **Circuit breaker 2 batch beruntun**: bila vendor sistematis gagal (2 fallback beruntun), sisa beat langsung mapper instan — worst-case waktu Stage-2 terikat ≈ 4 percobaan gagal (~2-4 mnt) + mapper (~0 dtk) alih-alih 15 batch × 60 dtk yang menghabiskan timeout 15 mnt (persis yang terjadi saat CI di-cancel).
+- Retry per batch **2×** dengan backoff `sleep(1500 * attempt)`.
 - `chat()` dari `src/llm.ts` sudah membawa rate-limit internal 2 detik/panggilan, retry 3× + fallback model bila "Hermes" kosong, dan header `x-opencode-session` (wajib vendor). Tidak diduplikasi.
 
 ### 4.6 Konsumsi di pipeline — `scripts/full-long-pipeline.ts:73-87`
@@ -161,10 +171,11 @@ Prioritas: (1) pilihan LLM bila path-nya benar-benar ada di edisi; (2) fallback 
 
 | File | Perubahan |
 |---|---|
-| `src/long/llm-long.ts` | Komentar header Stage-2 direvisi; `BeatHint` +`srcImage?`; `SYSTEM_STORYBOARD`, `buildUserPrompt`, `parseStoryboardJson` (export), `generateLongStoryboard` (export), `themedHintFor` (export) DITAMBAHKAN; `classifyBeats` lama dipertahankan sebagai fallback (log → "Thematic Visual Mapper (fallback)"); `maxTokens` chat storyboard = 3200; retry batch 2×; regex parser greedy `[\s*\{...\}]`. |
+| `src/long/llm-long.ts` | Komentar header Stage-2 direvisi; `BeatHint` +`srcImage?`; `SYSTEM_STORYBOARD` (+Rule 7 anti-echo), `buildUserPrompt` (label beat bracket-free + instruksi anti-echo), `parseStoryboardJson` (export; lastIndexOf `[{` + salvage objek utuh dari output terpotong), `generateLongStoryboard` (export; batch 8, maxTokens 4500, temperature 0.2, pad parsial, circuit breaker 2 batch beruntun), `themedHintFor` (export) DITAMBAHKAN; `classifyBeats` lama dipertahankan sebagai fallback. |
+| `src/llm.ts` | `chat()` menerima parameter `temperature` opsional (default 0.7 — backward compatible, Stage-1/shorts tidak berubah). |
 | `src/long/storyboard.ts` | `splitBeats` menghormati `hint.srcImage` (valid edisi → dipakai; else siklik) + guard anti-blank: STATIC tanpa gambar ter-resolve → T2V themed via `themedHintFor`. |
 | `scripts/full-long-pipeline.ts` | Stage-2 memanggil `generateLongStoryboard(labeled, imgMeta)`; import berubah `classifyBeats` → `generateLongStoryboard`. |
-| `scripts/test-long-unit.ts` | +3 grup test: **#7** `parseStoryboardJson` (JSON murni, fenced, adversarial teks pembuka ber-kurung-siku, injeksi jaminan, srcImage, STATIC dikosongkan, 3 pola penolakan: bukan-JSON / salah-jumlah / visual-invalid), **#8** `splitBeats` srcImage hint (valid dipakai, path liar dibuang), **#9** guard STATIC-blank (0 gambar → T2V themed UE5; dengan gambar tetap STATIC). |
+| `scripts/test-long-unit.ts` | +4 grup test: **#7** `parseStoryboardJson` (JSON murni, fenced, injeksi jaminan, srcImage, STATIC dikosongkan, 3 pola penolakan), **#8** `splitBeats` srcImage hint (valid dipakai, path liar dibuang), **#9** guard STATIC-blank (0 gambar → T2V themed UE5; dengan gambar tetap STATIC), **#10** salvage tahan benc (echo input + JSON terpotong → 1 objek utuh diselamatkan; echo + array utuh tetap terparse). |
 
 Yang **TIDAK diubah**: `generateLongScript` (Stage-1), chapters statis proporsional (KR-5), `validateLongScript`/`validateChapters`, `buildStoryboardMd` format, workflow yml, DB schema, `classifyBeats` fallback.
 
@@ -173,9 +184,15 @@ Yang **TIDAK diubah**: `generateLongScript` (Stage-1), chapters statis proporsio
 | Uji | Hasil |
 |---|---|
 | `npm run build` (`tsc -p tsconfig.json`, strict) | ✅ 0 error |
-| `npx tsx scripts/test-long-unit.ts` (9 grup: stripMidroll, validateLongScript, parseGdriveId+args, splitBeats, Thematic Visual Mapper, validateChapters+description, parseStoryboardJson, splitBeats srcImage hint, guard STATIC-blank) | ✅ `SEMUA UJI LONG-FORM LOLOS` |
+| `npx tsx scripts/test-long-unit.ts` (10 grup: stripMidroll, validateLongScript, parseGdriveId+args, splitBeats, Thematic Visual Mapper, validateChapters+description, parseStoryboardJson, splitBeats srcImage hint, guard STATIC-blank, salvage echo/terpotong) | ✅ `SEMUA UJI LONG-FORM LOLOS` |
 
-Estimasi waktu CI (refleksi review agent kedua, edisi 116 beat): Stage-2 ≈ 8 batch × ~25 dtk ≈ 3.5 mnt; Stage-1 ≈ 1.5 mnt; total workflow 5–7 mnt — aman di bawah `timeout-minutes: 15`.
+Estimasi waktu CI setelah revisi postmortem (edisi 116 beat): Stage-2 worst-case SEHAT ≈ 15 batch × ~15-20 dtk ≈ 4-5 mnt; worst-case VENDOR RUSAK terikat circuit breaker ≈ 4 percobaan gagal (~2-4 mnt) + mapper instan; Stage-1 ≈ 1.5 mnt. Total workflow selalu < `timeout-minutes: 15` (kegagalan sebelumnya: 15 batch × 60 dtk retry → di-cancel).
+
+**Postmortem kegagalan CI riil 2026-09-12 (bukti log):**
+- `percobaan 1/2 gagal: JSON array tidak ditemukan di output LLM` → model men-echo seluruh daftar beat (16 × ≤1000 char ≈ 4000+ token), output terpotong SEBELUM ada `]` — parser benar menolak.
+- `percobaan 2/2 gagal: Unexpected token 'b', "[bab: Intro"... is not valid JSON` → echo memuat label `[bab: X]`; slicing lama `indexOf('[')` menangkap label, bukan JSON.
+- `batch 1/8 fallback... batch 2/8 fallback... batch 3/8 percobaan 1... Error: The operation was canceled` → kegagalan sistemik vendor (bukan glitch acak), retry semua batch memakan waktu hingga job di-cancel runtime.
+- Kesimpulan: kegagalan BUKAN pada resiliensi mapper (fallback bekerja persis seperti desain), tapi pada asumsi model patuh format + muat maxTokens 3200. Perbaikan berlapis (anti-echo/0.2/batch 8/4500/salvage/circuit breaker) menutup kelima asumsi itu.
 
 Catatan lingkungan: terminal shell sesi ini tidak stabil (integrasi output gagal), sehingga build/test diverifikasi via redirect output ke file sementara (lalu dihapus). Verifikasi ulang cukup: `npm run build` dan `npx tsx scripts/test-long-unit.ts`.
 
@@ -186,20 +203,23 @@ Catatan lingkungan: terminal shell sesi ini tidak stabil (integrasi output gagal
 | Keberagaman prompt | ~85% beat = 1 dari 8 kalimat template identik | Setiap prompt unik, merujuk subjek konkret narasi (nama chip/model/metrik), larang repetisi via Rule 1 |
 | Beat STATIC | Prompt kosong → segmen tanpa arahan visual | Keputusan STATIC semantik via Rule 3 (bukan trigger regex agresif); guard anti-blank: STATIC tanpa gambar (edisi 0 gambar) otomatis dialihkan T2V themed — tidak pernah blank |
 | Pemilihan gambar | Siklik `imgIdx++ % n` — mismatch | Semantik oleh LLM berdasar judul berita + publisher; validasi double di kode |
-| Jaminan patokan | Hanya dari mapper | Ditulis di system prompt + **di-inject ulang parser** (double-guarantee) |
-| Resiliensi | 100% deterministik | LLM retry 2×/batch → fallback mapper per batch → pipeline tak mati |
-| Biaya LLM | 1 panggilan (Stage-1) | +~3-4 panggilan batch (Stage-2) |
+| Jaminan paten | Hanya dari mapper | Ditulis di system prompt + **di-inject ulang parser** (double-guarantee) |
+| Resiliensi | 100% deterministik | Temperature 0.2 + anti-echo + salvage + pad parsial + fallback per batch + circuit breaker → pipeline tak mati, storyboard selalu penuh panjang |
+| Biaya LLM | 1 panggilan (Stage-1) | +~4-15 panggilan batch (Stage-2, terikat circuit breaker bila vendor rusak) |
 
 ## 8. Catatan untuk Agent Berikutnya (Kontrak & Upgrade Path)
 
 **Jangan dilanggar (akan merusak produksi owner):**
-1. **Jangan hapus fallback `classifyBeats`** — satu-satunya jalur selamat bila vendor LLM turun.
+1. **Jangan hapus fallback `classifyBeats`** — satu-satunya jalur selamat bila vendor LLM turun (terbukti menyelamatkan run CI saat kegagalan sistemik).
 2. **Jangan hapus sanitasi `srcImage`** (parser + `splitBeats` + sanitasi post-batch) — LLM bisa mengarang path; path liar akan merusak produksi di laptop.
-3. **Jangan kurangi `maxTokens 3200`** tanpa menurunkan `STORYBOARD_BATCH` — output terpotong = JSON rusak = retry sia-sia.
+3. **Jangan naikkan `STORYBOARD_BATCH` kembali ke 16 tanpa bukti vendor sehat** — postmortem CI membuktikan echo + terpotong pada batch 16/maxTokens 3200. Batch 8 + maxTokens 4500 adalah pasangan aman; naikkan hanya dengan bukti log vendor patuh format.
 4. **Jangan lemahkan jaminan paten** (faceless/no-people/no-text, no-music, negative_prompt) — kebijakan channel: 100% faceless & tanpa background music.
-5. **Jangan hapus guard STATIC-blank** (`splitBeats`: STATIC tanpa gambar → T2V themed) — tanpa guard, edisi 0 gambar menghasilkan beat blank (kelemahan yang ditemukan review agent kedua).
-6. Retry batch **2× sengaja dipilih** (bukan 3×) — trade-off waktu CI vs peluang kecil penyelamatan; naikkan kembali hanya bila vendor LLM sering glitch pada percobaan pertama.
-7. `prompt` untuk STATIC **dengan gambar** sengaja `""` — STATIC dirender dari og:image berita sumber (Ken Burns di editor), bukan T2V; STATIC tanpa gambar sudah diguard ke T2V themed (item 5).
+5. **Jangan hapus guard STATIC-blank** (`splitBeats`: STATIC tanpa gambar → T2V themed) — tanpa guard, edisi 0 gambar menghasilkan beat blank.
+6. Retry batch **2× sengaja dipilih** (bukan 3×) — trade-off waktu CI vs peluang kecil penyelamatan; kegagalan sistemik ditangani circuit breaker, bukan retry lebih banyak.
+7. **Jangan hapus circuit breaker** (`consecutiveFallback >= 2`) — tanpa itu, vendor sistematis gagal memakan seluruh timeout 15 mnt (persis penyebab CI di-cancel pada kegagalan riil).
+8. **Jangan turunkan temperature di bawah 0.2 atau kembalikan default 0.7 untuk storyboard** — 0.7 terbukti mendorong echo/rambling pada model OpenCode free-tier.
+9. **Pertahankan label beat bracket-free** (`Bab: X |` bukan `[bab: X]`) — label ber-kurung-siku ter-echo model dan dulu merusak slicing parser.
+10. `prompt` untuk STATIC **dengan gambar** sengaja `""` — STATIC dirender dari og:image berita sumber (Ken Burns di editor), bukan T2V; STATIC tanpa gambar sudah diguard ke T2V themed (item 5).
 
 **Estimasi vs durasi riil:** semua timestamp masih estimasi WPM 130 (lihat komentar `ponytail` di `storyboard.ts:2-3` — upgrade saat producer kirim durasi TTS riil).
 

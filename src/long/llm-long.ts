@@ -180,7 +180,8 @@ Rules:
 3. "visual": use "STATIC_IMAGE_MOTION" when the beat is a pure factual report/numbers best shown by the source news image; use "I2V_ANIMATE_IMAGE" when one of the AVAILABLE IMAGES clearly matches the beat subject; use "T2V_GENERATION" otherwise. At least 35% of beats must be "T2V_GENERATION".
 4. "srcImage": for I2V_ANIMATE_IMAGE / STATIC_IMAGE_MOTION copy the best matching path from AVAILABLE IMAGES EXACTLY; if nothing matches or the list is empty use "". Never invent paths. For T2V_GENERATION always "".
 5. "sfx": English, 6-14 words, ambient/foley only, MUST end with: ", no background music".
-6. No markdown, no commentary — output the JSON array only.`;
+6. No markdown, no commentary — output the JSON array only.
+7. NEVER copy or repeat any input text (especially the "Bab:" labels). The FIRST character of your output MUST be '[' and the LAST ']'.`;
 
 function buildUserPrompt(
   batch: { text: string; chapter: string }[],
@@ -190,23 +191,37 @@ function buildUserPrompt(
   const imgList = images.length
     ? images.map((im, i) => `${i + 1}. ${im.path} — [${im.publisher}] ${im.title}`).join("\n")
     : "(kosong — jangan isi srcImage)";
-  const beatList = batch.map((b, i) => `${offset + i + 1}. [bab: ${b.chapter}] ${b.text}`).join("\n");
-  return `AVAILABLE IMAGES (salin path persis jika dipakai):\n${imgList}\n\nBEATS:\n${beatList}\n\nKembalikan HANYA array JSON berisi ${batch.length} objek untuk beat ${offset + 1}-${offset + batch.length}, urut sesuai nomor beat.`;
+  const beatList = batch.map((b, i) => `${offset + i + 1}. Bab: ${b.chapter} | ${b.text}`).join("\n");
+  return `AVAILABLE IMAGES (salin path persis jika dipakai):\n${imgList}\n\nBEATS:\n${beatList}\n\nKembalikan HANYA array JSON berisi ${batch.length} objek untuk beat ${offset + 1}-${offset + batch.length}, urut sesuai nomor. MULAI output langsung dengan karakter '[' — DILARANG keras mengulang/menyalin teks di atas.`;
 }
 
 /** Parse jawaban LLM storyboard jadi BeatHint[]; tolak format rusak (dipakai utk retry). */
 export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
-  // Regex greedy "[{...}]" tahan benc: teks pembuka LLM yang memuat kurung siku lain
-  // (mis. "[bab: Intro & Tesis Utama]:") tidak merusak slicing. Fallback: indexOf brackets.
-  const m = raw.match(/\[\s*\{[\s\S]*\}\s*\]/);
-  const start = raw.indexOf("[");
+  // Tahan benc (pelajaran postmortem CI 2026-09-12): array dicari via lastIndexOf("[{") —
+  // kebal teks echo model yang memuat label "[bab: Intro & Tesis Utama]". Bila JSON
+  // terpotong (maxTokens / cap output vendor), objek lengkap diselamatkan satu per satu
+  // dan dikembalikan PARSIAL — orchestrator mengisi sisanya.
+  const start = raw.lastIndexOf("[{");
+  if (start === -1) throw new Error("JSON array tidak ditemukan di output LLM");
   const end = raw.lastIndexOf("]");
-  if (!m && (start === -1 || end <= start)) throw new Error("JSON array tidak ditemukan di output LLM");
-  const arr = JSON.parse(m ? m[0] : raw.slice(start, end + 1)) as unknown;
-  if (!Array.isArray(arr) || arr.length !== expected) {
-    throw new Error(`Jumlah objek storyboard ${Array.isArray(arr) ? arr.length : "bukan-array"} != ${expected}`);
+  const slice = raw.slice(start, end > start ? end + 1 : undefined);
+  let arr: unknown;
+  try {
+    const parsed = JSON.parse(slice) as unknown;
+    if (!Array.isArray(parsed)) throw new Error("Output LLM bukan array");
+    if (parsed.length !== expected) throw new Error(`Jumlah objek storyboard ${parsed.length} != ${expected}`);
+    arr = parsed;
+  } catch (e) {
+    const msg = (e as Error).message;
+    if (msg.includes("Jumlah objek") || msg.includes("bukan array")) throw e; // array utuh tapi salah — strict
+    const VALID = ["STATIC_IMAGE_MOTION", "T2V_GENERATION", "I2V_ANIMATE_IMAGE"];
+    const objs = (slice.match(/\{[^{}]*\}/g) ?? [])
+      .map((o) => { try { return JSON.parse(o) as Record<string, unknown>; } catch { return null; } })
+      .filter((o): o is Record<string, unknown> => !!o && VALID.includes(o.visual as string));
+    if (objs.length === 0) throw new Error("Tidak ada objek storyboard utuh di output LLM");
+    arr = objs; // parsial diterima
   }
-  return arr.map((o, i) => {
+  return (arr as Record<string, unknown>[]).map((o, i) => {
     const e = o as Partial<BeatHint> & { srcImage?: unknown };
     if (e.visual !== "STATIC_IMAGE_MOTION" && e.visual !== "T2V_GENERATION" && e.visual !== "I2V_ANIMATE_IMAGE") {
       throw new Error(`visual tidak valid di indeks ${i}: ${String(e.visual)}`);
@@ -228,12 +243,18 @@ export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
   });
 }
 
-const STORYBOARD_BATCH = 16;
+const STORYBOARD_BATCH = 8;
 
 /**
- * Stage-2 storyboard via LLM: batch per ~16 beat, kontekstual per berita.
- * Gagal parse 2x pada satu batch → fallback deterministik classifyBeats utk batch tsb.
- * (2x sengaja: percobaan ke-3 dengan mode gagal sama jarang menyelamatkan — boros waktu CI.)
+ * Stage-2 storyboard via LLM: batch per 8 beat, kontekstual per berita.
+ * Postmortem CI 2026-09-12: batch 16 + maxTokens 3200 gagal sistemik karena model
+ * men-ECHO input dan output terpotong sebelum JSON. Perbaikan berlapis:
+ * (1) anti-echo di system+user prompt, (2) temperature 0.2 (chat(), bukan 0.7 default),
+ * (3) batch 8 + maxTokens 4500 (echo pun muat sampai JSON selesai), (4) parser salvage
+ * objek utuh dari output terpotong + pad parsial, (5) circuit breaker: 2 batch beruntun
+ * fallback → LLM dinyatakan tidak sehat, sisa beat langsung mapper (workflow tak habis
+ * timeout untuk vendor yang sistematis gagal). Retry 2x per batch (percobaan ke-3
+ * dengan mode gagal sama jarang menyelamatkan).
  */
 export async function generateLongStoryboard(
   beats: { text: string; chapter: string }[],
@@ -241,6 +262,8 @@ export async function generateLongStoryboard(
 ): Promise<BeatHint[]> {
   const out: BeatHint[] = [];
   const totalBatches = Math.ceil(beats.length / STORYBOARD_BATCH);
+  let batchesExecuted = 0;
+  let consecutiveFallback = 0;
   for (let off = 0; off < beats.length; off += STORYBOARD_BATCH) {
     const batch = beats.slice(off, off + STORYBOARD_BATCH);
     const no = Math.floor(off / STORYBOARD_BATCH) + 1;
@@ -249,7 +272,8 @@ export async function generateLongStoryboard(
     let lastErr: Error | undefined;
     for (let attempt = 1; attempt <= 2 && !hints; attempt++) {
       try {
-        const raw = await chat([{ role: "system", content: SYSTEM_STORYBOARD }, { role: "user", content: user }], 3200);
+        // temperature 0.2: output JSON jauh lebih patuh daripada default chat() 0.7
+        const raw = await chat([{ role: "system", content: SYSTEM_STORYBOARD }, { role: "user", content: user }], 4500, 0.2);
         hints = parseStoryboardJson(raw, batch.length);
       } catch (err) {
         lastErr = err as Error;
@@ -258,8 +282,28 @@ export async function generateLongStoryboard(
       }
     }
     if (!hints) {
+      consecutiveFallback++;
+      batchesExecuted++;
       console.warn(`[llm-long] batch ${no}/${totalBatches} fallback Thematic Visual Mapper (${lastErr?.message})`);
       hints = await classifyBeats(batch.map((b) => b.text), [], []);
+      out.push(...hints);
+      if (consecutiveFallback >= 2) {
+        // Circuit breaker: vendor sistematis gagal — sisa beat pakai mapper instan.
+        const rest = beats.slice(off + STORYBOARD_BATCH);
+        console.warn(`[llm-long] LLM storyboard tidak sehat (${consecutiveFallback} batch beruntun gagal) — ${rest.length} beat sisa pakai mapper`);
+        if (rest.length > 0) out.push(...(await classifyBeats(rest.map((b) => b.text), [], [])));
+        break;
+      }
+      continue; // hints mapper sudah penuh & tanpa srcImage — lewati pad/sanitasi
+    }
+    consecutiveFallback = 0;
+    batchesExecuted++;
+    if (hints.length < batch.length) {
+      console.warn(`[llm-long] batch ${no}/${totalBatches} objek LLM parsial (${hints.length}/${batch.length}) — sisanya diisi prompt tema deterministik`);
+      for (let j = hints.length; j < batch.length; j++) {
+        const themed = themedHintFor(batch[j].text);
+        hints.push({ visual: "T2V_GENERATION", prompt: themed.prompt, sfx: themed.sfx, srcImage: null });
+      }
     }
     // Buang srcImage liar (tidak ada di daftar gambar edisi)
     for (const h of hints) {
@@ -270,6 +314,6 @@ export async function generateLongStoryboard(
   const t2v = out.filter((h) => h.visual === "T2V_GENERATION").length;
   const i2v = out.filter((h) => h.visual === "I2V_ANIMATE_IMAGE").length;
   const st = out.filter((h) => h.visual === "STATIC_IMAGE_MOTION").length;
-  console.log(`[llm-long] storyboard LLM: ${out.length} beat → ${t2v} T2V, ${i2v} I2V, ${st} STATIC (${totalBatches} batch)`);
+  console.log(`[llm-long] storyboard LLM: ${out.length} beat → ${t2v} T2V, ${i2v} I2V, ${st} STATIC (${batchesExecuted}/${totalBatches} batch via LLM)`);
   return out;
 }

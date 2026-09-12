@@ -138,4 +138,15 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
   for (const b of beatsImg) assert(b.visual === "STATIC_IMAGE_MOTION" && b.srcImage === img, "STATIC dengan gambar ikut teralihkan");
   console.log("ok guard STATIC-blank (0 gambar → T2V themed; dengan gambar tetap STATIC)");
 }
+// 10. parseStoryboardJson tahan benc: echo input + JSON terpotong → salvage objek utuh
+{
+  const echo = "1. Bab: Intro & Tesis Utama | narasi berita untuk Anda di sini.\n2. Bab: Konteks | narasi lanjutan yang lain.\n";
+  const truncated = echo + '[{"visual": "T2V_GENERATION", "prompt": "cinematic macro of a chip, faceless, no people, no text", "sfx": "hum, no background music"},\n{"visual": "I2V_AN';
+  const salv = parseStoryboardJson(truncated, 8);
+  assert.strictEqual(salv.length, 1, `salvage count: ${salv.length}`);
+  assert(salv[0].visual === "T2V_GENERATION", "objek salvage salah");
+  const full = parseStoryboardJson(echo + JSON.stringify([{ visual: "T2V_GENERATION", prompt: "p", sfx: "s" }]), 1);
+  assert.strictEqual(full.length, 1, "echo + array utuh gagal diparse");
+  console.log("ok parseStoryboardJson salvage (echo/terpotong ditangani)");
+}
 console.log("SEMUA UJI LONG-FORM LOLOS");
