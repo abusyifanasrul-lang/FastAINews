@@ -4,6 +4,7 @@
 > Revisi 1: mikro-tweaks review agent kedua — retry batch 3x→2x, regex parser tahan teks pembuka ber-kurung-siku, guard STATIC-blank (edisi 0 gambar → T2V themed).
 > Revisi 2 (postmortem kegagalan CI riil): model men-ECHO input + output terpotong sebelum JSON → perbaikan berlapis: anti-echo prompt, temperature 0.2, batch 16→8, maxTokens 3200→4500, parser salvage objek utuh dari output terpotong + pad parsial, circuit breaker 2 batch beruntun fallback.
 > Revisi 3 (postmortem CI kedua): kegagalan bergeser ke Stage-1 — naskah overlong 17630 char > 15000 (`generateLongScript` lama tanpa retry langsung throw) → retry 3× dengan feedback korektif + fallback `trimNaskahToLength` di batas kalimat.
+> Revisi 4 (postmortem CI ketiga, run 34697372126): run di-cancel durasi 920 dtk = kena timeout workflow 15 mnt (retry Stage-1 bekerja, tapi endpoint free-tier lambat) → `timeout-minutes` 15→30 (sesuai desain `implementation_plan.md` §4.10) + pagu wall-clock Stage-2 15 mnt (sisa beat → mapper instan).
 > Scope: alasan keputusan Opsi A (Stage-2 storyboard kembali via LLM) + mekanisme detail implementasinya.
 > File yang relevan: `src/long/llm-long.ts`, `src/long/storyboard.ts`, `scripts/full-long-pipeline.ts`, `scripts/test-long-unit.ts`.
 
@@ -200,6 +201,10 @@ Estimasi waktu CI setelah revisi postmortem (edisi 116 beat): Stage-2 worst-case
 - Fallback terakhir **`trimNaskahToLength(lastScript, 14500)`** (export baru di `src/long/validate.ts`): pangkas di batas kalimat terakhir sebelum batas, validasi ulang — edisi tetap terbit walau ekor naskah (sintesis/CTA) dibuang. Test #11.
 - MaxTokens Stage-1 tetap 6000 (output 17630 char ≈ 4400 token, tidak terpotong — ini kepatuhan model, bukan truncation).
 
+**Postmortem CI ketiga (2026-09-12, run 34697372126):** retry Stage-1 **bekerja** (percobaan 1 gagal 20998 char → percobaan 2 sukses 1180 kata), tapi run di-cancel durasi **920 dtk = 15 mnt 20 dtk** — kena `timeout-minutes: 15` workflow (bukti: job `curate` conclusion `cancelled`, durasi persis batas). Endpoint free-tier lambat (~2-5 mnt per panggilan besar) membuat Stage-1 2 percobaan menyedot ~6-10 mnt, menyisakan terlalu sedikit waktu untuk Stage-2. Perbaikan:
+- `timeout-minutes` workflow **15 → 30** (sesuai desain asli `implementation_plan.md` §4.10 "Timeout 30 mnt" — workflow aktual tidak konsisten dengan plan).
+- **Pagu wall-clock Stage-2** (`STAGE2_BUDGET_MS = 15 mnt`): bila Stage-1 menyedot terlalu banyak waktu, sisa beat otomatis mapper instan — total pipeline terikat < 30 mnt walau vendor lambat.
+
 Catatan lingkungan: terminal shell sesi ini tidak stabil (integrasi output gagal), sehingga build/test diverifikasi via redirect output ke file sementara (lalu dihapus). Verifikasi ulang cukup: `npm run build` dan `npx tsx scripts/test-long-unit.ts`.
 
 ## 7. Dampak pada STORYBOARD.md (Sebelum → Sesudah)
@@ -226,6 +231,8 @@ Catatan lingkungan: terminal shell sesi ini tidak stabil (integrasi output gagal
 8. **Jangan turunkan temperature di bawah 0.2 atau kembalikan default 0.7 untuk storyboard** — 0.7 terbukti mendorong echo/rambling pada model OpenCode free-tier.
 9. **Pertahankan label beat bracket-free** (`Bab: X |` bukan `[bab: X]`) — label ber-kurung-siku ter-echo model dan dulu merusak slicing parser.
 10. `prompt` untuk STATIC **dengan gambar** sengaja `""` — STATIC dirender dari og:image berita sumber (Ken Burns di editor), bukan T2V; STATIC tanpa gambar sudah diguard ke T2V themed (item 5).
+11. **Jangan turunkan `timeout-minutes` workflow di bawah 30** dan **jangan hapus pagu `STAGE2_BUDGET_MS`** — endpoint free-tier lambat (~2-5 mnt per panggilan besar) terbukti membuat 15 mnt tidak cukup (run di-cancel di 920 dtk).
+12. **Jangan hapus retry/fallback Stage-1** (feedback korektif + `trimNaskahToLength`) — varians panjang naskah model tinggi (1180 kata vs 20998 char dalam run berbeda).
 
 **Estimasi vs durasi riil:** semua timestamp masih estimasi WPM 130 (lihat komentar `ponytail` di `storyboard.ts:2-3` — upgrade saat producer kirim durasi TTS riil).
 

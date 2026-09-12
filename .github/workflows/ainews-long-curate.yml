@@ -18,7 +18,7 @@ on:
 jobs:
   curate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     concurrency:
       group: ainews-long-curate
       cancel-in-progress: false

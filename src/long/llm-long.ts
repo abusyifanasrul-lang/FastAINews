@@ -286,6 +286,10 @@ export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
 }
 
 const STORYBOARD_BATCH = 8;
+// Pagu wall-clock Stage-2 (postmortem CI ketiga: workflow timeout dinaikkan 15 -> 30 mnt
+// karena Stage-1 bisa makan ~6-10 mnt di endpoint lambat — Stage-2 diberi pagu sendiri
+// supaya total pipeline tetap di bawah timeout workflow).
+const STAGE2_BUDGET_MS = 15 * 60_000;
 
 /**
  * Stage-2 storyboard via LLM: batch per 8 beat, kontekstual per berita.
@@ -306,9 +310,18 @@ export async function generateLongStoryboard(
   const totalBatches = Math.ceil(beats.length / STORYBOARD_BATCH);
   let batchesExecuted = 0;
   let consecutiveFallback = 0;
+  const t0 = Date.now();
   for (let off = 0; off < beats.length; off += STORYBOARD_BATCH) {
     const batch = beats.slice(off, off + STORYBOARD_BATCH);
     const no = Math.floor(off / STORYBOARD_BATCH) + 1;
+    // Time budget: bila pagu Stage-2 habis, sisa beat langsung mapper instan (jaga total
+    // pipeline tetap di bawah timeout workflow 30 mnt).
+    if (Date.now() - t0 > STAGE2_BUDGET_MS) {
+      const rest = beats.slice(off);
+      console.warn(`[llm-long] pagu waktu Stage-2 habis (${STAGE2_BUDGET_MS / 60000} mnt) — ${rest.length} beat sisa pakai mapper`);
+      if (rest.length > 0) out.push(...(await classifyBeats(rest.map((b) => b.text), [], [])));
+      break;
+    }
     const user = buildUserPrompt(batch, images, off);
     let hints: BeatHint[] | null = null;
     let lastErr: Error | undefined;
