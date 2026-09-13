@@ -237,8 +237,14 @@ function buildUserPrompt(
 
 /** Parse jawaban LLM storyboard jadi BeatHint[]; tolak format rusak (dipakai utk retry). */
 export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
-  // Tahan benc: array dicari via lastIndexOf("[{") — kebal teks echo model yang memuat kurung siku.
-  const start = raw.lastIndexOf("[{");
+  // Tahan banting: cari pembuka array '[' yang diikuti '{' (dengan toleransi spasi/newline).
+  // Menggunakan regex exec loop untuk mengambil kemunculan terakhir (kebal teks echo / prompt lama).
+  const regex = /\[\s*\{/g;
+  let start = -1;
+  let m: RegExpExecArray | null;
+  while ((m = regex.exec(raw)) !== null) {
+    start = m.index;
+  }
   if (start === -1) throw new Error("JSON array tidak ditemukan di output LLM");
   const end = raw.lastIndexOf("]");
   const slice = raw.slice(start, end > start ? end + 1 : undefined);

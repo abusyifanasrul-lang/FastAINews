@@ -104,7 +104,11 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
   const withImg = JSON.stringify([{ visual: "I2V_ANIMATE_IMAGE", prompt: "animate data center image", sfx: "deep drone", srcImage: "content/long/x/images/src1.jpg" }]);
   assert.strictEqual(parseStoryboardJson(withImg, 1)[0].srcImage, "content/long/x/images/src1.jpg", "srcImage hilang");
   assert.strictEqual(parseStoryboardJson(JSON.stringify([{ visual: "STATIC_IMAGE_MOTION", prompt: "harus kosong", sfx: "sfx" }]), 1)[0].prompt, "", "prompt STATIC tidak dikosongkan");
-  const adversarial = "Berikut storyboard untuk [bab: Intro & Tesis Utama]: " + good;
+  const formattedJson = "[\n  " + trio.map((t) => JSON.stringify(t)).join(",\n  ") + "\n]";
+  assert.strictEqual(parseStoryboardJson(formattedJson, 3).length, 3, "formatted JSON dengan newline gagal diparse");
+  const spacedJson = "[ " + trio.map((t) => JSON.stringify(t)).join(" , ") + " ]";
+  assert.strictEqual(parseStoryboardJson(spacedJson, 3).length, 3, "spaced JSON gagal diparse");
+  const adversarial = "Berikut storyboard untuk [bab: Intro & Tesis Utama]: \n" + formattedJson;
   assert.strictEqual(parseStoryboardJson(adversarial, 3).length, 3, "kurung siku teks pembuka merusak parsing");
   // Test lean scene field + auto-expansion studio tags
   const lean = JSON.stringify([{ visual: "T2V_GENERATION", scene: "macro shot of Apple Watch sapphire crystal", sfx: "subtle hum" }]);
