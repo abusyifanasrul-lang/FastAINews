@@ -213,6 +213,8 @@ export const STUDIO_TAGS = ", Unreal Engine 5 aesthetic, cinematic volumetric li
 
 const SYSTEM_STORYBOARD = `You are the visual director of a faceless Indonesian AI-news long-form YouTube video. For EACH numbered narration beat, choose the visual treatment and write a concise, concrete scene description.
 
+CRITICAL: Do NOT output <think> tags, chain-of-thought, reasoning, or conversational preamble. Output the raw JSON array IMMEDIATELY starting with '[' and ending with ']'.
+
 Return STRICT JSON ONLY: an array with EXACTLY one object per input beat, in the same order:
 [{"visual": "STATIC_IMAGE_MOTION" | "T2V_GENERATION" | "I2V_ANIMATE_IMAGE", "scene": "<concrete visual subject in 15-25 english words>", "sfx": "<clean ambient sound in 3-6 english words>", "srcImage": "<exact image path or empty string>"}]
 
@@ -232,37 +234,53 @@ function buildUserPrompt(
     ? images.map((im, i) => `${i + 1}. ${im.path} — [${im.publisher}] ${im.title}`).join("\n")
     : "(kosong — jangan isi srcImage)";
   const beatList = batch.map((b, i) => `${offset + i + 1}. [${b.chapter}] ${b.text}`).join("\n");
-  return `AVAILABLE IMAGES:\n${imgList}\n\nBEATS TO VISUALIZE:\n${beatList}\n\nOutput JSON array of ${batch.length} objects for beats ${offset + 1}-${offset + batch.length} starting immediately with '[':`;
+  return `AVAILABLE IMAGES:\n${imgList}\n\nBEATS TO VISUALIZE:\n${beatList}\n\nDo NOT think or explain. Output ONLY the JSON array of ${batch.length} objects for beats ${offset + 1}-${offset + batch.length} starting immediately with '[':`;
 }
 
 /** Parse jawaban LLM storyboard jadi BeatHint[]; tolak format rusak (dipakai utk retry). */
 export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
-  // Tahan banting: cari pembuka array '[' yang diikuti '{' (dengan toleransi spasi/newline).
-  // Menggunakan regex exec loop untuk mengambil kemunculan terakhir (kebal teks echo / prompt lama).
+  const VALID = ["STATIC_IMAGE_MOTION", "T2V_GENERATION", "I2V_ANIMATE_IMAGE"];
+
+  // 1. Coba cari pembuka array '[' yang diikuti '{' (dengan toleransi spasi/newline)
   const regex = /\[\s*\{/g;
   let start = -1;
   let m: RegExpExecArray | null;
   while ((m = regex.exec(raw)) !== null) {
     start = m.index;
   }
-  if (start === -1) throw new Error("JSON array tidak ditemukan di output LLM");
-  const end = raw.lastIndexOf("]");
-  const slice = raw.slice(start, end > start ? end + 1 : undefined);
-  let arr: unknown;
-  try {
-    const parsed = JSON.parse(slice) as unknown;
-    if (!Array.isArray(parsed)) throw new Error("Output LLM bukan array");
-    if (parsed.length === 0) throw new Error("Output LLM array kosong — tidak ada objek storyboard");
-    arr = parsed.length > expected ? parsed.slice(0, expected) : parsed;
-  } catch (e) {
-    const msg = (e as Error).message;
-    if (msg.includes("Jumlah objek") || msg.includes("bukan array")) throw e;
-    const VALID = ["STATIC_IMAGE_MOTION", "T2V_GENERATION", "I2V_ANIMATE_IMAGE"];
-    const objs = (slice.match(/\{[^{}]*\}/g) ?? [])
+
+  let arr: unknown[] | null = null;
+
+  if (start !== -1) {
+    const end = raw.lastIndexOf("]");
+    const slice = raw.slice(start, end > start ? end + 1 : undefined);
+    try {
+      const parsed = JSON.parse(slice) as unknown;
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        arr = parsed.length > expected ? parsed.slice(0, expected) : parsed;
+      }
+    } catch {
+      // JSON.parse gagal (terpotong / syntax error) -> coba salvage objek utuh dari slice
+      const objs = (slice.match(/\{[^{}]*\}/g) ?? [])
+        .map((o) => { try { return JSON.parse(o) as Record<string, unknown>; } catch { return null; } })
+        .filter((o): o is Record<string, unknown> => !!o && VALID.includes(o.visual as string));
+      if (objs.length > 0) arr = objs;
+    }
+  }
+
+  // 2. Jika tidak ada '[' atau ekstraksi slice di atas kosong:
+  // Coba langsung ekstrak seluruh objek JSON utuh dari raw string (bracket-agnostic)
+  if (!arr || arr.length === 0) {
+    const directObjs = (raw.match(/\{[^{}]*\}/g) ?? [])
       .map((o) => { try { return JSON.parse(o) as Record<string, unknown>; } catch { return null; } })
       .filter((o): o is Record<string, unknown> => !!o && VALID.includes(o.visual as string));
-    if (objs.length === 0) throw new Error("Tidak ada objek storyboard utuh di output LLM");
-    arr = objs;
+    if (directObjs.length > 0) {
+      arr = directObjs.length > expected ? directObjs.slice(0, expected) : directObjs;
+    }
+  }
+
+  if (!arr || arr.length === 0) {
+    throw new Error("JSON array tidak ditemukan di output LLM");
   }
 
   const cleaned = (arr as Record<string, unknown>[]).map((o) => {
@@ -294,7 +312,7 @@ export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
   return cleaned;
 }
 
-const STORYBOARD_BATCH = 12;
+const STORYBOARD_BATCH = 8;
 const STAGE2_BUDGET_MS = 20 * 60_000;
 
 export interface StoryboardRunStats {
@@ -346,8 +364,8 @@ export async function generateLongStoryboard(
         const prompt = attempt === 1 || !lastRaw
           ? user
           : `${user}\n\nPERBAIKAN WAJIB (percobaan 2/2): output sebelumnya GAGAL diparse (${lastErr?.message}). Potongan output mentah sebelumnya:\n${lastRaw.slice(0, 2000)}\nPerbaiki menjadi array JSON valid berisi TEPAT ${batch.length} objek sesuai aturan di atas. JANGAN mengulang/menyalin teks input. MULAI langsung dengan karakter '['.`;
-        // maxTokens 2000: cukup untuk 12 beat x 35 tokens = 420 tokens, mencegah model rambling/timeout
-        const raw = await chat([{ role: "system", content: SYSTEM_STORYBOARD }, { role: "user", content: prompt }], 2000, 0.2);
+        // maxTokens 4000: cukup leluasa menampung output JSON 8 beat sekaligus memberi ruang jika model memancarkan thinking tokens
+        const raw = await chat([{ role: "system", content: SYSTEM_STORYBOARD }, { role: "user", content: prompt }], 4000, 0.2);
         lastRaw = raw;
         hints = parseStoryboardJson(raw, batch.length);
       } catch (err) {

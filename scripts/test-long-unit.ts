@@ -110,6 +110,12 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
   assert.strictEqual(parseStoryboardJson(spacedJson, 3).length, 3, "spaced JSON gagal diparse");
   const adversarial = "Berikut storyboard untuk [bab: Intro & Tesis Utama]: \n" + formattedJson;
   assert.strictEqual(parseStoryboardJson(adversarial, 3).length, 3, "kurung siku teks pembuka merusak parsing");
+  // Test unbracketed objects (deretan {...}, {...} tanpa kurung siku luar)
+  const unbracketed = trio.map((t) => JSON.stringify(t)).join(",\n");
+  assert.strictEqual(parseStoryboardJson(unbracketed, 3).length, 3, "unbracketed objects gagal diekstrak");
+  // Test numbered objects (1. {...}\n2. {...})
+  const numbered = trio.map((t, i) => `${i + 1}. ${JSON.stringify(t)}`).join("\n");
+  assert.strictEqual(parseStoryboardJson(numbered, 3).length, 3, "numbered objects gagal diekstrak");
   // Test lean scene field + auto-expansion studio tags
   const lean = JSON.stringify([{ visual: "T2V_GENERATION", scene: "macro shot of Apple Watch sapphire crystal", sfx: "subtle hum" }]);
   const leanHints = parseStoryboardJson(lean, 1);
