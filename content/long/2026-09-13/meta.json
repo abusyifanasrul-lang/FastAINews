@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-13",
+  "topicTitle": "AI Minggu Ini IPO Keamanan Matematika",
+  "status": "READY_FOR_ASSETS",
+  "beats": 92,
+  "estTotalSec": 730.4,
+  "midrollAtSec": 422,
+  "t2vCount": 56,
+  "i2vCount": 31,
+  "staticCount": 5,
+  "images": 7,
+  "sources": 7,
+  "storyboardBatchesExecuted": 12,
+  "storyboardTotalBatches": 12,
+  "storyboardLlmOkBatches": 12,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [
+    {
+      "no": 2,
+      "got": 7,
+      "expected": 8
+    }
+  ],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
