@@ -1,0 +1,25 @@
+{
+  "date": "2026-09-13",
+  "topicTitle": "Tujuh Peristiwa AI Mengguncang Industri Global",
+  "status": "READY_FOR_ASSETS",
+  "beats": 78,
+  "estTotalSec": 614,
+  "midrollAtSec": 298,
+  "t2vCount": 55,
+  "i2vCount": 5,
+  "staticCount": 18,
+  "images": 7,
+  "sources": 7,
+  "storyboardBatchesExecuted": 4,
+  "storyboardTotalBatches": 7,
+  "storyboardLlmOkBatches": 0,
+  "storyboardFallbackBatches": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "storyboardPartialBatches": [],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": true
+}
