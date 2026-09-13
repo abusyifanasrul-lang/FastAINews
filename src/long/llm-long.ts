@@ -18,18 +18,17 @@ export async function generateLongScript(items: NewsItem[]): Promise<{ script: s
   const half = Math.max(1, Math.ceil(items.length / 2));
 
   const system = `You are a professional Indonesian tech journalist and long-form video essay director. You must write exhaustive, expansive, flowing, highly detailed prose in natural formal Indonesian (baku-populer bertutur: gunakan Kita, Saya, Anda — dilarang kata gaul seperti gue/elu). Never be terse. Never summarize or compress into bullet points.
-TARGET PANJANG: 1300 - 1500 KATA (MINIMAL 950 KATA — syarat video iklan mid-roll YouTube >= 8 menit).
+TARGET PANJANG: 1150 - 1350 KATA (MINIMAL 950 KATA — syarat video iklan mid-roll YouTube >= 8 menit, maksimal 13.500 karakter).
 
-Daftar ${items.length} berita 72 jam terakhir wajib dibahas tuntas satu per satu secara berurutan. DILARANG merangkum secara singkat!
-Untuk SETIAP berita, tulis pembahasan menyeluruh (minimal 2-3 paragraf padat per topik):
-- Paragraf 1: Detail fakta teknis, metrik/angka spesifik, pernyataan resmi, dan apa yang sebenarnya diluncurkan atau terjadi.
-- Paragraf 2: Konteks mengapa peristiwa ini terjadi, analisis arsitektur atau teknis di baliknya, dan komparasi dengan teknologi kompetitor/sebelumnya.
-- Paragraf 3: Implikasi industri nyata, tantangan masa depan, dan dampaknya bagi ekosistem AI global.
+Daftar ${items.length} berita 72 jam terakhir wajib dibahas tuntas satu per satu secara berurutan.
+Untuk SETIAP berita, tulis pembahasan mendalam dan berbobot teknis (1-2 paragraf padat per topik):
+- Paragraf 1: Detail fakta teknis, metrik/angka spesifik, apa yang diluncurkan/terjadi, serta konteks arsitekturnya.
+- Paragraf 2: Implikasi industri nyata, komparasi pasar, dan dampaknya bagi ekosistem AI global.
 
 Struktur Naskah Lengkap:
 1. Hook Pembuka & Tesis Utama (3-4 kalimat menggugah, sebut narasi besar 72 jam ini)
 2. Konteks Makro 72 Jam Terakhir (rangkuman naratif pergeseran lanskap industri AI terkini)
-3. Deep-Dive Topik 1 sampai ${items.length} (masing-masing 3 paragraf berbobot sesuai panduan di atas)
+3. Deep-Dive Topik 1 sampai ${items.length} (masing-masing 1-2 paragraf padat sesuai panduan di atas)
    * Sisipkan tepat di tengah naskah (setelah topik ke-${half}): [MID-ROLL AD BREAK: 04:30]
 4. Sintesis & Analisis Masa Depan (korelasi antar peristiwa dan prediksi 6-12 bulan ke depan)
 5. Peluang Konkret untuk Publik / Orang Awam (langkah praktis dan peluang karier/adopsi nyata)
@@ -41,7 +40,7 @@ ATURAN FORMAT WAJIB:
 - Dilarang teks bahasa Inggris selain istilah teknologi standar.
 - Hanya gunakan fakta dari daftar sumber yang diberikan, tanpa halusinasi.`;
 
-  const userBase = `Daftar sumber berita 72 jam terakhir:\n${list}\n\nTulis naskah mendalam, elaboratif, dan mengalir minimal 1100-1400 kata. LANGSUNG mulai output pada baris pertama dengan JUDUL:.`;
+  const userBase = `Daftar sumber berita 72 jam terakhir:\n${list}\n\nTulis naskah mendalam, elaboratif, dan mengalir 1150-1350 kata (maksimal 13.000 karakter). LANGSUNG mulai output pada baris pertama dengan JUDUL:.`;
 
   // Postmortem CI 2026-09-12 (kedua): model bisa over-produce (17630 char > batas 15000)
   // dan versi lama "tanpa retry" langsung mematikan pipeline. Kini: retry 3x dengan
@@ -210,20 +209,19 @@ export async function classifyBeats(
 }
 
 // ─── Stage 2 (LLM): storyboard visual per beat ─────────────────────────────
+export const STUDIO_TAGS = ", Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text";
 
-const SYSTEM_STORYBOARD = `You are the visual director of a faceless Indonesian AI-news long-form YouTube video. For EACH numbered narration beat, choose the visual treatment and write the video generation prompt.
+const SYSTEM_STORYBOARD = `You are the visual director of a faceless Indonesian AI-news long-form YouTube video. For EACH numbered narration beat, choose the visual treatment and write a concise, concrete scene description.
 
 Return STRICT JSON ONLY: an array with EXACTLY one object per input beat, in the same order:
-[{"visual": "STATIC_IMAGE_MOTION" | "T2V_GENERATION" | "I2V_ANIMATE_IMAGE", "prompt": "<english text-to-video prompt>", "sfx": "<english ambient/foley description>", "srcImage": "<exact image path or empty string>"}]
+[{"visual": "STATIC_IMAGE_MOTION" | "T2V_GENERATION" | "I2V_ANIMATE_IMAGE", "scene": "<concrete visual subject in 15-25 english words>", "sfx": "<clean ambient sound in 3-6 english words>", "srcImage": "<exact image path or empty string>"}]
 
 Rules:
-1. "prompt": pure English, cinematic, Unreal Engine 5 aesthetic, 30-60 words, and SPECIFIC to the beat narration: name the concrete subject (product, company, technology, metric) found in the text. Never reuse the same sentence across beats; every prompt must be visually distinct.
-2. HARD BANS: human faces, people, animals, on-screen text or watermarks. If "visual" is not STATIC_IMAGE_MOTION, the prompt MUST end with: ", faceless, no people, no text".
-3. "visual": use "STATIC_IMAGE_MOTION" when the beat is a pure factual report/numbers best shown by the source news image; use "I2V_ANIMATE_IMAGE" when one of the AVAILABLE IMAGES clearly matches the beat subject; use "T2V_GENERATION" otherwise. At least 35% of beats must be "T2V_GENERATION".
-4. "srcImage": for I2V_ANIMATE_IMAGE / STATIC_IMAGE_MOTION copy the best matching path from AVAILABLE IMAGES EXACTLY; if nothing matches or the list is empty use "". Never invent paths. For T2V_GENERATION always "".
-5. "sfx": English, 6-14 words, ambient/foley only, MUST end with: ", no background music".
-6. No markdown, no commentary — output the JSON array only.
-7. NEVER copy or repeat any input text (especially the "Bab:" labels). The FIRST character of your output MUST be '[' and the LAST ']'.`;
+1. "scene": pure English, 15-25 words, describing ONLY the concrete visual subject (e.g. products, microchips, data center servers, algorithms, robotic arms, lab equipment, financial charts) specific to the beat narration. Do NOT write boilerplate quality buzzwords like "Unreal Engine 5", "8k", "faceless", "no people" (our rendering engine appends studio quality tags automatically).
+2. "visual": use "STATIC_IMAGE_MOTION" when the beat is a pure factual report/numbers best shown by the source news image; use "I2V_ANIMATE_IMAGE" when one of the AVAILABLE IMAGES clearly matches the beat subject; use "T2V_GENERATION" otherwise. At least 35% of beats must be "T2V_GENERATION".
+3. "srcImage": for I2V_ANIMATE_IMAGE / STATIC_IMAGE_MOTION copy the best matching path from AVAILABLE IMAGES EXACTLY; if nothing matches or the list is empty use "". For T2V_GENERATION always "".
+4. "sfx": 3-6 English words for ambient sound/foley (e.g. "subtle electronic hum", "server room cooling air", "precision servo clicks"). Do NOT add "no background music" (automatically appended).
+5. Output the JSON array ONLY. Start immediately with '[' and end with ']'. NEVER echo or transcribe input text.`;
 
 function buildUserPrompt(
   batch: { text: string; chapter: string }[],
@@ -233,16 +231,13 @@ function buildUserPrompt(
   const imgList = images.length
     ? images.map((im, i) => `${i + 1}. ${im.path} — [${im.publisher}] ${im.title}`).join("\n")
     : "(kosong — jangan isi srcImage)";
-  const beatList = batch.map((b, i) => `${offset + i + 1}. Bab: ${b.chapter} | ${b.text}`).join("\n");
-  return `AVAILABLE IMAGES (salin path persis jika dipakai):\n${imgList}\n\nBEATS:\n${beatList}\n\nKembalikan HANYA array JSON berisi ${batch.length} objek untuk beat ${offset + 1}-${offset + batch.length}, urut sesuai nomor. MULAI output langsung dengan karakter '[' — DILARANG keras mengulang/menyalin teks di atas.`;
+  const beatList = batch.map((b, i) => `${offset + i + 1}. [${b.chapter}] ${b.text}`).join("\n");
+  return `AVAILABLE IMAGES:\n${imgList}\n\nBEATS TO VISUALIZE:\n${beatList}\n\nOutput JSON array of ${batch.length} objects for beats ${offset + 1}-${offset + batch.length} starting immediately with '[':`;
 }
 
 /** Parse jawaban LLM storyboard jadi BeatHint[]; tolak format rusak (dipakai utk retry). */
 export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
-  // Tahan benc (pelajaran postmortem CI 2026-09-12): array dicari via lastIndexOf("[{") —
-  // kebal teks echo model yang memuat label "[bab: Intro & Tesis Utama]". Bila JSON
-  // terpotong (maxTokens / cap output vendor), objek lengkap diselamatkan satu per satu
-  // dan dikembalikan PARSIAL — orchestrator mengisi sisanya.
+  // Tahan benc: array dicari via lastIndexOf("[{") — kebal teks echo model yang memuat kurung siku.
   const start = raw.lastIndexOf("[{");
   if (start === -1) throw new Error("JSON array tidak ditemukan di output LLM");
   const end = raw.lastIndexOf("]");
@@ -251,73 +246,87 @@ export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
   try {
     const parsed = JSON.parse(slice) as unknown;
     if (!Array.isArray(parsed)) throw new Error("Output LLM bukan array");
-    if (parsed.length !== expected) throw new Error(`Jumlah objek storyboard ${parsed.length} != ${expected}`);
-    arr = parsed;
+    if (parsed.length === 0) throw new Error("Output LLM array kosong — tidak ada objek storyboard");
+    arr = parsed.length > expected ? parsed.slice(0, expected) : parsed;
   } catch (e) {
     const msg = (e as Error).message;
-    if (msg.includes("Jumlah objek") || msg.includes("bukan array")) throw e; // array utuh tapi salah — strict
+    if (msg.includes("Jumlah objek") || msg.includes("bukan array")) throw e;
     const VALID = ["STATIC_IMAGE_MOTION", "T2V_GENERATION", "I2V_ANIMATE_IMAGE"];
     const objs = (slice.match(/\{[^{}]*\}/g) ?? [])
       .map((o) => { try { return JSON.parse(o) as Record<string, unknown>; } catch { return null; } })
       .filter((o): o is Record<string, unknown> => !!o && VALID.includes(o.visual as string));
     if (objs.length === 0) throw new Error("Tidak ada objek storyboard utuh di output LLM");
-    arr = objs; // parsial diterima
+    arr = objs;
   }
-  return (arr as Record<string, unknown>[]).map((o, i) => {
-    const e = o as Partial<BeatHint> & { srcImage?: unknown };
+
+  const cleaned = (arr as Record<string, unknown>[]).map((o) => {
+    const e = o as Partial<BeatHint> & { scene?: unknown; srcImage?: unknown };
     if (e.visual !== "STATIC_IMAGE_MOTION" && e.visual !== "T2V_GENERATION" && e.visual !== "I2V_ANIMATE_IMAGE") {
-      throw new Error(`visual tidak valid di indeks ${i}: ${String(e.visual)}`);
+      return null;
     }
-    let prompt = typeof e.prompt === "string" ? e.prompt.trim() : "";
-    let sfx = typeof e.sfx === "string" ? e.sfx.trim() : "";
-    // Suntik jaminan paten bila LLM lupa (faceless / tanpa musik)
-    if (e.visual !== "STATIC_IMAGE_MOTION" && prompt && !/faceless/i.test(prompt)) {
-      prompt += ", faceless, no people, no text";
+    const rawScene = typeof e.scene === "string" ? e.scene.trim() : typeof e.prompt === "string" ? e.prompt.trim() : "";
+    let prompt = "";
+    if (e.visual !== "STATIC_IMAGE_MOTION" && rawScene) {
+      // Bersihkan jika LLM sempat menulis tag kualitas, lalu tambahkan studio tags standar
+      const baseScene = rawScene.replace(/(?:,\s*)?(?:unreal engine 5|8k|faceless|no people|no text|cinematic).*$/i, "").trim();
+      prompt = `${baseScene || rawScene}${STUDIO_TAGS}`;
     }
-    if (sfx && !/no background music|no music/i.test(sfx)) sfx += ", no background music";
+
+    let rawSfx = typeof e.sfx === "string" ? e.sfx.trim() : "";
+    let sfx = rawSfx ? rawSfx.replace(/(?:,\s*)?no (?:background )?music.*$/i, "").trim() : "";
+    sfx = sfx ? `${sfx}, clean foley, no background music` : LONG_AUDIO_PROMPT;
+
     const srcImage = typeof e.srcImage === "string" && e.srcImage.trim() ? e.srcImage.trim() : null;
     return {
       visual: e.visual,
       prompt: e.visual === "STATIC_IMAGE_MOTION" ? "" : prompt,
-      sfx: sfx || LONG_AUDIO_PROMPT,
+      sfx,
       srcImage,
     } as BeatHint;
-  });
+  }).filter((h): h is BeatHint => h !== null);
+  if (cleaned.length === 0) throw new Error("visual tidak valid di semua objek — tidak ada objek storyboard utuh di output LLM");
+  return cleaned;
 }
 
-const STORYBOARD_BATCH = 8;
-// Pagu wall-clock Stage-2 (postmortem CI ketiga: workflow timeout dinaikkan 15 -> 30 mnt
-// karena Stage-1 bisa makan ~6-10 mnt di endpoint lambat — Stage-2 diberi pagu sendiri
-// supaya total pipeline tetap di bawah timeout workflow).
-const STAGE2_BUDGET_MS = 15 * 60_000;
+const STORYBOARD_BATCH = 12;
+const STAGE2_BUDGET_MS = 20 * 60_000;
 
-/**
- * Stage-2 storyboard via LLM: batch per 8 beat, kontekstual per berita.
- * Postmortem CI 2026-09-12: batch 16 + maxTokens 3200 gagal sistemik karena model
- * men-ECHO input dan output terpotong sebelum JSON. Perbaikan berlapis:
- * (1) anti-echo di system+user prompt, (2) temperature 0.2 (chat(), bukan 0.7 default),
- * (3) batch 8 + maxTokens 4500 (echo pun muat sampai JSON selesai), (4) parser salvage
- * objek utuh dari output terpotong + pad parsial, (5) circuit breaker: 2 batch beruntun
- * fallback → LLM dinyatakan tidak sehat, sisa beat langsung mapper (workflow tak habis
- * timeout untuk vendor yang sistematis gagal). Retry 2x per batch (percobaan ke-3
- * dengan mode gagal sama jarang menyelamatkan).
- */
+export interface StoryboardRunStats {
+  totalBatches: number;
+  batchesExecuted: number;
+  llmOkBatches: number;
+  fallbackBatches: number[];
+  partialBatches: { no: number; got: number; expected: number }[];
+  budgetHit: boolean;
+  breakerHit: boolean;
+}
+
 export async function generateLongStoryboard(
   beats: { text: string; chapter: string }[],
   images: { path: string; title: string; publisher: string }[],
-): Promise<BeatHint[]> {
+): Promise<{ hints: BeatHint[]; stats: StoryboardRunStats }> {
   const out: BeatHint[] = [];
   const totalBatches = Math.ceil(beats.length / STORYBOARD_BATCH);
-  let batchesExecuted = 0;
+  const stats: StoryboardRunStats = {
+    totalBatches,
+    batchesExecuted: 0,
+    llmOkBatches: 0,
+    fallbackBatches: [],
+    partialBatches: [],
+    budgetHit: false,
+    breakerHit: false,
+  };
   let consecutiveFallback = 0;
   const t0 = Date.now();
   for (let off = 0; off < beats.length; off += STORYBOARD_BATCH) {
     const batch = beats.slice(off, off + STORYBOARD_BATCH);
     const no = Math.floor(off / STORYBOARD_BATCH) + 1;
-    // Time budget: bila pagu Stage-2 habis, sisa beat langsung mapper instan (jaga total
-    // pipeline tetap di bawah timeout workflow 30 mnt).
+    const tBatch = Date.now();
+    const elapsed = () => Math.round((Date.now() - tBatch) / 100) / 10;
+    // Time budget: bila pagu Stage-2 habis, sisa beat langsung mapper instan
     if (Date.now() - t0 > STAGE2_BUDGET_MS) {
       const rest = beats.slice(off);
+      stats.budgetHit = true;
       console.warn(`[llm-long] pagu waktu Stage-2 habis (${STAGE2_BUDGET_MS / 60000} mnt) — ${rest.length} beat sisa pakai mapper`);
       if (rest.length > 0) out.push(...(await classifyBeats(rest.map((b) => b.text), [], [])));
       break;
@@ -325,10 +334,15 @@ export async function generateLongStoryboard(
     const user = buildUserPrompt(batch, images, off);
     let hints: BeatHint[] | null = null;
     let lastErr: Error | undefined;
+    let lastRaw = "";
     for (let attempt = 1; attempt <= 2 && !hints; attempt++) {
       try {
-        // temperature 0.2: output JSON jauh lebih patuh daripada default chat() 0.7
-        const raw = await chat([{ role: "system", content: SYSTEM_STORYBOARD }, { role: "user", content: user }], 4500, 0.2);
+        const prompt = attempt === 1 || !lastRaw
+          ? user
+          : `${user}\n\nPERBAIKAN WAJIB (percobaan 2/2): output sebelumnya GAGAL diparse (${lastErr?.message}). Potongan output mentah sebelumnya:\n${lastRaw.slice(0, 2000)}\nPerbaiki menjadi array JSON valid berisi TEPAT ${batch.length} objek sesuai aturan di atas. JANGAN mengulang/menyalin teks input. MULAI langsung dengan karakter '['.`;
+        // maxTokens 2000: cukup untuk 12 beat x 35 tokens = 420 tokens, mencegah model rambling/timeout
+        const raw = await chat([{ role: "system", content: SYSTEM_STORYBOARD }, { role: "user", content: prompt }], 2000, 0.2);
+        lastRaw = raw;
         hints = parseStoryboardJson(raw, batch.length);
       } catch (err) {
         lastErr = err as Error;
@@ -338,27 +352,33 @@ export async function generateLongStoryboard(
     }
     if (!hints) {
       consecutiveFallback++;
-      batchesExecuted++;
-      console.warn(`[llm-long] batch ${no}/${totalBatches} fallback Thematic Visual Mapper (${lastErr?.message})`);
+      stats.batchesExecuted++;
+      stats.fallbackBatches.push(no);
+      console.warn(`[llm-long] batch ${no}/${totalBatches} fallback Thematic Visual Mapper (${elapsed()} dtk, ${lastErr?.message})`);
       hints = await classifyBeats(batch.map((b) => b.text), [], []);
       out.push(...hints);
-      if (consecutiveFallback >= 2) {
-        // Circuit breaker: vendor sistematis gagal — sisa beat pakai mapper instan.
+      if (consecutiveFallback >= 4) {
+        // Circuit breaker: hanya aktif bila 4 batch berturut-turut gagal total
         const rest = beats.slice(off + STORYBOARD_BATCH);
+        stats.breakerHit = true;
         console.warn(`[llm-long] LLM storyboard tidak sehat (${consecutiveFallback} batch beruntun gagal) — ${rest.length} beat sisa pakai mapper`);
         if (rest.length > 0) out.push(...(await classifyBeats(rest.map((b) => b.text), [], [])));
         break;
       }
-      continue; // hints mapper sudah penuh & tanpa srcImage — lewati pad/sanitasi
+      continue;
     }
     consecutiveFallback = 0;
-    batchesExecuted++;
+    stats.batchesExecuted++;
+    stats.llmOkBatches++;
     if (hints.length < batch.length) {
-      console.warn(`[llm-long] batch ${no}/${totalBatches} objek LLM parsial (${hints.length}/${batch.length}) — sisanya diisi prompt tema deterministik`);
+      stats.partialBatches.push({ no, got: hints.length, expected: batch.length });
+      console.warn(`[llm-long] batch ${no}/${totalBatches} objek LLM parsial (${hints.length}/${batch.length}, ${elapsed()} dtk) — sisanya diisi prompt tema deterministik`);
       for (let j = hints.length; j < batch.length; j++) {
         const themed = themedHintFor(batch[j].text);
         hints.push({ visual: "T2V_GENERATION", prompt: themed.prompt, sfx: themed.sfx, srcImage: null });
       }
+    } else {
+      console.log(`[llm-long] batch ${no}/${totalBatches} ok (${hints.length}/${batch.length}, ${elapsed()} dtk)`);
     }
     // Buang srcImage liar (tidak ada di daftar gambar edisi)
     for (const h of hints) {
@@ -369,6 +389,6 @@ export async function generateLongStoryboard(
   const t2v = out.filter((h) => h.visual === "T2V_GENERATION").length;
   const i2v = out.filter((h) => h.visual === "I2V_ANIMATE_IMAGE").length;
   const st = out.filter((h) => h.visual === "STATIC_IMAGE_MOTION").length;
-  console.log(`[llm-long] storyboard LLM: ${out.length} beat → ${t2v} T2V, ${i2v} I2V, ${st} STATIC (${batchesExecuted}/${totalBatches} batch via LLM)`);
-  return out;
+  console.log(`[llm-long] storyboard LLM: ${out.length} beat → ${t2v} T2V, ${i2v} I2V, ${st} STATIC (${stats.batchesExecuted}/${totalBatches} batch via LLM, fallback: [${stats.fallbackBatches.join(",") || "-"}], parsial: ${stats.partialBatches.length}, pagu: ${stats.budgetHit ? "HABIS" : "cukup"}, breaker: ${stats.breakerHit ? "MENYALA" : "mati"})`);
+  return { hints: out, stats };
 }

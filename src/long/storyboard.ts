@@ -6,6 +6,10 @@ import { formatTimestamp } from "./validate.js";
 
 export const WPM_ID = 130;
 const estSec = (words: number) => Math.min(10, Math.max(3, (words / WPM_ID) * 60));
+// Revisi 5: ambang fragmen ekor + penalti overuse gambar (dianalisis dari edisi
+// 2026-09-12: 15 beat fragmen ≤4 kata, src1.jpg dipakai 10x/27 beat bergambar).
+const MIN_BEAT_WORDS = 6;
+const MAX_IMG_USES = 4;
 
 export interface Beat {
   i: number; chapter: string; startSec: number; estSec: number;
@@ -16,7 +20,10 @@ export interface Beat {
 }
 export interface Chapter { title: string; startSec: number }
 
-/** Pecah naskah bersih jadi beats: gabung kalimat hingga ~25 kata / <1000 char / ≤10 dtk. */
+/** Pecah naskah bersih jadi beats: gabung kalimat hingga ~25 kata / <1000 char / ≤10 dtk.
+ * Revisi 5: (1) fragmen ekor ≤6 kata digabung ke beat sebelumnya (mencegah beat
+ * sampah 1-4 kata yang memicu prompt generik + drift gambar); (2) fallback gambar
+ * siklik diganti least-used dengan penalti overuse (maks 4x per gambar per edisi). */
 export function splitBeats(
   scriptClean: string,
   hints: BeatHint[],
@@ -39,10 +46,24 @@ export function splitBeats(
     else cur = (cur + " " + s).trim();
   }
   if (cur.trim()) texts.push(cur.trim());
+  // Revisi 5: gabung fragmen ekor ≤6 kata ke beat sebelumnya — beat 1-4 kata
+  // ("seluruh dunia.", "ekonomi.", "sempit.") tak punya substansi utk prompt
+  // spesifik & hanya menambah slot gambar yg bisa drift. Lakukan mundur agar
+  // chain fragmen pendek (mis. [..., 20 kata, 3 kata, 2 kata]) terserap semua.
+  for (let i = texts.length - 1; i > 0; i--) {
+    const wCount = texts[i].split(/\s+/).length;
+    if (wCount > MIN_BEAT_WORDS) continue;
+    const merged = `${texts[i - 1]} ${texts[i]}`;
+    // Jaga batas keras: gabungan tetap <1000 char & estimasi ≤10 dtk
+    if (merged.length < 1000 && estSec(merged.split(/\s+/).length) <= 10) {
+      texts[i - 1] = merged;
+      texts.splice(i, 1);
+    }
+  }
   if (texts.some((t) => t.length >= 1000)) throw new Error("Ada beat ≥1000 char — split gagal.");
 
   let t = 0;
-  let imgIdx = 0;
+  const imgUse = new Map<string, number>();
   return texts.map((text, k) => {
     const w = text.split(/\s+/).length;
     const dur = Math.round(estSec(w) * 10) / 10;
@@ -50,12 +71,21 @@ export function splitBeats(
     const hint = hints[k] ?? { visual: "STATIC_IMAGE_MOTION" as BeatVisual, sfx: "futuristic ambient hum, no music" };
     const needImg = hint.visual !== "T2V_GENERATION";
     // srcImage dari hint LLM dipakai bila path-nya benar-benar ada di daftar gambar edisi;
-    // selain itu fallback siklik (perilaku lama).
+    // hint LLM eksplisit TIDAK kena penalti (pilihan semantik dihormati).
+    // Fallback (tanpa hint valid): least-used dengan penalti overuse — gambar yang
+    // sudah dipakai >= MAX_IMG_USES hanya dipakai lagi bila semua gambar jenuh.
     const hinted = hint.srcImage != null && images.includes(hint.srcImage) ? hint.srcImage : null;
+    const useCount = (p: string) => imgUse.get(p) ?? 0;
+    const track = (p: string | null) => { if (p) imgUse.set(p, useCount(p) + 1); };
     let srcImage: string | null = null;
     if (needImg) {
-      if (hinted) srcImage = hinted;
-      else if (images.length > 0) srcImage = images[imgIdx++ % images.length] ?? null;
+      if (hinted) { srcImage = hinted; track(srcImage); }
+      else if (images.length > 0) {
+        const fresh = images.filter((p) => useCount(p) < MAX_IMG_USES);
+        const pool = fresh.length > 0 ? fresh : images;
+        srcImage = pool.reduce((a, b) => (useCount(a) <= useCount(b) ? a : b));
+        track(srcImage);
+      }
     }
     let visual = hint.visual;
     let prompt = hint.prompt ?? "";

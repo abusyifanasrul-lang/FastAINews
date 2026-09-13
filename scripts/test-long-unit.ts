@@ -90,6 +90,8 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
   console.log("ok validateChapters + description");
 }
 // 7. parseStoryboardJson: JSON valid/fenced, sanitasi jaminan paten, tolak format rusak
+// Revisi 6: jumlah longgar (kurang → parsial + pad di orchestrator, lebih → potong),
+// visual-invalid dibuang per-objek (hanya 0-valid yang throw).
 {
   const trio = Array(3).fill(0).map((_, i) => ({ visual: "T2V_GENERATION", prompt: `cinematic macro of next-gen chip ${i}, glowing interconnects`, sfx: "subtle electronic hum" }));
   const good = JSON.stringify(trio);
@@ -104,10 +106,22 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
   assert.strictEqual(parseStoryboardJson(JSON.stringify([{ visual: "STATIC_IMAGE_MOTION", prompt: "harus kosong", sfx: "sfx" }]), 1)[0].prompt, "", "prompt STATIC tidak dikosongkan");
   const adversarial = "Berikut storyboard untuk [bab: Intro & Tesis Utama]: " + good;
   assert.strictEqual(parseStoryboardJson(adversarial, 3).length, 3, "kurung siku teks pembuka merusak parsing");
+  // Test lean scene field + auto-expansion studio tags
+  const lean = JSON.stringify([{ visual: "T2V_GENERATION", scene: "macro shot of Apple Watch sapphire crystal", sfx: "subtle hum" }]);
+  const leanHints = parseStoryboardJson(lean, 1);
+  assert(leanHints[0].prompt.includes("macro shot of Apple Watch sapphire crystal"), "scene tidak masuk ke prompt");
+  assert(leanHints[0].prompt.includes("Unreal Engine 5 aesthetic"), "studio tags tidak diekspansi");
+  assert(leanHints[0].prompt.includes("faceless, no people, no text"), "faceless tidak disuntik");
+  assert(leanHints[0].sfx.includes("no background music"), "no music tidak disuntik");
   assert.throws(() => parseStoryboardJson("bukan json sama sekali", 3), /JSON/);
-  assert.throws(() => parseStoryboardJson(good, 5), /Jumlah/);
+  assert.strictEqual(parseStoryboardJson(good, 5).length, 3, "kurang objek harus parsial, bukan buang 1 batch");
+  const five = JSON.stringify([...trio, ...trio.slice(0, 2)]);
+  assert.strictEqual(parseStoryboardJson(five, 3).length, 3, "lebih objek harus dipotong, bukan buang 1 batch");
+  assert.throws(() => parseStoryboardJson("[]", 1), /JSON/);
   assert.throws(() => parseStoryboardJson(JSON.stringify([{ visual: "DRAMA", prompt: "x", sfx: "y" }]), 1), /visual/);
-  console.log("ok parseStoryboardJson (JSON-only, sanitasi jaminan, tolak rusak)");
+  const mixed = JSON.stringify([{ visual: "DRAMA", prompt: "x", sfx: "y" }, trio[0]]);
+  assert.strictEqual(parseStoryboardJson(mixed, 2).length, 1, "objek valid ikut dibuang karena 1 objek rusak");
+  console.log("ok parseStoryboardJson (JSON-only, lean scene auto-expansion, jumlah longgar, visual-invalid per-objek, sanitasi jaminan)");
 }
 // 8. splitBeats: srcImage dari hint dipakai bila valid, dibuang bila path liar
 {
@@ -132,7 +146,7 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
     assert(b.prompt.includes("Unreal Engine 5") && b.prompt.includes("faceless, no people, no text"), "prompt themed rusak");
     assert(b.srcImage == null, "srcImage harus null pada T2V");
   }
-  // edisi DENGAN gambar: STATIC tetap STATIC (dapat gambar siklik — perilaku sumber berita)
+  // edisi DENGAN gambar: STATIC tetap STATIC (dapat gambar least-used — perilaku sumber berita)
   const img = "content/long/2026-09-12/images/src1.jpg";
   const beatsImg = splitBeats(teks, [{ visual: "STATIC_IMAGE_MOTION", prompt: "", sfx: "s" }], [{ title: "A", startSec: 0 }], [img]);
   for (const b of beatsImg) assert(b.visual === "STATIC_IMAGE_MOTION" && b.srcImage === img, "STATIC dengan gambar ikut teralihkan");
@@ -159,5 +173,51 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
   assert(trimNaskahToLength("pendek. tanpa batas layak", 3) === null, "trim pendek harus null");
   assert(trimNaskahToLength("sudah pas.", 100) === "sudah pas.", "trim teks pendek mengubah teks");
   console.log("ok trimNaskahToLength (batas kalimat, null bila tidak layak)");
+}
+// 12. Revisi 5: fragmen ekor ≤6 kata digabung ke beat sebelumnya
+{
+  const scriptFrag = [
+    "Kita menyaksikan bagaimana perangkat wearable mulai menormalisasi pengawasan suara terus-menerus di kehidupan sehari-hari untuk Anda semua.",
+    "seluruh dunia.",
+    "Konteks makro yang muncul adalah pergeseran fundamental dari eksperimen laboratorium ke implementasi skala massal yang nyata.",
+    "ekonomi.",
+  ].join(" ");
+  const beats = splitBeats(scriptFrag, [], [{ title: "A", startSec: 0 }], []);
+  assert(!beats.some((b) => b.text === "seluruh dunia." || b.text === "ekonomi."), "fragmen ekor tidak digabung");
+  for (const b of beats) assert(b.text.split(/\s+/).length > 6 || beats.length === 1, `beat fragmen tersisa: "${b.text}"`);
+  // chain fragmen pendek terserap semua
+  const chain = splitBeats("Kalimat pembuka yang cukup panjang berisi dua puluh kata untuk pengujian yang benar sekarang. Tiga kata saja. Dua kata.", [], [{ title: "A", startSec: 0 }], []);
+  assert(!chain.some((b) => b.text === "Tiga kata saja." || b.text === "Dua kata."), "chain fragmen tidak terserap");
+  console.log(`ok gabung fragmen ekor (${beats.length} beats, tanpa beat sampah)`);
+}
+// 13. Revisi 5: penalti overuse gambar — fallback least-used, maks 4x per gambar
+{
+  const teks = Array(10).fill("Narasi berita yang cukup panjang untuk pengujian pembagian gambar yang merata dan adil untuk Anda.").join(" ");
+  const imgs = ["a.jpg", "b.jpg"].map((f) => `content/long/2026-09-12/images/${f}`);
+  const staticHints = Array(10).fill({ visual: "STATIC_IMAGE_MOTION" as const, prompt: "", sfx: "s" });
+  const beats = splitBeats(teks, staticHints, [{ title: "A", startSec: 0 }], imgs);
+  const imgBeats = beats.filter((b) => b.srcImage);
+  assert(imgBeats.length > 0, "tidak ada beat bergambar");
+  const counts = new Map<string, number>();
+  for (const b of imgBeats) counts.set(b.srcImage!, (counts.get(b.srcImage!) ?? 0) + 1);
+  // 2 gambar, ≤8 beat bergambar (10 hints, sebagian bisa T2V via guard bila 0 — di sini ada gambar jadi STATIC semua)
+  // batas longgar: tidak ada gambar yang dipakai > 2x lipat gambar lain (distribusi merata, bukan siklik murni)
+  const vals = [...counts.values()];
+  assert(Math.max(...vals) - Math.min(...vals) <= 1, `distribusi timpang: ${JSON.stringify([...counts])}`);
+  // hint LLM eksplisit dihormati walau gambar itu sudah jenuh
+  const saturated = splitBeats(
+    "Narasi pertama yang panjang untuk Anda. Narasi kedua yang panjang untuk Anda.",
+    [
+      { visual: "STATIC_IMAGE_MOTION" as const, prompt: "", sfx: "s", srcImage: imgs[0] },
+      { visual: "STATIC_IMAGE_MOTION" as const, prompt: "", sfx: "s", srcImage: imgs[0] },
+      { visual: "STATIC_IMAGE_MOTION" as const, prompt: "", sfx: "s", srcImage: imgs[0] },
+      { visual: "STATIC_IMAGE_MOTION" as const, prompt: "", sfx: "s", srcImage: imgs[0] },
+      { visual: "STATIC_IMAGE_MOTION" as const, prompt: "", sfx: "s", srcImage: imgs[0] },
+    ],
+    [{ title: "A", startSec: 0 }],
+    imgs,
+  );
+  assert(saturated.every((b) => b.srcImage === imgs[0]), "hint LLM eksplisit tidak dihormati");
+  console.log(`ok penalti overuse gambar (distribusi ${JSON.stringify([...counts])}, hint eksplisit dihormati)`);
 }
 console.log("SEMUA UJI LONG-FORM LOLOS");

@@ -80,7 +80,7 @@ async function run(): Promise<void> {
     text: b.text,
     chapter: [...chapters].reverse().find((c) => c.startSec <= b.startSec)?.title ?? "Intro & Tesis Utama",
   }));
-  const fullHints = await generateLongStoryboard(labeled, imgMeta);
+  const { hints: fullHints, stats: sbStats } = await generateLongStoryboard(labeled, imgMeta);
   const beats = splitBeats(clean, fullHints, chapters, imgPaths);
   for (const b of beats) {
     b.chapter = [...chapters].reverse().find((c) => c.startSec <= b.startSec)?.title ?? "Intro & Tesis Utama";
@@ -106,6 +106,15 @@ async function run(): Promise<void> {
     beats: beats.length, estTotalSec: totalSec, midrollAtSec,
     t2vCount, i2vCount, staticCount,
     images: imgPaths.length, sources: items.length,
+    // Revisi 6 (P1 observabilitas): jejak Stage-2 agar rasio LLM vs fallback bisa divonis
+    // per edisi — bedakan budget-skip vs breaker-skip vs fallback-batch vs pad-parsial.
+    storyboardBatchesExecuted: sbStats.batchesExecuted,
+    storyboardTotalBatches: sbStats.totalBatches,
+    storyboardLlmOkBatches: sbStats.llmOkBatches,
+    storyboardFallbackBatches: sbStats.fallbackBatches,
+    storyboardPartialBatches: sbStats.partialBatches,
+    storyboardBudgetHit: sbStats.budgetHit,
+    storyboardBreakerHit: sbStats.breakerHit,
   }, null, 2));
 
   upsertLongContent({ date, topicTitle, scriptText: clean, storyboardPath: relStoryboardPath, status: "READY_FOR_ASSETS" });

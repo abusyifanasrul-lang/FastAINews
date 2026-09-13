@@ -5,6 +5,7 @@
 > Revisi 2 (postmortem kegagalan CI riil): model men-ECHO input + output terpotong sebelum JSON → perbaikan berlapis: anti-echo prompt, temperature 0.2, batch 16→8, maxTokens 3200→4500, parser salvage objek utuh dari output terpotong + pad parsial, circuit breaker 2 batch beruntun fallback.
 > Revisi 3 (postmortem CI kedua): kegagalan bergeser ke Stage-1 — naskah overlong 17630 char > 15000 (`generateLongScript` lama tanpa retry langsung throw) → retry 3× dengan feedback korektif + fallback `trimNaskahToLength` di batas kalimat.
 > Revisi 4 (postmortem CI ketiga, run 34697372126): run di-cancel durasi 920 dtk = kena timeout workflow 15 mnt (retry Stage-1 bekerja, tapi endpoint free-tier lambat) → `timeout-minutes` 15→30 (sesuai desain `implementation_plan.md` §4.10) + pagu wall-clock Stage-2 15 mnt (sisa beat → mapper instan).
+> Revisi 5 (analisa output edisi hijau 2026-09-12, commit bot `a13c755`): run sukses 87 beats, tapi ~61% prompt masih template fallback + 15 beat fragmen ≤4 kata + src1.jpg overuse 10x/27 beat bergambar → `splitBeats`: (1) gabung fragmen ekor ≤6 kata ke beat sebelumnya (mundur, jaga batas <1000 char & ≤10 dtk); (2) fallback gambar siklik → least-used dengan penalti overuse (maks 4x/gambar, hint LLM eksplisit tidak kena penalti).
 > Scope: alasan keputusan Opsi A (Stage-2 storyboard kembali via LLM) + mekanisme detail implementasinya.
 > File yang relevan: `src/long/llm-long.ts`, `src/long/storyboard.ts`, `scripts/full-long-pipeline.ts`, `scripts/test-long-unit.ts`.
 
@@ -233,6 +234,8 @@ Catatan lingkungan: terminal shell sesi ini tidak stabil (integrasi output gagal
 10. `prompt` untuk STATIC **dengan gambar** sengaja `""` — STATIC dirender dari og:image berita sumber (Ken Burns di editor), bukan T2V; STATIC tanpa gambar sudah diguard ke T2V themed (item 5).
 11. **Jangan turunkan `timeout-minutes` workflow di bawah 30** dan **jangan hapus pagu `STAGE2_BUDGET_MS`** — endpoint free-tier lambat (~2-5 mnt per panggilan besar) terbukti membuat 15 mnt tidak cukup (run di-cancel di 920 dtk).
 12. **Jangan hapus retry/fallback Stage-1** (feedback korektif + `trimNaskahToLength`) — varians panjang naskah model tinggi (1180 kata vs 20998 char dalam run berbeda).
+13. **Jangan hapus gabung fragmen ekor** (`MIN_BEAT_WORDS = 6`, mundur, jaga batas <1000 char & ≤10 dtk) — tanpa ini ~17% beat adalah fragmen 1-4 kata yang memicu prompt generik + drift gambar.
+14. **Jangan kembalikan fallback gambar siklik** — penalti overuse `MAX_IMG_USES = 4` (least-used, hint LLM eksplisit dikecualikan) mencegah satu gambar dipakai 10x/27 beat seperti edisi 2026-09-12.
 
 **Estimasi vs durasi riil:** semua timestamp masih estimasi WPM 130 (lihat komentar `ponytail` di `storyboard.ts:2-3` — upgrade saat producer kirim durasi TTS riil).
 
