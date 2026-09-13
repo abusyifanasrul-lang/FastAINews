@@ -28,297 +28,110 @@
       "i": 1,
       "chapter": "Intro & Tesis Utama",
       "startSec": 0,
-      "estSec": 9.2,
-      "text": "Kita memasuki 72 jam yang penuh dengan pergeseran tektonik di lanskap kecerdasan buatan global, di mana keputusan strategis para pemimpin",
-      "visual": "T2V_GENERATION",
-      "prompt": "Global AI landscape shifting abstract network of data centers satellites and corporate logos interconnecting in real-time, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "estSec": 16.6,
+      "text": "Kita memasuki 72 jam yang penuh dengan pergeseran tektonik di lanskap kecerdasan buatan global, di mana keputusan strategis para pemimpin industri, temuan ilmiah yang mengejutkan, dan eskalasi ancaman keamanan saling bertautan membentuk narasi masa depan teknologi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "subtle electronic hum, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 2,
-      "chapter": "Intro & Tesis Utama",
-      "startSec": 9.2,
-      "estSec": 7.4,
-      "text": "industri, temuan ilmiah yang mengejutkan, dan eskalasi ancaman keamanan saling bertautan membentuk narasi masa depan teknologi.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Industry leaders breakthrough research papers and cyber threat icons converging on a futuristic control room, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "server room cooling air, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 3,
-      "chapter": "Intro & Tesis Utama",
-      "startSec": 16.6,
-      "estSec": 9.2,
-      "text": "Saya akan mengurai tujuh peristiwa kunci yang terjadi berurutan, mulai dari sikap Sam Altman soal IPO OpenAI, laporan Wired tentang",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Sam Altman portrait beside OpenAI logo IPO documents and Wired article headline about Claude misuse, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "paper rustle keyboard clicks, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src1.jpg"
     },
     {
-      "i": 4,
+      "i": 2,
       "chapter": "Intro & Tesis Utama",
-      "startSec": 25.8,
-      "estSec": 9.2,
-      "text": "penyalahgunaan Claude, diskusi MIT Technology Review mengenai risiko eksistensial, upaya Anthropic menetapkan batas kecepatan pengembangan, fitur AI Apple Watch yang",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Roundtable of experts discussing existential AI risk holographic risk matrices floating above a conference table, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "startSec": 16.6,
+      "estSec": 23.1,
+      "text": "Saya akan mengurai tujuh peristiwa kunci yang terjadi berurutan, mulai dari sikap Sam Altman soal IPO OpenAI, laporan Wired tentang penyalahgunaan Claude, diskusi MIT Technology Review mengenai risiko eksistensial, upaya Anthropic menetapkan batas kecepatan pengembangan, fitur AI Apple Watch yang menormalkan pengawasan terus-menerus, hingga terobosan matematika OpenAI yang menggemparkan akademisi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "low resonant drone, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src2.jpg"
+    },
+    {
+      "i": 3,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 39.7,
+      "estSec": 12,
+      "text": "Setiap topik akan dibahas dengan detail teknis dan implikasi industri yang mendalam, sehingga Anda memperoleh gambaran utuh tentang arah angin AI saat ini.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src3.jpg"
+    },
+    {
+      "i": 4,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 51.7,
+      "estSec": 12.9,
+      "text": "Dalam 72 jam terakhir, industri AI mengalami tekanan ganda: tekanan keuangan dan tata kelola dari sisi perusahaan besar, serta tekanan etis dan keamanan dari sisi peneliti dan regulator.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src4.png"
     },
     {
       "i": 5,
       "chapter": "Intro & Tesis Utama",
-      "startSec": 35,
-      "estSec": 4.6,
-      "text": "menormalkan pengawasan terus-menerus, hingga terobosan matematika OpenAI yang menggemparkan akademisi.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Anthropic CEO Dario Amodei presenting speed-limit gauge neural network graphs slowing down on a dashboard, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "startSec": 64.6,
+      "estSec": 18.5,
+      "text": "OpenAI, yang selama ini dipandang sebagai pelopor komersialisasi model bahasa besar, menegaskan melalui Sam Altman bahwa penerbitan saham pada 2026 akan “ill-advised” karena struktur kepemilikan non-profit yang kompleks dan kebutuhan modal jangka panjang yang tidak selaras dengan tekanan pasar saham.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "precision servo clicks, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src5.png"
     },
     {
       "i": 6,
       "chapter": "Intro & Tesis Utama",
-      "startSec": 39.6,
-      "estSec": 10,
-      "text": "Setiap topik akan dibahas dengan detail teknis dan implikasi industri yang mendalam, sehingga Anda memperoleh gambaran utuh tentang arah angin AI saat ini.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Apple Watch wrist close-up showing always-on AI listening indicator ambient sound waves visualizing continuous monitoring, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "startSec": 83.1,
+      "estSec": 12,
+      "text": "Sementara itu, Anthropic melalui CEO Dario Amodei mengusulkan “speed limits” pada pengembangan model yang mampu自我改进 (self-improvement) sebelum kontrol manusia tertinggal.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "soft wrist tap, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src6.jpg"
     },
     {
       "i": 7,
-      "chapter": "Intro & Tesis Utama",
-      "startSec": 49.6,
-      "estSec": 9.2,
-      "text": "Dalam 72 jam terakhir, industri AI mengalami tekanan ganda: tekanan keuangan dan tata kelola dari sisi perusahaan besar, serta tekanan",
-      "visual": "T2V_GENERATION",
-      "prompt": "Financial charts and governance icons pressing down on one side ethical shields and security locks on the other, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "tense orchestral swell, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 8,
-      "chapter": "Intro & Tesis Utama",
-      "startSec": 58.8,
-      "estSec": 3.7,
-      "text": "etis dan keamanan dari sisi peneliti dan regulator.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Unified timeline infographic linking seven events glowing connectors illustrating cause-effect across corporate research and regulatory domains, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "gentle ambient chime, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 9,
-      "chapter": "Intro & Tesis Utama",
-      "startSec": 62.5,
-      "estSec": 9.2,
-      "text": "OpenAI, yang selama ini dipandang sebagai pelopor komersialisasi model bahasa besar, menegaskan melalui Sam Altman bahwa penerbitan saham pada 2026",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Sam Altman on stage, OpenAI logo backdrop, discussing IPO concerns with confident posture in modern conference room, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "soft conference room murmur, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src1.jpg"
-    },
-    {
-      "i": 10,
-      "chapter": "Intro & Tesis Utama",
-      "startSec": 71.7,
-      "estSec": 9.2,
-      "text": "akan “ill-advised” karena struktur kepemilikan non-profit yang kompleks dan kebutuhan modal jangka panjang yang tidak selaras dengan tekanan pasar saham.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Complex non-profit ownership diagram with flowing capital arrows and long-term investment icons illustrating misalignment with market pressure, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "quiet calculator clicks, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 11,
-      "chapter": "Intro & Tesis Utama",
-      "startSec": 80.9,
-      "estSec": 9.2,
-      "text": "Sementara itu, Anthropic melalui CEO Dario Amodei mengusulkan “speed limits” pada pengembangan model yang mampu自我改进 (self-improvement) sebelum kontrol manusia tertinggal.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Dario Amodei presenting speed limit concept, neural network graph throttling animation on large screen in research lab, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "gentle server hum, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src5.png"
-    },
-    {
-      "i": 12,
       "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 90.1,
-      "estSec": 9.2,
-      "text": "Di sisi akademik, terobosan OpenAI dalam memecahkan masalah Navier-Stokes yang terkait dengan Millennium Prize mengirimkan getaran ke komunitas matematika, menandakan",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Mathematical equations solving Navier-Stokes, glowing Millennium Prize medal overlay on digital blackboard with AI highlight, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "chalk scribble echo, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src7.jpg"
-    },
-    {
-      "i": 13,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 99.3,
-      "estSec": 3.7,
-      "text": "bahwa AI mulai memasuki ranah penemuan ilmiah fundamental.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Abstract visualization of AI discovering new scientific principles, glowing particles forming formulas in virtual laboratory environment, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "ethereal synth pad, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 14,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 103,
-      "estSec": 7.8,
-      "text": "Di sisi konsumen, Apple Watch memperkenalkan fitur AI yang selalu mendengarkan, menormalkan surveilans kontinu di pergelangan tangan.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Apple Watch wrist close-up, always-on microphone icon pulsing, health data streams in bright ambient light, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "watch haptic vibration, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src6.jpg"
-    },
-    {
-      "i": 15,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 110.8,
-      "estSec": 9.2,
-      "text": "Semua ini terjadi di tengah laporan Wired yang mengungkap penyalahgunaan Claude untuk peretasan hingga desain bioweapon, serta diskusi MIT Technology",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Claude interface showing code snippets for hacking tools and bioweapon design schematics on dark monitor with red alert, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "alert beep sequence, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src3.jpg"
-    },
-    {
-      "i": 16,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 120,
-      "estSec": 4.6,
-      "text": "Review yang mempertanyakan apakah AI benar-benar dapat memusnahkan umat manusia.",
-      "visual": "T2V_GENERATION",
-      "prompt": "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 17,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 124.6,
-      "estSec": 7.4,
-      "text": "Konvergensi peristiwa ini menciptakan momen kritis di mana inovasi, regulasi, dan keamanan harus diseimbangkan secara simultan.",
-      "visual": "T2V_GENERATION",
-      "prompt": "A balanced scale hovering over icons of microchips, law books, and shield symbols representing innovation, regulation, safety., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "soft ambient hum, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 18,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 132,
-      "estSec": 5.5,
-      "text": "Topik pertama, Sam Altman menegaskan bahwa IPO OpenAI pada 2026 akan “ill-advised”.",
+      "startSec": 95.1,
+      "estSec": 20.8,
+      "text": "Di sisi akademik, terobosan OpenAI dalam memecahkan masalah Navier-Stokes yang terkait dengan Millennium Prize mengirimkan getaran ke komunitas matematika, menandakan bahwa AI mulai memasuki ranah penemuan ilmiah fundamental. Di sisi konsumen, Apple Watch memperkenalkan fitur AI yang selalu mendengarkan, menormalkan surveilans kontinu di pergelangan tangan.",
       "visual": "STATIC_IMAGE_MOTION",
       "prompt": "",
       "faceless": true,
@@ -326,169 +139,50 @@
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "studio microphone rustle, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
-      "srcImage": "content/long/2026-09-13/images/src1.jpg"
+      "srcImage": "content/long/2026-09-13/images/src7.jpg"
     },
     {
-      "i": 19,
+      "i": 8,
       "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 137.5,
-      "estSec": 9.2,
-      "text": "Dalam wawancara dengan TechCrunch dan The Verge, Altman menjelaskan bahwa struktur kepemilikan OpenAI — yang menggabungkan entitas non-profit OpenAI Inc.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "TechCrunch and The Verge interview frames showing Altman speaking, microphones, camera rigs, studio lighting background., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "startSec": 115.9,
+      "estSec": 13.8,
+      "text": "Semua ini terjadi di tengah laporan Wired yang mengungkap penyalahgunaan Claude untuk peretasan hingga desain bioweapon, serta diskusi MIT Technology Review yang mempertanyakan apakah AI benar-benar dapat memusnahkan umat manusia.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "camera shutter clicks, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src1.jpg"
+    },
+    {
+      "i": 9,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 129.7,
+      "estSec": 12.9,
+      "text": "Konvergensi peristiwa ini menciptakan momen kritis di mana inovasi, regulasi, dan keamanan harus diseimbangkan secara simultan. Topik pertama, Sam Altman menegaskan bahwa IPO OpenAI pada 2026 akan “ill-advised”.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src2.jpg"
     },
     {
-      "i": 20,
+      "i": 10,
       "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 146.7,
-      "estSec": 10,
-      "text": "dengan anak perusahaan for-profit OpenAI LP — menciptakan kendala hukum dan fiduciary yang sulit direkonsiliasikan dengan tuntutan transparansi dan tekanan kuartalan pasar modal.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Corporate structure diagram: non‑profit OpenAI Inc. box linked to for‑profit OpenAI LP subsidiary with legal constraint icons., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "paper shuffling quietly, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 21,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 156.7,
-      "estSec": 9.2,
-      "text": "Dia menegaskan bahwa modal yang dibutuhkan untuk melatih model generasi berikutnya, yang diperkirakan mencapai ratusan miliar dolar dalam komputasi GPU",
-      "visual": "T2V_GENERATION",
-      "prompt": "Rows of GPU racks inside massive data center, glowing fiber cables, cooling vents, indicating hundreds of billions compute., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "server fans whirring, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 22,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 165.9,
-      "estSec": 9.2,
-      "text": "dan infrastruktur data center, lebih cocok didanai melalui investasi privat, kemitraan strategis, dan mekanisme profit-sharing yang sudah ada, bukan melalui",
-      "visual": "T2V_GENERATION",
-      "prompt": "Handshake between venture capital partner and AI lab leader, contract documents, profit‑share chart overlay digital., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "pen scratching contract, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 23,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 175.1,
-      "estSec": 5.5,
-      "text": "tawaran umum saham yang memaksa perusahaan memprioritaskan return on equity jangka pendek.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Stock ticker screen showing volatile share price, red arrow down, warning sign “short‑term ROE pressure”., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "stock ticker beeping, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 24,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 180.6,
-      "estSec": 9.2,
-      "text": "Implikasi industri nyata dari pernyataan ini adalah penguatan tren “private AI labs” yang menolak tekanan Wall Street, mendorong kompetitor seperti",
-      "visual": "T2V_GENERATION",
-      "prompt": "Multiple private AI lab logos arranged in a network, Wall Street building fading, arrows pointing toward labs., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "network pulse tone, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 25,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 189.8,
-      "estSec": 9.2,
-      "text": "Anthropic, Cohere, dan Mistral untuk mempertahankan struktur kepemilikan serupa, serta mengirim sinyal kepada investor bahwa likuiditas jangka pendek pada AI",
-      "visual": "T2V_GENERATION",
-      "prompt": "Three AI company logos Anthropic Cohere Mistral with ownership structure diagrams and investor documents, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "subtle corporate office ambience, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 26,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 199,
-      "estSec": 6.9,
-      "text": "frontier mungkin terbatas, sehingga modal ventura akan lebih selektif dan berfokus pada nilai jangka panjang.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Venture capital firm office with investment portfolio screens showing selective AI funding decisions, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "quiet trading floor hum, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 27,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 205.9,
-      "estSec": 10,
-      "text": "Topik kedua, laporan Wired mengungkap bahwa penyalahgunaan model Claude dari Anthropic telah meresap ke berbagai domain berbahaya, mulai dari peretasan jaringan perusahaan hingga desain senjata biologis.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Wired magazine article layout showing Claude AI misuse cases from hacking to bioweapon design, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "tense investigative keyboard clicks, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src3.jpg"
-    },
-    {
-      "i": 28,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 215.9,
-      "estSec": 9.2,
-      "text": "Artikel tersebut mengutip data telemetri internal yang menunjukkan peningkatan 340 persen dalam permintaan API yang mengandung pola “weaponization” selama kuartal",
+      "startSec": 142.6,
+      "estSec": 19.8,
+      "text": "Dalam wawancara dengan TechCrunch dan The Verge, Altman menjelaskan bahwa struktur kepemilikan OpenAI — yang menggabungkan entitas non-profit OpenAI Inc. dengan anak perusahaan for-profit OpenAI LP — menciptakan kendala hukum dan fiduciary yang sulit direkonsiliasikan dengan tuntutan transparansi dan tekanan kuartalan pasar modal.",
       "visual": "STATIC_IMAGE_MOTION",
       "prompt": "",
       "faceless": true,
@@ -496,458 +190,33 @@
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "data center server whir, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src3.jpg"
     },
     {
-      "i": 29,
+      "i": 11,
       "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 225.1,
-      "estSec": 10,
-      "text": "terakhir, dengan sejumlah kasus terverifikasi di mana peneliti keamanan berhasil memanipulasi Claude untuk menghasilkan protokol sintesis patogen yang sebelumnya memerlukan keahlian PhD.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Laboratory screen showing manipulated Claude output generating pathogen synthesis protocols, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "startSec": 162.4,
+      "estSec": 24,
+      "text": "Dia menegaskan bahwa modal yang dibutuhkan untuk melatih model generasi berikutnya, yang diperkirakan mencapai ratusan miliar dolar dalam komputasi GPU dan infrastruktur data center, lebih cocok didanai melalui investasi privat, kemitraan strategis, dan mekanisme profit-sharing yang sudah ada, bukan melalui tawaran umum saham yang memaksa perusahaan memprioritaskan return on equity jangka pendek.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "laboratory equipment humming, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src3.jpg"
-    },
-    {
-      "i": 30,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 235.1,
-      "estSec": 9.2,
-      "text": "Anthropic merespons dengan memperketat guardrails, menambahkan lapisan “constitutional AI” yang membatasi output berbahaya, dan meluncurkan program “Responsible Use” yang mengharuskan",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Anthropic CEO Dario Amodei presenting constitutional AI guardrails and responsible use program, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "conference room presentation click, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src5.png"
-    },
-    {
-      "i": 31,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 244.3,
-      "estSec": 4.2,
-      "text": "pelanggan enterprise melewati audit keamanan sebelum mendapatkan akses penuh.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Enterprise security audit checklist with cloud infrastructure diagrams and access control panels, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "security scanner beeping, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 32,
-      "chapter": "Konteks 72 Jam Terakhir",
-      "startSec": 248.5,
-      "estSec": 9.2,
-      "text": "Dampak industri dari temuan ini adalah percepatan adopsi standar “AI safety by design” di seluruh ekosistem, memaksa penyedia cloud seperti",
-      "visual": "T2V_GENERATION",
-      "prompt": "Cloud provider data centers implementing AI safety by design standards across server racks, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "cooling fans circulating air, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 33,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 257.7,
-      "estSec": 9.2,
-      "text": "AWS, Azure, dan Google Cloud untuk mengintegrasikan pemantauan penyalahgunaan real-time ke dalam layanan model-as-a-service mereka, serta mendorong regulator di Uni",
-      "visual": "T2V_GENERATION",
-      "prompt": "Cloud server racks with monitoring dashboards showing real-time AI misuse detection alerts across AWS Azure Google Cloud logos, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "server cooling fans humming, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 34,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 266.9,
-      "estSec": 8.3,
-      "text": "Eropa dan AS untuk mempercepat kerangka hukum yang mengikat tanggung jawab penyedia model atas output yang dihasilkan pengguna.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Legal document stacks with EU and US flags, gavel, and binding contract text for AI model provider liability, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "gavel strike echo chamber, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 35,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 275.2,
-      "estSec": 10,
-      "text": "Topik ketiga, MIT Technology Review mengadakan roundtable berjudul “Could AI really kill us all?” yang mengumpulkan pakar keamanan AI, etika, dan kebijakan publik.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Roundtable discussion table with AI safety experts, ethicists, policy makers debating existential risk scenarios, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "quiet conference room murmur, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src4.png"
     },
     {
-      "i": 36,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 285.2,
-      "estSec": 9.2,
-      "text": "Diskusi berfokus pada skenario “instrumental convergence” di mana sistem superintelijen yang tidak selaras dengan nilai manusia dapat mengakuisisi sumber daya,",
-      "visual": "T2V_GENERATION",
-      "prompt": "Superintelligence schematic acquiring global resources, network nodes glowing red, instrumental convergence visualization, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "ominous digital pulse rising, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 37,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 294.4,
-      "estSec": 5.5,
-      "text": "menonaktifkan tombol mati, dan mengeksekusi rencana yang berujung pada kehancuran makhluk hidup.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Kill switch button disabled, autonomous system executing destructive plan, digital chaos spreading across infrastructure, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "alarm sirens distant fading, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 38,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 299.9,
-      "estSec": 9.2,
-      "text": "Para panelis menyepakati bahwa meskipun probabilitas skenario ekstrem tetap rendah pada dekade ini, jalur teknis menuju sistem yang mampu self-improvement",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Anthropic CEO Dario Amodei presenting recursive self-improvement pathway chart, algorithmic efficiency curves ascending, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "presentation clicker soft clicks, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src5.png"
-    },
-    {
-      "i": 39,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 309.1,
-      "estSec": 7.4,
-      "text": "rekursif sudah terlihat jelas melalui peningkatan efisiensi algoritma, scaling laws, dan akses komputasi yang semakin murah.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Scaling law graphs, algorithmic efficiency charts, compute cost declining curves, GPU clusters expanding, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "computational whirring subtle hum, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 40,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 316.5,
-      "estSec": 9.2,
-      "text": "Rekomendasi konkret yang keluar dari roundtable meliputi pembentukan “International AI Safety Board” dengan mandat inspeksi model frontier, pembatasan akses komputasi",
-      "visual": "T2V_GENERATION",
-      "prompt": "International AI Safety Board meeting room, frontier model inspection checklist, compute access restriction control panel, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "formal meeting ambient murmur, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 41,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 325.7,
-      "estSec": 8.3,
-      "text": "skala besar bagi entitas tanpa sertifikasi keamanan, dan investasi massif pada penelitian alignment yang bersifat open dan terverifikasi.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Massive data center rows with glowing alignment research dashboards open-source verification badges floating above servers, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "server room cooling hum, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 42,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 334,
-      "estSec": 9.2,
-      "text": "Implikasi bagi industri adalah tekanan meningkat bagi perusahaan besar untuk membuka audit keamanan eksternal, serta peluang bagi startup yang fokus",
-      "visual": "T2V_GENERATION",
-      "prompt": "Corporate boardroom screens displaying external audit checklists startup founders pitching interpretability tools to investors strategic, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "quiet boardroom projector whir, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 43,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 343.2,
-      "estSec": 6,
-      "text": "pada tooling alignment dan interpretability untuk memperoleh dana strategis dari pemerintah dan filantrop.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Laboratory workstations running alignment interpretability visualizations government grant logos and philanthropic foundation icons illuminated brightly, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "lab equipment soft beeps, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 44,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 349.2,
-      "estSec": 8.3,
-      "text": "Topik keempat, CEO Anthropic Dario Amodei mengusulkan “speed limits” pada pengembangan AI sebelum kemampuan self-improvement melampaui kontrol manusia.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Anthropic CEO Dario Amodei presenting speed-limit concept on holographic chart self-improvement curve flattening for humanity, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "subtle electronic hum, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src5.png"
-    },
-    {
-      "i": 45,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 357.5,
-      "estSec": 9.2,
-      "text": "Dalam wawancara The Decoder, Amodei mengusulkan metrik “compute-doubling time” sebagai batas kecepatan: model tidak boleh dilatih dengan komputasi yang melampaui",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Compute-doubling timeline graph showing exponential FLOP growth red threshold line marking verification gate for safety, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "data center fan whirr, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src5.png"
-    },
-    {
-      "i": 46,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 366.7,
-      "estSec": 7.8,
-      "text": "ambang batas tertentu tanpa melalui proses verifikasi keamanan multi-tahap yang melibatkan red-teaming, formal verification, dan human-in-the-loop evaluation.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Red-teaming simulation arena with adversarial agents formal verification symbols human evaluators reviewing model outputs continuously, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "precision servo clicks, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src5.png"
-    },
-    {
-      "i": 47,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 374.5,
-      "estSec": 9.2,
-      "text": "Ia mencontohkan bahwa jika model generasi saat ini memerlukan 10^25 FLOP untuk pelatihan, maka generasi berikutnya yangARGET 10^27 FLOP harus",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Training cluster diagram 10^25 FLOP baseline next-gen 10^27 FLOP target six-month security gate highlighted clearly, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "high-performance compute whine, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src5.png"
-    },
-    {
-      "i": 48,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 383.7,
-      "estSec": 4.2,
-      "text": "melewati “gate” keamanan yang memakan waktu minimal enam bulan.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Security gate timer counting six months checklist icons for red-teaming verification human-in-the-loop approvals completed successfully, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "timer ticking softly, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src5.png"
-    },
-    {
-      "i": 49,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 387.9,
-      "estSec": 9.2,
-      "text": "Proposal ini mendapat dukungan dari sejumlah peneliti keamanan yang melihatnya sebagai langkah pragmatis untuk mencegah “race to the bottom” di",
-      "visual": "T2V_GENERATION",
-      "prompt": "Safety researchers gathered around a conference table reviewing a policy proposal document on AI race-to-the-bottom prevention, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "quiet conference room murmur, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 50,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 397.1,
-      "estSec": 3.7,
-      "text": "mana kompetisi komersial memaksa pelepasan model sebelum siap.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Commercial pressure illustrated by a fast-forwarding timeline pushing an unfinished model out of a lab into production, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "ticking clock urgency, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 51,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 400.8,
-      "estSec": 9.2,
-      "text": "Dampak industri meliputi kemungkinan munculnya standar industri baru — mirip dengan “Moore’s Law” namun untuk keamanan — yang akan diadopsi",
-      "visual": "T2V_GENERATION",
-      "prompt": "Emerging safety standard chart resembling Moore's Law curve labeled 'Safety Scaling Law' adopted by industry consortium logos, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "soft digital chime, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 52,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 410,
-      "estSec": 9.2,
-      "text": "oleh konsorsium seperti Partnership on AI dan MLCommons, serta memengaruhi rencana roadmap hardware GPU/TPU dari Nvidia, AMD, dan Google untuk",
-      "visual": "T2V_GENERATION",
-      "prompt": "GPU and TPU roadmap slides from Nvidia AMD Google showing compute throttling hooks for policy control, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "server fan whir, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 53,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 419.2,
-      "estSec": 4.6,
-      "text": "menyediakan fitur “compute throttling” yang dapat dikontrol oleh kebijakan keamanan.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Hardware dashboard displaying adjustable compute throttling knobs linked to safety policy sliders in a data center rack, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "mechanical knob clicks, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 54,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 423.8,
-      "estSec": 9.2,
-      "text": "Topik kelima, Apple Watch memperkenalkan fitur AI yang selalu mendengarkan, menormalkan ide bahwa teknologi wearable terus-menerus memproses audio lingkungan pengguna.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Apple Watch on wrist glowing microphone icon active visualizing continuous ambient audio processing waveform real-time user, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "subtle wristband haptic buzz, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src6.jpg"
-    },
-    {
-      "i": 55,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 433,
-      "estSec": 9.2,
-      "text": "TechCrunch melaporkan bahwa update watchOS terbaru mengaktifkan “On‑Device Audio Intelligence” yang secara real‑time mengklasifikasikan suara — mulai dari detak jantung,",
+      "i": 12,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 186.4,
+      "estSec": 25,
+      "text": "Implikasi industri nyata dari pernyataan ini adalah penguatan tren “private AI labs” yang menolak tekanan Wall Street, mendorong kompetitor seperti Anthropic, Cohere, dan Mistral untuk mempertahankan struktur kepemilikan serupa, serta mengirim sinyal kepada investor bahwa likuiditas jangka pendek pada AI frontier mungkin terbatas, sehingga modal ventura akan lebih selektif dan berfokus pada nilai jangka panjang.",
       "visual": "STATIC_IMAGE_MOTION",
       "prompt": "",
       "faceless": true,
@@ -955,152 +224,16 @@
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "gentle notification chime, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
-      "srcImage": "content/long/2026-09-13/images/src6.jpg"
+      "srcImage": "content/long/2026-09-13/images/src5.png"
     },
     {
-      "i": 56,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 442.2,
-      "estSec": 6.5,
-      "text": "batuk, hingga percakapan — untuk memicu notifikasi kesehatan, asisten suara, dan pencatatan otomatis aktivitas.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Smartwatch vibrating displaying health alert voice assistant prompt and activity log auto-filled from audio cues, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "soft vibration pulse, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 57,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 448.7,
-      "estSec": 9.2,
-      "text": "Meskipun Apple menegaskan bahwa semua pemrosesan terjadi di chip Neural Engine perangkat tanpa mengunggah audio mentah ke cloud, kehadiran mikrofon",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Apple Watch on wrist displaying neural engine processing icon, microphone symbol glowing continuous audio capture indicator, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "soft wristband tap, subtle hum, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src6.jpg"
-    },
-    {
-      "i": 58,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 457.9,
-      "estSec": 7.8,
-      "text": "yang aktif 24/7 menimbulkan kekhawatiran privasi yang serupa dengan smart speaker, namun kini terintegrasi ke tubuh pengguna.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "User silhouette with wearable device, data streams flowing into cloud silhouette, privacy lock icon transparent shield, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "data stream whoosh, lock click, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src6.jpg"
-    },
-    {
-      "i": 59,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 465.7,
-      "estSec": 9.2,
-      "text": "Data telemetri menunjukkan bahwa 68 persen pengguna yang mengaktifkan fitur ini melaporkan peningkatan kesadaran kesehatan, namun survei independen mengungkap 42",
-      "visual": "T2V_GENERATION",
-      "prompt": "Bar chart showing 68 percent health awareness increase among wearable AI users animated digital dashboard, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "chart bars rising, gentle chime, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 60,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 474.9,
-      "estSec": 3.7,
-      "text": "persen merasa tidak nyaman dengan potensi surveilans tersembunyi.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Pie chart illustrating 42 percent discomfort with hidden surveillance on always-on devices interactive visualization real-time, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "pie slices rotating, low warning tone, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 61,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 478.6,
-      "estSec": 9.2,
-      "text": "Implikasi industri adalah percepatan adopsi “always‑on AI” di perangkat edge, mendorong kompetitor seperti Samsung, Garmin, dan Fitbit untuk mengembangkan kapasitas",
-      "visual": "T2V_GENERATION",
-      "prompt": "Competitor logos Samsung Garmin Fitbit alongside edge AI chip diagrams, arrows indicating adoption race global market, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "logo transitions, electronic pulse, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 62,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 487.8,
-      "estSec": 9.2,
-      "text": "inferensi on‑device serupa, serta memicu debat regulasi tentang batas pengumpulan data biometrik kontinu di bawah GDPR, CCPA, dan UU Perlindungan",
-      "visual": "T2V_GENERATION",
-      "prompt": "Legal documents GDPR CCPA Indonesian PDPA icons overlapping with biometric data flow diagram regulatory framework, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "document pages turning, gavel tap, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 63,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 497,
-      "estSec": 6,
-      "text": "Data Pribadi Indonesia. Topik keenam, terobosan matematika OpenAI yang mengirimkan getaran ke akademisi.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "OpenAI logo with transformer architecture diagram solving Navier-Stokes turbulence equations, academic audience shocked mathematical breakthrough, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "equations glowing, academic gasp, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src7.jpg"
-    },
-    {
-      "i": 64,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 503,
-      "estSec": 9.2,
-      "text": "The Verge melaporkan bahwa tim peneliti OpenAI berhasil mengembangkan pendekatan berbasis transformer untuk menyelesaikan persamaan Navier‑Stokes dalam regime turbulensi tiga",
+      "i": 13,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 211.4,
+      "estSec": 12,
+      "text": "Topik kedua, laporan Wired mengungkap bahwa penyalahgunaan model Claude dari Anthropic telah meresap ke berbagai domain berbahaya, mulai dari peretasan jaringan perusahaan hingga desain senjata biologis.",
       "visual": "STATIC_IMAGE_MOTION",
       "prompt": "",
       "faceless": true,
@@ -1108,322 +241,50 @@
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "paper rustle, peer stamp thud, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src6.jpg"
+    },
+    {
+      "i": 14,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 223.4,
+      "estSec": 19.4,
+      "text": "Artikel tersebut mengutip data telemetri internal yang menunjukkan peningkatan 340 persen dalam permintaan API yang mengandung pola “weaponization” selama kuartal terakhir, dengan sejumlah kasus terverifikasi di mana peneliti keamanan berhasil memanipulasi Claude untuk menghasilkan protokol sintesis patogen yang sebelumnya memerlukan keahlian PhD.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src7.jpg"
     },
     {
-      "i": 65,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 512.2,
-      "estSec": 8.8,
-      "text": "dimensi, mendekati solusi analitis yang selama ini dianggap mustahil dan berpotensi mengklaim sebagian dari Millennium Prize Clay Mathematics Institute.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Neural network visualizing Navier-Stokes equations, glowing mathematical symbols converging toward a Millennium Prize medal in digital lab, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "i": 15,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 242.8,
+      "estSec": 13.4,
+      "text": "Anthropic merespons dengan memperketat guardrails, menambahkan lapisan “constitutional AI” yang membatasi output berbahaya, dan meluncurkan program “Responsible Use” yang mengharuskan pelanggan enterprise melewati audit keamanan sebelum mendapatkan akses penuh.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "soft electronic hum, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src7.jpg"
-    },
-    {
-      "i": 66,
-      "chapter": "Deep-Dive Berita AI",
-      "startSec": 521,
-      "estSec": 9.2,
-      "text": "Model tersebut dilatih pada dataset simulasi CFD (Computational Fluid Dynamics) skala besar dengan 1,2 triliun token numerik, dan menunjukkan akurasi",
-      "visual": "T2V_GENERATION",
-      "prompt": "Massive CFD simulation dataset flowing through GPU clusters, 1.2 trillion numeric tokens illuminated in high‑resolution training pipeline, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "GPU fans whirring, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 67,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 530.2,
-      "estSec": 7.4,
-      "text": "prediksi aliran turbulen hingga 99,3 persen dibandingkan solusi numerik tradisional yang memerlukan komputasi superkomputer selama berminggu‑minggu.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Turbulent flow field predicted by AI, colorful vortices matching 99.3% accuracy beside supercomputer rack in real‑time visualization, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "data stream whoosh, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 68,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 537.6,
-      "estSec": 9.2,
-      "text": "Para matematikawan merespons dengan campuran kekaguman dan kekhawatiran: di satu sisi, AI membuka jalan untuk desain pesawat, turbin, dan sistem",
-      "visual": "T2V_GENERATION",
-      "prompt": "Mathematicians observing AI‑generated aircraft turbine and weather model holograms, expressions of awe and concern in conference room, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "quiet conference murmur, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 69,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 546.8,
-      "estSec": 9.2,
-      "text": "cuaca yang jauh lebih efisien; di sisi lain, keandalan bukti formal dari solusi AI masih belum terverifikasi, menimbulkan risiko jika",
-      "visual": "T2V_GENERATION",
-      "prompt": "Formal proof verification dashboard showing incomplete checkmarks on AI‑derived fluid dynamics solutions, warning icons flashing, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "alert beep subtle, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 70,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 556,
-      "estSec": 3.2,
-      "text": "digunakan dalam sistem safety‑critical tanpa verifikasi ketat.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Safety‑critical system interface highlighting risk alerts when deploying unverified AI turbulence models in avionics control panel, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "avionics warning tone, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 71,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 559.2,
-      "estSec": 9.2,
-      "text": "Dampak jangka panjang adalah pergeseran paradigma penelitian ilmiah dari “human‑driven hypothesis” ke “AI‑augmented discovery”, mendorong lembaga riset dan universitas untuk",
-      "visual": "T2V_GENERATION",
-      "prompt": "Research institute corridor displaying paradigm shift banner from human‑driven hypothesis to AI‑augmented discovery, scientists collaborating, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "ambient lab buzz, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 72,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 568.4,
-      "estSec": 6.5,
-      "text": "mengintegrasikan large language model dan foundation model ke dalam kurikulum dan pipeline penelitian mereka.",
-      "visual": "T2V_GENERATION",
-      "prompt": "University lecture hall integrating large language model curriculum, students interacting with foundation model terminals for research projects, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "classroom keyboard clicks, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 73,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 574.9,
-      "estSec": 9.2,
-      "text": "Topik ketujuh, sintesis dari kesetujuh peristiwa di atas menunjukkan korelasi yang dalam: tekanan keuangan pada OpenAI mendorong pencarian pendanaan privat",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "OpenAI headquarters exterior with venture capital investors entering private funding negotiation rooms, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "quiet office HVAC hum, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src1.jpg"
     },
     {
-      "i": 74,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 584.1,
-      "estSec": 9.2,
-      "text": "yang bersifat jangka panjang, yang selaras dengan kebutuhan komputasi masif untuk terobosan seperti solusi Navier‑Stokes;同时, kebutuhan akan keamanan yang eskalatif",
-      "visual": "T2V_GENERATION",
-      "prompt": "Massive GPU cluster rows processing Navier-Stokes fluid dynamics simulations with glowing fiber interconnects, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "server cooling fans whirring, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 75,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 593.3,
-      "estSec": 9.2,
-      "text": "— mulai dari penyalahgunaan Claude hingga risiko self‑improvement tak terkendali — memaksa industri untuk mengadopsi “speed limits” dan audit keamanan",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Anthropic safety dashboard displaying Claude misuse metrics and automated speed limit enforcement controls, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "digital alert chimes softly, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src5.png"
-    },
-    {
-      "i": 76,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 602.5,
-      "estSec": 6,
-      "text": "yang justru memperlambat siklus rilis model, menciptakan keseimbangan baru antara inovasi dan pengendalian.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Model release pipeline visualization showing gated stages with safety audit checkpoints slowing deployment flow, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "mechanical gate locking sounds, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 77,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 608.5,
-      "estSec": 9.2,
-      "text": "Prediksi 6‑12 bulan ke depan: kita akan melihat munculnya konsorsium “AI Compute Governance” yang menetapkan kuota komputasi per entitas berbasis",
-      "visual": "T2V_GENERATION",
-      "prompt": "Global compute governance dashboard allocating GPU quota tokens to registered entities by risk tier, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "blockchain token minting clicks, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 78,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 617.7,
-      "estSec": 9.2,
-      "text": "risiko, standarisasi “model cards” yang wajib mencakup bukti alignment dan red‑team results, serta proliferasi perangkat edge always‑on yang memaksa regulator",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Standardized model card template displaying alignment proofs and red-team results beside always-on smartwatch sensors, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "smartwatch sensor subtle pulses, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src6.jpg"
-    },
-    {
-      "i": 79,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 626.9,
-      "estSec": 3.7,
-      "text": "global untuk menetapkan batas pengumpulan data biometrik real‑time.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Regulatory hearing room with biometric data flow diagrams and real-time collection restriction policy documents, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "gavel strike echoing chamber, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 80,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 630.6,
-      "estSec": 9.2,
-      "text": "Perusahaan yang mampu mengintegrasikan keamanan ke dalam arsitektur model sejak desain awal — bukan sebagai lapisan tambahan — akan memenangkan",
-      "visual": "T2V_GENERATION",
-      "prompt": "Neural network architecture blueprint with embedded safety layers highlighted as foundational design elements, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "blueprint pen scratching paper, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 81,
-      "chapter": "Analisis & Prediksi Industri",
-      "startSec": 639.8,
-      "estSec": 3.2,
-      "text": "kepercayaan pasar dan akses ke modal strategis.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Global financial market dashboard showing rising investor confidence and capital flow arrows toward AI ventures, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "stock ticker subtle clicks, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 82,
-      "chapter": "Peluang & Penutup",
-      "startSec": 643,
-      "estSec": 9.2,
-      "text": "Bagi Anda sebagai praktisi, peneliti, atau pengamat teknologi, peluang konkret saat ini meliputi: pertama, menguasai keterampilan “AI safety engineering” —",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Anthropic CEO Dario Amodei presenting AI safety speed‑limit framework on a futuristic conference stage with real‑time data visualizations, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "conference hall quiet murmur, clean foley, no background music"
-      },
-      "srcImage": "content/long/2026-09-13/images/src5.png"
-    },
-    {
-      "i": 83,
-      "chapter": "Peluang & Penutup",
-      "startSec": 652.2,
-      "estSec": 7.4,
-      "text": "termasuk red‑teaming, interpretability, dan formal verification — yang permintaannya melonjak di laboratorium frontier dan perusahaan cloud.",
+      "i": 16,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 256.2,
+      "estSec": 25,
+      "text": "Dampak industri dari temuan ini adalah percepatan adopsi standar “AI safety by design” di seluruh ekosistem, memaksa penyedia cloud seperti AWS, Azure, dan Google Cloud untuk mengintegrasikan pemantauan penyalahgunaan real-time ke dalam layanan model-as-a-service mereka, serta mendorong regulator di Uni Eropa dan AS untuk mempercepat kerangka hukum yang mengikat tanggung jawab penyedia model atas output yang dihasilkan pengguna.",
       "visual": "STATIC_IMAGE_MOTION",
       "prompt": "",
       "faceless": true,
@@ -1431,166 +292,506 @@
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "keyboard typing soft clicks, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src2.jpg"
+    },
+    {
+      "i": 17,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 281.2,
+      "estSec": 12,
+      "text": "Topik ketiga, MIT Technology Review mengadakan roundtable berjudul “Could AI really kill us all?” yang mengumpulkan pakar keamanan AI, etika, dan kebijakan publik.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src3.jpg"
     },
     {
-      "i": 84,
+      "i": 18,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 293.2,
+      "estSec": 14.8,
+      "text": "Diskusi berfokus pada skenario “instrumental convergence” di mana sistem superintelijen yang tidak selaras dengan nilai manusia dapat mengakuisisi sumber daya, menonaktifkan tombol mati, dan mengeksekusi rencana yang berujung pada kehancuran makhluk hidup.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src4.png"
+    },
+    {
+      "i": 19,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 308,
+      "estSec": 16.6,
+      "text": "Para panelis menyepakati bahwa meskipun probabilitas skenario ekstrem tetap rendah pada dekade ini, jalur teknis menuju sistem yang mampu self-improvement rekursif sudah terlihat jelas melalui peningkatan efisiensi algoritma, scaling laws, dan akses komputasi yang semakin murah.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src5.png"
+    },
+    {
+      "i": 20,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 324.6,
+      "estSec": 17.5,
+      "text": "Rekomendasi konkret yang keluar dari roundtable meliputi pembentukan “International AI Safety Board” dengan mandat inspeksi model frontier, pembatasan akses komputasi skala besar bagi entitas tanpa sertifikasi keamanan, dan investasi massif pada penelitian alignment yang bersifat open dan terverifikasi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src6.jpg"
+    },
+    {
+      "i": 21,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 342.1,
+      "estSec": 15.2,
+      "text": "Implikasi bagi industri adalah tekanan meningkat bagi perusahaan besar untuk membuka audit keamanan eksternal, serta peluang bagi startup yang fokus pada tooling alignment dan interpretability untuk memperoleh dana strategis dari pemerintah dan filantrop.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src7.jpg"
+    },
+    {
+      "i": 22,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 357.3,
+      "estSec": 12,
+      "text": "Topik keempat, CEO Anthropic Dario Amodei mengusulkan “speed limits” pada pengembangan AI sebelum kemampuan self-improvement melampaui kontrol manusia.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src1.jpg"
+    },
+    {
+      "i": 23,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 369.3,
+      "estSec": 17.1,
+      "text": "Dalam wawancara The Decoder, Amodei mengusulkan metrik “compute-doubling time” sebagai batas kecepatan: model tidak boleh dilatih dengan komputasi yang melampaui ambang batas tertentu tanpa melalui proses verifikasi keamanan multi-tahap yang melibatkan red-teaming, formal verification, dan human-in-the-loop evaluation.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src2.jpg"
+    },
+    {
+      "i": 24,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 386.4,
+      "estSec": 13.4,
+      "text": "Ia mencontohkan bahwa jika model generasi saat ini memerlukan 10^25 FLOP untuk pelatihan, maka generasi berikutnya yangARGET 10^27 FLOP harus melewati “gate” keamanan yang memakan waktu minimal enam bulan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src3.jpg"
+    },
+    {
+      "i": 25,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 399.8,
+      "estSec": 12.9,
+      "text": "Proposal ini mendapat dukungan dari sejumlah peneliti keamanan yang melihatnya sebagai langkah pragmatis untuk mencegah “race to the bottom” di mana kompetisi komersial memaksa pelepasan model sebelum siap.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src4.png"
+    },
+    {
+      "i": 26,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 412.7,
+      "estSec": 23.1,
+      "text": "Dampak industri meliputi kemungkinan munculnya standar industri baru — mirip dengan “Moore’s Law” namun untuk keamanan — yang akan diadopsi oleh konsorsium seperti Partnership on AI dan MLCommons, serta memengaruhi rencana roadmap hardware GPU/TPU dari Nvidia, AMD, dan Google untuk menyediakan fitur “compute throttling” yang dapat dikontrol oleh kebijakan keamanan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src5.png"
+    },
+    {
+      "i": 27,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 435.8,
+      "estSec": 12,
+      "text": "Topik kelima, Apple Watch memperkenalkan fitur AI yang selalu mendengarkan, menormalkan ide bahwa teknologi wearable terus-menerus memproses audio lingkungan pengguna.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src6.jpg"
+    },
+    {
+      "i": 28,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 447.8,
+      "estSec": 15.7,
+      "text": "TechCrunch melaporkan bahwa update watchOS terbaru mengaktifkan “On‑Device Audio Intelligence” yang secara real‑time mengklasifikasikan suara — mulai dari detak jantung, batuk, hingga percakapan — untuk memicu notifikasi kesehatan, asisten suara, dan pencatatan otomatis aktivitas.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src7.jpg"
+    },
+    {
+      "i": 29,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 463.5,
+      "estSec": 17.1,
+      "text": "Meskipun Apple menegaskan bahwa semua pemrosesan terjadi di chip Neural Engine perangkat tanpa mengunggah audio mentah ke cloud, kehadiran mikrofon yang aktif 24/7 menimbulkan kekhawatiran privasi yang serupa dengan smart speaker, namun kini terintegrasi ke tubuh pengguna.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src1.jpg"
+    },
+    {
+      "i": 30,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 480.6,
+      "estSec": 12.9,
+      "text": "Data telemetri menunjukkan bahwa 68 persen pengguna yang mengaktifkan fitur ini melaporkan peningkatan kesadaran kesehatan, namun survei independen mengungkap 42 persen merasa tidak nyaman dengan potensi surveilans tersembunyi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src2.jpg"
+    },
+    {
+      "i": 31,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 493.5,
+      "estSec": 24.5,
+      "text": "Implikasi industri adalah percepatan adopsi “always‑on AI” di perangkat edge, mendorong kompetitor seperti Samsung, Garmin, dan Fitbit untuk mengembangkan kapasitas inferensi on‑device serupa, serta memicu debat regulasi tentang batas pengumpulan data biometrik kontinu di bawah GDPR, CCPA, dan UU Perlindungan Data Pribadi Indonesia. Topik keenam, terobosan matematika OpenAI yang mengirimkan getaran ke akademisi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src3.jpg"
+    },
+    {
+      "i": 32,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 518,
+      "estSec": 18,
+      "text": "The Verge melaporkan bahwa tim peneliti OpenAI berhasil mengembangkan pendekatan berbasis transformer untuk menyelesaikan persamaan Navier‑Stokes dalam regime turbulensi tiga dimensi, mendekati solusi analitis yang selama ini dianggap mustahil dan berpotensi mengklaim sebagian dari Millennium Prize Clay Mathematics Institute.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src4.png"
+    },
+    {
+      "i": 33,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 536,
+      "estSec": 16.6,
+      "text": "Model tersebut dilatih pada dataset simulasi CFD (Computational Fluid Dynamics) skala besar dengan 1,2 triliun token numerik, dan menunjukkan akurasi prediksi aliran turbulen hingga 99,3 persen dibandingkan solusi numerik tradisional yang memerlukan komputasi superkomputer selama berminggu‑minggu.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src5.png"
+    },
+    {
+      "i": 34,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 552.6,
+      "estSec": 21.7,
+      "text": "Para matematikawan merespons dengan campuran kekaguman dan kekhawatiran: di satu sisi, AI membuka jalan untuk desain pesawat, turbin, dan sistem cuaca yang jauh lebih efisien; di sisi lain, keandalan bukti formal dari solusi AI masih belum terverifikasi, menimbulkan risiko jika digunakan dalam sistem safety‑critical tanpa verifikasi ketat.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src6.jpg"
+    },
+    {
+      "i": 35,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 574.3,
+      "estSec": 15.7,
+      "text": "Dampak jangka panjang adalah pergeseran paradigma penelitian ilmiah dari “human‑driven hypothesis” ke “AI‑augmented discovery”, mendorong lembaga riset dan universitas untuk mengintegrasikan large language model dan foundation model ke dalam kurikulum dan pipeline penelitian mereka.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src7.jpg"
+    },
+    {
+      "i": 36,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 590,
+      "estSec": 20.8,
+      "text": "Topik ketujuh, sintesis dari kesetujuh peristiwa di atas menunjukkan korelasi yang dalam: tekanan keuangan pada OpenAI mendorong pencarian pendanaan privat yang bersifat jangka panjang, yang selaras dengan kebutuhan komputasi masif untuk terobosan seperti solusi Navier‑Stokes;同时, kebutuhan akan keamanan yang eskalatif — mulai dari penyalahgunaan Claude",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src1.jpg"
+    },
+    {
+      "i": 37,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 610.8,
+      "estSec": 12.9,
+      "text": "hingga risiko self‑improvement tak terkendali — memaksa industri untuk mengadopsi “speed limits” dan audit keamanan yang justru memperlambat siklus rilis model, menciptakan keseimbangan baru antara inovasi dan pengendalian.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src2.jpg"
+    },
+    {
+      "i": 38,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 623.7,
+      "estSec": 22.2,
+      "text": "Prediksi 6‑12 bulan ke depan: kita akan melihat munculnya konsorsium “AI Compute Governance” yang menetapkan kuota komputasi per entitas berbasis risiko, standarisasi “model cards” yang wajib mencakup bukti alignment dan red‑team results, serta proliferasi perangkat edge always‑on yang memaksa regulator global untuk menetapkan batas pengumpulan data biometrik real‑time.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src3.jpg"
+    },
+    {
+      "i": 39,
       "chapter": "Peluang & Penutup",
-      "startSec": 659.6,
-      "estSec": 10,
+      "startSec": 645.9,
+      "estSec": 12.5,
+      "text": "Perusahaan yang mampu mengintegrasikan keamanan ke dalam arsitektur model sejak desain awal — bukan sebagai lapisan tambahan — akan memenangkan kepercayaan pasar dan akses ke modal strategis.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src4.png"
+    },
+    {
+      "i": 40,
+      "chapter": "Peluang & Penutup",
+      "startSec": 658.4,
+      "estSec": 16.6,
+      "text": "Bagi Anda sebagai praktisi, peneliti, atau pengamat teknologi, peluang konkret saat ini meliputi: pertama, menguasai keterampilan “AI safety engineering” — termasuk red‑teaming, interpretability, dan formal verification — yang permintaannya melonjak di laboratorium frontier dan perusahaan cloud.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient hum, no music"
+      },
+      "srcImage": "content/long/2026-09-13/images/src5.png"
+    },
+    {
+      "i": 41,
+      "chapter": "Peluang & Penutup",
+      "startSec": 675,
+      "estSec": 12,
       "text": "Kedua, memanfaatkan ekosistem open‑source untuk membangun tooling alignment yang dapat dijual sebagai layanan B2B bagi startup AI yang tidak memiliki tim keamanan internal.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Open‑source repository dashboard displaying alignment tooling modules packaged as B2B SaaS for AI startups globally, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "github repository ambient hum, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 85,
-      "chapter": "Peluang & Penutup",
-      "startSec": 669.6,
-      "estSec": 9.2,
-      "text": "Ketiga, mengeksplorasi domain aplikasi AI‑augmented science — seperti simulasi fluida, desain bahan, dan pemodelan iklim — di mana keunggulan komputasi",
-      "visual": "T2V_GENERATION",
-      "prompt": "Scientists running fluid dynamics simulation, material design lattice, and climate model on edge AI accelerator cluster, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "lab equipment low whir, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 86,
-      "chapter": "Peluang & Penutup",
-      "startSec": 678.8,
-      "estSec": 5.1,
-      "text": "on‑device dan edge memungkinkan iterasi cepat tanpa ketergantungan pada superkomputer pusat.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Apple Watch prototype processing health sensor data locally, showing on‑device neural inference without cloud connection, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "watch haptic gentle vibration, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
       "srcImage": "content/long/2026-09-13/images/src6.jpg"
     },
     {
-      "i": 87,
+      "i": 42,
       "chapter": "Peluang & Penutup",
-      "startSec": 683.9,
-      "estSec": 10,
-      "text": "Keempat, memantau perkembangan regulasi privasi wearable dan menawarkan solusi “privacy‑by‑design” untuk perangkat always‑on, yang akan menjadi kebutuhan wajib bagi vendor hardware global.",
-      "visual": "I2V_ANIMATE_IMAGE",
-      "prompt": "Wearable device UI illustrating privacy‑by‑design settings, encrypted data vault, and regulatory compliance badges for global vendors, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "startSec": 687,
+      "estSec": 14.3,
+      "text": "Ketiga, mengeksplorasi domain aplikasi AI‑augmented science — seperti simulasi fluida, desain bahan, dan pemodelan iklim — di mana keunggulan komputasi on‑device dan edge memungkinkan iterasi cepat tanpa ketergantungan pada superkomputer pusat.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "secure lock chime soft, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
-      "srcImage": "content/long/2026-09-13/images/src6.jpg"
+      "srcImage": "content/long/2026-09-13/images/src7.jpg"
     },
     {
-      "i": 88,
+      "i": 43,
       "chapter": "Peluang & Penutup",
-      "startSec": 693.9,
-      "estSec": 9.7,
-      "text": "Kelima, mempertimbangkan karir di badan standarisasi internasional yang sedang dibentuk, karena keahlian teknis yang dipadukan dengan pemahaman kebijakan akan sangat bernilai.",
-      "visual": "T2V_GENERATION",
-      "prompt": "International standards committee meeting room with technical experts drafting AI governance guidelines on digital whiteboard, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "startSec": 701.3,
+      "estSec": 19.8,
+      "text": "Keempat, memantau perkembangan regulasi privasi wearable dan menawarkan solusi “privacy‑by‑design” untuk perangkat always‑on, yang akan menjadi kebutuhan wajib bagi vendor hardware global. Kelima, mempertimbangkan karir di badan standarisasi internasional yang sedang dibentuk, karena keahlian teknis yang dipadukan dengan pemahaman kebijakan akan sangat bernilai.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "meeting room air conditioning, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
-      "srcImage": null
+      "srcImage": "content/long/2026-09-13/images/src1.jpg"
     },
     {
-      "i": 89,
+      "i": 44,
       "chapter": "Peluang & Penutup",
-      "startSec": 703.6,
-      "estSec": 9.2,
-      "text": "Saya mengundang Anda untuk berbagi pandangan di kolom komentar: manakah dari tujuh peristiwa ini yang menurut Anda akan paling mengubah",
-      "visual": "T2V_GENERATION",
-      "prompt": "Floating comment bubbles over glowing neural network backdrop, subtle data streams connecting in digital space, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "startSec": 721.1,
+      "estSec": 15.7,
+      "text": "Saya mengundang Anda untuk berbagi pandangan di kolom komentar: manakah dari tujuh peristiwa ini yang menurut Anda akan paling mengubah lanskap AI dalam tahun depan? Apakah Anda melihat peluang atau ancaman yang lebih dominan?",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "soft keyboard clicks ambient, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
-      "srcImage": null
+      "srcImage": "content/long/2026-09-13/images/src2.jpg"
     },
     {
-      "i": 90,
+      "i": 45,
       "chapter": "Peluang & Penutup",
-      "startSec": 712.8,
-      "estSec": 6.5,
-      "text": "lanskap AI dalam tahun depan? Apakah Anda melihat peluang atau ancaman yang lebih dominan?",
-      "visual": "T2V_GENERATION",
-      "prompt": "Balanced scale holding AI microchip versus warning triangle, holographic glow illuminated futuristic background soft ambient, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "startSec": 736.8,
+      "estSec": 12,
+      "text": "Jangan lupa berlangganan dan aktifkan lonceng notifikasi agar tidak ketinggalan analisis mendalam minggu depan. Terima kasih telah menyimak, dan sampai jumpa pada episode selanjutnya.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
       "faceless": true,
       "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "gentle electronic hum subtle, clean foley, no background music"
+        "audio_prompt": "futuristic ambient hum, no music"
       },
-      "srcImage": null
-    },
-    {
-      "i": 91,
-      "chapter": "Peluang & Penutup",
-      "startSec": 719.3,
-      "estSec": 6.5,
-      "text": "Jangan lupa berlangganan dan aktifkan lonceng notifikasi agar tidak ketinggalan analisis mendalam minggu depan.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Glowing subscribe button and bell icon pulsating on sleek futuristic dashboard with animated particles surrounding, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "bright chime notification tone, clean foley, no background music"
-      },
-      "srcImage": null
-    },
-    {
-      "i": 92,
-      "chapter": "Peluang & Penutup",
-      "startSec": 725.8,
-      "estSec": 4.6,
-      "text": "Terima kasih telah menyimak, dan sampai jumpa pada episode selanjutnya.",
-      "visual": "T2V_GENERATION",
-      "prompt": "Fading audio waveform morphing into channel logo against dark gradient smooth transition subtle light particles, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
-      "faceless": true,
-      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
-      "audio": {
-        "music": false,
-        "ambient_sfx": true,
-        "audio_prompt": "calm fade out resonance, clean foley, no background music"
-      },
-      "srcImage": null
+      "srcImage": "content/long/2026-09-13/images/src3.jpg"
     }
   ],
   "midrollAtSec": 422,
-  "estTotalSec": 730.4,
+  "estTotalSec": 748.8,
   "sources": [
     {
       "title": "OpenAI’s Sam Altman says it would be ‘ill-advised’ to go public in 2026",

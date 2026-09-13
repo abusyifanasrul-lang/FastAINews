@@ -5,10 +5,11 @@ import { FACELESS_NEGATIVE, LONG_AUDIO_PROMPT, themedHintFor, type BeatHint, typ
 import { formatTimestamp } from "./validate.js";
 
 export const WPM_ID = 130;
-const estSec = (words: number) => Math.min(10, Math.max(3, (words / WPM_ID) * 60));
-// Revisi 5: ambang fragmen ekor + penalti overuse gambar (dianalisis dari edisi
-// 2026-09-12: 15 beat fragmen ≤4 kata, src1.jpg dipakai 10x/27 beat bergambar).
-const MIN_BEAT_WORDS = 6;
+// Adegan naratif alami Ken Burns: 1 adegan visual tampil 15-25 detik (ideal 18-22 dtk)
+const estSec = (words: number) => Math.min(25, Math.max(12, (words / WPM_ID) * 60));
+const MIN_BEAT_WORDS = 15;
+const TARGET_SCENE_WORDS = 45;
+const MAX_SCENE_WORDS = 60;
 const MAX_IMG_USES = 4;
 
 export interface Beat {
@@ -20,10 +21,7 @@ export interface Beat {
 }
 export interface Chapter { title: string; startSec: number }
 
-/** Pecah naskah bersih jadi beats: gabung kalimat hingga ~25 kata / <1000 char / ≤10 dtk.
- * Revisi 5: (1) fragmen ekor ≤6 kata digabung ke beat sebelumnya (mencegah beat
- * sampah 1-4 kata yang memicu prompt generik + drift gambar); (2) fallback gambar
- * siklik diganti least-used dengan penalti overuse (maks 4x per gambar per edisi). */
+/** Pecah naskah bersih jadi adegan naratif visual: gabung kalimat hingga ~45 kata (~20 dtk Ken Burns). */
 export function splitBeats(
   scriptClean: string,
   hints: BeatHint[],
@@ -31,31 +29,27 @@ export function splitBeats(
   images: string[],
 ): Beat[] {
   const sentences = scriptClean.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
-  // potong kalimat raksasa (>20 kata) jadi potongan kata agar estimasi <=10 dtk jujur & muat di clip video AI 10s
+  // Potong kalimat yang terlalu panjang (>55 kata) jika ada
   const units: string[] = [];
   for (const s of sentences) {
     const w = s.split(/\s+/);
-    if (w.length <= 20) { units.push(s); continue; }
-    for (let k = 0; k < w.length; k += 20) units.push(w.slice(k, k + 20).join(" "));
+    if (w.length <= MAX_SCENE_WORDS) { units.push(s); continue; }
+    for (let k = 0; k < w.length; k += TARGET_SCENE_WORDS) units.push(w.slice(k, k + TARGET_SCENE_WORDS).join(" "));
   }
   const texts: string[] = [];
   let cur = "";
   for (const s of units) {
     const words = (cur + " " + s).trim().split(/\s+/).length;
-    if (cur && (words > 20 || (cur + " " + s).length >= 1000)) { texts.push(cur.trim()); cur = s; }
+    if (cur && (words > TARGET_SCENE_WORDS || (cur + " " + s).length >= 1000)) { texts.push(cur.trim()); cur = s; }
     else cur = (cur + " " + s).trim();
   }
   if (cur.trim()) texts.push(cur.trim());
-  // Revisi 5: gabung fragmen ekor ≤6 kata ke beat sebelumnya — beat 1-4 kata
-  // ("seluruh dunia.", "ekonomi.", "sempit.") tak punya substansi utk prompt
-  // spesifik & hanya menambah slot gambar yg bisa drift. Lakukan mundur agar
-  // chain fragmen pendek (mis. [..., 20 kata, 3 kata, 2 kata]) terserap semua.
+  // Gabung fragmen ekor pendek (<15 kata) ke adegan sebelumnya agar tidak ada adegan visual kilat
   for (let i = texts.length - 1; i > 0; i--) {
     const wCount = texts[i].split(/\s+/).length;
-    if (wCount > MIN_BEAT_WORDS) continue;
+    if (wCount >= MIN_BEAT_WORDS) continue;
     const merged = `${texts[i - 1]} ${texts[i]}`;
-    // Jaga batas keras: gabungan tetap <1000 char & estimasi ≤10 dtk
-    if (merged.length < 1000 && estSec(merged.split(/\s+/).length) <= 10) {
+    if (merged.length < 1000) {
       texts[i - 1] = merged;
       texts.splice(i, 1);
     }
@@ -153,3 +147,19 @@ export function buildStoryboardMd(
   }
   return L.join("\n");
 }
+
+/** Ekstrak teks prompts murni Text-to-Image (1 baris per beat, tanpa penomoran/caption). */
+export function extractPromptsText(beats: Beat[]): string {
+  return beats
+    .map((b) => {
+      let p = b.prompt ? b.prompt.trim() : "";
+      if (!p) {
+        const themed = themedHintFor(b.text);
+        p = themed.prompt;
+      }
+      // Pastikan murni 1 baris (hilangkan newline di dalam prompt jika ada)
+      return p.replace(/[\r\n]+/g, " ").trim();
+    })
+    .join("\n");
+}
+

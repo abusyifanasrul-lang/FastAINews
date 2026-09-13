@@ -19,6 +19,6 @@ export function splitPublishLongArgs(text: string): { date: string; gdriveUrl: s
   const rest = [...parts];
   if (rest.length > 0 && /^\d{4}-\d{2}-\d{2}$/.test(rest[0])) date = rest.shift()!;
   const gdriveUrl = rest.join(" ");
-  if (!gdriveUrl) throw new Error("Format: /publish_long [YYYY-MM-DD] <gdrive_url>");
+  if (!gdriveUrl) throw new Error("Format: /assemble_long atau /publish_long [YYYY-MM-DD] <gdrive_url>");
   return { date, gdriveUrl };
 }

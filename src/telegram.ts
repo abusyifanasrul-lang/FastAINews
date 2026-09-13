@@ -326,6 +326,21 @@ bot.command("publish_long", async (ctx) => {
   }
 });
 
+// /assemble_long [YYYY-MM-DD] <gdrive_url> — trigger assemble & publish long-form dari asset.zip
+bot.command("assemble_long", async (ctx) => {
+  const raw = ctx.message?.text ?? "";
+  try {
+    const { splitPublishLongArgs, parseGdriveId } = await import("./long/gdrive.js");
+    const { date, gdriveUrl } = splitPublishLongArgs(raw);
+    parseGdriveId(gdriveUrl);
+    await ctx.reply(`⏳ Perakitan video long ${date} dari asset.zip sedang diproses...`);
+    await triggerWorkflow({ date, gdrive_url: gdriveUrl }, "ainews-long-assemble.yml");
+    await ctx.reply(`✅ Workflow perakitan & publikasi long ${date} berhasil dipicu di GitHub Actions.`);
+  } catch (e) {
+    await ctx.reply(`❌ ${(e as Error).message}`);
+  }
+});
+
 // start bot jika dijalankan langsung (bukan di-import)
 const isMain = process.argv[1]?.includes("telegram");
 if (isMain) {

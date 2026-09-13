@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { stripMidroll, validateLongScript, formatTimestamp, trimNaskahToLength } from "../src/long/validate.js";
 import { parseGdriveId, splitPublishLongArgs } from "../src/long/gdrive.js";
-import { splitBeats, validateChapters, chaptersToDescription } from "../src/long/storyboard.js";
+import { splitBeats, validateChapters, chaptersToDescription, extractPromptsText } from "../src/long/storyboard.js";
 import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
 
 // 1. stripMidroll: marker hilang dari teks, posisi tersimpan
@@ -36,21 +36,26 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
   assert.throws(() => splitPublishLongArgs("/publish_long"), /Format/);
   console.log("ok parseGdriveId + args");
 }
-// 4. splitBeats: <=20 kata gabung, <1000 char, estimasi <=10 dtk
+// 4. splitBeats (Adegan Naratif Alami): ~45 kata per adegan, durasi 12-25 dtk Ken Burns
 {
-  const words = Array(60).fill("kata").join(" ");
-  const beats = splitBeats(`${words}. Kalimat penutup yang singkat dan jelas untuk Anda.`, [], [{ title: "Intro", startSec: 0 }], ["content/long/2026-09-11/images/src1.jpg"]);
-  assert(beats.length >= 3, `beats=${beats.length}`);
+  const para1 = "Dalam tujuh puluh dua jam terakhir kita melihat perkembangan kecerdasan buatan yang sangat pesat di industri global dengan berbagai inovasi terkini.";
+  const para2 = "Para peneliti terkemuka dari berbagai universitas dunia mempublikasikan hasil penelitian mengenai efisiensi komputasi neural network pada arsitektur perangkat keras mutakhir.";
+  const para3 = "Langkah ini diprediksi akan mengubah peta persaingan teknologi antara perusahaan rintisan dan raksasa teknologi dalam beberapa tahun mendatang secara signifikan.";
+  const fullText = `${para1} ${para2} ${para3}`;
+  const beats = splitBeats(fullText, [], [{ title: "Intro", startSec: 0 }], ["content/long/2026-09-11/images/src1.jpg"]);
+  assert(beats.length >= 2, `beats=${beats.length}`);
   for (const b of beats) {
     const wCount = b.text.split(/\s+/).length;
-    assert(wCount <= 20, `beat >20 kata (${wCount} kata): "${b.text}"`);
-    assert(b.text.length < 1000, "beat >=1000 char");
-    assert(b.estSec <= 10 && b.estSec >= 3, `estSec=${b.estSec}`);
+    assert(wCount <= 60, `adegan visual >60 kata (${wCount} kata): "${b.text}"`);
+    assert(b.text.length < 1000, "adegan >=1000 char");
+    assert(b.estSec <= 25 && b.estSec >= 12, `estSec=${b.estSec}`);
     assert(b.faceless === true && b.audio.music === false, "constraint faceless/musik hilang");
     if (b.srcImage) assert(!b.srcImage.startsWith("/") && !b.srcImage.includes("runner"), `path tidak relatif: ${b.srcImage}`);
   }
   assert(beats[0].startSec === 0, "beat pertama tidak 00:00");
-  console.log(`ok splitBeats (${beats.length} beats, max words <= 20, max sec <= 10s)`);
+  const promptsTxt = extractPromptsText(beats);
+  assert(promptsTxt.split("\n").length === beats.length, "jumlah baris prompts.txt tidak sama dengan jumlah adegan");
+  console.log(`ok splitBeats narrative scenes (${beats.length} adegan, durasi 12-25s, extractPromptsText OK)`);
 }
 // 5. classifyBeats (Thematic Visual Mapper): prompt English UE5, faceless, no music, no leak
 {
