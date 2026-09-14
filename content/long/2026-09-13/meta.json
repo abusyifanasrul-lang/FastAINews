@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-13",
+  "topicTitle": "Tujuh Peristiwa AI yang Mengguncang Industri dalam 72 Jam Terakhir",
+  "status": "READY_FOR_ASSETS",
+  "beats": 35,
+  "estTotalSec": 548,
+  "midrollAtSec": 289,
+  "t2vCount": 24,
+  "i2vCount": 8,
+  "staticCount": 3,
+  "images": 6,
+  "sources": 7,
+  "storyboardBatchesExecuted": 5,
+  "storyboardTotalBatches": 5,
+  "storyboardLlmOkBatches": 5,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
