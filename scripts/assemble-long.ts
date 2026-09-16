@@ -108,7 +108,7 @@ async function run(): Promise<void> {
 
   try {
     console.log("[assemble-long] download asset.zip via gdown...");
-    execFileSync("gdown", ["--fuzzy", `https://drive.google.com/uc?id=${fileId!}`, "-O", zipPath], { stdio: "inherit" });
+    execFileSync("gdown", [`https://drive.google.com/uc?id=${fileId!}`, "-O", zipPath], { stdio: "inherit" });
   } catch {
     fail(row.id, "gdown gagal mengunduh asset.zip — pastikan link share Google Drive diatur ke 'Anyone with link can view'.");
   }

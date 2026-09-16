@@ -60,7 +60,7 @@ async function run(): Promise<void> {
   const tmpPath = join(tmpdir(), `long-${date}-${Date.now()}.mp4`);
   try {
     console.log("[publish-long] download GDrive via gdown...");
-    execFileSync("gdown", ["--fuzzy", `https://drive.google.com/uc?id=${fileId!}`, "-O", tmpPath], { stdio: "inherit" });
+    execFileSync("gdown", [`https://drive.google.com/uc?id=${fileId!}`, "-O", tmpPath], { stdio: "inherit" });
   } catch {
     fail(row.id, "gdown gagal — cek link share (Anyone with link → Viewer) dan pastikan itu FILE bukan folder.");
   }
