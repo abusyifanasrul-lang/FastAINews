@@ -20,8 +20,13 @@ jobs:
       group: ainews-long-assemble
       cancel-in-progress: true
 
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_PAT }}
 
       - uses: actions/setup-node@v4
         with:
@@ -41,6 +46,9 @@ jobs:
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+          REPO_PAT: ${{ secrets.REPO_PAT }}
+          LLM_ENDPOINT: ${{ secrets.LLM_ENDPOINT || 'http://localhost' }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY || 'dummy' }}
         run: npx tsx scripts/assemble-long.ts --date="${{ github.event.inputs.date }}" --gdrive-url="${{ github.event.inputs.gdrive_url }}"
 
       - name: Commit DB changes

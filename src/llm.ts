@@ -7,7 +7,6 @@ const apiKey = process.env.LLM_API_KEY;
 const endpointFallback = process.env.LLM_ENDPOINT_FALLBACK;
 const apiKeyFallback = process.env.LLM_API_KEY_FALLBACK;
 const getModel = () => process.env.LLM_MODEL ?? "Hermes";
-if (!endpoint) throw new Error("LLM_ENDPOINT missing");
 
 // OpenCode Go (enforced 2026-09-06): API requests must carry a stable
 // x-opencode-session per conversation + a real user-agent. Without them
@@ -35,6 +34,7 @@ async function rateLimit() {
 export interface LlmMessage { role: "system" | "user"; content: string }
 
 export async function chat(messages: LlmMessage[], maxTokens = 2000, temperature = 0.7): Promise<string> {
+  if (!endpoint) throw new Error("LLM_ENDPOINT missing");
   const MAX_RETRIES = 3;
 
   async function callApi(url: string, token: string, modelName = getModel()): Promise<string> {
