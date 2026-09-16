@@ -136,7 +136,10 @@ async function run(): Promise<void> {
 
   // Cari seluruh file audio narasi (.mp3)
   const audioFilesRaw = allFiles
-    .filter((f) => extname(f).toLowerCase() === ".mp3")
+    .filter((f) => {
+      const b = basename(f);
+      return !b.startsWith(".") && !f.includes("__MACOSX") && extname(f).toLowerCase() === ".mp3";
+    })
     .sort(naturalSort);
 
   if (audioFilesRaw.length === 0) {
@@ -146,7 +149,10 @@ async function run(): Promise<void> {
 
   // Cari seluruh file gambar (.jpg, .jpeg, .png, .webp, .jfif)
   const IMG_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".jfif"];
-  const imageFilesRaw = allFiles.filter((f) => IMG_EXTS.includes(extname(f).toLowerCase()));
+  const imageFilesRaw = allFiles.filter((f) => {
+    const b = basename(f);
+    return !b.startsWith(".") && !f.includes("__MACOSX") && IMG_EXTS.includes(extname(f).toLowerCase());
+  });
 
   if (imageFilesRaw.length === 0) {
     fail(row.id, "Tidak ditemukan file gambar (.jpg / .jfif / .png) di dalam asset.zip!");
@@ -209,36 +215,117 @@ async function run(): Promise<void> {
   }
   console.log(`[assemble-long] durasi total audio riil: ${actualAudioSec.toFixed(1)} dtk (~${(actualAudioSec / 60).toFixed(1)} mnt)`);
 
-  // 5. Penyelarasan Waktu Narasi (1:1 Audio-ke-Gambar jika jumlah file sama, atau Proposional)
+  // 5. Penyelarasan Waktu Narasi (Mendukung 3 Mode: Paragraf naskah, Beat 1:1, atau Proporsional)
   const beats = sbData.beats;
-  const isOneToOne = audioFilesRaw.length === beats.length;
-  const perAudioDurations = isOneToOne ? audioFilesRaw.map((af) => getAudioDuration(af)) : [];
-  if (isOneToOne) {
-    console.log(`[assemble-long] mode presisi 1:1 aktif (${audioFilesRaw.length} audio cocok 1:1 dengan ${beats.length} scene)`);
-  } else {
-    console.log(`[assemble-long] mode penyelarasan proporsional aktif (${audioFilesRaw.length} audio untuk ${beats.length} scene)`);
+
+  // Baca paragraf naskah dari script.md jika ada
+  const scriptFile = join(process.cwd(), "content", "long", date, "script.md");
+  let scriptParas: string[] = [];
+  if (existsSync(scriptFile)) {
+    const rawScript = readFileSync(scriptFile, "utf8");
+    const cleanScript = rawScript.replace(/^#\s+[^\n]+\n+/, "").trim();
+    scriptParas = cleanScript
+      .split(/\n\s*\n/)
+      .map((p) => p.trim().replace(/\*\*/g, "").replace(/[\r\n]+/g, " "))
+      .filter(Boolean);
   }
 
-  const totalWords = beats.reduce((acc, b) => acc + (b.text.trim().split(/\s+/).length || 1), 0);
-  let curStart = 0;
-  const alignedBeats = beats.map((b, idx) => {
-    let dur = 0;
-    if (isOneToOne && perAudioDurations[idx] > 0) {
-      dur = perAudioDurations[idx];
-    } else {
-      const w = b.text.trim().split(/\s+/).length || 1;
-      dur = (w / totalWords) * actualAudioSec;
+  const isParaMode = scriptParas.length > 0 && audioFilesRaw.length === scriptParas.length;
+  const isBeatMode = audioFilesRaw.length === beats.length;
+
+  let alignedBeats: { i: number; startSec: number; durationSec: number; imagePath: string }[] = [];
+
+  if (isParaMode) {
+    console.log(`[assemble-long] mode paragraf aktif: ${audioFilesRaw.length} file audio cocok dengan ${scriptParas.length} paragraf naskah`);
+    const paraDurations = audioFilesRaw.map((af) => getAudioDuration(af));
+
+    // Hitung waktu mulai setiap paragraf berdasarkan akumulasi durasi audio MP3 riil
+    const paraStartTimes = [0];
+    for (let i = 0; i < paraDurations.length - 1; i++) {
+      paraStartTimes.push(paraStartTimes[i] + (paraDurations[i] || 0));
     }
-    const startSec = curStart;
-    curStart += dur;
-    const imgPath = normalizedImages[idx] ?? normalizedImages[idx % normalizedImages.length];
-    return {
-      i: b.i,
-      startSec,
-      durationSec: dur,
-      imagePath: imgPath,
-    };
-  });
+
+    // Petakan tiap beat ke paragrafnya
+    let pIdx = 0;
+    const beatsWithPara = beats.map((b) => {
+      const bClean = b.text.replace(/\s+/g, " ").trim();
+      const snippet = bClean.slice(0, 30);
+      for (let i = pIdx; i < scriptParas.length; i++) {
+        if (scriptParas[i].includes(snippet)) {
+          pIdx = i;
+          break;
+        }
+      }
+      return { beat: b, paraIdx: pIdx };
+    });
+
+    // Kelompokkan beats per paragraf
+    const paraGroups = new Map<number, Beat[]>();
+    beatsWithPara.forEach((bp) => {
+      if (!paraGroups.has(bp.paraIdx)) paraGroups.set(bp.paraIdx, []);
+      paraGroups.get(bp.paraIdx)!.push(bp.beat);
+    });
+
+    const paraElapsed = new Map<number, number>();
+    alignedBeats = beats.map((b, idx) => {
+      const p = beatsWithPara[idx].paraIdx;
+      const group = paraGroups.get(p) || [b];
+      const paraDur = paraDurations[p] || (actualAudioSec / scriptParas.length);
+      const groupWords = group.reduce((acc, gb) => acc + (gb.text.trim().split(/\s+/).length || 1), 0);
+      const bWords = b.text.trim().split(/\s+/).length || 1;
+
+      const elapsed = paraElapsed.get(p) || 0;
+      const beatInGroupIdx = group.indexOf(b);
+      const isLastInGroup = beatInGroupIdx === group.length - 1;
+
+      // Beat terakhir di dalam paragraf menyerap sisa durasi agar 100% pas dengan durasi file MP3 paragraf ini
+      const dur = isLastInGroup ? Math.max(0.5, paraDur - elapsed) : (bWords / (groupWords || 1)) * paraDur;
+      const startSec = paraStartTimes[p] + elapsed;
+
+      paraElapsed.set(p, elapsed + dur);
+
+      const imgPath = normalizedImages[idx] ?? normalizedImages[idx % normalizedImages.length];
+      return {
+        i: b.i,
+        startSec,
+        durationSec: dur,
+        imagePath: imgPath,
+      };
+    });
+  } else if (isBeatMode) {
+    console.log(`[assemble-long] mode presisi 1:1 aktif (${audioFilesRaw.length} audio cocok 1:1 dengan ${beats.length} scene)`);
+    const perAudioDurations = audioFilesRaw.map((af) => getAudioDuration(af));
+    let curStart = 0;
+    alignedBeats = beats.map((b, idx) => {
+      const dur = perAudioDurations[idx] > 0 ? perAudioDurations[idx] : (actualAudioSec / beats.length);
+      const startSec = curStart;
+      curStart += dur;
+      const imgPath = normalizedImages[idx] ?? normalizedImages[idx % normalizedImages.length];
+      return {
+        i: b.i,
+        startSec,
+        durationSec: dur,
+        imagePath: imgPath,
+      };
+    });
+  } else {
+    console.log(`[assemble-long] mode penyelarasan proporsional aktif (${audioFilesRaw.length} audio untuk ${beats.length} scene)`);
+    const totalWords = beats.reduce((acc, b) => acc + (b.text.trim().split(/\s+/).length || 1), 0);
+    let curStart = 0;
+    alignedBeats = beats.map((b, idx) => {
+      const w = b.text.trim().split(/\s+/).length || 1;
+      const dur = (w / totalWords) * actualAudioSec;
+      const startSec = curStart;
+      curStart += dur;
+      const imgPath = normalizedImages[idx] ?? normalizedImages[idx % normalizedImages.length];
+      return {
+        i: b.i,
+        startSec,
+        durationSec: dur,
+        imagePath: imgPath,
+      };
+    });
+  }
 
   // Sinkronkan chapters timestamp ke durasi audio riil (mengikuti startSec beat pertama di tiap bab)
   const alignedChapters = sbData.chapters.map((c) => {

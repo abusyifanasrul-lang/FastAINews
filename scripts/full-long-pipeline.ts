@@ -6,7 +6,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { curateLongNews } from "../src/long/curator.js";
 import { generateLongScript, generateLongStoryboard } from "../src/long/llm-long.js";
-import { splitBeats, validateChapters, buildStoryboardMd, extractPromptsText, extractNarrationsText, type Chapter } from "../src/long/storyboard.js";
+import { splitBeats, validateChapters, buildStoryboardMd, extractPromptsText, extractNarrationsText, extractParagraphsText, type Chapter } from "../src/long/storyboard.js";
 import { stripMidroll } from "../src/long/validate.js";
 import { upsertLongContent, getLongContentByDate } from "../src/db.js";
 
@@ -103,6 +103,9 @@ async function run(): Promise<void> {
   writeFileSync(join(dir, "STORYBOARD.md"), buildStoryboardMd(topicTitle, date, chapters, beats, totalSec, midrollAtSec));
   const rawPrompts = extractPromptsText(beats);
   writeFileSync(join(dir, "prompts.txt"), rawPrompts, "utf8");
+  const rawParagraphs = extractParagraphsText(clean);
+  writeFileSync(join(dir, "paragraphs.txt"), rawParagraphs, "utf8");
+  const parasCount = rawParagraphs.split("\n").filter(Boolean).length;
   const rawNarrations = extractNarrationsText(beats);
   writeFileSync(join(dir, "narrations.txt"), rawNarrations, "utf8");
   writeFileSync(join(dir, "meta.json"), JSON.stringify({
@@ -110,6 +113,7 @@ async function run(): Promise<void> {
     beats: beats.length, estTotalSec: totalSec, midrollAtSec,
     t2vCount, i2vCount, staticCount,
     images: imgPaths.length, sources: items.length,
+    paragraphs: parasCount,
     // Revisi 6 (P1 observabilitas): jejak Stage-2 agar rasio LLM vs fallback bisa divonis
     // per edisi — bedakan budget-skip vs breaker-skip vs fallback-batch vs pad-parsial.
     storyboardBatchesExecuted: sbStats.batchesExecuted,
@@ -126,9 +130,9 @@ async function run(): Promise<void> {
   const warnImg = imgPaths.length === 0 ? "\n⚠️ 0 gambar terdownload — producer pakai T2V semua." : "";
   const warnDur = totalSec < 480 ? `\n⚠️ Estimasi ${Math.round(totalSec)} dtk <8 mnt — tambah segmen agar lolos mid-roll.` : "";
   await tgSend(
-    `🎬 Long-form ${date} READY_FOR_ASSETS\n📌 ${topicTitle}\n📝 ${beats.length} adegan visual naratif (~${Math.round(totalSec / 60)} mnt)\n📂 ${relStoryboardPath}\n📄 prompts.txt: ${beats.length} baris prompt gambar (1376x768 .jpg)\n🎙️ narrations.txt: ${beats.length} baris naskah audio (01.mp3 .. ${beats.length}.mp3)\n\nAlur produksi:\n1. Generate ${beats.length} gambar (.jpg 1K) dari prompts.txt\n2. Generate audio per baris dari narrations.txt (atau 1 file narration.mp3)\n3. Masukkan gambar & audio ke asset.zip & upload ke GDrive\n4. Trigger perakitan: /assemble_long ${date} <link_gdrive>${warnImg}${warnDur}`,
+    `🎬 Long-form ${date} READY_FOR_ASSETS\n📌 ${topicTitle}\n📝 ${beats.length} adegan visual (~${Math.round(totalSec / 60)} mnt) dari ${parasCount} paragraf naskah\n📂 ${relStoryboardPath}\n📄 prompts.txt: ${beats.length} baris prompt gambar (1376x768 .jpg)\n🎙️ paragraphs.txt: ${parasCount} paragraf TTS (01.mp3 .. ${String(parasCount).padStart(2, "0")}.mp3)\n\nAlur produksi:\n1. Generate ${beats.length} gambar (.jpg 1K) dari prompts.txt\n2. Generate ${parasCount} audio TTS dari paragraphs.txt\n3. Masukkan gambar & audio ke asset.zip & upload ke GDrive\n4. Trigger perakitan: /assemble_long ${date} <link_gdrive>${warnImg}${warnDur}`,
   );
-  console.log(`[long] edisi ${date} READY_FOR_ASSETS (${beats.length} adegan visual, ~${Math.round(totalSec)} dtk, prompts.txt & narrations.txt tersimpan)`);
+  console.log(`[long] edisi ${date} READY_FOR_ASSETS (${beats.length} adegan visual, ${parasCount} paragraf, ~${Math.round(totalSec)} dtk, prompts.txt & paragraphs.txt tersimpan)`);
 }
 
 try {

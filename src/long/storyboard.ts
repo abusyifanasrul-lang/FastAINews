@@ -21,39 +21,54 @@ export interface Beat {
 }
 export interface Chapter { title: string; startSec: number }
 
-/** Pecah naskah bersih jadi adegan naratif visual: gabung kalimat hingga ~45 kata (~20 dtk Ken Burns). */
+/** Pecah naskah bersih jadi adegan naratif visual per paragraf: gabung kalimat hingga ~45 kata (~20 dtk Ken Burns). */
 export function splitBeats(
   scriptClean: string,
   hints: BeatHint[],
   chapters: Chapter[],
   images: string[],
 ): Beat[] {
-  const sentences = scriptClean.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
-  // Potong kalimat yang terlalu panjang (>55 kata) jika ada
-  const units: string[] = [];
-  for (const s of sentences) {
-    const w = s.split(/\s+/);
-    if (w.length <= MAX_SCENE_WORDS) { units.push(s); continue; }
-    for (let k = 0; k < w.length; k += TARGET_SCENE_WORDS) units.push(w.slice(k, k + TARGET_SCENE_WORDS).join(" "));
-  }
+  const rawParas = scriptClean
+    .split(/\n\s*\n/)
+    .map((p) => p.trim().replace(/\*\*/g, "").replace(/[\r\n]+/g, " "))
+    .filter(Boolean);
+
   const texts: string[] = [];
-  let cur = "";
-  for (const s of units) {
-    const words = (cur + " " + s).trim().split(/\s+/).length;
-    if (cur && (words > TARGET_SCENE_WORDS || (cur + " " + s).length >= 1000)) { texts.push(cur.trim()); cur = s; }
-    else cur = (cur + " " + s).trim();
-  }
-  if (cur.trim()) texts.push(cur.trim());
-  // Gabung fragmen ekor pendek (<15 kata) ke adegan sebelumnya agar tidak ada adegan visual kilat
-  for (let i = texts.length - 1; i > 0; i--) {
-    const wCount = texts[i].split(/\s+/).length;
-    if (wCount >= MIN_BEAT_WORDS) continue;
-    const merged = `${texts[i - 1]} ${texts[i]}`;
-    if (merged.length < 1000) {
-      texts[i - 1] = merged;
-      texts.splice(i, 1);
+  for (const para of rawParas) {
+    const sentences = para.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
+    // Potong kalimat yang terlalu panjang (>55 kata) jika ada
+    const units: string[] = [];
+    for (const s of sentences) {
+      const w = s.split(/\s+/);
+      if (w.length <= MAX_SCENE_WORDS) { units.push(s); continue; }
+      for (let k = 0; k < w.length; k += TARGET_SCENE_WORDS) units.push(w.slice(k, k + TARGET_SCENE_WORDS).join(" "));
     }
+    const paraTexts: string[] = [];
+    let cur = "";
+    for (const s of units) {
+      const words = (cur + " " + s).trim().split(/\s+/).length;
+      if (cur && (words > TARGET_SCENE_WORDS || (cur + " " + s).length >= 1000)) {
+        paraTexts.push(cur.trim());
+        cur = s;
+      } else {
+        cur = (cur + " " + s).trim();
+      }
+    }
+    if (cur.trim()) paraTexts.push(cur.trim());
+
+    // Gabung fragmen ekor pendek (<15 kata) ke adegan sebelumnya di paragraf yang sama
+    for (let i = paraTexts.length - 1; i > 0; i--) {
+      const wCount = paraTexts[i].split(/\s+/).length;
+      if (wCount >= MIN_BEAT_WORDS) continue;
+      const merged = `${paraTexts[i - 1]} ${paraTexts[i]}`;
+      if (merged.length < 1000) {
+        paraTexts[i - 1] = merged;
+        paraTexts.splice(i, 1);
+      }
+    }
+    texts.push(...paraTexts);
   }
+
   if (texts.some((t) => t.length >= 1000)) throw new Error("Ada beat ≥1000 char — split gagal.");
 
   let t = 0;
@@ -169,4 +184,14 @@ export function extractNarrationsText(beats: Beat[]): string {
     .map((b) => b.text.trim().replace(/[\r\n]+/g, " "))
     .join("\n");
 }
+
+/** Ekstrak teks paragraf naskah (1 baris per paragraf naskah, cocok untuk generate TTS per paragraf). */
+export function extractParagraphsText(scriptClean: string): string {
+  return scriptClean
+    .split(/\n\s*\n/)
+    .map((p) => p.trim().replace(/\*\*/g, "").replace(/[\r\n]+/g, " "))
+    .filter(Boolean)
+    .join("\n");
+}
+
 
