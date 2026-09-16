@@ -5,13 +5,21 @@ import { join } from "node:path";
 import { db } from "./db.js";
 import type { PublishResult } from "./publisher.js";
 
-const z = new Zernio({ apiKey: process.env.ZERNIO_API_KEY! });
+let _z: Zernio | undefined;
+function getZ(): Zernio {
+  if (!_z) {
+    const key = process.env.ZERNIO_API_KEY;
+    if (!key) throw new Error("ZERNIO_API_KEY environment variable is missing");
+    _z = new Zernio({ apiKey: key });
+  }
+  return _z;
+}
 
 // Node fetch di Windows kadang timeout DNS — paksa IPv4-first
 setDefaultResultOrder("ipv4first");
 
 export async function listZernioAccounts(): Promise<{ platform: string; id: string; username: string }[]> {
-  const { data } = await z.accounts.listAccounts({});
+  const { data } = await getZ().accounts.listAccounts({});
   return (data.accounts ?? []).map((a: any) => ({
     platform: a.platform,
     id: a._id ?? a.id,
@@ -26,7 +34,7 @@ export async function listZernioAccounts(): Promise<{ platform: string; id: stri
  * Return publicUrl (path /media/... permanen).
  */
 async function uploadMediaRegistered(bytes: Uint8Array, contentType: string, label: string): Promise<string> {
-  const { data, error } = await (z as any).messages.uploadMediaDirect({
+  const { data, error } = await (getZ() as any).messages.uploadMediaDirect({
     body: {
       file: new Blob([new Uint8Array(bytes)], { type: contentType }),
       contentType,
@@ -117,7 +125,7 @@ export async function publishToSocialDirect(videoPath: string, caption: string, 
   });
 
   const results: PublishResult[] = [];
-  const { data: post, error: postErr } = await z.posts.createPost({
+  const { data: post, error: postErr } = await getZ().posts.createPost({
     body: { content: caption, mediaItems, platforms, publishNow: true },
   });
   if (postErr || !post) {

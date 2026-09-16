@@ -49,6 +49,7 @@ jobs:
           REPO_PAT: ${{ secrets.REPO_PAT }}
           LLM_ENDPOINT: ${{ secrets.LLM_ENDPOINT || 'http://localhost' }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY || 'dummy' }}
+          ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY || '' }}
         run: npx tsx scripts/assemble-long.ts --date="${{ github.event.inputs.date }}" --gdrive-url="${{ github.event.inputs.gdrive_url }}"
 
       - name: Commit DB changes
