@@ -106,6 +106,24 @@ export default {
         return new Response("OK");
       }
 
+      if (text.startsWith("/assemble_long")) {
+        const parts = text.split(/\s+/).slice(1);
+        let date = new Date().toISOString().slice(0, 10);
+        if (parts.length > 0 && /^\d{4}-\d{2}-\d{2}$/.test(parts[0])) date = parts.shift()!;
+        const gdriveUrl = parts.join(" ");
+        if (!gdriveUrl || !/drive\.google\.com|docs\.google\.com/.test(gdriveUrl)) {
+          await tg(env.BOT_TOKEN, "sendMessage", { chat_id: msg.chat.id, text: "Format: /assemble_long [YYYY-MM-DD] <gdrive_url>" });
+          return new Response("OK");
+        }
+        if (/drive\.google\.com\/drive\/(u\/\d+\/)?folders\//.test(gdriveUrl)) {
+          await tg(env.BOT_TOKEN, "sendMessage", { chat_id: msg.chat.id, text: "❌ URL folder ditolak — kirim link FILE (klik file → Share → Anyone with link)." });
+          return new Response("OK");
+        }
+        await tg(env.BOT_TOKEN, "sendMessage", { chat_id: msg.chat.id, text: `⏳ Perakitan video long ${date} dari asset.zip sedang diproses di GitHub Actions (±5-15 menit)...` });
+        await ghDispatch(env.REPO_PAT, env.REPO, "ainews-long-assemble.yml", { date, gdrive_url: gdriveUrl });
+        return new Response("OK");
+      }
+
       if (text.startsWith("/publish_long")) {
         const parts = text.split(/\s+/).slice(1);
         let date = new Date().toISOString().slice(0, 10);
