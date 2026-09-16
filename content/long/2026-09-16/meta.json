@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-16",
+  "topicTitle": "AI Data Center, Model Live, dan Geopolitik",
+  "status": "READY_FOR_ASSETS",
+  "beats": 36,
+  "estTotalSec": 564.9,
+  "midrollAtSec": 277,
+  "t2vCount": 25,
+  "i2vCount": 8,
+  "staticCount": 3,
+  "images": 6,
+  "sources": 7,
+  "storyboardBatchesExecuted": 5,
+  "storyboardTotalBatches": 5,
+  "storyboardLlmOkBatches": 5,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
