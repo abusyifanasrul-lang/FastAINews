@@ -10,8 +10,9 @@ import { parseGdriveId } from "../src/long/gdrive.js";
 import { chaptersToDescription, type Chapter, type Beat } from "../src/long/storyboard.js";
 import { uploadYoutube } from "../src/publisher.js";
 import { db, getLongContentByDate } from "../src/db.js";
+import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/cinematic.js";
 
-const { values } = parseArgs({ options: { date: { type: "string" }, "gdrive-url": { type: "string" } } });
+const { values } = parseArgs({ options: { date: { type: "string" }, "gdrive-url": { type: "string" }, force: { type: "boolean" } } });
 const date = (values.date ?? "").trim();
 const gdriveUrl = (values["gdrive-url"] ?? "").trim();
 if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) { console.error("--date harus YYYY-MM-DD"); process.exit(1); }
@@ -86,9 +87,9 @@ async function run(): Promise<void> {
     console.log("[assemble-long] guard: sudah PUBLISHING, tolak");
     process.exit(0);
   }
-  if (row.status === "PUBLISHED") {
+  if (row.status === "PUBLISHED" && !values.force) {
     await tgSend(`✅ Long ${date} sudah terbit: https://youtu.be/${row.youtube_id}`);
-    console.log("[assemble-long] sudah PUBLISHED, skip");
+    console.log("[assemble-long] sudah PUBLISHED, skip (gunakan --force untuk merakit ulang)");
     process.exit(0);
   }
 
@@ -234,10 +235,12 @@ async function run(): Promise<void> {
   const isBeatMode = audioFilesRaw.length === beats.length;
 
   let alignedBeats: { i: number; startSec: number; durationSec: number; imagePath: string }[] = [];
+  let beatsWithPara: { beat: Beat; paraIdx: number }[] = [];
+  let paraDurations: number[] = [];
 
   if (isParaMode) {
     console.log(`[assemble-long] mode paragraf aktif: ${audioFilesRaw.length} file audio cocok dengan ${scriptParas.length} paragraf naskah`);
-    const paraDurations = audioFilesRaw.map((af) => getAudioDuration(af));
+    paraDurations = audioFilesRaw.map((af) => getAudioDuration(af));
 
     // Hitung waktu mulai setiap paragraf berdasarkan akumulasi durasi audio MP3 riil
     const paraStartTimes = [0];
@@ -247,7 +250,7 @@ async function run(): Promise<void> {
 
     // Petakan tiap beat ke paragrafnya
     let pIdx = 0;
-    const beatsWithPara = beats.map((b) => {
+    beatsWithPara = beats.map((b) => {
       const bClean = b.text.replace(/\s+/g, " ").trim();
       const snippet = bClean.slice(0, 30);
       for (let i = pIdx; i < scriptParas.length; i++) {
@@ -335,49 +338,244 @@ async function run(): Promise<void> {
   });
   if (alignedChapters.length > 0) alignedChapters[0].startSec = 0;
 
-  // 6. Perakitan Video via High-Efficiency FFmpeg Ken Burns Engine
-  console.log(`[assemble-long] merakit ${alignedBeats.length} adegan visual dengan Ken Burns motion & 24fps...`);
+  // 6. Perakitan Video via Cinematic Native Engine (2.5K Ken Burns, xfade dissolve, Lower-Third HUD, VFX Grading)
+  interface RenderBeat {
+    globalIdx: number;
+    wordCount: number;
+    imagePath: string;
+    chapterName: string;
+  }
+
+  interface RenderGroup {
+    pIdx: number;
+    targetDurSec: number;
+    paraText: string;
+    chapterName: string;
+    beats: RenderBeat[];
+  }
+
+  const renderGroups: RenderGroup[] = [];
+
+  if (isParaMode) {
+    for (let p = 0; p < scriptParas.length; p++) {
+      const pBeats: RenderBeat[] = [];
+      beatsWithPara.forEach((bp, idx) => {
+        if (bp.paraIdx === p) {
+          const imgPath = normalizedImages[idx] ?? normalizedImages[idx % normalizedImages.length];
+          pBeats.push({
+            globalIdx: idx,
+            wordCount: Math.max(1, bp.beat.text.trim().split(/\s+/).length),
+            imagePath: imgPath,
+            chapterName: bp.beat.chapter || "FastAI News",
+          });
+        }
+      });
+      if (pBeats.length === 0) {
+        const fallbackImg = normalizedImages[p % normalizedImages.length];
+        pBeats.push({
+          globalIdx: p,
+          wordCount: 1,
+          imagePath: fallbackImg,
+          chapterName: sbData.chapters[0]?.title || "FastAI News",
+        });
+      }
+      renderGroups.push({
+        pIdx: p,
+        targetDurSec: paraDurations[p] || (actualAudioSec / scriptParas.length),
+        paraText: scriptParas[p],
+        chapterName: pBeats[0]?.chapterName || "FastAI News",
+        beats: pBeats,
+      });
+    }
+  } else if (isBeatMode) {
+    beats.forEach((b, idx) => {
+      const imgPath = normalizedImages[idx] ?? normalizedImages[idx % normalizedImages.length];
+      const dur = alignedBeats[idx]?.durationSec || (actualAudioSec / beats.length);
+      renderGroups.push({
+        pIdx: idx,
+        targetDurSec: dur,
+        paraText: b.text,
+        chapterName: b.chapter || "FastAI News",
+        beats: [{
+          globalIdx: idx,
+          wordCount: Math.max(1, b.text.trim().split(/\s+/).length),
+          imagePath: imgPath,
+          chapterName: b.chapter || "FastAI News",
+        }],
+      });
+    });
+  } else {
+    // Single audio / proporsional: kelompokkan per scriptParas jika ada, fallback per beat
+    if (scriptParas.length > 0) {
+      const totalWordsAll = scriptParas.reduce((acc, s) => acc + (s.trim().split(/\s+/).length || 1), 0);
+      let pIdxMatch = 0;
+      const bWithP = beats.map((b) => {
+        const snippet = b.text.replace(/\s+/g, " ").trim().slice(0, 30);
+        for (let i = pIdxMatch; i < scriptParas.length; i++) {
+          if (scriptParas[i].includes(snippet)) { pIdxMatch = i; break; }
+        }
+        return { beat: b, pIdx: pIdxMatch };
+      });
+
+      for (let p = 0; p < scriptParas.length; p++) {
+        const pBeats: RenderBeat[] = [];
+        bWithP.forEach((bp, idx) => {
+          if (bp.pIdx === p) {
+            const imgPath = normalizedImages[idx] ?? normalizedImages[idx % normalizedImages.length];
+            pBeats.push({
+              globalIdx: idx,
+              wordCount: Math.max(1, bp.beat.text.trim().split(/\s+/).length),
+              imagePath: imgPath,
+              chapterName: bp.beat.chapter || "FastAI News",
+            });
+          }
+        });
+        if (pBeats.length === 0) {
+          pBeats.push({
+            globalIdx: p,
+            wordCount: 1,
+            imagePath: normalizedImages[p % normalizedImages.length],
+            chapterName: sbData.chapters[0]?.title || "FastAI News",
+          });
+        }
+        const pWords = scriptParas[p].trim().split(/\s+/).length || 1;
+        const targetDur = (pWords / totalWordsAll) * actualAudioSec;
+        renderGroups.push({
+          pIdx: p,
+          targetDurSec: targetDur,
+          paraText: scriptParas[p],
+          chapterName: pBeats[0]?.chapterName || "FastAI News",
+          beats: pBeats,
+        });
+      }
+    } else {
+      beats.forEach((b, idx) => {
+        const imgPath = normalizedImages[idx] ?? normalizedImages[idx % normalizedImages.length];
+        const dur = alignedBeats[idx]?.durationSec || (actualAudioSec / beats.length);
+        renderGroups.push({
+          pIdx: idx,
+          targetDurSec: dur,
+          paraText: b.text,
+          chapterName: b.chapter || "FastAI News",
+          beats: [{
+            globalIdx: idx,
+            wordCount: Math.max(1, b.text.trim().split(/\s+/).length),
+            imagePath: imgPath,
+            chapterName: b.chapter || "FastAI News",
+          }],
+        });
+      });
+    }
+  }
+
+  console.log(`[assemble-long] merakit ${renderGroups.length} segmen visual via Cinematic Native Engine (2.5K Ken Burns, xfade dissolve, HUD ASS, VFX grading)...`);
   const clipListFile = join(workDir, "clips.txt");
   const clipPaths: string[] = [];
+  const fps = 24;
 
-  for (let idx = 0; idx < alignedBeats.length; idx++) {
-    const ab = alignedBeats[idx];
-    const clipOut = join(workDir, `clip_${String(idx + 1).padStart(3, "0")}.mp4`);
-    const dur = ab.durationSec.toFixed(2);
-    // Efek dinamis: adegan genap zoom-in, adegan ganjil zoom-out
-    const isEven = idx % 2 === 0;
-    const zoomExpr = isEven
-      ? "min(zoom+0.0006,1.15)" // slow zoom-in
-      : "max(1.15-0.0006*on,1.0)"; // slow zoom-out
-    const panExprX = isEven ? "iw/2-(iw/zoom/2)" : "iw/2-(iw/zoom/2)+0.05*on";
-    const panExprY = "ih/2-(ih/zoom/2)";
+  for (let p = 0; p < renderGroups.length; p++) {
+    const group = renderGroups[p];
+    const paraClipOut = join(workDir, `para_${String(p + 1).padStart(3, "0")}.mp4`);
+    const K = group.beats.length;
+    const targetDur = group.targetDurSec;
 
-    // FFmpeg filter: scale 1920:1080 -> crop -> zoompan -> veryfast h264
-    const filter = `scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,zoompan=z='${zoomExpr}':d=1:x='${panExprX}':y='${panExprY}':s=1920x1080:fps=24`;
+    // Buat file subtitle ASS untuk HUD Lower-Third di direktori workDir
+    const hudAssName = `hud_${p + 1}.ass`;
+    const hudAssPath = join(workDir, hudAssName);
+    const hud = getHudContent(p, renderGroups.length, group.chapterName, group.paraText);
+    writeFileSync(hudAssPath, buildAssHud(p + 1, hud.title, hud.tag, targetDur), "utf8");
+
+    let filterComplex = "";
+    const inputArgs: string[] = [];
+
+    if (K === 1) {
+      const b = group.beats[0];
+      const totalFrames = Math.round(targetDur * fps);
+      inputArgs.push("-loop", "1", "-t", targetDur.toFixed(2), "-i", b.imagePath);
+
+      const kbFilter = getCinematicKenBurns(b.globalIdx, totalFrames, fps);
+      const vfxChain = `vignette=PI/4.5,eq=contrast=1.05:brightness=-0.01:saturation=1.10,ass=${hudAssName},fade=t=out:st=${Math.max(0, targetDur - 0.35).toFixed(2)}:d=0.35`;
+      filterComplex = `[0:v]${kbFilter},${vfxChain}[outv]`;
+    } else {
+      const wordCounts = group.beats.map((b) => b.wordCount);
+      const totalW = wordCounts.reduce((acc, w) => acc + w, 0);
+
+      const baseDurs: number[] = [];
+      let accum = 0;
+      for (let i = 0; i < K - 1; i++) {
+        const d = (wordCounts[i] / totalW) * targetDur;
+        baseDurs.push(d);
+        accum += d;
+      }
+      baseDurs.push(Math.max(0.5, targetDur - accum));
+
+      const minBaseDur = Math.min(...baseDurs);
+      const transDur = Math.min(0.8, Math.max(0.2, minBaseDur * 0.4));
+
+      const fcLines: string[] = [];
+      for (let i = 0; i < K; i++) {
+        const b = group.beats[i];
+        const clipDur = baseDurs[i] + (i < K - 1 ? transDur : 0);
+        const totalFrames = Math.round(clipDur * fps);
+        inputArgs.push("-loop", "1", "-t", clipDur.toFixed(2), "-i", b.imagePath);
+
+        const kbFilter = getCinematicKenBurns(b.globalIdx, totalFrames, fps);
+        fcLines.push(`[${i}:v]${kbFilter}[v${i}]`);
+      }
+
+      let curOffset = 0;
+      for (let i = 0; i < K - 1; i++) {
+        curOffset += baseDurs[i];
+        const prevLabel = i === 0 ? `[v0]` : `[x${i - 1}]`;
+        const nextLabel = `[v${i + 1}]`;
+        const outLabel = i === K - 2 ? `[mx]` : `[x${i}]`;
+        fcLines.push(`${prevLabel}${nextLabel}xfade=transition=dissolve:duration=${transDur.toFixed(2)}:offset=${curOffset.toFixed(2)}${outLabel}`);
+      }
+
+      const vfxChain = `vignette=PI/4.5,eq=contrast=1.05:brightness=-0.01:saturation=1.10,ass=${hudAssName},fade=t=out:st=${Math.max(0, targetDur - 0.35).toFixed(2)}:d=0.35`;
+      fcLines.push(`[mx]${vfxChain}[outv]`);
+      filterComplex = fcLines.join(";");
+    }
 
     try {
       execFileSync("ffmpeg", [
         "-y",
-        "-framerate", "24",
-        "-loop", "1",
-        "-i", ab.imagePath,
-        "-t", dur,
-        "-vf", filter,
+        ...inputArgs,
+        "-filter_complex", filterComplex,
+        "-map", "[outv]",
         "-c:v", "libx264",
         "-preset", "veryfast",
         "-crf", "20",
         "-pix_fmt", "yuv420p",
-        "-an",
-        clipOut,
-      ], { stdio: "ignore" });
-      clipPaths.push(clipOut);
-    } catch (e) {
-      fail(row.id, `FFmpeg gagal merender clip ${idx + 1}: ${(e as Error).message}`);
+        "-t", targetDur.toFixed(2),
+        paraClipOut,
+      ], { stdio: "ignore", cwd: workDir });
+      clipPaths.push(paraClipOut);
+    } catch (err) {
+      console.warn(`[assemble-long] segmen ${p + 1} render dengan HUD gagal (${(err as Error).message}), fallback tanpa HUD...`);
+      const fallbackFilter = filterComplex.replace(new RegExp(`,ass=${hudAssName}`, "g"), "");
+      try {
+        execFileSync("ffmpeg", [
+          "-y",
+          ...inputArgs,
+          "-filter_complex", fallbackFilter,
+          "-map", "[outv]",
+          "-c:v", "libx264",
+          "-preset", "veryfast",
+          "-crf", "20",
+          "-pix_fmt", "yuv420p",
+          "-t", targetDur.toFixed(2),
+          paraClipOut,
+        ], { stdio: "ignore", cwd: workDir });
+        clipPaths.push(paraClipOut);
+      } catch (e2) {
+        fail(row.id, `FFmpeg gagal merender segmen ${p + 1}: ${(e2 as Error).message}`);
+      }
     }
   }
 
-  // Gabungkan seluruh klip visual
-  const concatFileContent = clipPaths.map((p) => `file '${p.replace(/\\/g, "/")}'`).join("\n");
+  // Gabungkan seluruh klip visual segmen
+  const concatFileContent = clipPaths.map((p) => `file '${basename(p)}'`).join("\n");
   writeFileSync(clipListFile, concatFileContent, "utf8");
 
   const visualConcatMp4 = join(workDir, "visual_concat.mp4");
@@ -390,7 +588,7 @@ async function run(): Promise<void> {
       "-i", clipListFile,
       "-c", "copy",
       visualConcatMp4,
-    ], { stdio: "inherit" });
+    ], { stdio: "inherit", cwd: workDir });
   } catch (e) {
     fail(row.id, `FFmpeg concat visual gagal: ${(e as Error).message}`);
   }
@@ -406,6 +604,7 @@ async function run(): Promise<void> {
       "-c:v", "copy",
       "-c:a", "aac",
       "-b:a", "192k",
+      "-ar", "48000",
       "-shortest",
       finalVideoPath,
     ], { stdio: "inherit" });
@@ -449,7 +648,7 @@ async function run(): Promise<void> {
 
   const ytUrl = `https://youtu.be/${ytId}`;
   console.log(`[assemble-long] BERHASIL TERBIT: ${ytUrl}`);
-  await tgSend(`🎉 Video Long-Form ${date} BERHASIL TERBIT!\n📌 ${sbData.title}\n⏱ Durasi: ${(actualAudioSec / 60).toFixed(1)} menit (${Math.round(actualAudioSec)}s)\n🎬 ${beats.length} Scene Ken Burns 1080p\n🔗 Tonton di YouTube: ${ytUrl}`);
+  await tgSend(`🎉 Video Long-Form ${date} BERHASIL TERBIT!\n📌 ${sbData.title}\n⏱ Durasi: ${(actualAudioSec / 60).toFixed(1)} menit (${Math.round(actualAudioSec)}s)\n🎬 ${beats.length} Scene Cinematic Engine (2.5K Smooth Ken Burns, xfade dissolve, Lower-Third HUD, VFX Grading)\n🔗 Tonton di YouTube: ${ytUrl}`);
 
   // Bersihkan temporary directory
   try { rmSync(workDir, { recursive: true, force: true }); } catch {}

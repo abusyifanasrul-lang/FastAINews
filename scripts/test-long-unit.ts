@@ -3,6 +3,7 @@ import { stripMidroll, validateLongScript, formatTimestamp, trimNaskahToLength }
 import { parseGdriveId, splitPublishLongArgs } from "../src/long/gdrive.js";
 import { splitBeats, validateChapters, chaptersToDescription, extractPromptsText, extractNarrationsText } from "../src/long/storyboard.js";
 import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
+import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/cinematic.js";
 
 // 1. stripMidroll: marker hilang dari teks, posisi tersimpan
 {
@@ -236,5 +237,34 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
   );
   assert(saturated.every((b) => b.srcImage === imgs[0]), "hint LLM eksplisit tidak dihormati");
   console.log(`ok penalti overuse gambar (distribusi ${JSON.stringify([...counts])}, hint eksplisit dihormati)`);
+}
+// 14. Cinematic Native Engine: ASS Lower-Third HUD, 2.5K Smoothstep Ken Burns, Topic/Entity Extractor
+{
+  // Test buildAssHud: header valid, sanitasi tag {}, fade-in/out
+  const ass = buildAssHud(1, "AI Data Center {Special}", "FAST AI // PART 01", 10);
+  assert(ass.includes("[Script Info]") && ass.includes("TopicBadge") && ass.includes("TopicTag"), "format ASS tidak valid");
+  assert(!ass.includes("{Special}"), "karakter kurung kurawal tidak ter-sanitasi");
+  assert(ass.includes("AI Data Center Special"), "isi judul berubah salah");
+  assert(ass.includes("\\fad(400,400)"), "efek fade ASS hilang");
+
+  // Test getCinematicKenBurns: 4 mode kamera unik, kanvas 2560:1440, output 1920:1080, smoothstep easing
+  const choreos = [0, 1, 2, 3].map((m) => getCinematicKenBurns(m, 120, 24));
+  assert(new Set(choreos).size === 4, "ada mode koreografi kamera yang identik");
+  for (const c of choreos) {
+    assert(c.includes("scale=2560:1440"), "kanvas bukan 2560x1440 (rawan micro-stutter)");
+    assert(c.includes("s=1920x1080"), "output bukan 1080p");
+    assert(c.includes("3*pow(on/120,2)-2*pow(on/120,3)"), "formula cubic smoothstep easing hilang");
+  }
+
+  // Test getHudContent: deteksi entitas berita (TechCrunch, Google, Nvidia)
+  const hud1 = getHudContent(2, 12, "Deep-Dive Berita AI", "Topik pertama dari laporan TechCrunch mengenai pusat data.");
+  assert(hud1.title.includes("TechCrunch") && hud1.title.includes("Deep-Dive Berita AI"), "entitas TechCrunch tidak terdeteksi");
+  assert.strictEqual(hud1.tag, "FAST AI NEWS  //  PART 03", "tag segment salah");
+
+  const hudIntro = getHudContent(0, 12, "Intro & Tesis Utama", "Dalam 72 jam terakhir kita melihat perkembangan pesat.");
+  assert.strictEqual(hudIntro.title, "Intro & Tesis Utama", "judul intro berubah salah");
+  assert.strictEqual(hudIntro.tag, "FAST AI NEWS  //  PART 01", "tag intro salah");
+
+  console.log("ok Cinematic Native Engine (ASS HUD, 2.5K Smoothstep Ken Burns 4-mode, Topic HUD Extractor)");
 }
 console.log("SEMUA UJI LONG-FORM LOLOS");
