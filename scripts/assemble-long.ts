@@ -53,15 +53,29 @@ function getFilesRecursively(dir: string): string[] {
   return files;
 }
 
-/** Natural numeric sort untuk mengurutkan file: 1.jpg, 2.jpg, ... 10.jpg */
+/** Natural numeric sort untuk mengurutkan file: 1.jpg, 2.jpg, ... 10.jpg (resilient thd prefix) */
 function naturalSort(a: string, b: string): number {
-  const numA = basename(a).match(/\d+/)?.[0];
-  const numB = basename(b).match(/\d+/)?.[0];
-  if (numA !== undefined && numB !== undefined) {
-    const diff = parseInt(numA, 10) - parseInt(numB, 10);
+  const matchA = basename(a, extname(a)).match(/(\d+)(?!.*\d)/);
+  const matchB = basename(b, extname(b)).match(/(\d+)(?!.*\d)/);
+  if (matchA && matchB) {
+    const diff = parseInt(matchA[1], 10) - parseInt(matchB[1], 10);
     if (diff !== 0) return diff;
   }
   return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+}
+
+/** Baca durasi audio via ffprobe (detik) */
+function getAudioDuration(filePath: string): number {
+  try {
+    const probe = execFileSync("ffprobe", [
+      "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", filePath,
+    ]).toString().trim();
+    const dur = parseFloat(probe);
+    if (!isNaN(dur) && dur > 0) return dur;
+  } catch (e) {
+    console.warn(`[assemble-long] ffprobe gagal baca durasi ${basename(filePath)}:`, (e as Error).message);
+  }
+  return 0;
 }
 
 async function run(): Promise<void> {
@@ -120,12 +134,15 @@ async function run(): Promise<void> {
   const allFiles = getFilesRecursively(extractDir);
   console.log(`[assemble-long] ${allFiles.length} file ditemukan di dalam asset.zip`);
 
-  // Cari file audio narasi
-  const audioFile = allFiles.find((f) => extname(f).toLowerCase() === ".mp3");
-  if (!audioFile) {
-    fail(row.id, "Tidak ditemukan file audio .mp3 (narration.mp3) di dalam asset.zip!");
+  // Cari seluruh file audio narasi (.mp3)
+  const audioFilesRaw = allFiles
+    .filter((f) => extname(f).toLowerCase() === ".mp3")
+    .sort(naturalSort);
+
+  if (audioFilesRaw.length === 0) {
+    fail(row.id, "Tidak ditemukan file audio .mp3 di dalam asset.zip!");
   }
-  console.log(`[assemble-long] audio narasi ditemukan: ${basename(audioFile)}`);
+  console.log(`[assemble-long] ${audioFilesRaw.length} file audio ditemukan: ${audioFilesRaw.map((f) => basename(f)).slice(0, 5).join(", ")}${audioFilesRaw.length > 5 ? "..." : ""}`);
 
   // Cari seluruh file gambar (.jpg, .jpeg, .png, .webp, .jfif)
   const IMG_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".jfif"];
@@ -151,6 +168,29 @@ async function run(): Promise<void> {
   normalizedImages.sort(naturalSort);
   console.log(`[assemble-long] ${normalizedImages.length} file gambar siap dirangkai`);
 
+  // Siapkan master audio narasi: gabungkan seluruh MP3 jika lebih dari satu
+  let masterAudioPath = audioFilesRaw[0];
+  if (audioFilesRaw.length > 1) {
+    const audioListFile = join(workDir, "audio_concat.txt");
+    const audioListContent = audioFilesRaw.map((p) => `file '${p.replace(/\\/g, "/")}'`).join("\n");
+    writeFileSync(audioListFile, audioListContent, "utf8");
+    masterAudioPath = join(workDir, "master_narration.mp3");
+    console.log(`[assemble-long] menggabungkan ${audioFilesRaw.length} file audio menjadi master_narration.mp3...`);
+    try {
+      execFileSync("ffmpeg", [
+        "-y",
+        "-f", "concat",
+        "-safe", "0",
+        "-i", audioListFile,
+        "-c:a", "libmp3lame",
+        "-q:a", "2",
+        masterAudioPath,
+      ], { stdio: "ignore" });
+    } catch (e) {
+      fail(row.id, `FFmpeg concat audio gagal: ${(e as Error).message}`);
+    }
+  }
+
   // 4. Baca storyboard & durasi riil audio
   const storyboardFile = join(process.cwd(), "content", "long", date, "storyboard.json");
   if (!existsSync(storyboardFile)) {
@@ -163,32 +203,34 @@ async function run(): Promise<void> {
     estTotalSec: number;
   };
 
-  // Ukur durasi riil audio via ffprobe
-  let actualAudioSec = 0;
-  try {
-    const probe = execFileSync("ffprobe", [
-      "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", audioFile,
-    ]).toString().trim();
-    actualAudioSec = parseFloat(probe);
-  } catch (e) {
-    fail(row.id, `ffprobe gagal membaca durasi audio: ${(e as Error).message}`);
+  const actualAudioSec = getAudioDuration(masterAudioPath);
+  if (!actualAudioSec || actualAudioSec < 60) {
+    fail(row.id, `Durasi total audio tidak valid: ${actualAudioSec} dtk (minimal 60 detik)`);
   }
-  if (!actualAudioSec || isNaN(actualAudioSec) || actualAudioSec < 60) {
-    fail(row.id, `Durasi audio narasi tidak valid: ${actualAudioSec} dtk (minimal 60 detik)`);
-  }
-  console.log(`[assemble-long] durasi audio riil narration.mp3: ${actualAudioSec.toFixed(1)} dtk (~${(actualAudioSec / 60).toFixed(1)} mnt)`);
+  console.log(`[assemble-long] durasi total audio riil: ${actualAudioSec.toFixed(1)} dtk (~${(actualAudioSec / 60).toFixed(1)} mnt)`);
 
-  // 5. Penyelarasan Waktu Narasi Proposional (Word-Count Proportional Alignment)
+  // 5. Penyelarasan Waktu Narasi (1:1 Audio-ke-Gambar jika jumlah file sama, atau Proposional)
   const beats = sbData.beats;
-  const totalWords = beats.reduce((acc, b) => acc + (b.text.trim().split(/\s+/).length || 1), 0);
+  const isOneToOne = audioFilesRaw.length === beats.length;
+  const perAudioDurations = isOneToOne ? audioFilesRaw.map((af) => getAudioDuration(af)) : [];
+  if (isOneToOne) {
+    console.log(`[assemble-long] mode presisi 1:1 aktif (${audioFilesRaw.length} audio cocok 1:1 dengan ${beats.length} scene)`);
+  } else {
+    console.log(`[assemble-long] mode penyelarasan proporsional aktif (${audioFilesRaw.length} audio untuk ${beats.length} scene)`);
+  }
 
+  const totalWords = beats.reduce((acc, b) => acc + (b.text.trim().split(/\s+/).length || 1), 0);
   let curStart = 0;
   const alignedBeats = beats.map((b, idx) => {
-    const w = b.text.trim().split(/\s+/).length || 1;
-    const dur = (w / totalWords) * actualAudioSec;
+    let dur = 0;
+    if (isOneToOne && perAudioDurations[idx] > 0) {
+      dur = perAudioDurations[idx];
+    } else {
+      const w = b.text.trim().split(/\s+/).length || 1;
+      dur = (w / totalWords) * actualAudioSec;
+    }
     const startSec = curStart;
     curStart += dur;
-    // Pasangkan gambar (loop/fallback jika jumlah gambar kurang dari jumlah beat)
     const imgPath = normalizedImages[idx] ?? normalizedImages[idx % normalizedImages.length];
     return {
       i: b.i,
@@ -198,11 +240,13 @@ async function run(): Promise<void> {
     };
   });
 
-  // Sinkronkan chapters timestamp ke durasi audio riil
-  const alignedChapters = sbData.chapters.map((c) => ({
-    title: c.title,
-    startSec: Math.round((c.startSec / (sbData.estTotalSec || actualAudioSec)) * actualAudioSec),
-  }));
+  // Sinkronkan chapters timestamp ke durasi audio riil (mengikuti startSec beat pertama di tiap bab)
+  const alignedChapters = sbData.chapters.map((c) => {
+    const firstBeat = alignedBeats.find((_, idx) => sbData.beats[idx]?.chapter === c.title);
+    const startSec = firstBeat ? Math.round(firstBeat.startSec) : 0;
+    return { title: c.title, startSec };
+  });
+  if (alignedChapters.length > 0) alignedChapters[0].startSec = 0;
 
   // 6. Perakitan Video via High-Efficiency FFmpeg Ken Burns Engine
   console.log(`[assemble-long] merakit ${alignedBeats.length} adegan visual dengan Ken Burns motion & 24fps...`);
@@ -266,12 +310,12 @@ async function run(): Promise<void> {
 
   // Gabungkan visual dengan audio narasi (audio mixing murni)
   const finalVideoPath = join(workDir, `final-${date}.mp4`);
-  console.log("[assemble-long] menggabungkan visual dengan audio narration.mp3...");
+  console.log("[assemble-long] menggabungkan visual dengan audio narasi...");
   try {
     execFileSync("ffmpeg", [
       "-y",
       "-i", visualConcatMp4,
-      "-i", audioFile,
+      "-i", masterAudioPath,
       "-c:v", "copy",
       "-c:a", "aac",
       "-b:a", "192k",

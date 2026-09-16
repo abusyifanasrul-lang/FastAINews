@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { stripMidroll, validateLongScript, formatTimestamp, trimNaskahToLength } from "../src/long/validate.js";
 import { parseGdriveId, splitPublishLongArgs } from "../src/long/gdrive.js";
-import { splitBeats, validateChapters, chaptersToDescription, extractPromptsText } from "../src/long/storyboard.js";
+import { splitBeats, validateChapters, chaptersToDescription, extractPromptsText, extractNarrationsText } from "../src/long/storyboard.js";
 import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
 
 // 1. stripMidroll: marker hilang dari teks, posisi tersimpan
@@ -55,7 +55,9 @@ import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
   assert(beats[0].startSec === 0, "beat pertama tidak 00:00");
   const promptsTxt = extractPromptsText(beats);
   assert(promptsTxt.split("\n").length === beats.length, "jumlah baris prompts.txt tidak sama dengan jumlah adegan");
-  console.log(`ok splitBeats narrative scenes (${beats.length} adegan, durasi 12-25s, extractPromptsText OK)`);
+  const narrationsTxt = extractNarrationsText(beats);
+  assert(narrationsTxt.split("\n").length === beats.length, "jumlah baris narrations.txt tidak sama dengan jumlah adegan");
+  console.log(`ok splitBeats narrative scenes (${beats.length} adegan, durasi 12-25s, extractPromptsText & extractNarrationsText OK)`);
 }
 // 5. classifyBeats (Thematic Visual Mapper): prompt English UE5, faceless, no music, no leak
 {

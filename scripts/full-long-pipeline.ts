@@ -6,7 +6,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { curateLongNews } from "../src/long/curator.js";
 import { generateLongScript, generateLongStoryboard } from "../src/long/llm-long.js";
-import { splitBeats, validateChapters, buildStoryboardMd, extractPromptsText, type Chapter } from "../src/long/storyboard.js";
+import { splitBeats, validateChapters, buildStoryboardMd, extractPromptsText, extractNarrationsText, type Chapter } from "../src/long/storyboard.js";
 import { stripMidroll } from "../src/long/validate.js";
 import { upsertLongContent, getLongContentByDate } from "../src/db.js";
 
@@ -103,6 +103,8 @@ async function run(): Promise<void> {
   writeFileSync(join(dir, "STORYBOARD.md"), buildStoryboardMd(topicTitle, date, chapters, beats, totalSec, midrollAtSec));
   const rawPrompts = extractPromptsText(beats);
   writeFileSync(join(dir, "prompts.txt"), rawPrompts, "utf8");
+  const rawNarrations = extractNarrationsText(beats);
+  writeFileSync(join(dir, "narrations.txt"), rawNarrations, "utf8");
   writeFileSync(join(dir, "meta.json"), JSON.stringify({
     date, topicTitle, status: "READY_FOR_ASSETS",
     beats: beats.length, estTotalSec: totalSec, midrollAtSec,
@@ -124,9 +126,9 @@ async function run(): Promise<void> {
   const warnImg = imgPaths.length === 0 ? "\n⚠️ 0 gambar terdownload — producer pakai T2V semua." : "";
   const warnDur = totalSec < 480 ? `\n⚠️ Estimasi ${Math.round(totalSec)} dtk <8 mnt — tambah segmen agar lolos mid-roll.` : "";
   await tgSend(
-    `🎬 Long-form ${date} READY_FOR_ASSETS\n📌 ${topicTitle}\n📝 ${beats.length} adegan visual naratif (~${Math.round(totalSec / 60)} mnt)\n📂 ${relStoryboardPath}\n📄 prompts.txt: ${beats.length} baris siap batch generate (1376x768 .jpg)!\n\nAlur produksi:\n1. Generate ${beats.length} gambar (.jpg 1K) dari prompts.txt\n2. Rekam narration.mp3\n3. Upload asset.zip ke GDrive\n4. Trigger perakitan: /assemble_long ${date} <link_gdrive>${warnImg}${warnDur}`,
+    `🎬 Long-form ${date} READY_FOR_ASSETS\n📌 ${topicTitle}\n📝 ${beats.length} adegan visual naratif (~${Math.round(totalSec / 60)} mnt)\n📂 ${relStoryboardPath}\n📄 prompts.txt: ${beats.length} baris prompt gambar (1376x768 .jpg)\n🎙️ narrations.txt: ${beats.length} baris naskah audio (01.mp3 .. ${beats.length}.mp3)\n\nAlur produksi:\n1. Generate ${beats.length} gambar (.jpg 1K) dari prompts.txt\n2. Generate audio per baris dari narrations.txt (atau 1 file narration.mp3)\n3. Masukkan gambar & audio ke asset.zip & upload ke GDrive\n4. Trigger perakitan: /assemble_long ${date} <link_gdrive>${warnImg}${warnDur}`,
   );
-  console.log(`[long] edisi ${date} READY_FOR_ASSETS (${beats.length} adegan visual, ~${Math.round(totalSec)} dtk, prompts.txt tersimpan)`);
+  console.log(`[long] edisi ${date} READY_FOR_ASSETS (${beats.length} adegan visual, ~${Math.round(totalSec)} dtk, prompts.txt & narrations.txt tersimpan)`);
 }
 
 try {

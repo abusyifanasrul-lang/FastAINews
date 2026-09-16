@@ -163,3 +163,10 @@ export function extractPromptsText(beats: Beat[]): string {
     .join("\n");
 }
 
+/** Ekstrak teks narasi naskah murni (1 baris per beat, tanpa penomoran/caption, cocok 1:1 dengan prompts.txt). */
+export function extractNarrationsText(beats: Beat[]): string {
+  return beats
+    .map((b) => b.text.trim().replace(/[\r\n]+/g, " "))
+    .join("\n");
+}
+
