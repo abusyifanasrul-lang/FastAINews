@@ -50,7 +50,7 @@ jobs:
           LLM_ENDPOINT: ${{ secrets.LLM_ENDPOINT || 'http://localhost' }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY || 'dummy' }}
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY || '' }}
-        run: npx tsx scripts/assemble-long.ts --date="${{ github.event.inputs.date }}" --gdrive-url="${{ github.event.inputs.gdrive_url }}"
+        run: npx tsx scripts/assemble-long.ts --date="${{ github.event.inputs.date }}" --gdrive-url="${{ github.event.inputs.gdrive_url }}" --force
 
       - name: Commit DB changes
         if: always()
