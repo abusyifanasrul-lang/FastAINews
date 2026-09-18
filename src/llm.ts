@@ -32,8 +32,8 @@ const OPENCODE_USER_AGENT = envUa && envUa.startsWith("opencode/") ? envUa : "op
 
 // Google Gemini OpenAI-compatible Direct Config (Official Google AI Studio)
 const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai";
-const GEMINI_PRIMARY_MODEL = "gemini-3.5-flash";
-const GEMINI_FALLBACK_MODEL = "gemini-3.1-flash-lite";
+const GEMINI_PRIMARY_MODEL = "gemini-3.1-flash-lite";
+const GEMINI_FALLBACK_MODEL = "gemini-3.5-flash-lite";
 const googleApiKey = process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
@@ -220,7 +220,7 @@ export function cleanAndValidateScript(raw: string, fallbackTitle: string): { sc
   // Validasi bahasa: naskah berita wajib menggunakan Bahasa Indonesia yang wajar
   const indonesianWords = ["yang", "dan", "di", "ini", "untuk", "dengan", "dari", "pada", "adalah", "ke"];
   const lower = script.toLowerCase();
-  const matchedCount = indonesianWords.filter(w => new RegExp(`(?:^|[\\s.,!?])${w}(?:$|[\\s.,!?])`, "i").test(lower)).length;
+  const matchedCount = indonesianWords.filter(w => new RegExp(`\\b${w}\\b`, "i").test(lower)).length;
   if (matchedCount < 3) {
     throw new Error(`LLM output terdeteksi bukan Bahasa Indonesia yang valid (hanya ditemukan ${matchedCount} kata penghubung). Script ditolak.`);
   }
@@ -264,7 +264,7 @@ LANGSUNG mulai output pada baris pertama dengan format: JUDUL: <judul topik sing
   let lastErr: Error | undefined;
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
-      const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }], 900);
+      const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }], 2000);
       return cleanAndValidateScript(raw, items[0]?.title ?? "Berita AI hari ini");
     } catch (err) {
       lastErr = err as Error;
@@ -283,7 +283,7 @@ TITLE: <judul YouTube, <=60 char>
 CAPTION: <caption menarik 1-3 kalimat untuk IG/TikTok>
 HASHTAGS: <10-12 hashtag dipisah spasi, termasuk #AI #Teknologi #BeritaAI dan yang relevan>
 Dilarang menyertakan teks pengantar atau proses berpikir. Langsung format di atas.`;
-  const raw = await chat([{ role: "system", content: system }, { role: "user", content: script }]);
+  const raw = await chat([{ role: "system", content: system }, { role: "user", content: script }], 2000);
   const t = raw.match(/^TITLE:\s*(.+)/im);
   const c = raw.match(/^CAPTION:\s*(.+)/im);
   const h = raw.match(/^HASHTAGS:\s*(.+)/im);
@@ -316,7 +316,7 @@ LANGSUNG mulai output pada baris pertama dengan format: JUDUL: <judul>`;
   let lastErr: Error | undefined;
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
-      const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }], 900);
+      const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }], 2000);
       return cleanAndValidateScript(raw, items[0]?.title ?? "Berita AI hari ini");
     } catch (err) {
       lastErr = err as Error;
