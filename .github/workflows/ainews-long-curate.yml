@@ -2,7 +2,9 @@ name: AI News Long Curate (3-harian)
 
 on:
   schedule:
-    - cron: '0 19 */3 * *'
+    # Mundur agar mengumpulkan 3 edisi harian penuh (19, 20, 21 September).
+    # Mulai jalan 21 September 19:00 UTC (22 September 03:00 WITA), lalu setiap 3 hari (21, 24, 27, 30, ...).
+    - cron: '0 19 3,6,9,12,15,18,21,24,27,30 * *'
   workflow_dispatch:
     inputs:
       date:
