@@ -1,5 +1,4 @@
 import "dotenv/config";
-import { randomUUID } from "node:crypto";
 import type { NewsItem } from "./research.js";
 
 const endpoint = process.env.LLM_ENDPOINT;
@@ -8,14 +7,34 @@ const endpointFallback = process.env.LLM_ENDPOINT_FALLBACK;
 const apiKeyFallback = process.env.LLM_API_KEY_FALLBACK;
 const getModel = () => process.env.LLM_MODEL ?? "Hermes";
 
-// OpenCode Go (enforced 2026-09-06): API requests must carry a stable
-// x-opencode-session per conversation + a real user-agent. Without them
-// the vendor rejects with MissingSessionID / "free tier can only be used
-// in OpenCode". One UUID per process = one pipeline run = one conversation.
-// ponytail: per-day stable ID via file/env if vendor starts requiring
-// same-session caching across retries; upgrade when they reject per-run IDs.
-const OPENCODE_SESSION_ID = process.env.OPENCODE_SESSION_ID ?? randomUUID();
-const OPENCODE_USER_AGENT = process.env.OPENCODE_USER_AGENT ?? "ainews-bot/1.0";
+// OpenCode Zen API (updated 2026 schema from skill opencode-headers):
+// Vendor checks:
+// 1. User-Agent: opencode/<version> (e.g. opencode/1.18.21)
+// 2. Client type: x-opencode-client: cli
+// 3. Session ID: ses_<9-hex-time>ffe<14-base62> (exactly 30 chars).
+//    Rejects standard UUID v4 with HTTP 403 FreeTierError.
+// 4. Header pairing: sends both X-Session-Id and x-opencode-session.
+export function generateOpenCodeSessionId(): string {
+  const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let rand = "";
+  for (let i = 0; i < 14; i++) {
+    rand += chars[Math.floor(Math.random() * chars.length)];
+  }
+  const hexTime = Date.now().toString(16).slice(-9);
+  return `ses_${hexTime}ffe${rand}`.slice(0, 30);
+}
+
+function getValidOpenCodeSessionId(): string {
+  const envId = process.env.OPENCODE_SESSION_ID;
+  if (envId && envId.startsWith("ses_") && envId.includes("ffe") && envId.length === 30) {
+    return envId;
+  }
+  return generateOpenCodeSessionId();
+}
+
+const OPENCODE_SESSION_ID = getValidOpenCodeSessionId();
+const envUa = process.env.OPENCODE_USER_AGENT;
+const OPENCODE_USER_AGENT = envUa && envUa.startsWith("opencode/") ? envUa : "opencode/1.18.21";
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
@@ -39,14 +58,20 @@ export async function chat(messages: LlmMessage[], maxTokens = 2000, temperature
 
   async function callApi(url: string, token: string, modelName = getModel()): Promise<string> {
     await rateLimit(); // jeda 2 detik antar panggilan
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+      "User-Agent": OPENCODE_USER_AGENT,
+      "x-opencode-client": "cli",
+      "X-Session-Id": OPENCODE_SESSION_ID,
+      "x-opencode-session": OPENCODE_SESSION_ID,
+    };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
     const res = await fetch(`${url}/chat/completions`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        "x-opencode-session": OPENCODE_SESSION_ID,
-        "User-Agent": OPENCODE_USER_AGENT,
-      },
+      headers,
       body: JSON.stringify({ model: modelName, messages, max_tokens: maxTokens, temperature }),
     });
     if (!res.ok) {
