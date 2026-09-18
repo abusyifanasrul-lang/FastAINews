@@ -8,12 +8,6 @@ const apiKeyFallback = process.env.LLM_API_KEY_FALLBACK;
 const getModel = () => process.env.LLM_MODEL ?? "Hermes";
 
 // OpenCode Zen API (updated 2026 schema from skill opencode-headers):
-// Vendor checks:
-// 1. User-Agent: opencode/<version> (e.g. opencode/1.18.21)
-// 2. Client type: x-opencode-client: cli
-// 3. Session ID: ses_<9-hex-time>ffe<14-base62> (exactly 30 chars).
-//    Rejects standard UUID v4 with HTTP 403 FreeTierError.
-// 4. Header pairing: sends both X-Session-Id and x-opencode-session.
 export function generateOpenCodeSessionId(): string {
   const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let rand = "";
@@ -36,11 +30,17 @@ const OPENCODE_SESSION_ID = getValidOpenCodeSessionId();
 const envUa = process.env.OPENCODE_USER_AGENT;
 const OPENCODE_USER_AGENT = envUa && envUa.startsWith("opencode/") ? envUa : "opencode/1.18.21";
 
+// Google Gemini OpenAI-compatible Direct Config (Official Google AI Studio)
+const GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai";
+const GEMINI_PRIMARY_MODEL = "gemini-3.5-flash";
+const GEMINI_FALLBACK_MODEL = "gemini-3.1-flash-lite";
+const googleApiKey = process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY;
+
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
-// rate-limit guard: 2 detik antar panggilan
+// rate-limit guard: 3.5 detik antar panggilan (aman di bawah 15 RPM Google AI Studio & vendor lain)
 let lastCall = 0;
-const MIN_INTERVAL_MS = 2000;
+const MIN_INTERVAL_MS = 3500;
 async function rateLimit() {
   const now = Date.now();
   const elapsed = now - lastCall;
@@ -53,20 +53,24 @@ async function rateLimit() {
 export interface LlmMessage { role: "system" | "user"; content: string }
 
 export async function chat(messages: LlmMessage[], maxTokens = 2000, temperature = 0.7): Promise<string> {
-  if (!endpoint) throw new Error("LLM_ENDPOINT missing");
   const MAX_RETRIES = 3;
 
   async function callApi(url: string, token: string, modelName = getModel()): Promise<string> {
-    await rateLimit(); // jeda 2 detik antar panggilan
+    await rateLimit();
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
-      "User-Agent": OPENCODE_USER_AGENT,
-      "x-opencode-client": "cli",
-      "X-Session-Id": OPENCODE_SESSION_ID,
-      "x-opencode-session": OPENCODE_SESSION_ID,
     };
+
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    // Hanya sertakan identitas OpenCode jika URL mengarah ke domain opencode.ai
+    if (url.includes("opencode.ai")) {
+      headers["User-Agent"] = OPENCODE_USER_AGENT;
+      headers["x-opencode-client"] = "cli";
+      headers["X-Session-Id"] = OPENCODE_SESSION_ID;
+      headers["x-opencode-session"] = OPENCODE_SESSION_ID;
     }
 
     const res = await fetch(`${url}/chat/completions`, {
@@ -110,16 +114,16 @@ export async function chat(messages: LlmMessage[], maxTokens = 2000, temperature
       }
       throw new Error("LLM: kosong");
     }
-    // Strip tag <think>...</think> jika model memancarkan thinking tokens (termasuk tag unclosed saat truncate)
-    content = content.replace(/<think>[\s\S]*?(?:<\/think>|$)/gi, "").trim();
+    // Strip tag <think>...</think> atau <thought>...</thought> jika model memancarkan thinking tokens
+    content = content.replace(/<(?:think|thought)>[\s\S]*?(?:<\/(?:think|thought)>|$)/gi, "").trim();
     return content;
   }
 
-  async function withRetry(url: string, token: string): Promise<string> {
+  async function withRetry(url: string, token: string, modelName = getModel()): Promise<string> {
     let lastErr: Error | undefined;
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
       try {
-        return await callApi(url, token);
+        return await callApi(url, token, modelName);
       } catch (err) {
         lastErr = err as Error;
         if (attempt < MAX_RETRIES - 1) await sleep(1000 * 2 ** attempt);
@@ -128,13 +132,42 @@ export async function chat(messages: LlmMessage[], maxTokens = 2000, temperature
     throw lastErr!;
   }
 
-  try {
-    return await withRetry(endpoint!, apiKey!);
-  } catch (primaryErr) {
-    if (!endpointFallback || !apiKeyFallback) throw primaryErr;
-    console.warn(`[llm] primary endpoint failed, trying fallback: ${(primaryErr as Error).message}`);
-    return withRetry(endpointFallback, apiKeyFallback);
+  // Jalur eksekusi berlapis (Multi-tier Resilient Fallback):
+  // 1. Coba Primary endpoint (LLM_ENDPOINT) jika tersedia
+  // 2. Jika gagal, coba LLM_ENDPOINT_FALLBACK jika tersedia
+  // 3. Jika gagal atau jika LLM_ENDPOINT memicu 403 FreeTier, fallback langsung ke Google Gemini Direct
+
+  let primaryErr: Error | undefined;
+  if (endpoint && apiKey) {
+    try {
+      return await withRetry(endpoint, apiKey);
+    } catch (err) {
+      primaryErr = err as Error;
+      console.warn(`[llm] primary endpoint gagal (${primaryErr.message})`);
+    }
   }
+
+  if (endpointFallback && apiKeyFallback) {
+    try {
+      console.log(`[llm] mencoba fallback endpoint: ${endpointFallback}`);
+      return await withRetry(endpointFallback, apiKeyFallback);
+    } catch (err) {
+      console.warn(`[llm] fallback endpoint gagal: ${(err as Error).message}`);
+    }
+  }
+
+  // Fallback 3: Google Gemini Direct Resmi (Google AI Studio)
+  if (googleApiKey) {
+    console.log(`[llm] mencoba fallback Google Gemini direct (${GEMINI_PRIMARY_MODEL})...`);
+    try {
+      return await withRetry(GEMINI_BASE_URL, googleApiKey, GEMINI_PRIMARY_MODEL);
+    } catch (geminiErr) {
+      console.warn(`[llm] Gemini primary gagal (${(geminiErr as Error).message}), mencoba backup model ${GEMINI_FALLBACK_MODEL}...`);
+      return await withRetry(GEMINI_BASE_URL, googleApiKey, GEMINI_FALLBACK_MODEL);
+    }
+  }
+
+  throw primaryErr ?? new Error("LLM_ENDPOINT dan GOOGLE_API_KEY tidak ditemukan");
 }
 
 /**

@@ -47,6 +47,7 @@ jobs:
           LLM_ENDPOINT: ${{ secrets.LLM_ENDPOINT }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
         run: |
