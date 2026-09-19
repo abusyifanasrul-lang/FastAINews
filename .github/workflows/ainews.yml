@@ -116,3 +116,4 @@ jobs:
         with:
           name: video-output
           path: content/
+          retention-days: 3
