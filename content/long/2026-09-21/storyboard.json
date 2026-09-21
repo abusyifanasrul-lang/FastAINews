@@ -1,0 +1,968 @@
+{
+  "date": "2026-09-21",
+  "title": "Gejolak 72 Jam Terakhir: Menakar Masa Depan Kecerdasan Buatan",
+  "chapters": [
+    {
+      "title": "Intro & Tesis Utama",
+      "startSec": 0
+    },
+    {
+      "title": "Konteks 72 Jam Terakhir",
+      "startSec": 96
+    },
+    {
+      "title": "Deep-Dive Berita AI",
+      "startSec": 279
+    },
+    {
+      "title": "Analisis & Prediksi Industri",
+      "startSec": 575
+    },
+    {
+      "title": "Peluang & Penutup",
+      "startSec": 703
+    }
+  ],
+  "beats": [
+    {
+      "i": 1,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 0,
+      "estSec": 14.3,
+      "text": "Tujuh puluh dua jam terakhir telah menjadi periode yang paling menentukan dalam sejarah perkembangan kecerdasan buatan, di mana narasi tentang inovasi radikal berbenturan keras dengan realitas ancaman keamanan yang kian nyata.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A, Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency digital pulse, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 2,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 14.3,
+      "estSec": 15.2,
+      "text": "Kita sedang menyaksikan pergeseran tektonik yang tidak hanya melibatkan perlombaan parameter model, tetapi juga intervensi politik tingkat tinggi hingga perdebatan eksistensial mengenai kelangsungan hidup umat manusia di hadapan teknologi yang kita ciptakan sendiri.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract visualization of tectonic plates made of binary code shifting apart, symbolizing the collision between political intervention and existential human survival concerns., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "deep tectonic rumbling sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 3,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 29.5,
+      "estSec": 12,
+      "text": "Mari kita bedah satu per satu setiap fragmen yang membentuk mosaik masa depan dunia digital kita saat ini.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A digital mosaic of glowing data fragments assembling into a complex, rotating geometric structure representing the future of our digital world., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft mechanical assembly clicks, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 4,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 41.5,
+      "estSec": 13.8,
+      "text": "Lanskap industri kecerdasan buatan dalam tiga hari terakhir menunjukkan pola yang sangat kontradiktif antara optimisme yang dipaksakan oleh para pemimpin korporasi dengan kekhawatiran mendalam yang disuarakan oleh para peneliti keamanan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "ambient office chatter noise, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src6.jpg"
+    },
+    {
+      "i": 5,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 55.3,
+      "estSec": 14.3,
+      "text": "Kita melihat bagaimana perusahaan-perusahaan besar cenderung menutup akses terhadap detail teknis model dunia mereka, sementara di sisi lain, pemerintah mulai merespons perkembangan ini dengan membentuk struktur pertahanan siber yang menyerupai militer.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A military-style command center interface displaying global cyber defense networks and tactical AI deployment maps on large holographic screens., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "electronic radar scanning sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src7.jpg"
+    },
+    {
+      "i": 6,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 69.6,
+      "estSec": 12,
+      "text": "Ketegangan ini menciptakan atmosfer di mana inovasi terjadi dalam ruang gelap, sementara regulasi berusaha mengejar ketertinggalan dengan langkah-langkah yang mungkin terlalu drastis.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A glowing light bulb flickering inside a dark, industrial server room, representing innovation struggling within the shadows of strict new regulations., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "flickering fluorescent light hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 7,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 81.6,
+      "estSec": 18,
+      "text": "Mari kita mulai dengan fenomena kerahasiaan yang menyelimuti perusahaan-perusahaan pengembang model dunia. Saat ini, kita melihat adanya tren di mana perusahaan-perusahaan papan atas secara sengaja menahan detail arsitektur, data pelatihan, serta mekanisme internal dari model dunia yang mereka kembangkan.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A high-tech vault door slowly closing over a glowing, complex neural network architecture, symbolizing the deliberate concealment of AI model details., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "heavy metallic door locking, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src1.jpg"
+    },
+    {
+      "i": 8,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 99.6,
+      "estSec": 12.9,
+      "text": "Fenomena ini menciptakan kotak hitam yang sangat besar, di mana transparansi yang dulunya menjadi fondasi riset AI kini dikorbankan demi keunggulan kompetitif dan perlindungan kekayaan intelektual yang agresif.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A dark, impenetrable black cube floating in a void, with faint, pulsing light leaking from its edges, representing the opaque nature of AI., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "hollow echoing wind sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 9,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 112.5,
+      "estSec": 18,
+      "text": "Kebijakan ini secara langsung menghambat kemampuan komunitas riset independen untuk melakukan audit keamanan atau verifikasi klaim performa, sehingga kita berada dalam situasi di mana kita harus mempercayai klaim perusahaan tanpa adanya data empiris yang dapat divalidasi oleh pihak ketiga.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A digital padlock locking a glowing neural network server rack, symbolizing restricted access to research data and lack of third party verification., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical lock clicking shut, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 10,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 130.5,
+      "estSec": 20.3,
+      "text": "Implikasi dari kerahasiaan ini sangat berbahaya bagi ekosistem AI global karena menciptakan asimetri informasi yang masif. Ketika model-model ini nantinya diintegrasikan ke dalam infrastruktur kritis, kurangnya transparansi berarti kita tidak memiliki pemahaman mendalam tentang bagaimana sistem tersebut mengambil keputusan dalam situasi yang tidak terduga.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract visualization of a complex city power grid connected to glowing AI nodes, showing hidden decision pathways and opaque data flow structures., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency digital hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 11,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 150.8,
+      "estSec": 17.5,
+      "text": "Hal ini tidak hanya membatasi kolaborasi ilmiah, tetapi juga menumbuhkan ketidakpercayaan publik yang semakin dalam, karena masyarakat tidak lagi dapat membedakan antara kemajuan teknologi yang aman dan eksperimen yang berpotensi memiliki bias atau kerentanan sistemik yang belum terdeteksi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A crowd of silhouettes standing before a massive, flickering digital wall, representing public confusion and the erosion of trust in black box systems., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "faint static noise, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 12,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 168.3,
+      "estSec": 12,
+      "text": "Selanjutnya, kita menyoroti pernyataan Jensen Huang dari Nvidia yang menegaskan bahwa ketakutan terhadap AI adalah sesuatu yang berlebihan.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close up portrait of Jensen Huang speaking at a tech conference, with subtle camera movement highlighting his confident expression and professional attire., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "crowd murmur and applause, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src2.jpg"
+    },
+    {
+      "i": 13,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 180.3,
+      "estSec": 16.2,
+      "text": "Huang, sebagai arsitek utama di balik perangkat keras yang menggerakkan revolusi AI saat ini, berargumen bahwa ketakutan akan skenario apokaliptik hanyalah distraksi dari potensi manfaat besar yang bisa diberikan oleh teknologi ini bagi produktivitas global.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A futuristic data center interior with rows of glowing GPU servers, representing the massive infrastructure powering global AI productivity and economic growth., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server room cooling air, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 14,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 196.5,
+      "estSec": 15.2,
+      "text": "Dengan posisi Nvidia yang memonopoli pasar chip GPU berperforma tinggi, pandangan Huang mencerminkan optimisme yang tidak tergoyahkan dari sisi penyedia infrastruktur yang memandang AI sebagai mesin pertumbuhan ekonomi masa depan yang tak terbendung.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Golden GPU chips being manufactured on a high-tech assembly line, emphasizing Nvidia's dominant market position and the scale of hardware production., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "precision robotic arm clicks, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 15,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 211.7,
+      "estSec": 12,
+      "text": "Secara industri, posisi ini sering kali dianggap sebagai upaya untuk meredam kekhawatiran regulasi yang berpotensi menghambat laju ekspansi pasar.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "paper rustling sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src6.jpg"
+    },
+    {
+      "i": 16,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 223.7,
+      "estSec": 13.4,
+      "text": "Namun, komparasi pasar menunjukkan bahwa pandangan ini sangat kontras dengan realitas di lapangan di mana banyak perusahaan kini mulai kewalahan menghadapi kompleksitas keamanan dari sistem yang mereka bangun sendiri.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A digital security dashboard showing multiple red warning alerts and system vulnerability icons, reflecting the growing complexity of modern AI security threats., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "urgent digital alarm beep, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src3.jpg"
+    },
+    {
+      "i": 17,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 237.1,
+      "estSec": 18,
+      "text": "Dampaknya adalah terciptanya polarisasi antara kubu akselerasionis yang ingin terus tancap gas tanpa hambatan, dengan kubu yang memprioritaskan mitigasi risiko, yang pada akhirnya membuat kebijakan global terkait AI menjadi sulit untuk disatukan dan cenderung terfragmentasi berdasarkan kepentingan ekonomi nasional.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract digital map of the world glowing with fragmented neon lines representing divided global policies and competing economic interests in technology., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency digital pulse, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 18,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 255.1,
+      "estSec": 19.4,
+      "text": "Kemudian, kita menghadapi kenyataan pahit mengenai ledakan kerentanan sistemik yang sudah terjadi saat ini. Laporan terbaru menunjukkan bahwa kita tidak lagi berbicara tentang ancaman masa depan, melainkan tentang kerentanan yang sudah eksploitatif di level kernel sistem operasi yang diintegrasikan dengan kecerdasan buatan.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close up of a computer screen showing complex kernel code and system architecture diagrams with red warning indicators flashing across the display., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rapid mechanical keyboard typing, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src3.jpg"
+    },
+    {
+      "i": 19,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 274.5,
+      "estSec": 16.6,
+      "text": "Serangan terhadap sistem AI kini tidak hanya menyasar aplikasi antarmuka, tetapi sudah menyentuh lapisan dasar komputasi, yang berarti keamanan data dan integritas sistem kini berada dalam risiko yang jauh lebih tinggi daripada yang pernah dibayangkan sebelumnya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A glowing neural network structure being infiltrated by dark digital particles representing a cyber attack on the core computational layers., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "distorted electronic glitch sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 20,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 291.1,
+      "estSec": 12,
+      "text": "Ledakan kerentanan ini memaksa industri untuk segera melakukan reevaluasi terhadap arsitektur keamanan mereka secara total.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Engineers in a high-tech server room reviewing holographic security blueprints and complex data flow charts on large glass monitors., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server room cooling air, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 21,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 303.1,
+      "estSec": 14.3,
+      "text": "Jika sebelumnya keamanan AI hanya dianggap sebagai masalah enkripsi data, kini ia bertransformasi menjadi masalah pertahanan siber menyeluruh di mana model AI itu sendiri bisa menjadi vektor serangan yang sangat cerdas.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A sophisticated AI model interface transforming into a glowing red shield, symbolizing the shift from simple encryption to active cyber defense., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "high tech scanning sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 22,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 317.4,
+      "estSec": 18.9,
+      "text": "Dampak bagi ekosistem global adalah meningkatnya biaya operasional bagi perusahaan pengembang, karena mereka kini harus mengalokasikan sumber daya yang masif hanya untuk memastikan bahwa model mereka tidak menjadi pintu masuk bagi peretasan berskala besar yang dapat melumpuhkan infrastruktur digital suatu negara.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A massive digital infrastructure grid flickering with warning lights, representing the high cost of securing national systems against potential cyber threats., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "heavy electrical humming sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 23,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 336.3,
+      "estSec": 12,
+      "text": "Di sisi lain, muncul terobosan dari Alibaba dengan model Qwen-Image-2.1 yang mengklaim mampu menumbangkan model-model tertutup yang jauh lebih besar hanya dengan tujuh miliar parameter.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A sleek digital interface displaying the Qwen-Image-2.1 logo with high-resolution generated imagery appearing rapidly on the screen in a clean workspace., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital chime sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src4.png"
+    },
+    {
+      "i": 24,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 348.3,
+      "estSec": 12,
+      "text": "Ini adalah bukti teknis bahwa efisiensi model bukanlah tentang seberapa besar jumlah parameter yang digunakan, melainkan tentang optimasi arsitektur dan kualitas data pelatihan yang digunakan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A minimalist visualization showing a small, efficient neural network outperforming a massive, bulky cluster of servers in a data processing simulation., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "precision servo clicks, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 25,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 360.3,
+      "estSec": 12,
+      "text": "Keberhasilan model dengan parameter kecil ini menjadi tamparan keras bagi narasi yang selama ini mengagungkan model raksasa sebagai satu-satunya jalan menuju kecerdasan yang superior.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A sleek digital interface displaying a compact neural network architecture glowing with blue light, symbolizing efficiency over massive scale models., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital data processing, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src4.png"
+    },
+    {
+      "i": 26,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 372.3,
+      "estSec": 14.8,
+      "text": "Implikasi bagi pasar sangat signifikan, karena model dengan bobot terbuka dan efisien seperti ini akan mendemokratisasi akses terhadap kemampuan AI kelas atas bagi pengembang di negara berkembang atau perusahaan dengan anggaran terbatas.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A diverse group of global software developers working on laptops in a modern office, accessing advanced AI tools via local hardware., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "keyboard typing and clicking, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 27,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 387.1,
+      "estSec": 12,
+      "text": "Hal ini memicu persaingan sengit antara model tertutup milik perusahaan besar Amerika Serikat dan model terbuka yang kini semakin dominan dari Asia.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A split screen showing a glowing American corporate logo on one side and a rising Asian tech hub skyline on the other., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency cinematic pulse, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 28,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 399.1,
+      "estSec": 18.5,
+      "text": "Ini adalah sinyal bahwa dominasi model tertutup mungkin akan berakhir lebih cepat dari perkiraan, dan kita akan segera melihat pergeseran ke arah sistem yang lebih fleksibel, efisien, dan dapat dijalankan di infrastruktur lokal tanpa bergantung sepenuhnya pada komputasi awan raksasa.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A server rack in a small office room running complex AI models locally, disconnected from massive cloud data center cables., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server room cooling air, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 29,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 417.6,
+      "estSec": 12,
+      "text": "Beranjak ke topik kelima, kita tidak bisa mengabaikan diskusi kritis mengenai risiko kepunahan dan ancaman senjata biologis yang dimungkinkan oleh AI.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A dark, ominous digital representation of a biological virus structure floating in a high-tech laboratory environment with warning symbols., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low ominous bass drone, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src5.jpg"
+    },
+    {
+      "i": 30,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 429.6,
+      "estSec": 12,
+      "text": "Laporan terbaru dari MIT Technology Review menggarisbawahi bahwa bahaya AI bukan lagi sekadar fiksi ilmiah, melainkan ancaman nyata yang sudah dibahas di tingkat kebijakan tinggi.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src5.jpg"
+    },
+    {
+      "i": 31,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 441.6,
+      "estSec": 18.5,
+      "text": "Kemampuan AI untuk merancang agen patogen baru atau membantu dalam sintesis kimia berbahaya telah menempatkan teknologi ini di bawah pengawasan ketat keamanan nasional, yang mengubah narasi AI dari sekadar alat produktivitas menjadi isu keamanan global yang setara dengan senjata nuklir.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A holographic display showing chemical molecular structures being analyzed by an AI algorithm, shifting into a red security alert warning., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital alarm warning sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 32,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 460.1,
+      "estSec": 12,
+      "text": "Implikasi dari ancaman ini adalah semakin kuatnya dorongan bagi pemerintah untuk melakukan intervensi langsung dalam pengembangan model AI yang memiliki kapabilitas riset ilmiah tingkat tinggi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Government officials in a high-security meeting room reviewing AI research documents, with a large digital map of global security threats., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "serious ambient room tone, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 33,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 472.1,
+      "estSec": 13.4,
+      "text": "Kita melihat bagaimana batasan antara riset terbuka dan rahasia negara mulai kabur, di mana setiap kemajuan dalam pemahaman biologi atau kimia melalui AI harus melalui filter keamanan yang ketat.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A glowing digital DNA strand being scanned by a complex security laser grid inside a high-tech laboratory with dark blue lighting., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "high frequency data scanning, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 34,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 485.5,
+      "estSec": 16.6,
+      "text": "Dampaknya bagi industri adalah perlambatan inovasi di sektor-sektor strategis, namun ini adalah harga yang harus dibayar demi memastikan bahwa kecerdasan buatan tidak jatuh ke tangan yang salah atau disalahgunakan untuk tujuan yang dapat membahayakan eksistensi manusia.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A futuristic industrial facility with heavy steel doors closing slowly, symbolizing restricted access and the slowing pace of strategic technological innovation., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "heavy metal door locking, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src5.jpg"
+    },
+    {
+      "i": 35,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 502.1,
+      "estSec": 19.4,
+      "text": "Topik keenam membawa kita pada pertanyaan eksistensial: Apakah industri AI benar-benar siap untuk melambat? Meskipun ada seruan untuk melakukan jeda riset atau regulasi yang lebih ketat, dinamika kompetisi yang brutal di pasar global membuat perlambatan menjadi opsi yang sangat sulit untuk diwujudkan.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low hum of machinery, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src6.jpg"
+    },
+    {
+      "i": 36,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 521.5,
+      "estSec": 12.9,
+      "text": "Perusahaan-perusahaan terjebak dalam perlombaan senjata di mana berhenti berarti mati, sehingga retorika tentang keamanan sering kali kalah oleh tekanan dari pemegang saham yang menuntut pertumbuhan eksponensial setiap kuartalnya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract financial charts and stock market tickers rapidly rising, overlaid with glowing neural network nodes representing intense corporate pressure and competition., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "fast digital ticker sounds, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 37,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 534.4,
+      "estSec": 20.3,
+      "text": "Ketidaksiapan industri untuk melambat ini menciptakan celah keamanan yang semakin lebar dan meningkatkan risiko kegagalan sistemik yang fatal. Secara industri, kita melihat bahwa tanpa adanya kesepakatan global yang mengikat, setiap upaya regulasi mandiri oleh satu perusahaan atau satu negara akan dianggap sebagai kelemahan kompetitif.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A digital shield flickering and cracking under pressure, representing the widening security gaps and systemic risks within the global AI industry infrastructure., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "electrical sparking and buzzing, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src3.jpg"
+    },
+    {
+      "i": 38,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 554.7,
+      "estSec": 17.1,
+      "text": "Dampaknya, kita terjebak dalam dinamika \"perlombaan menuju dasar\" di mana kecepatan peluncuran fitur baru jauh melampaui kemampuan kita untuk melakukan pengujian keamanan yang memadai, sehingga kita terus menerus berada dalam kondisi \"uji coba langsung\" di dunia nyata.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A high-speed conveyor belt moving glowing software code blocks rapidly into a chaotic testing environment, showing insufficient safety checks and rapid deployment., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical conveyor belt clatter, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 39,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 571.8,
+      "estSec": 12,
+      "text": "Terakhir, kita dikejutkan oleh manuver politik Donald Trump yang mengusulkan rebranding istilah AI dengan nama baru serta pembentukan \"AI Force\".",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "dramatic cinematic bass hit, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src7.jpg"
+    },
+    {
+      "i": 40,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 583.8,
+      "estSec": 12,
+      "text": "Langkah ini mencerminkan bagaimana AI telah menjadi komoditas politik yang sangat bernilai, di mana narasi tentang masa depan teknologi digunakan sebagai alat untuk memobilisasi dukungan publik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A podium with a digital holographic globe being manipulated by political figures, symbolizing the transformation of AI into a powerful political commodity., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 41,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 595.8,
+      "estSec": 18.5,
+      "text": "Usulan untuk mengganti nama AI menunjukkan keinginan untuk mengontrol narasi dan persepsi masyarakat terhadap teknologi ini, sementara pembentukan pasukan khusus AI menegaskan bahwa AI kini dianggap sebagai domain perang baru yang setara dengan matra darat, laut, udara, dan luar angkasa.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency digital hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src7.jpg"
+    },
+    {
+      "i": 42,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 614.3,
+      "estSec": 18.5,
+      "text": "Secara industri, langkah politik ini akan memaksa perusahaan-perusahaan teknologi untuk lebih berhati-hati dalam menavigasi hubungan mereka dengan pemerintah. Jika AI diintegrasikan ke dalam struktur militer dan kebijakan nasional secara formal, maka perusahaan pengembang tidak lagi bisa bersikap netral atau independen.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A sleek corporate boardroom meeting with government officials and tech executives, with digital maps of global infrastructure displayed on glass walls., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle mechanical clicking sounds, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 43,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 632.8,
+      "estSec": 19.4,
+      "text": "Mereka akan menjadi bagian dari infrastruktur keamanan nasional, yang berarti setiap kebijakan produk mereka akan dipengaruhi oleh kepentingan geopolitik. Ini adalah babak baru di mana teknologi kecerdasan buatan tidak lagi bisa dilepaskan dari kepentingan negara, yang akan mengubah wajah industri teknologi selamanya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A massive server farm integrated with military radar displays and glowing fiber optic cables pulsing with data in a dark room., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server room cooling air, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 44,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 652.2,
+      "estSec": 12,
+      "text": "Sintesis dari seluruh peristiwa ini menunjukkan bahwa kita sedang berada di titik jenuh dari pertumbuhan yang tidak terkendali.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A complex abstract visualization of a growing digital network reaching a breaking point, with glowing nodes flickering and fading into darkness., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "faint electrical static noise, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 45,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 664.2,
+      "estSec": 13.4,
+      "text": "Dalam 6 hingga 12 bulan ke depan, kita akan melihat pergeseran fokus dari \"seberapa besar model yang bisa kita buat\" menjadi \"seberapa aman dan teregulasi model yang kita operasikan\".",
+      "visual": "T2V_GENERATION",
+      "prompt": "A digital scale balancing a large AI model icon against a heavy iron padlock, representing the shift toward safety and regulation., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic heavy latch closing, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 46,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 677.6,
+      "estSec": 12,
+      "text": "Kita akan melihat munculnya standar keamanan global yang lebih ketat, mungkin dipaksakan melalui jalur militer atau kebijakan nasional yang agresif.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A global map with glowing security shield icons appearing over major continents, symbolizing the implementation of international AI safety standards., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital scanning sonar ping, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 47,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 689.6,
+      "estSec": 12,
+      "text": "Perusahaan yang tidak mampu membuktikan keamanan sistem mereka akan dipinggirkan dari kontrak-kontrak besar, sementara model terbuka yang efisien seperti Qwen akan terus menekan dominasi model tertutup.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A futuristic interface showing code blocks and data streams, with a focus on efficient open-source model architecture versus closed systems., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rapid data processing clicks, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src4.png"
+    },
+    {
+      "i": 48,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 701.6,
+      "estSec": 18.5,
+      "text": "Bagi Anda, masyarakat umum, peluang nyata terletak pada peningkatan literasi AI yang melampaui sekadar penggunaan aplikasi. Peluang karier di masa depan tidak lagi hanya berada di ranah pengkodean, tetapi di ranah audit keamanan AI, tata kelola data, dan etika teknologi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A professional person analyzing complex data charts on a holographic screen, representing the new era of AI auditing and ethics., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft ambient office atmosphere, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 49,
+      "chapter": "Peluang & Penutup",
+      "startSec": 720.1,
+      "estSec": 12.9,
+      "text": "Langkah praktis yang bisa Anda ambil adalah mulai mendalami bagaimana sistem ini bekerja di balik layar, memahami batasan-batasannya, dan bersikap kritis terhadap narasi yang dibangun oleh perusahaan besar.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A close up of a glowing digital interface showing complex neural network nodes and data streams flowing through a dark virtual space., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital data processing, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 50,
+      "chapter": "Peluang & Penutup",
+      "startSec": 733,
+      "estSec": 13.8,
+      "text": "Jangan hanya menjadi konsumen pasif; mulailah bereksperimen dengan model-model terbuka yang tersedia agar Anda memiliki pemahaman teknis yang mendalam mengenai apa yang sebenarnya terjadi di balik layar revolusi digital ini.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A person interacting with a holographic open source code interface, highlighting the transparency and technical depth of modern AI model development., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical keyboard typing sounds, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src4.png"
+    },
+    {
+      "i": 51,
+      "chapter": "Peluang & Penutup",
+      "startSec": 746.8,
+      "estSec": 17.5,
+      "text": "Dunia sedang berubah dengan kecepatan yang tak terbayangkan. Apa yang kita diskusikan hari ini mungkin akan terlihat kuno dalam beberapa bulan ke depan, namun dasar-dasar yang kita bahas—keamanan, regulasi, dan efisiensi—akan tetap menjadi pilar utama dalam dekade mendatang.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A fast motion timelapse of a futuristic city skyline transitioning from day to night, symbolizing the rapid evolution of global digital infrastructure., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rhythmic city ambient noise, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 52,
+      "chapter": "Peluang & Penutup",
+      "startSec": 764.3,
+      "estSec": 19.4,
+      "text": "Saya sangat ingin mendengar pandangan Anda mengenai langkah-langkah politik dan keamanan yang baru saja kita bedah ini. Apakah menurut Anda rebranding AI dan pembentukan pasukan khusus AI adalah langkah yang diperlukan, atau justru berlebihan? Mari kita diskusikan di kolom komentar di bawah.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency cinematic pulse, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-21/images/src7.jpg"
+    },
+    {
+      "i": 53,
+      "chapter": "Peluang & Penutup",
+      "startSec": 783.7,
+      "estSec": 14.8,
+      "text": "Jangan lupa untuk menekan tombol subscribe dan nyalakan lonceng notifikasi agar Anda tetap mendapatkan analisis mendalam mengenai dinamika teknologi yang terus berkembang ini. Terima kasih telah menyimak, sampai jumpa di analisis berikutnya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A clean studio background with a subtle animation of a subscribe button and notification bell icon appearing over a dark gradient., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "gentle notification chime sound, clean foley, no background music"
+      },
+      "srcImage": null
+    }
+  ],
+  "midrollAtSec": 421,
+  "estTotalSec": 798.5,
+  "sources": [
+    {
+      "title": "World model companies are keeping a lot of secrets",
+      "url": "https://techcrunch.com/2026/09/20/world-model-companies-are-keeping-a-lot-of-secrets/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "No one is surprised that Nvidia&#8217;s Jensen Huang thinks AI fears are overblown.",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/997936/nvidia-jensen-huang-ai-fears-overblown",
+      "publisher": "The Verge"
+    },
+    {
+      "title": "Forget the AI Slowdown—the Vulnerability Explosion Is Already Happening",
+      "url": "https://www.wired.com/story/kernel-panic-ai-vulnerability-explosion/",
+      "publisher": "Wired AI"
+    },
+    {
+      "title": "Alibaba's open-weight Qwen-Image-2.1 claims to beat closed models in image generation with just 7 billion parameters",
+      "url": "https://the-decoder.com/alibabas-open-weight-qwen-image-2-1-claims-to-beat-closed-models-in-image-generation-with-just-7-billion-parameters/",
+      "publisher": "The Decoder"
+    },
+    {
+      "title": "The Download: AI’s extinction risk and bioweapons threat",
+      "url": "https://www.technologyreview.com/2026/09/18/1142577/the-download-ai-extinction-threat-bioweapons/",
+      "publisher": "MIT Tech Review"
+    },
+    {
+      "title": "Is the AI industry really ready to slow down?",
+      "url": "https://techcrunch.com/2026/09/20/is-the-ai-industry-really-ready-to-slow-down/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "Trump says it’s time to rebrand AI with a new name — and he’s also creating an AI Force",
+      "url": "https://techcrunch.com/2026/09/19/trump-suggests-rebranding-ai-with-a-new-name-says-hes-also-creating-an-ai-force/",
+      "publisher": "TechCrunch AI"
+    }
+  ]
+}

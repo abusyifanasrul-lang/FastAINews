@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-21",
+  "topicTitle": "Gejolak 72 Jam Terakhir: Menakar Masa Depan Kecerdasan Buatan",
+  "status": "READY_FOR_ASSETS",
+  "beats": 53,
+  "estTotalSec": 798.5,
+  "midrollAtSec": 421,
+  "t2vCount": 34,
+  "i2vCount": 12,
+  "staticCount": 7,
+  "images": 7,
+  "sources": 7,
+  "paragraphs": 19,
+  "storyboardBatchesExecuted": 7,
+  "storyboardTotalBatches": 7,
+  "storyboardLlmOkBatches": 7,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
