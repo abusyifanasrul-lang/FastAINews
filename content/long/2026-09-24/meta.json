@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-24",
+  "topicTitle": "Tiga Hari yang Mengubah Arah Evolusi Kecerdasan Buatan Global",
+  "status": "READY_FOR_ASSETS",
+  "beats": 48,
+  "estTotalSec": 710.1,
+  "midrollAtSec": 367,
+  "t2vCount": 35,
+  "i2vCount": 6,
+  "staticCount": 7,
+  "images": 7,
+  "sources": 7,
+  "paragraphs": 19,
+  "storyboardBatchesExecuted": 6,
+  "storyboardTotalBatches": 6,
+  "storyboardLlmOkBatches": 6,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
