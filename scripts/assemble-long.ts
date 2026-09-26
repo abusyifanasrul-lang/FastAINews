@@ -54,10 +54,20 @@ function getFilesRecursively(dir: string): string[] {
   return files;
 }
 
-/** Natural numeric sort untuk mengurutkan file: 1.jpg, 2.jpg, ... 10.jpg (resilient thd prefix) */
+/** Natural numeric sort untuk mengurutkan file: 01.jpg, 02.jpg, ... 10.jpg (resilient thd prefix & suffix) */
 function naturalSort(a: string, b: string): number {
-  const matchA = basename(a, extname(a)).match(/(\d+)(?!.*\d)/);
-  const matchB = basename(b, extname(b)).match(/(\d+)(?!.*\d)/);
+  const baseA = basename(a, extname(a));
+  const baseB = basename(b, extname(b));
+  // Cek angka di awal nama file terlebih dahulu (misal: 01.jpg, 01_scene.jpg)
+  const matchLeadingA = baseA.match(/^(\d+)/);
+  const matchLeadingB = baseB.match(/^(\d+)/);
+  if (matchLeadingA && matchLeadingB) {
+    const diff = parseInt(matchLeadingA[1], 10) - parseInt(matchLeadingB[1], 10);
+    if (diff !== 0) return diff;
+  }
+  // Fallback ke angka terakhir dalam nama file (misal: scene_1.jpg)
+  const matchA = baseA.match(/(\d+)(?!.*\d)/);
+  const matchB = baseB.match(/(\d+)(?!.*\d)/);
   if (matchA && matchB) {
     const diff = parseInt(matchA[1], 10) - parseInt(matchB[1], 10);
     if (diff !== 0) return diff;
