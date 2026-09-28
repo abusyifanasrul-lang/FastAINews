@@ -70,6 +70,43 @@ export default {
         if (!ok) {
           console.log("[webhook] ainews-publish.yml dispatch failed");
         }
+      } else if (/^fleet_approve:[A-Za-z0-9_-]+:\d+$/.test(data)) {
+        const parts = data.split(":");
+        const channel = parts[1];
+        const day = parts[2];
+        const videoFileId = cb.message?.video?.file_id;
+        console.log("[webhook] fleet_approve", channel, "day", day, "file_id?", videoFileId ?? "NONE");
+        const statusMsg = `⏳ Diterima! Sedang memproses publikasi ${channel} Day ${day} ke YouTube, TikTok & Instagram (±2-3 menit)...`;
+        if (cb.message?.video) {
+          await tg(env.BOT_TOKEN, "editMessageCaption", {
+            chat_id: chatId, message_id: messageId, caption: statusMsg,
+          });
+        } else {
+          await tg(env.BOT_TOKEN, "editMessageText", {
+            chat_id: chatId, message_id: messageId, text: statusMsg,
+          });
+        }
+        const inputs: Record<string, string> = { day };
+        if (videoFileId) inputs.video_file_id = videoFileId;
+        const fleetRepo = "abusyifanasrul-lang/social-fleet-pipeline";
+        const ok = await ghDispatch(env.REPO_PAT, fleetRepo, "publish-approved.yml", inputs);
+        if (!ok) {
+          console.log("[webhook] social-fleet-pipeline publish-approved.yml dispatch failed");
+        }
+      } else if (/^fleet_revise:[A-Za-z0-9_-]+:\d+$/.test(data)) {
+        const parts = data.split(":");
+        const channel = parts[1];
+        const day = parts[2];
+        const prompt = `✏️ Revisi ${channel} Day ${day} — balas (reply) pesan ini dengan catatan revisimu.`;
+        if (cb.message?.video) {
+          await tg(env.BOT_TOKEN, "editMessageCaption", {
+            chat_id: chatId, message_id: messageId, caption: prompt,
+          });
+        } else {
+          await tg(env.BOT_TOKEN, "editMessageText", {
+            chat_id: chatId, message_id: messageId, text: prompt,
+          });
+        }
       } else if (/^skip_\d+$/.test(data)) {
         console.log("[webhook] skip", data);
         await tg(env.BOT_TOKEN, "editMessageText", {
