@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-29",
+  "topicTitle": "Geopolitik AI dan Evolusi Kreatif dalam 72 Jam Terakhir",
+  "status": "READY_FOR_ASSETS",
+  "beats": 48,
+  "estTotalSec": 719.3,
+  "midrollAtSec": 401,
+  "t2vCount": 33,
+  "i2vCount": 14,
+  "staticCount": 1,
+  "images": 5,
+  "sources": 5,
+  "paragraphs": 15,
+  "storyboardBatchesExecuted": 6,
+  "storyboardTotalBatches": 6,
+  "storyboardLlmOkBatches": 6,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}

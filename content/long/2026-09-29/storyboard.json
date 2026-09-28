@@ -1,0 +1,873 @@
+{
+  "date": "2026-09-29",
+  "title": "Geopolitik AI dan Evolusi Kreatif dalam 72 Jam Terakhir",
+  "chapters": [
+    {
+      "title": "Intro & Tesis Utama",
+      "startSec": 0
+    },
+    {
+      "title": "Konteks 72 Jam Terakhir",
+      "startSec": 86
+    },
+    {
+      "title": "Deep-Dive Berita AI",
+      "startSec": 252
+    },
+    {
+      "title": "Analisis & Prediksi Industri",
+      "startSec": 518
+    },
+    {
+      "title": "Peluang & Penutup",
+      "startSec": 633
+    }
+  ],
+  "beats": [
+    {
+      "i": 1,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 0,
+      "estSec": 12.5,
+      "text": "Dunia teknologi sedang mengalami pergeseran tektonik yang sulit diabaikan, di mana batas antara kebijakan publik, inovasi kreatif, dan integrasi komersial semakin kabur dalam ritme yang sangat cepat.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract digital landscape showing shifting tectonic plates made of glowing fiber optic cables and floating binary code in a dark void., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency tectonic rumble, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 2,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 12.5,
+      "estSec": 19.4,
+      "text": "Dalam tujuh puluh dua jam terakhir, kita menyaksikan bagaimana kecerdasan buatan tidak lagi sekadar menjadi topik diskusi di ruang laboratorium, melainkan telah merambah ke meja makan presiden, panggung komedi populer, hingga mengubah cara kita melakukan transaksi belanja daring di pasar negara berkembang.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A montage sequence showing a formal dinner table, a bright television studio stage, and a smartphone screen displaying a shopping cart interface., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "fast paced digital transition, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 3,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 31.9,
+      "estSec": 13.8,
+      "text": "Fenomena ini menandai sebuah era baru di mana pengaruh pengembang model AI kini setara dengan figur publik papan atas, sekaligus menunjukkan bahwa AI telah menjadi infrastruktur krusial bagi ekonomi global.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Close up of a glowing neural network node connected to a global map, representing the integration of AI into world economic infrastructure., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic data hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 4,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 45.7,
+      "estSec": 13.4,
+      "text": "Pergeseran lanskap industri AI dalam tiga hari ini memperlihatkan pola yang sangat menarik: adanya konsolidasi kekuasaan di tingkat elite politik yang beririsan dengan demokratisasi kreativitas di tingkat akar rumput.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Split screen showing a silhouette of a political figure on one side and a diverse group of creative artists on the other., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical gear shifting sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 5,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 59.1,
+      "estSec": 16.6,
+      "text": "Kita melihat Anthropic, salah satu pemain kunci di balik model bahasa besar, kini berada di pusat gravitasi politik Amerika Serikat, sementara di sisi lain, teknologi AI mulai merangkul aspek artistik yang lebih abstrak melalui eksperimentasi musik.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Dario Amodei speaking at a podium while abstract musical waveforms pulse in the background, representing the intersection of policy and creative AI., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft melodic synth pulses, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src1.jpg"
+    },
+    {
+      "i": 6,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 75.7,
+      "estSec": 17.1,
+      "text": "Secara bersamaan, raksasa seperti Google sedang melakukan manuver agresif untuk mengintegrasikan model bahasa mereka langsung ke dalam ekosistem perdagangan ritel, yang membuktikan bahwa fase \"hype\" AI telah benar-benar bertransformasi menjadi fase utilitas praktis yang terukur secara finansial.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A smartphone interface showing a Gemini AI shopping assistant browsing a retail catalog with digital currency icons floating around the screen., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital transaction confirmation chime, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src5.jpg"
+    },
+    {
+      "i": 7,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 92.8,
+      "estSec": 19.8,
+      "text": "Mari kita bedah peristiwa pertama, yakni pertemuan makan malam antara CEO Anthropic, Dario Amodei, dengan Presiden Amerika Serikat, Donald Trump. Ini bukan sekadar acara seremonial, melainkan sebuah sinyal kuat mengenai urgensi regulasi dan keamanan AI yang kini menjadi prioritas tertinggi di Gedung Putih.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "clinking silverware ambient noise, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src1.jpg"
+    },
+    {
+      "i": 8,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 112.6,
+      "estSec": 13.8,
+      "text": "Pertemuan ini menempatkan Anthropic sebagai mitra strategis pemerintah, di mana isu-isu krusial seperti tata kelola model AI, keamanan nasional, dan perlombaan supremasi teknologi dengan kekuatan global lainnya menjadi topik utama.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A high-tech security command center with screens displaying complex AI model architecture diagrams and global geopolitical data maps in real time., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server room cooling air, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 9,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 126.4,
+      "estSec": 18.5,
+      "text": "Secara teknis, ini menunjukkan bahwa pemerintah mulai memahami bahwa pengembang model AI adalah \"penjaga gerbang\" masa depan ekonomi digital yang memiliki tanggung jawab etis sekaligus teknis untuk memastikan bahwa sistem yang mereka bangun tidak menjadi risiko sistemik bagi stabilitas negara.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A digital representation of a glowing network node acting as a gatekeeper, with data streams flowing through a secure firewall interface., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency digital pulse, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 10,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 144.9,
+      "estSec": 12,
+      "text": "Implikasi dari pertemuan ini bagi industri sangatlah masif karena memberikan legitimasi lebih besar kepada Anthropic dalam membentuk kebijakan standar keamanan AI global.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Dario Amodei from Anthropic standing in a formal setting, representing the intersection of corporate leadership and global AI policy development., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle camera shutter clicks, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src1.jpg"
+    },
+    {
+      "i": 11,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 156.9,
+      "estSec": 12,
+      "text": "Ketika sebuah perusahaan AI duduk satu meja dengan kepala negara, standar yang mereka usulkan kemungkinan besar akan menjadi kerangka acuan (benchmark) bagi regulasi internasional.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A long mahogany conference table with a holographic globe in the center, symbolizing high-level diplomatic discussions on international AI regulatory standards., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft ambient room tone, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 12,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 168.9,
+      "estSec": 12,
+      "text": "Ini menciptakan kompetisi yang lebih ketat bagi OpenAI atau Google dalam melobi kebijakan, sekaligus memaksa seluruh ekosistem untuk lebih transparan mengenai arsitektur keamanan model mereka.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A complex server rack architecture showing interconnected nodes, representing the competitive landscape between major AI developers like OpenAI and Google., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server room cooling air, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src3.jpg"
+    },
+    {
+      "i": 13,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 180.9,
+      "estSec": 12,
+      "text": "Dampaknya bagi publik adalah percepatan standarisasi keamanan AI yang nantinya akan melindungi pengguna dari potensi penyalahgunaan sistem yang lebih canggih di masa depan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A futuristic shield icon protecting a digital user interface, illustrating the concept of standardized AI safety protocols for public protection., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic locking mechanism sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 14,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 192.9,
+      "estSec": 12,
+      "text": "Topik kedua yang tidak kalah menarik adalah kemunculan Engram, sebuah instrumen musik sampler yang mampu mengubah halusinasi AI menjadi komposisi musik.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A close-up of the Engram sampler interface with glowing waveforms, transforming abstract AI data into complex musical sound patterns and textures., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "electronic synthesizer audio glitch, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src2.png"
+    },
+    {
+      "i": 15,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 204.9,
+      "estSec": 13.4,
+      "text": "Secara teknis, Engram bekerja dengan memproses output AI yang tidak akurat atau \"berhalusinasi\" sebagai data mentah, lalu menerjemahkannya melalui algoritma pemrosesan sinyal digital untuk menghasilkan tekstur suara yang unik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract data streams flowing into a digital audio workstation, visualizing the conversion of AI hallucinations into rhythmic sound wave patterns., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital signal processing hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 16,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 218.3,
+      "estSec": 12,
+      "text": "Ini adalah lompatan filosofis dalam dunia AI; alih-alih memandang halusinasi sebagai kegagalan sistem, para kreator di balik Engram justru memanfaatkannya sebagai fitur kreatif.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A creative studio environment where digital errors are being sculpted into artistic musical compositions, highlighting the shift from failure to feature., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft melodic synth chime, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 17,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 230.3,
+      "estSec": 15.2,
+      "text": "Mereka mengubah ketidakpastian matematis dalam model bahasa menjadi estetika bunyi yang tidak mungkin dihasilkan oleh manusia secara konvensional, membuktikan bahwa AI memiliki potensi untuk melampaui logika linear dan masuk ke ranah seni surealis.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A digital audio workstation interface displaying complex sound wave patterns generated from AI hallucination data with vibrant, shifting neon color spectrums., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "glitchy electronic audio pulses, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src2.png"
+    },
+    {
+      "i": 18,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 245.5,
+      "estSec": 12,
+      "text": "Industri kreatif akan melihat ini sebagai pergeseran paradigma, di mana kesalahan sistem atau bias data justru menjadi aset berharga.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract digital art showing chaotic data streams transforming into harmonious musical notes, representing the shift where system errors become creative assets., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital synthesis hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 19,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 257.5,
+      "estSec": 14.3,
+      "text": "Komparasi pasar saat ini menunjukkan bahwa alat kreatif berbasis AI yang mampu memberikan kendali artistik atas \"ketidakteraturan\" sistem akan memiliki nilai jual yang tinggi bagi produser musik eksperimental dan desainer suara.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A professional music studio mixing console with glowing holographic interfaces showing irregular, jagged waveforms being manipulated by a digital hand., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical fader sliding sounds, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 20,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 271.8,
+      "estSec": 15.2,
+      "text": "Ini membuka ruang bagi kolaborasi manusia-mesin yang lebih organik, di mana AI tidak lagi diposisikan sebagai alat bantu yang sempurna, melainkan sebagai mitra kreatif yang terkadang \"salah\" namun justru di sanalah letak orisinalitasnya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A human hand and a robotic arm working together on a glowing musical score, symbolizing an organic partnership between human and machine., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rhythmic clicking and whirring, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 21,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 287,
+      "estSec": 13.8,
+      "text": "Dampaknya bagi ekosistem AI adalah munculnya apresiasi baru terhadap data yang dianggap tidak relevan, yang mungkin akan memicu tren pengembangan model AI yang sengaja dirancang untuk menghasilkan kreativitas berbasis anomali.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A futuristic data visualization showing clusters of anomalous data points being curated and refined into a structured, creative AI model architecture., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "data processing digital chime, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 22,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 300.8,
+      "estSec": 14.3,
+      "text": "Peristiwa ketiga berkaitan dengan dinamika internal dalam pengembangan model, di mana agen AI kini mengambil peran lebih besar dalam alur kerja rekayasa, namun pengambilan keputusan strategis tetap berada di tangan manusia.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A team of engineers observing a large digital dashboard where autonomous AI agents manage complex model development workflows while humans oversee decisions., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency server hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src3.jpg"
+    },
+    {
+      "i": 23,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 315.1,
+      "estSec": 13.8,
+      "text": "Secara teknis, kita melihat pergeseran dari sekadar penggunaan AI untuk menulis kode menjadi penggunaan agen otonom yang mampu melakukan pengujian unit, optimasi parameter, hingga manajemen siklus hidup pengembangan model (MLOps).",
+      "visual": "T2V_GENERATION",
+      "prompt": "Close up of a computer screen displaying automated code generation, unit testing logs, and MLOps parameter optimization running in rapid succession., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "fast typing and processing, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 24,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 328.9,
+      "estSec": 12.9,
+      "text": "Meskipun agen-agen ini mampu mengotomatisasi tugas-tugas repetitif dengan efisiensi tinggi, keputusan arsitektural yang bersifat krusial—seperti penentuan bobot etika atau batasan perilaku model—tetap membutuhkan intuisi dan tanggung jawab manusia.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A human silhouette standing before a massive glowing neural network, making a final strategic decision on model ethics and behavioral constraints., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "deep resonant bass pulse, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 25,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 341.8,
+      "estSec": 12,
+      "text": "Ini adalah bentuk kolaborasi yang efisien, di mana AI menangani volume kerja teknis yang masif, sementara manusia memegang kendali atas visi jangka panjang.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A split screen showing complex digital code streams on one side and a human hand adjusting a glowing holographic interface node., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital data processing, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src3.jpg"
+    },
+    {
+      "i": 26,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 353.8,
+      "estSec": 20.3,
+      "text": "Implikasi industri dari fenomena ini adalah peningkatan drastis dalam kecepatan iterasi pengembangan model AI secara global. Perusahaan yang mampu mengintegrasikan agen AI ke dalam alur kerja pengembangan mereka akan memiliki keunggulan kompetitif (time-to-market) yang jauh lebih cepat dibandingkan kompetitor yang masih mengandalkan proses manual.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Fast-paced motion graphics showing multiple AI agent icons accelerating through a pipeline, rapidly assembling modular blocks of neural network architecture., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rapid mechanical assembly clicks, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 27,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 374.1,
+      "estSec": 16.2,
+      "text": "Namun, ini juga menciptakan tantangan baru dalam manajemen risiko, karena ketergantungan pada agen AI dalam proses pengembangan berarti kita harus memastikan bahwa sistem tersebut tidak mewarisi bias atau kelemahan yang justru merusak arsitektur model utama.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A glowing neural network structure with flickering red warning nodes, representing potential bias and structural vulnerabilities within an automated development system., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency warning pulse, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 28,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 390.3,
+      "estSec": 12,
+      "text": "Masa depan industri AI akan sangat bergantung pada seberapa baik kita mampu menyeimbangkan otomatisasi agen dengan pengawasan manusia yang ketat.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A balanced scale where one side holds a robotic arm and the other holds a human silhouette, glowing in a clean laboratory environment., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 29,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 402.3,
+      "estSec": 20.3,
+      "text": "Beranjak ke topik keempat, yaitu fenomena Dario Amodei yang mendapatkan \"perlakuan\" satire atau parodi di acara Saturday Night Live (SNL). Ini adalah indikator budaya yang sangat menarik bahwa pemimpin perusahaan AI kini telah menjadi ikon budaya populer, setara dengan bintang film atau politisi besar.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Dario Amodei appearing on a television screen within a dimly lit living room, captured in a satirical broadcast style., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "faint television static noise, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src4.jpg"
+    },
+    {
+      "i": 30,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 422.6,
+      "estSec": 12.5,
+      "text": "Secara teknis, parodi ini menyoroti bagaimana narasi mengenai \"keamanan AI\" dan \"risiko eksistensial\" yang sering digaungkan oleh para pemimpin perusahaan teknologi telah meresap ke dalam kesadaran publik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract visualization of public consciousness represented by a swirling cloud of digital news feeds and icons surrounding a central AI safety shield., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rhythmic data stream flow, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 31,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 435.1,
+      "estSec": 17.1,
+      "text": "Ketika sebuah acara komedi melirik seorang CEO perusahaan AI, itu berarti dampaknya terhadap kehidupan sehari-hari sudah dianggap cukup signifikan untuk menjadi bahan candaan massal, yang secara tidak langsung meningkatkan profil publik perusahaan tersebut di mata masyarakat awam.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A crowded city street with digital billboards displaying AI CEO portraits, showing the integration of tech leadership into everyday urban life., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "distant city ambient noise, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 32,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 452.2,
+      "estSec": 12,
+      "text": "Dampak industri dari fenomena ini adalah meningkatnya tekanan bagi para pemimpin teknologi untuk lebih komunikatif dan transparan dalam menjelaskan visi mereka kepada publik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A high-tech boardroom with a transparent glass wall, where a CEO speaks to a crowd of journalists, symbolizing transparency and communication., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft room echo ambience, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 33,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 464.2,
+      "estSec": 13.8,
+      "text": "Komparasi pasar menunjukkan bahwa kepercayaan konsumen akan menjadi mata uang utama di masa depan, dan kemampuan untuk \"terhubung\" dengan khalayak luas—bahkan melalui parodi—dapat membantu dalam membentuk narasi publik yang positif.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Dario Amodei appearing on a television screen during a satirical comedy sketch, highlighting the intersection of AI leadership and public cultural perception., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "faint studio audience laughter, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src4.jpg"
+    },
+    {
+      "i": 34,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 478,
+      "estSec": 17.1,
+      "text": "Ini juga menunjukkan bahwa ekosistem AI kini telah menjadi bagian integral dari kehidupan sosial kita, sehingga setiap kebijakan atau langkah yang diambil oleh tokoh-tokoh ini akan selalu diawasi oleh publik dengan lensa yang sangat tajam dan kritis.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A digital magnifying glass hovering over a complex network of interconnected social media icons and news headlines, representing intense public scrutiny of AI., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "sharp digital scanning sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 35,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 495.1,
+      "estSec": 12,
+      "text": "Terakhir, mari kita bahas pengujian Google dalam mengintegrasikan pembelian barang dari Flipkart, perusahaan ritel milik Walmart, melalui Gemini dan AI Mode di India.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A smartphone interface displaying the Gemini AI logo alongside the Flipkart retail brand, showcasing the integration of search and e-commerce in India., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft interface notification chime, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src5.jpg"
+    },
+    {
+      "i": 36,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 507.1,
+      "estSec": 20.3,
+      "text": "Secara teknis, ini adalah implementasi nyata dari \"Agentic AI\" dalam ranah e-commerce, di mana model bahasa besar Gemini tidak hanya berfungsi sebagai asisten pencarian, tetapi juga sebagai agen transaksional yang mampu menavigasi katalog produk, membandingkan harga, dan memproses pembelian secara langsung melalui antarmuka percakapan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A 3D visualization of a large language model processing product data, comparing prices, and executing a transaction within a conversational chat window interface., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rapid data processing clicks, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 37,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 527.4,
+      "estSec": 15.7,
+      "text": "Penggunaan AI Mode di India, sebagai salah satu pasar digital dengan pertumbuhan tercepat, menunjukkan bahwa Google sedang mencoba menciptakan pengalaman belanja yang sepenuhnya berbasis pada \"percakapan\" (conversational commerce), yang menghilangkan hambatan antarmuka pengguna konvensional.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A futuristic shopping experience where a user speaks to an AI assistant, and products appear seamlessly on a screen without traditional menu navigation., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "ambient voice recognition hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 38,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 543.1,
+      "estSec": 15.2,
+      "text": "Implikasi bagi industri ritel global sangatlah besar; jika model ini berhasil di India, kita akan melihat pergeseran dari pencarian berbasis kata kunci ke pencarian berbasis niat (intent-based search) di seluruh platform e-commerce dunia.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A global map showing digital commerce traffic shifting from traditional search bars to intent-based AI conversational queries across various international retail platforms., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle global data flow, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 39,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 558.3,
+      "estSec": 12,
+      "text": "Ini akan memicu persaingan sengit antara raksasa seperti Amazon, Google, dan pemain ritel lokal untuk mengintegrasikan model AI mereka ke dalam alur transaksi konsumen.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Abstract representation of corporate logos like Amazon and Google competing in a digital arena, racing to integrate AI agents into consumer transaction flows., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "fast paced electronic pulses, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 40,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 570.3,
+      "estSec": 17.5,
+      "text": "Dampaknya bagi ekosistem AI global adalah percepatan adopsi asisten AI sebagai perantara ekonomi, yang nantinya akan mengubah perilaku belanja kita menjadi lebih efisien namun juga menciptakan ketergantungan baru pada platform yang mampu memberikan rekomendasi paling akurat dan personal.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A consumer silhouette interacting with a glowing AI interface, symbolizing the shift toward efficient, personalized, and AI-mediated economic decision-making in daily life., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft chime of success, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 41,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 587.8,
+      "estSec": 16.6,
+      "text": "Sintesis dari kelima peristiwa ini menunjukkan bahwa kita sedang bergerak menuju fase di mana AI tidak lagi terisolasi di balik layar, melainkan menjadi jembatan yang menghubungkan kebijakan negara, ekspresi artistik, produktivitas industri, hingga transaksi ekonomi harian.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A glowing digital bridge connecting a government building, a music studio, a factory floor, and a smartphone shopping interface in motion., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital data flow, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 42,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 604.4,
+      "estSec": 19.4,
+      "text": "Dalam enam hingga dua belas bulan ke depan, kita akan melihat lebih banyak integrasi agen AI dalam alur kerja kreatif, peningkatan ketatnya regulasi AI yang dipicu oleh keterlibatan langsung pemerintah, serta perang platform e-commerce berbasis AI yang akan mengubah cara kita berbelanja.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Fast-paced montage of AI agents working on creative software, government regulatory documents, and a bustling e-commerce warehouse with robotic sorting systems., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "fast mechanical gear shifts, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 43,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 623.8,
+      "estSec": 12,
+      "text": "Prediksi saya, perusahaan yang paling cepat mengadopsi integrasi agen AI untuk kebutuhan praktis, tanpa mengabaikan aspek keamanan, akan menjadi pemenang utama dalam perlombaan teknologi ini.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A futuristic corporate office with human supervisors monitoring complex AI agent dashboards on large holographic screens in a high-tech environment., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src3.jpg"
+    },
+    {
+      "i": 44,
+      "chapter": "Peluang & Penutup",
+      "startSec": 635.8,
+      "estSec": 16.6,
+      "text": "Bagi Anda, para audiens, peluang konkret yang tersedia saat ini sangatlah besar. Jika Anda seorang profesional, mulailah mempelajari cara berkolaborasi dengan agen AI untuk meningkatkan produktivitas alur kerja Anda, alih-alih sekadar menganggapnya sebagai alat bantu penulisan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A professional workspace showing a person collaborating with an AI interface on a computer screen to optimize complex project workflows., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "keyboard typing and clicks, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 45,
+      "chapter": "Peluang & Penutup",
+      "startSec": 652.4,
+      "estSec": 12,
+      "text": "Bagi para kreator, jangan ragu untuk bereksperimen dengan teknologi yang mampu mengubah \"kegagalan\" sistem menjadi medium baru, seperti yang dilakukan pada Engram.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Abstract digital audio waveforms pulsing and shifting colors, representing the transformation of AI system errors into creative musical soundscapes., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "glitchy electronic audio pulses, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src2.png"
+    },
+    {
+      "i": 46,
+      "chapter": "Peluang & Penutup",
+      "startSec": 664.4,
+      "estSec": 15.2,
+      "text": "Dunia sedang berubah dengan kecepatan yang luar biasa, dan mereka yang mampu beradaptasi dengan memahami bagaimana AI bekerja di level fundamental akan memiliki keuntungan besar dalam karier maupun peluang bisnis di masa depan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A person looking at a glowing neural network visualization that expands rapidly, symbolizing deep understanding and adaptation to new technology., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising cinematic synth swell, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 47,
+      "chapter": "Peluang & Penutup",
+      "startSec": 679.6,
+      "estSec": 18.9,
+      "text": "Demikian analisis mendalam mengenai lanskap AI dalam tujuh puluh dua jam terakhir. Saya ingin mendengar pendapat Anda: apakah pertemuan tingkat tinggi antara CEO AI dan kepala negara akan benar-benar membawa dampak positif bagi regulasi, atau justru akan memperkuat monopoli segelintir perusahaan?",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A formal meeting table with high-level government officials and tech CEOs discussing policy, with digital charts floating above the table., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low ambient room tone, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-09-29/images/src1.jpg"
+    },
+    {
+      "i": 48,
+      "chapter": "Peluang & Penutup",
+      "startSec": 698.5,
+      "estSec": 20.8,
+      "text": "Silakan sampaikan argumen Anda di kolom komentar di bawah. Jangan lupa untuk menekan tombol subscribe dan nyalakan lonceng notifikasi agar Anda tidak tertinggal analisis mendalam lainnya mengenai perkembangan teknologi yang akan membentuk masa depan kita bersama. Terima kasih telah menyimak, sampai jumpa di pembahasan berikutnya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A clean YouTube interface overlay showing a subscribe button being clicked with a notification bell ringing in a modern studio setting., Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text",
+      "faceless": true,
+      "negative_prompt": "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft mouse click sound, clean foley, no background music"
+      },
+      "srcImage": null
+    }
+  ],
+  "midrollAtSec": 401,
+  "estTotalSec": 719.3,
+  "sources": [
+    {
+      "title": "Anthropic’s CEO is about to have dinner with President Trump",
+      "url": "https://techcrunch.com/2026/09/27/anthropics-ceo-is-about-to-have-dinner-with-president-trump/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "Engram is a sampler that turns broken AI hallucinations into music",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1001193/engram-sampler-ai-hallucinations-music",
+      "publisher": "The Verge"
+    },
+    {
+      "title": "AI agents do more of the work in model development, but humans still make the decisions",
+      "url": "https://the-decoder.com/ai-agents-do-more-of-the-work-in-model-development-but-humans-still-make-the-decisions/",
+      "publisher": "The Decoder"
+    },
+    {
+      "title": "Anthropic’s Dario Amodei gets the SNL treatment",
+      "url": "https://techcrunch.com/2026/09/27/anthropics-dario-amodei-gets-the-snl-treatment/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India",
+      "url": "https://techcrunch.com/2026/09/26/google-tests-buying-from-walmart-owned-flipkart-through-gemini-and-ai-mode-in-india/",
+      "publisher": "TechCrunch AI"
+    }
+  ]
+}
