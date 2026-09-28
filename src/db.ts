@@ -181,6 +181,45 @@ export function getLongContentByDate(date: string): LongContentRow | undefined {
   return db.prepare("SELECT * FROM long_contents WHERE date = ?").get(date) as LongContentRow | undefined;
 }
 
+export function getLatestPastLongContent(beforeDate: string): LongContentRow | undefined {
+  return db.prepare(`
+    SELECT * FROM long_contents 
+    WHERE date < ? AND status NOT IN ('FAILED', 'SKIPPED')
+    ORDER BY date DESC 
+    LIMIT 1
+  `).get(beforeDate) as LongContentRow | undefined;
+}
+
+export function getPastLongSources(beforeDate: string, lookbackDays = 14): { titles: string[]; urls: string[] } {
+  const rows = db.prepare(`
+    SELECT date, topic_title, storyboard_path FROM long_contents 
+    WHERE date < ? AND date >= date(?, '-' || ? || ' days') AND status NOT IN ('FAILED', 'SKIPPED')
+    ORDER BY date DESC
+  `).all(beforeDate, beforeDate, lookbackDays) as { date: string; topic_title: string | null; storyboard_path: string | null }[];
+
+  const titles: string[] = [];
+  const urls: string[] = [];
+
+  for (const row of rows) {
+    if (row.topic_title) titles.push(row.topic_title);
+    if (row.storyboard_path && existsSync(row.storyboard_path)) {
+      try {
+        const sb = JSON.parse(readFileSync(row.storyboard_path, "utf-8"));
+        if (Array.isArray(sb.sources)) {
+          for (const s of sb.sources) {
+            if (s.title) titles.push(s.title);
+            if (s.url) urls.push(s.url);
+          }
+        }
+      } catch (err) {
+        console.warn(`[db] gagal membaca storyboard ${row.storyboard_path}:`, (err as Error).message);
+      }
+    }
+  }
+
+  return { titles, urls };
+}
+
 export function updateLongContentStatus(id: number, status: string) {
   db.prepare("UPDATE long_contents SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?").run(status, id);
 }

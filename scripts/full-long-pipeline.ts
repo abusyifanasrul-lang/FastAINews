@@ -8,10 +8,12 @@ import { curateLongNews } from "../src/long/curator.js";
 import { generateLongScript, generateLongStoryboard } from "../src/long/llm-long.js";
 import { splitBeats, validateChapters, buildStoryboardMd, extractPromptsText, extractNarrationsText, extractParagraphsText, type Chapter } from "../src/long/storyboard.js";
 import { stripMidroll } from "../src/long/validate.js";
-import { upsertLongContent, getLongContentByDate } from "../src/db.js";
+import { upsertLongContent, getLongContentByDate, getLatestPastLongContent } from "../src/db.js";
 
+// Helper waktu: default tanggal mengacu ke WITA (UTC+8)
+const defaultDate = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Makassar" }).format(new Date());
 const { values } = parseArgs({ options: { date: { type: "string" }, force: { type: "boolean" } } });
-const date = (values.date ?? new Date().toISOString().slice(0, 10)).trim();
+const date = (values.date ?? defaultDate).trim();
 const force = values.force ?? false;
 if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) { console.error("--date harus YYYY-MM-DD"); process.exit(1); }
 
@@ -31,6 +33,50 @@ async function run(): Promise<void> {
   if (!force && existing && ["READY_FOR_ASSETS", "PUBLISHING", "PUBLISHED"].includes(existing.status)) {
     console.log(`[long] edisi ${date} sudah ${existing.status} — skip`);
     return;
+  }
+
+  // Throttle Interlock Guard (hanya berlaku pada run otomatis / tanpa flag --force)
+  if (!force) {
+    const latestPast = getLatestPastLongContent(date);
+    if (latestPast) {
+      // 1. Jika edisi sebelumnya masih belum selesai dirakit/dipublish
+      if (["READY_FOR_ASSETS", "PUBLISHING"].includes(latestPast.status)) {
+        console.log(
+          `[long] THROTTLE INTERLOCK: Edisi sebelumnya (${latestPast.date}) masih berstatus '${latestPast.status}' (belum selesai dipublish). Menunda kurasi baru dan menggeser 24 jam ke jadwal berikutnya.`
+        );
+        return;
+      }
+
+      // 2. Jika edisi sebelumnya sudah PUBLISHED:
+      if (latestPast.status === "PUBLISHED") {
+        const rawTime = latestPast.updated_at || latestPast.created_at;
+        const lastPublishUtc = new Date(rawTime.includes("Z") ? rawTime : rawTime.replace(" ", "T") + "Z").getTime();
+        const hoursSincePublish = (Date.now() - lastPublishUtc) / (1000 * 3600);
+
+        // Aturan A: Minimal jeda 1 hari (24 jam) pasca-publish
+        if (hoursSincePublish < 24) {
+          console.log(
+            `[long] THROTTLE INTERLOCK: Video edisi ${latestPast.date} baru dipublish ${hoursSincePublish.toFixed(1)} jam yang lalu (< 24 jam). Memberikan jeda minimal 24 jam pasca-publish (geser 24 jam berikutnya).`
+          );
+          return;
+        }
+
+        // Aturan B: Jika publish tepat waktu, secara default siklus eksekusi tetap per 3 hari
+        const daysSinceLastCurate = Math.round(
+          (new Date(date).getTime() - new Date(latestPast.date).getTime()) / (1000 * 3600 * 24)
+        );
+        if (daysSinceLastCurate < 3) {
+          console.log(
+            `[long] THROTTLE INTERLOCK: Baru ${daysSinceLastCurate} hari sejak kurasi edisi ${latestPast.date}. Siklus default adalah per 3 hari. Menunggu siklus berikutnya.`
+          );
+          return;
+        }
+
+        console.log(
+          `[long] THROTTLE INTERLOCK PASS: Jeda publish ${hoursSincePublish.toFixed(1)} jam (>= 24 jam) dan selisih kurasi ${daysSinceLastCurate} hari (>= 3 hari). Melanjutkan kurasi edisi ${date}...`
+        );
+      }
+    }
   }
 
   console.log(`[long] 1/4 kurasi 72 jam utk ${date}...`);

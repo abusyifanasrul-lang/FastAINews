@@ -1,7 +1,7 @@
 import { mkdirSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fetchFeeds, filterRecent, isAiRelevant, dedupe, fetchOgImage, type NewsItem } from "../research.js";
-import { getRecentContentsForLong } from "../db.js";
+import { getRecentContentsForLong, getPastLongSources } from "../db.js";
 
 export interface CuratedLong { date: string; items: NewsItem[]; images: (string | null)[] }
 
@@ -13,9 +13,51 @@ function pickDiverse<T extends { publisher: string }>(items: T[], count: number)
   return out;
 }
 
+function normalizeUrl(u: string): string {
+  return u.toLowerCase().trim().replace(/\/+$/, "").replace(/^https?:\/\/(www\.)?/, "");
+}
+
+function normalizeTitle(t: string): string {
+  return t.toLowerCase().replace(/[^\w\s]/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function isAlreadyUsedInLong(
+  item: NewsItem,
+  usedUrls: Set<string>,
+  usedTitles: string[]
+): boolean {
+  if (item.url && usedUrls.has(normalizeUrl(item.url))) return true;
+  const nTitle = normalizeTitle(item.title);
+  if (!nTitle) return false;
+
+  for (const pt of usedTitles) {
+    const nPast = normalizeTitle(pt);
+    if (!nPast) continue;
+    if (nTitle === nPast || nTitle.includes(nPast) || nPast.includes(nTitle)) return true;
+
+    // Cek irisan kata kunci signifikan (>3 karakter)
+    const wordsItem = new Set(nTitle.split(" ").filter((w) => w.length > 3));
+    const wordsPast = new Set(nPast.split(" ").filter((w) => w.length > 3));
+    if (wordsItem.size > 0 && wordsPast.size > 0) {
+      let common = 0;
+      for (const w of wordsItem) {
+        if (wordsPast.has(w)) common++;
+      }
+      if (common / Math.min(wordsItem.size, wordsPast.size) >= 0.5) return true;
+    }
+  }
+  return false;
+}
+
 export async function curateLongNews(hours = 72, date?: string): Promise<CuratedLong> {
-  const day = date ?? new Date().toISOString().slice(0, 10);
-  
+  const day = date ?? new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Makassar" }).format(new Date());
+
+  // Muat sumber & judul yang sudah dipakai di video long-form 14 hari terakhir
+  const pastLong = getPastLongSources(day, 14);
+  const usedUrls = new Set(pastLong.urls.map(normalizeUrl));
+  const usedTitles = pastLong.titles;
+  console.log(`[long-curator] memuat ${usedUrls.size} URL dan ${usedTitles.length} judul dari edisi long sebelumnya untuk deduplikasi`);
+
   // 1. Ambil berita 72 jam dari SQLite database jika ada
   const dbContents = getRecentContentsForLong(3, day);
   const dbItems: NewsItem[] = [];
@@ -32,19 +74,22 @@ export async function curateLongNews(hours = 72, date?: string): Promise<Curated
     }
   }
 
-  let candidates = dedupe(dbItems.filter((i) => isAiRelevant(i.title)));
-  console.log(`[long-curator] ${candidates.length} berita dari database SQLite (edisi <= ${day})`);
+  // Filter relevan AI + buang yang sudah pernah masuk edisi long sebelumnya
+  let candidates = dedupe(dbItems.filter((i) => isAiRelevant(i.title) && !isAlreadyUsedInLong(i, usedUrls, usedTitles)));
+  console.log(`[long-curator] ${candidates.length} berita segar dari database SQLite (edisi <= ${day})`);
 
-  // 2. Jika database kurang dari 5 topik, augment atau fallback dengan RSS live
+  // 2. Jika database kurang dari 5 topik segar, augment atau fallback dengan RSS live
   if (candidates.length < 5) {
     try {
       const allRss = await fetchFeeds();
       let rssItems: NewsItem[] = [];
       for (const h of [hours, 96, 120]) {
-        rssItems = dedupe(filterRecent(allRss, h).filter((i) => isAiRelevant(i.title)));
+        rssItems = dedupe(
+          filterRecent(allRss, h).filter((i) => isAiRelevant(i.title) && !isAlreadyUsedInLong(i, usedUrls, usedTitles))
+        );
         if (rssItems.length >= 3) break;
       }
-      console.log(`[long-curator] menambah ${rssItems.length} berita dari RSS live`);
+      console.log(`[long-curator] menambah ${rssItems.length} berita segar dari RSS live`);
       candidates = dedupe([...candidates, ...rssItems]);
     } catch (e) {
       console.warn("[long-curator] RSS fallback gagal:", (e as Error).message);

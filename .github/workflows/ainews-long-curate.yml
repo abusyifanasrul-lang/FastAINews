@@ -1,18 +1,19 @@
-name: AI News Long Curate (3-harian)
+name: AI News Long Curate (3-harian / Throttle Interlock)
 
 on:
   schedule:
-    # Mundur agar mengumpulkan 3 edisi harian penuh (19, 20, 21 September).
-    # Mulai jalan 21 September 19:00 UTC (22 September 03:00 WITA), lalu setiap 3 hari (21, 24, 27, 30, ...).
-    - cron: '0 19 3,6,9,12,15,18,21,24,27,30 * *'
+    # Evaluasi harian pukul 19:00 UTC (03:00 WITA).
+    # Throttle Interlock di script mengontrol: jika publish tepat waktu -> eksekusi per 3 hari;
+    # jika publish mundur / baru terbit < 24 jam -> ditunda & digeser 24 jam berikutnya.
+    - cron: '0 19 * * *'
   workflow_dispatch:
     inputs:
       date:
-        description: 'Tanggal edisi (YYYY-MM-DD, default hari ini)'
+        description: 'Tanggal edisi (YYYY-MM-DD, default hari ini WITA)'
         required: false
         type: string
       force:
-        description: 'Timpa edisi yang sudah READY'
+        description: 'Bypass throttle & timpa edisi yang sudah ada'
         required: false
         type: boolean
         default: false
