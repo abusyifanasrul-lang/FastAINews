@@ -17,10 +17,11 @@ async function tg(token: string, method: string, body: Record<string, unknown>):
 }
 
 async function ghDispatch(pat: string, repo: string, workflow: string, inputs: Record<string, string>): Promise<boolean> {
+  const ref = repo.includes("social-fleet") ? "main" : "master";
   const r = await fetch(`https://api.github.com/repos/${repo}/actions/workflows/${workflow}/dispatches`, {
     method: "POST",
     headers: { Authorization: `Bearer ${pat}`, Accept: "application/vnd.github.v3+json", "Content-Type": "application/json", "User-Agent": "ainews-webhook/1.0" },
-    body: JSON.stringify({ ref: "master", inputs }),
+    body: JSON.stringify({ ref, inputs }),
   });
   const body = await r.text();
   console.log("[ghDispatch]", workflow, "status:", r.status, "body:", body.slice(0, 300));
@@ -92,6 +93,16 @@ export default {
         const ok = await ghDispatch(env.REPO_PAT, fleetRepo, "publish-approved.yml", inputs);
         if (!ok) {
           console.log("[webhook] social-fleet-pipeline publish-approved.yml dispatch failed");
+          const errMsg = `❌ Gagal memicu GitHub Actions publish-approved.yml untuk ${channel} Day ${day}. Silakan coba lagi atau cek konfigurasi.`;
+          if (cb.message?.video) {
+            await tg(env.BOT_TOKEN, "editMessageCaption", {
+              chat_id: chatId, message_id: messageId, caption: errMsg,
+            });
+          } else {
+            await tg(env.BOT_TOKEN, "editMessageText", {
+              chat_id: chatId, message_id: messageId, text: errMsg,
+            });
+          }
         }
       } else if (/^fleet_revise:[A-Za-z0-9_-]+:\d+$/.test(data)) {
         const parts = data.split(":");
