@@ -4,6 +4,13 @@ import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
 
+// Fix Microsoft Edge TTS 403 on cloud runners (synthesize via api.msedgeservices.com)
+(MsEdgeTTS as any).getSynthUrl = async function() {
+  const req_id = (MsEdgeTTS as any).generateUUID();
+  const secMsGEC = await (MsEdgeTTS as any).generateSecMsGec((MsEdgeTTS as any).TRUSTED_CLIENT_TOKEN);
+  return `wss://api.msedgeservices.com/tts/cognitiveservices/websocket/v1?Ocp-Apim-Subscription-Key=${(MsEdgeTTS as any).TRUSTED_CLIENT_TOKEN}&Sec-MS-GEC=${secMsGEC}&Sec-MS-GEC-Version=1-143.0.3650.96&ConnectionId=${req_id}`;
+};
+
 const KEY = process.env.GOOGLE_API_KEY;
 const MODEL = process.env.GEMINI_TTS_MODEL ?? "gemini-3.1-flash-tts-preview";
 const VOICE = process.env.GEMINI_TTS_VOICE ?? "Algieba";
