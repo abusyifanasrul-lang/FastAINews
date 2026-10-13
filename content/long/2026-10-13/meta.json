@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-13",
+  "topicTitle": "Perang Model Frontier dan Narasi Baru Kecerdasan Buatan Global",
+  "status": "READY_FOR_ASSETS",
+  "beats": 51,
+  "estTotalSec": 778.3,
+  "midrollAtSec": 431,
+  "t2vCount": 31,
+  "i2vCount": 15,
+  "staticCount": 5,
+  "images": 7,
+  "sources": 7,
+  "paragraphs": 19,
+  "storyboardBatchesExecuted": 7,
+  "storyboardTotalBatches": 7,
+  "storyboardLlmOkBatches": 7,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [
+    {
+      "no": 5,
+      "got": 5,
+      "expected": 8
+    }
+  ],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}

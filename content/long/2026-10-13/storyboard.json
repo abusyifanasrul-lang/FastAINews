@@ -1,0 +1,934 @@
+{
+  "date": "2026-10-13",
+  "title": "Perang Model Frontier dan Narasi Baru Kecerdasan Buatan Global",
+  "chapters": [
+    {
+      "title": "Intro & Tesis Utama",
+      "startSec": 0
+    },
+    {
+      "title": "Konteks 72 Jam Terakhir",
+      "startSec": 93
+    },
+    {
+      "title": "Deep-Dive Berita AI",
+      "startSec": 272
+    },
+    {
+      "title": "Analisis & Prediksi Industri",
+      "startSec": 560
+    },
+    {
+      "title": "Peluang & Penutup",
+      "startSec": 685
+    }
+  ],
+  "beats": [
+    {
+      "i": 1,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 0,
+      "estSec": 15.2,
+      "text": "Tujuh puluh dua jam terakhir telah menjadi saksi bisu bagi pergeseran tektonik dalam lanskap kecerdasan buatan, di mana batas antara inovasi teknis, manuver politik, dan urgensi keberlanjutan lingkungan bertemu di satu titik krusial.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Cinematic wide shot of a vast, empty desert landscape at dusk, shifting tectonic plates of dark obsidian rock, volumetric light rays piercing through heavy clouds, 24mm lens, muted amber and gray tones.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency tectonic rumble, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 2,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 15.2,
+      "estSec": 18,
+      "text": "Kita saat ini sedang menyaksikan sebuah babak baru di mana Meta secara agresif mendefinisikan ulang posisi mereka dalam perlombaan model frontier, sementara di sisi lain, Silicon Valley mulai menanggalkan kerahasiaan korporat demi meredam resistensi publik terhadap infrastruktur pusat data.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a sleek server farm building next to a corporate office, mint and coral palette, tiny robot arms moving data blocks, soft shadows, clean minimalist aesthetic.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "precision servo motor clicks, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 3,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 33.2,
+      "estSec": 20.3,
+      "text": "Narasi besar yang menyatukan seluruh peristiwa ini adalah transisi dari era eksperimentasi liar menuju fase konsolidasi kekuasaan, standarisasi nomenklatur politik, dan integrasi AI ke dalam tantangan eksistensial planet kita. Mari kita bedah bagaimana dinamika ini akan membentuk masa depan komputasi global dalam dekade mendatang.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a brass balance scale on a dark wooden desk, one side holding a glowing microchip, the other side holding a small green leaf, shallow depth of field, warm tungsten light.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic mechanical balance shift, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 4,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 53.5,
+      "estSec": 15.2,
+      "text": "Konteks makro dari apa yang kita saksikan dalam tiga hari terakhir menunjukkan bahwa industri AI tidak lagi sekadar berfokus pada peningkatan parameter model, melainkan sudah mulai bersentuhan dengan realitas sosiopolitik yang sangat kompleks.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "faint ambient room tone, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src6.jpg"
+    },
+    {
+      "i": 5,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 68.7,
+      "estSec": 12.9,
+      "text": "Ketika Meta meluncurkan lini model terbaru mereka, pasar tidak hanya merespons dari sisi teknis, tetapi juga melihatnya sebagai upaya untuk mengklaim kembali dominasi yang sempat tergerus oleh kompetitor.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close up of a high-end monitor displaying a complex bar chart with a '+72%' metric, clean studio light, pastel peach and sky blue UI elements, sharp focus on data visualization.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital data processing hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src5.png"
+    },
+    {
+      "i": 6,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 81.6,
+      "estSec": 12,
+      "text": "Secara bersamaan, tekanan publik terhadap pembangunan pusat data yang masif telah memaksa para raksasa teknologi untuk mengubah strategi transparansi mereka.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Paper-cut art style, layered textures of gray and teal, depicting a large industrial building with transparent walls, handmade paper texture, warm orange light accents, clean geometric shapes.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "paper rustling and sliding, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 7,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 93.6,
+      "estSec": 17.1,
+      "text": "Kita sedang melihat sebuah pola di mana kebijakan domestik Amerika Serikat mulai memaksa perusahaan teknologi untuk menyesuaikan narasi bahasa mereka, sekaligus mencoba mengintegrasikan solusi AI ke dalam riset ekologi yang selama ini terabaikan oleh narasi akselerasionisme teknologi.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Macro photography of a researcher's hands using tweezers to place a small sensor into a lush rainforest soil tray, bokeh background, warm tungsten light, shallow depth of field.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft forest ambient sounds, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src4.jpg"
+    },
+    {
+      "i": 8,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 110.7,
+      "estSec": 19.4,
+      "text": "Berita pertama yang mendominasi linimasa adalah peluncuran Muse Wonder oleh Meta, yang menandai debut perusahaan tersebut dalam kancah model frontier. Muse Wonder dirancang dengan arsitektur yang mengoptimalkan inferensi multimodal secara masif, memungkinkan pemrosesan data yang jauh lebih efisien dibandingkan iterasi Llama sebelumnya.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Product photography, overhead flat lay of a smartphone displaying a sleek 'Muse Wonder' interface, clean studio light, pastel peach background, minimalist aesthetic, sharp focus on screen.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic interface chime, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src1.jpg"
+    },
+    {
+      "i": 9,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 130.1,
+      "estSec": 17.5,
+      "text": "Dengan metrik performa yang mampu menandingi model-model terdepan saat ini dalam tugas penalaran logis dan sintesis kreatif, Meta mencoba menggeser paradigma dari sekadar model open-source yang bisa diakses publik menjadi model frontier yang memiliki kapabilitas komputasi tingkat tinggi.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a digital tablet displaying a complex neural network graph with glowing nodes, resting on a clean white desk, soft natural light, film grain, editorial documentary style., tilt-shift miniature diorama, soft daylight, pastel palette, high angle",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic data hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src3.jpg"
+    },
+    {
+      "i": 10,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 147.6,
+      "estSec": 12,
+      "text": "Langkah ini secara teknis menunjukkan bahwa Meta telah berhasil memecahkan hambatan dalam skalabilitas pelatihan model yang selama ini menjadi kendala utama bagi arsitektur transformator mereka.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Clean isometric 3D illustration of a massive server rack with glowing blue light pulses moving through fiber optic cables, mint and coral palette, soft shadows, high-tech data center environment.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server room cooling air, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 11,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 159.6,
+      "estSec": 12.5,
+      "text": "Secara industri, kehadiran Muse Wonder menempatkan Meta kembali ke kursi pengemudi dalam perlombaan AI global, menantang hegemoni yang selama ini dikuasai oleh pemain seperti OpenAI dan Anthropic.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "hollow room ambient noise, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src5.png"
+    },
+    {
+      "i": 12,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 172.1,
+      "estSec": 12.5,
+      "text": "Dengan mengintegrasikan Muse Wonder ke dalam ekosistem produk mereka, Meta tidak hanya memperkuat posisi tawar di pasar B2B, tetapi juga menciptakan standar baru bagi efisiensi model frontier.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Product photography of a smartphone displaying a clean B2B dashboard with bar charts and efficiency metrics, pastel peach and sky blue palette, clean studio lighting, overhead flat lay.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital interface click, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 13,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 184.6,
+      "estSec": 17.1,
+      "text": "Dampaknya bagi ekosistem AI global sangat signifikan, karena ini memaksa para kompetitor untuk mempercepat siklus rilis mereka dan mempertimbangkan kembali strategi aksesibilitas model yang selama ini menjadi ciri khas dari pendekatan open-science yang diusung oleh Mark Zuckerberg.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Layered paper-cut art showing a race track with stylized robot figures, handmade texture, warm orange, magenta and teal colors, representing competitive AI industry cycles.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "paper rustling and movement, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 14,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 201.7,
+      "estSec": 12,
+      "text": "Berita kedua, yang berkaitan erat dengan peluncuran tersebut, adalah rilisnya lini model Muse Wonder Full oleh Meta yang secara teknis merupakan penyempurnaan dari seri Wonder.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Macro photography of a high-end computer chip on a lab tray, shallow depth of field, warm tungsten light, bokeh background, focus on intricate circuit nodes.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "precision servo clicks, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src2.jpg"
+    },
+    {
+      "i": 15,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 213.7,
+      "estSec": 13.8,
+      "text": "Model ini membawa peningkatan pada parameter densitas dan mekanisme perhatian yang lebih adaptif, memberikan kemampuan bagi sistem untuk memahami konteks yang jauh lebih panjang dengan tingkat halusinasi yang lebih rendah.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro lens view of a mechanical toggle switch being flipped, shallow depth of field, cool light, metallic textures, representing adaptive attention mechanisms in AI architecture.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical switch metallic click, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 16,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 227.5,
+      "estSec": 18,
+      "text": "Fokus utama dalam pengembangan Muse Wonder Full adalah pada stabilitas output yang konsisten, yang dicapai melalui teknik optimasi bobot yang lebih canggih, menjadikannya salah satu model yang paling ditunggu-tunggu untuk implementasi di lingkungan perusahaan besar yang membutuhkan reliabilitas tinggi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Clean isometric 3D diorama of a corporate office floor with miniature server units and data flow lines, mint and coral palette, tilt-shift effect, high reliability enterprise setting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency electrical hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 17,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 245.5,
+      "estSec": 20.3,
+      "text": "Implikasi dari kehadiran Muse Wonder Full adalah pergeseran posisi Meta ke dalam jajaran elit AI top-tier yang mampu bersaing di level performa tertinggi. Hal ini mengubah peta persaingan pasar, di mana perusahaan-perusahaan besar kini memiliki alternatif yang sangat kompetitif selain model-model yang tertutup rapat.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a digital dashboard displaying a ranking chart with a rising bar graph, highlighting the 'Muse Wonder Full' label in a sleek, modern interface, 35mm film grain, muted amber and gray tones.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital data processing hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src5.png"
+    },
+    {
+      "i": 18,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 265.8,
+      "estSec": 14.3,
+      "text": "Kehadiran model ini membuktikan bahwa Meta tidak lagi hanya bermain di ranah model komoditas, tetapi telah masuk ke dalam ranah model eksklusif yang menentukan arah perkembangan kecerdasan buatan generatif secara fundamental.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Clean isometric 3D illustration of a central glowing node connecting to multiple smaller peripheral nodes, mint and coral palette, soft shadows, representing a shift in AI market dominance.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft mechanical clicking sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 19,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 280.1,
+      "estSec": 19.8,
+      "text": "Berita ketiga menggarisbawahi bagaimana Muse Wonder secara spesifik mengembalikan Meta ke garda depan inovasi AI. Analisis teknis menunjukkan bahwa arsitektur yang digunakan dalam Muse Wonder mengedepankan efisiensi memori yang revolusioner, memungkinkan model ini berjalan pada infrastruktur yang lebih ramping tanpa mengorbankan kualitas keluaran.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Macro photography of a high-end server rack with blinking blue LED lights, shallow depth of field, warm tungsten lighting, reflecting the revolutionary memory efficiency of the new architecture.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server room cooling air, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src3.jpg"
+    },
+    {
+      "i": 20,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 299.9,
+      "estSec": 12,
+      "text": "Inovasi ini sangat krusial mengingat biaya operasional pusat data yang kian membengkak, sehingga efisiensi menjadi metrik kesuksesan yang sama pentingnya dengan kecerdasan model itu sendiri.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro shot of a brass balance scale weighing a stack of silicon wafers against a pile of gold coins, warm tungsten light, shallow depth of field, emphasizing operational cost efficiency.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic scale balancing sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 21,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 311.9,
+      "estSec": 12,
+      "text": "Bagi ekosistem global, keberhasilan Meta ini menandai berakhirnya era di mana inovasi frontier hanya dimonopoli oleh satu atau dua pemain saja.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Wide shot of a minimalist, empty conference room with multiple chairs arranged in a circle, cinematic volumetric light, 24mm lens, symbolizing the end of a single-player monopoly.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "hollow room ambient echo, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 22,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 323.9,
+      "estSec": 12,
+      "text": "Kompetisi yang lebih sehat dan terbuka ini akan mempercepat adopsi AI di berbagai sektor, karena perusahaan kini memiliki opsi yang lebih beragam dengan performa yang setara.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Overhead flat lay of various colorful geometric blocks being sorted into neat rows on a white desk, pastel peach and sky blue palette, clean studio lighting, representing diverse AI options.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "light wooden block clatter, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 23,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 335.9,
+      "estSec": 13.4,
+      "text": "Meta telah berhasil membuktikan bahwa dengan sumber daya komputasi yang tepat dan pendekatan riset yang fokus, batas-batas teknis yang sebelumnya dianggap mustahil dapat dilampaui dalam waktu yang relatif singkat.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Layered paper-cut art showing a rising mountain peak made of circuit board patterns, warm orange, magenta and teal, handmade texture, representing the overcoming of technical boundaries.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "paper rustling soft texture, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 24,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 349.3,
+      "estSec": 12,
+      "text": "Berita keempat membawa kita pada perspektif yang berbeda namun krusial, yakni riset ekologi yang dilakukan oleh Daisy Dent mengenai jaringan hutan hujan.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A close-up of a researcher's hands using tweezers to place a small green leaf sample onto a glass slide, soft natural light, film grain, editorial documentary style., overhead flat lay, clean studio light, pastel peach and sky blue palette, clean product photography",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "gentle laboratory equipment clink, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src4.jpg"
+    },
+    {
+      "i": 25,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 361.3,
+      "estSec": 14.3,
+      "text": "Meskipun terlihat tidak berkaitan langsung dengan teknologi, penggunaan AI dalam memetakan jaringan akar dan interaksi biologis yang tidak kasat mata menjadi bukti nyata bagaimana kecerdasan buatan dapat digunakan untuk restorasi ekosistem.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a researcher's hands holding a tablet displaying complex root network diagrams, soft natural light, muted amber and gray tones, film grain, editorial documentary style., 100mm macro lens, shallow depth of field, warm tungsten and amber lighting",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft rustling of leaves, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src4.jpg"
+    },
+    {
+      "i": 26,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 375.6,
+      "estSec": 14.8,
+      "text": "Secara teknis, Dent memanfaatkan algoritma pengenalan pola tingkat tinggi untuk mengolah data sensorik yang kompleks dari lingkungan hutan, yang kemudian dianalisis oleh model AI untuk memahami bagaimana jaringan tersebut mampu memulihkan diri.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of glowing fiber optic strands intertwined with organic tree roots, shallow depth of field, warm tungsten light, high contrast, intricate data flow visualization.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic data hum, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 27,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 390.4,
+      "estSec": 12,
+      "text": "Ini adalah pengingat penting bahwa AI tidak seharusnya hanya dipandang sebagai alat produktivitas korporat, melainkan sebagai instrumen penyelamat planet.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a lush green forest patch being restored by tiny robotic sensors, mint and coral palette, soft shadows, clean minimalist aesthetic.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical servo clicks, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 28,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 402.4,
+      "estSec": 24.9,
+      "text": "Dampak industri dari riset ini adalah munculnya sektor baru dalam AI, yakni AI untuk keberlanjutan atau Green AI, yang akan menjadi standar baru bagi perusahaan teknologi untuk membuktikan bahwa mereka peduli terhadap jejak karbon yang dihasilkan oleh pusat data mereka. Inovasi ini memberikan harapan baru bahwa teknologi bisa berdampak positif bagi restorasi lingkungan global.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Overhead flat lay of a wooden desk with a green leaf, a smartphone showing a carbon footprint dashboard, and a brass balance scale, pastel peach and sky blue palette.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "gentle ambient office air, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 29,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 427.3,
+      "estSec": 12,
+      "text": "Berita kelima berfokus pada bagaimana Muse Wonder Full secara resmi diakui sebagai model yang memecah kebuntuan di jajaran atas industri AI.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A clean, high-contrast studio shot of a digital interface displaying the Muse Wonder Full logo, sharp focus, professional tech news aesthetic, editorial documentary style., 100mm macro lens, shallow depth of field, warm tungsten and amber lighting",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital interface chime, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src5.png"
+    },
+    {
+      "i": 30,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 439.3,
+      "estSec": 14.8,
+      "text": "Secara teknis, model ini diuji melalui benchmark ketat yang mencakup penalaran matematika, pemahaman bahasa alami, dan kemampuan coding yang kompleks, di mana hasilnya menunjukkan keunggulan signifikan dalam menangani tugas-tugas yang bersifat non-linear.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro lens view of a monitor screen displaying complex mathematical equations and code blocks, bokeh background, cool blue light, shallow depth of field.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rapid keyboard typing sounds, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 31,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 454.1,
+      "estSec": 12.5,
+      "text": "Keberhasilan ini didorong oleh integrasi teknik pelatihan yang lebih dinamis, yang memungkinkan model untuk belajar dari data yang lebih beragam tanpa mengalami degradasi performa pada domain tertentu.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Layered paper-cut art showing abstract neural network nodes connecting in a dynamic flow, warm orange, magenta and teal colors, handmade texture, artistic depth.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft paper rustling sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 32,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 466.6,
+      "estSec": 12,
+      "text": "Dampak industri dari pengakuan ini sangat besar, karena memberikan legitimasi bagi Meta untuk memimpin standar industri baru.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low room tone echo, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src3.jpg"
+    },
+    {
+      "i": 33,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 478.6,
+      "estSec": 15.2,
+      "text": "Bagi pasar, ini berarti bahwa kita akan melihat gelombang adopsi Muse Wonder Full di berbagai aplikasi enterprise, yang akan memaksa vendor perangkat lunak lainnya untuk melakukan integrasi yang lebih dalam dengan ekosistem Meta.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a sleek smartphone screen displaying a complex enterprise software dashboard with a glowing Meta logo, surrounded by floating holographic data nodes, clean studio lighting, pastel peach and sky blue palette.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital interface data processing, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src5.png"
+    },
+    {
+      "i": 34,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 493.8,
+      "estSec": 12,
+      "text": "Ini adalah kemenangan besar bagi strategi diversifikasi model frontier yang sedang digalakkan oleh Meta dalam menghadapi persaingan global yang semakin ketat.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "paper rustling and sliding, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src6.jpg"
+    },
+    {
+      "i": 35,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 505.8,
+      "estSec": 20.8,
+      "text": "Berita keenam menyoroti tren menarik di mana industri AI mulai mempertimbangkan untuk menghapus perjanjian kerahasiaan atau NDA terkait lokasi dan operasional pusat data demi meredam resistensi masyarakat. Secara teknis, perdebatan ini berpusat pada transparansi data penggunaan energi dan dampak lingkungan dari infrastruktur AI berskala besar.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Brass balance scales on a polished mahogany desk, one side holding a glowing microchip and the other a small green leaf, cinematic volumetric light, high contrast.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic scale clicking sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 36,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 526.6,
+      "estSec": 13.4,
+      "text": "Industri mulai menyadari bahwa keterbukaan informasi adalah kunci untuk mendapatkan izin pembangunan di wilayah-wilayah yang sensitif secara lingkungan, sehingga mereka mulai mengadopsi standar pelaporan yang lebih transparan dan terbuka.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Overhead shot of a clean white desk with a notepad showing handwritten technical diagrams and a smartphone displaying a government policy document, clean studio light.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "pen scratching on paper, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src7.jpg"
+    },
+    {
+      "i": 37,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 540,
+      "estSec": 17.5,
+      "text": "Implikasi bagi ekosistem global sangat jelas: transparansi akan menjadi mata uang baru dalam pembangunan infrastruktur AI. Perusahaan yang mampu menunjukkan bahwa mereka beroperasi dengan efisiensi energi tinggi dan dampak lingkungan yang terkendali akan lebih mudah mendapatkan dukungan publik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A row of empty leather chairs behind a long polished mahogany boardroom table, cinematic volumetric light, 24mm lens, wide shot, emphasizing a shift in corporate branding.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "hollow room ambient echo, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 38,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 557.5,
+      "estSec": 15.7,
+      "text": "Ini adalah pergeseran budaya yang signifikan di Silicon Valley, di mana kerahasiaan yang dulunya dianggap sebagai aset kompetitif kini dipandang sebagai hambatan bagi pertumbuhan jangka panjang karena tekanan dari aktivis lingkungan dan masyarakat lokal.",
+      "visual": "T2V_GENERATION",
+      "prompt": "isometric 3D illustration of a friendly sorting machine scanning product boxes, a digital chat panel showing product specs and price '$29', flat colors, soft shadows, light background, peach and sky blue palette",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital clicks, ambient corporate atmospheric tone, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 39,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 573.2,
+      "estSec": 20.8,
+      "text": "Berita ketujuh membahas fenomena menarik di mana Silicon Valley mulai mengikuti upaya Donald Trump untuk mengganti istilah AI dengan terminologi baru yang lebih selaras dengan visi politiknya. Secara teknis, ini bukanlah perubahan pada teknologi itu sendiri, melainkan pada bagaimana teknologi tersebut dikategorikan dalam kebijakan publik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "overhead shot of a long mahogany conference table with a brass globe at its center, empty chairs, notepads and water glasses, warm lamp light, 35mm film still, amber tones, film grain",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital pulse, ominous low sub-bass hum, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 40,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 594,
+      "estSec": 12.5,
+      "text": "Namun, pengaruhnya cukup terasa dalam narasi branding perusahaan-perusahaan besar yang kini mulai berhati-hati dalam menggunakan terminologi yang mungkin berseberangan dengan kebijakan pemerintah Amerika Serikat di masa depan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "wide shot through a glass wall into a bright boardroom where rows of empty chairs face a lectern with several microphones, soft reflections on glass, 35mm film still, cool daylight, muted red and cream accents",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital pulse, ominous low sub-bass hum, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 41,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 606.5,
+      "estSec": 18.5,
+      "text": "Dampak dari fenomena ini adalah politisasi istilah kecerdasan buatan, yang bisa berakibat pada fragmentasi standar regulasi global. Jika Silicon Valley terus mengikuti arahan politik dalam menamai dan mengkategorikan teknologi, kita berisiko melihat standar AI yang terpecah berdasarkan garis ideologi politik.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A close-up of a wooden mannequin hand hovering over a map of the world, with red and blue translucent acrylic blocks placed on different continents, creating a fragmented visual of global borders., 35mm film still, warm evening window light, muted neutral tones, film grain",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency digital pulse, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src7.jpg"
+    },
+    {
+      "i": 42,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 625,
+      "estSec": 12,
+      "text": "Hal ini tentu akan menciptakan kebingungan di pasar internasional dan mempersulit kolaborasi riset lintas batas yang selama ini menjadi fondasi bagi perkembangan AI yang pesat.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a complex laboratory network with broken glass bridges connecting different research pods, mint and coral color palette, soft shadows, tilt-shift lens effect.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical gear grinding sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 43,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 637,
+      "estSec": 12.5,
+      "text": "Sintesis dari ketujuh peristiwa ini memberikan gambaran yang jelas bahwa kita sedang memasuki fase di mana AI tidak lagi bisa dipisahkan dari politik, ekologi, dan transparansi korporat.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a brass balance scale holding a circuit board on one side and a green leaf on the other, shallow depth of field, warm tungsten lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic scale clicking sound, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 44,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 649.5,
+      "estSec": 16.6,
+      "text": "Muse Wonder dan Muse Wonder Full menunjukkan dominasi teknis Meta yang akan memaksa pasar untuk berevolusi, sementara isu pusat data dan penamaan AI menunjukkan bahwa perusahaan teknologi harus lebih berhati-hati dalam menavigasi tekanan sosial dan politik.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Overhead flat lay of a clean white desk with a smartphone displaying a 'Muse Wonder' logo, surrounded by scattered paper notes and a pair of silver tweezers, studio lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft paper rustling sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src5.png"
+    },
+    {
+      "i": 45,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 666.1,
+      "estSec": 14.8,
+      "text": "Dalam 6 hingga 12 bulan ke depan, kita dapat memprediksi akan adanya konsolidasi besar-besaran di mana model frontier akan menjadi semakin efisien, namun juga semakin diatur ketat oleh regulasi yang lebih transparan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Editorial documentary style, empty conference room with a long mahogany table, rows of empty leather chairs, soft natural light filtering through blinds, muted amber and gray tones., tilt-shift miniature diorama, soft daylight, pastel palette, high angle",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "distant room echo, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 46,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 680.9,
+      "estSec": 20.8,
+      "text": "Bagi Anda, masyarakat umum, peluang yang muncul dari dinamika ini sangat nyata. Pertama, adopsi teknologi AI kini tidak lagi terbatas pada mereka yang memiliki latar belakang teknis yang mendalam, karena alat-alat yang dihasilkan oleh model frontier seperti Muse Wonder mulai memiliki antarmuka yang sangat intuitif.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Paper-cut art style, layered paper showing a human hand interacting with a glowing digital interface, warm orange and teal colors, handmade texture, soft shadows.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital chime, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 47,
+      "chapter": "Peluang & Penutup",
+      "startSec": 701.7,
+      "estSec": 19.4,
+      "text": "Peluang karier baru di bidang integrasi AI, etika data, dan keberlanjutan pusat data akan terbuka lebar. Kami menyarankan Anda untuk mulai mempelajari bagaimana model-model seperti Muse Wonder dapat diaplikasikan dalam alur kerja harian Anda, baik itu untuk efisiensi kreatif maupun analisis data.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a hand holding a stylus over a tablet screen showing a complex data workflow chart, bokeh background of a modern office, cool blue light.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "stylus tapping on glass, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 48,
+      "chapter": "Peluang & Penutup",
+      "startSec": 721.1,
+      "estSec": 12,
+      "text": "Jangan terjebak dalam jargon politik atau klaim-klaim besar; fokuslah pada bagaimana alat-alat ini dapat meningkatkan produktivitas Anda secara konkret.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Product photography, a clean minimalist workspace with a laptop showing a productivity dashboard, a cup of coffee, and a notebook, pastel peach and sky blue palette.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "ambient office white noise, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 49,
+      "chapter": "Peluang & Penutup",
+      "startSec": 733.1,
+      "estSec": 18.5,
+      "text": "Dunia sedang berubah dengan kecepatan yang luar biasa, dan 72 jam terakhir adalah bukti bahwa kita harus selalu waspada terhadap perkembangan yang terjadi. Apakah Anda percaya bahwa Meta akan mampu mempertahankan dominasi Muse Wonder di pasar yang semakin politis ini?",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a hand placing a brass chess piece onto a polished wooden board, 35mm film still, soft natural light, muted amber and gray tones, film grain, cinematic atmosphere.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft wooden piece click, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src3.jpg"
+    },
+    {
+      "i": 50,
+      "chapter": "Peluang & Penutup",
+      "startSec": 751.6,
+      "estSec": 12.9,
+      "text": "Atau mungkin Anda memiliki pandangan berbeda mengenai bagaimana transparansi pusat data akan memengaruhi masa depan teknologi kita? Mari kita diskusikan ini lebih dalam di kolom komentar di bawah.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Clean isometric 3D illustration of a glass server rack with glowing blue fiber optic cables, mint and coral palette, soft shadows, minimalist aesthetic, high-tech data center environment.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low hum of cooling, clean foley, no background music"
+      },
+      "srcImage": null
+    },
+    {
+      "i": 51,
+      "chapter": "Peluang & Penutup",
+      "startSec": 764.5,
+      "estSec": 13.8,
+      "text": "Jangan lupa untuk menekan tombol subscribe agar Anda tidak tertinggal analisis mendalam lainnya mengenai perkembangan teknologi yang akan mengubah dunia kita. Terima kasih telah menyimak, sampai jumpa di analisis berikutnya.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital notification chime, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-13/images/src5.png"
+    }
+  ],
+  "midrollAtSec": 431,
+  "estTotalSec": 778.3,
+  "sources": [
+    {
+      "title": "Meta releases its first frontier model, Muse Wonder",
+      "url": "https://techcrunch.com/2026/10/12/meta-releases-its-first-frontier-model-muse-wonder/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "Meta has some Wonder Full new AI models",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1009479/meta-muse-wonder-full-ai-model",
+      "publisher": "The Verge"
+    },
+    {
+      "title": "Muse Wonder Puts Meta Back at the AI Frontier",
+      "url": "https://www.wired.com/story/muse-wonder-puts-meta-back-at-the-ai-frontier/",
+      "publisher": "Wired AI"
+    },
+    {
+      "title": "The ecologist revealing the invisible networks that revive rainforests",
+      "url": "https://www.technologyreview.com/2026/10/12/1145745/daisy-dent-ecologist-revealing-invisible-networks-revive-rainforests/",
+      "publisher": "MIT Tech Review"
+    },
+    {
+      "title": "Meta's new frontier model Muse Wonder Full breaks into the AI top tier",
+      "url": "https://the-decoder.com/metas-new-frontier-model-muse-wonder-full-breaks-into-the-ai-top-tier/",
+      "publisher": "The Decoder"
+    },
+    {
+      "title": "Can the AI industry persuade data center opponents by getting rid of NDAs?",
+      "url": "https://techcrunch.com/2026/10/11/can-the-ai-industry-persuade-data-center-opponents-by-getting-rid-of-ndas/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "Silicon Valley is falling in line with Trump’s attempt to rename AI",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1009406/silicon-valley-is-falling-in-line-with-trumps-attempt-to-rename-ai",
+      "publisher": "The Verge"
+    }
+  ]
+}
