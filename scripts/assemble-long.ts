@@ -145,16 +145,34 @@ async function run(): Promise<void> {
   const allFiles = getFilesRecursively(extractDir);
   console.log(`[assemble-long] ${allFiles.length} file ditemukan di dalam asset.zip`);
 
-  // Cari seluruh file audio narasi (.mp3)
-  const audioFilesRaw = allFiles
+  // Cari seluruh file audio narasi (.mp3, .wav, .m4a, .aac)
+  const AUDIO_EXTS = [".mp3", ".wav", ".m4a", ".aac"];
+  const audioFilesFound = allFiles
     .filter((f) => {
       const b = basename(f);
-      return !b.startsWith(".") && !f.includes("__MACOSX") && extname(f).toLowerCase() === ".mp3";
+      return !b.startsWith(".") && !f.includes("__MACOSX") && AUDIO_EXTS.includes(extname(f).toLowerCase());
     })
     .sort(naturalSort);
 
-  if (audioFilesRaw.length === 0) {
-    fail(row.id, "Tidak ditemukan file audio .mp3 di dalam asset.zip!");
+  if (audioFilesFound.length === 0) {
+    fail(row.id, "Tidak ditemukan file audio (.mp3 / .wav) di dalam asset.zip!");
+  }
+
+  // Normalisasi seluruh audio ke .mp3 jika ada yang berformat .wav/.m4a/.aac
+  const audioFilesRaw: string[] = [];
+  for (const af of audioFilesFound) {
+    if (extname(af).toLowerCase() !== ".mp3") {
+      const converted = join(workDir, `${basename(af, extname(af))}.mp3`);
+      console.log(`[assemble-long] konversi audio ${basename(af)} -> ${basename(converted)}...`);
+      try {
+        execFileSync("ffmpeg", ["-y", "-i", af, "-c:a", "libmp3lame", "-b:a", "192k", "-ar", "48000", converted], { stdio: "ignore" });
+        audioFilesRaw.push(converted);
+      } catch (e) {
+        fail(row.id, `Gagal konversi audio ${basename(af)} ke mp3: ${(e as Error).message}`);
+      }
+    } else {
+      audioFilesRaw.push(af);
+    }
   }
   console.log(`[assemble-long] ${audioFilesRaw.length} file audio ditemukan: ${audioFilesRaw.map((f) => basename(f)).slice(0, 5).join(", ")}${audioFilesRaw.length > 5 ? "..." : ""}`);
 
