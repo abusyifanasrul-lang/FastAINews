@@ -2,7 +2,7 @@ import assert from "node:assert";
 import { stripMidroll, validateLongScript, formatTimestamp, trimNaskahToLength } from "../src/long/validate.js";
 import { parseGdriveId, splitPublishLongArgs } from "../src/long/gdrive.js";
 import { splitBeats, validateChapters, chaptersToDescription, extractPromptsText, extractNarrationsText } from "../src/long/storyboard.js";
-import { classifyBeats, parseStoryboardJson } from "../src/long/llm-long.js";
+import { classifyBeats, parseStoryboardJson, themedHintFor, enrichPromptIfNeeded } from "../src/long/llm-long.js";
 import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/cinematic.js";
 
 // 1. stripMidroll: marker hilang dari teks, posisi tersimpan
@@ -77,12 +77,13 @@ import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/ci
   const t2v = hints.filter((h) => h.visual === "T2V_GENERATION");
   assert(t2v.length >= Math.ceil(sampleBeats.length * 0.35), `T2V terlalu sedikit: ${t2v.length}/${sampleBeats.length}`);
   for (const h of t2v) {
-    assert(h.prompt.includes("Unreal Engine 5"), `prompt bukan UE5: ${h.prompt}`);
-    assert(h.prompt.includes("faceless, no people, no text"), `constraint hilang di prompt: ${h.prompt}`);
+    assert(h.prompt.length > 20, `prompt terlalu pendek: ${h.prompt}`);
     assert(!/menjelaskan|dilaporkan|diproyeksikan|mengumumkan|bahwa/i.test(h.prompt), `kata bahasa Indonesia bocor ke prompt: ${h.prompt}`);
     assert(h.sfx.includes("no background music") || h.sfx.includes("no music"), `sfx tidak melarang musik: ${h.sfx}`);
   }
-  console.log(`ok Thematic Visual Mapper (${t2v.length} T2V, prompts UE5 studio-grade murni Inggris)`);
+  const uniquePrompts = new Set(t2v.map((h) => h.prompt));
+  assert(uniquePrompts.size >= 2, "prompt fallback harus bervariasi antar topik");
+  console.log(`ok Thematic Visual Mapper (${t2v.length} T2V, prompts multi-style murni Inggris)`);
 }
 // 6. validateChapters: terima valid, tolak 3 pola rusak
 {
@@ -105,7 +106,7 @@ import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/ci
   const good = JSON.stringify(trio);
   const hints = parseStoryboardJson(good, 3);
   assert.strictEqual(hints.length, 3, "jumlah hint salah");
-  assert(hints[0].prompt.includes("faceless, no people, no text"), "jaminan faceless tidak disuntik");
+  assert(hints[0].prompt.length > 10, "prompt tidak boleh kosong");
   assert(hints[0].sfx.includes("no background music"), "jaminan no-music tidak disuntik");
   const fenced = "```json\n" + good + "\n```";
   assert.strictEqual(parseStoryboardJson(fenced, 3).length, 3, "fence gagal dibersihkan");
@@ -124,12 +125,10 @@ import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/ci
   // Test numbered objects (1. {...}\n2. {...})
   const numbered = trio.map((t, i) => `${i + 1}. ${JSON.stringify(t)}`).join("\n");
   assert.strictEqual(parseStoryboardJson(numbered, 3).length, 3, "numbered objects gagal diekstrak");
-  // Test lean scene field + auto-expansion studio tags
-  const lean = JSON.stringify([{ visual: "T2V_GENERATION", scene: "macro shot of Apple Watch sapphire crystal", sfx: "subtle hum" }]);
+  // Test scene field passthrough
+  const lean = JSON.stringify([{ visual: "T2V_GENERATION", scene: "macro shot of Apple Watch sapphire crystal, 100mm lens, tungsten light", sfx: "subtle hum" }]);
   const leanHints = parseStoryboardJson(lean, 1);
   assert(leanHints[0].prompt.includes("macro shot of Apple Watch sapphire crystal"), "scene tidak masuk ke prompt");
-  assert(leanHints[0].prompt.includes("Unreal Engine 5 aesthetic"), "studio tags tidak diekspansi");
-  assert(leanHints[0].prompt.includes("faceless, no people, no text"), "faceless tidak disuntik");
   assert(leanHints[0].sfx.includes("no background music"), "no music tidak disuntik");
   assert.throws(() => parseStoryboardJson("bukan json sama sekali", 3), /JSON/);
   assert.strictEqual(parseStoryboardJson(good, 5).length, 3, "kurang objek harus parsial, bukan buang 1 batch");
@@ -161,7 +160,7 @@ import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/ci
   assert(beatsBlank.length > 0, "beats kosong");
   for (const b of beatsBlank) {
     assert(b.visual === "T2V_GENERATION", `STATIC blank tidak dialihkan: ${b.visual}`);
-    assert(b.prompt.includes("Unreal Engine 5") && b.prompt.includes("faceless, no people, no text"), "prompt themed rusak");
+    assert(b.prompt.length > 20 && b.faceless === true, "prompt themed rusak");
     assert(b.srcImage == null, "srcImage harus null pada T2V");
   }
   // edisi DENGAN gambar: STATIC tetap STATIC (dapat gambar least-used — perilaku sumber berita)
@@ -266,5 +265,41 @@ import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/ci
   assert.strictEqual(hudIntro.tag, "FAST AI NEWS  //  PART 01", "tag intro salah");
 
   console.log("ok Cinematic Native Engine (ASS HUD, 2.5K Smoothstep Ken Burns 4-mode, Topic HUD Extractor)");
+}
+// 15. Anti-Dejavu Multi-Variant Fallback & Prompt Enricher Invariant
+{
+  // Test themedHintFor multi-variant cycling:
+  const hint0 = themedHintFor("chip gpu nvidia wafer", 0);
+  const hint1 = themedHintFor("chip gpu nvidia wafer", 1);
+  const hint2 = themedHintFor("chip gpu nvidia wafer", 2);
+  const hint3 = themedHintFor("chip gpu nvidia wafer", 3);
+  const setVariants = new Set([hint0.prompt, hint1.prompt, hint2.prompt, hint3.prompt]);
+  assert.strictEqual(setVariants.size, 4, "varian prompt fallback untuk tema chip tidak unik");
+
+  // Test enrichPromptIfNeeded:
+  const rawStub = "a small robotic arm testing an electronic sensor";
+  const enriched = enrichPromptIfNeeded(rawStub, "Deep-Dive Berita AI", 0);
+  assert(enriched.includes(rawStub), "deskripsi asli hilang saat diperkaya");
+  assert(enriched.length > rawStub.length, "prompt stub tidak diperkaya detail kamera/medium");
+
+  // Test preservation jika prompt sudah membawa kamera/medium:
+  const alreadyStyled = "extreme close-up of sapphire crystal, 100mm macro lens, tungsten lighting";
+  const untouched = enrichPromptIfNeeded(alreadyStyled, "Deep-Dive Berita AI", 0);
+  assert.strictEqual(untouched, alreadyStyled, "prompt yang sudah memiliki gaya malah tertimpa");
+
+  // Test MAX_IMG_USES = 2 & auto-convert ke T2V saat jenuh:
+  const teksBanyak = Array(6).fill("Berita analisis mengenai industri komputasi awan terkini untuk Anda yang sangat panjang dan lengkap.").join("\n\n");
+  const singleImg = ["content/long/2026-09-12/images/single.jpg"];
+  const staticHints = Array(6).fill({ visual: "STATIC_IMAGE_MOTION" as const, prompt: "", sfx: "s" });
+  const beatsCapped = splitBeats(teksBanyak, staticHints, [{ title: "A", startSec: 0 }], singleImg);
+  const usedImages = beatsCapped.filter((b) => b.srcImage === singleImg[0]);
+  assert.strictEqual(usedImages.length, 2, `gambar dipakai ${usedImages.length}x (melebihi batas MAX_IMG_USES = 2)`);
+  const convertedT2v = beatsCapped.filter((b) => b.visual === "T2V_GENERATION");
+  assert(convertedT2v.length >= 4, "beat setelah gambar jenuh tidak dialihkan ke T2V");
+  for (const b of convertedT2v) {
+    assert(b.prompt.length > 20, "beat hasil alihan T2V memiliki prompt kosong");
+  }
+
+  console.log("ok Anti-Dejavu Architecture (multi-variant fallback cycling, prompt enricher, MAX_IMG_USES=2 auto-convert)");
 }
 console.log("SEMUA UJI LONG-FORM LOLOS");

@@ -148,12 +148,12 @@ async function run(): Promise<void> {
   writeFileSync(join(dir, "storyboard.json"), JSON.stringify(storyboard, null, 2));
   writeFileSync(join(dir, "STORYBOARD.md"), buildStoryboardMd(topicTitle, date, chapters, beats, totalSec, midrollAtSec));
   const rawPrompts = extractPromptsText(beats);
-  writeFileSync(join(dir, "prompts.txt"), rawPrompts, "utf8");
+  writeFileSync(join(dir, "prompts.txt"), rawPrompts.trim() + "\n", "utf8");
   const rawParagraphs = extractParagraphsText(clean);
-  writeFileSync(join(dir, "paragraphs.txt"), rawParagraphs, "utf8");
+  writeFileSync(join(dir, "paragraphs.txt"), rawParagraphs.trim() + "\n", "utf8");
   const parasCount = rawParagraphs.split("\n").filter(Boolean).length;
   const rawNarrations = extractNarrationsText(beats);
-  writeFileSync(join(dir, "narrations.txt"), rawNarrations, "utf8");
+  writeFileSync(join(dir, "narrations.txt"), rawNarrations.trim() + "\n", "utf8");
   writeFileSync(join(dir, "meta.json"), JSON.stringify({
     date, topicTitle, status: "READY_FOR_ASSETS",
     beats: beats.length, estTotalSec: totalSec, midrollAtSec,

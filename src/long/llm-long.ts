@@ -8,7 +8,7 @@ import type { NewsItem } from "../research.js";
 import { trimNaskahToLength, validateLongScript, countWords } from "./validate.js";
 
 export const FACELESS_NEGATIVE =
-  "human face, animal face, portrait, close up person, woman, man, eyes, character, character animation";
+  "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature";
 export const LONG_AUDIO_PROMPT = "realistic futuristic ambient room hum, clean foley, no background music";
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
@@ -101,58 +101,109 @@ export interface BeatHint { visual: BeatVisual; prompt: string; sfx: string; src
 
 interface VisualTheme {
   regex: RegExp;
-  prompt: string;
+  prompts: string[];
   sfx: string;
 }
 
 const THEMES: VisualTheme[] = [
   {
     regex: /(chip|gpu|tpu|prosesor|semikonduktor|semiconductor|wafer|cuda|transistor|hardware|perangkat keras|komputasi|akselerator|microchip|nvidia|amd|intel)/i,
-    prompt: "cinematic macro shot of advanced next-gen AI microchip, glowing gold and copper microscopic interconnects, pulsing volumetric cyan lighting, dark reflective obsidian substrate, depth of field, Unreal Engine 5 render, 8k, faceless, no people, no text",
+    prompts: [
+      "macro photograph of advanced microchip wafer, intricate microscopic gold and copper circuit nodes, shallow depth of field, 100mm macro lens, warm tungsten and amber lighting, bokeh background",
+      "extreme close-up of a single brass and copper circuit node with fine wires fanning out across blueprint grid, macro lens, warm side lighting, shallow depth of field",
+      "macro shot of gleaming silicon processor die reflecting multicolored refraction fringes on dark matte substrate, 100mm macro lens, cool cyan and tungsten accents",
+      "overhead view of precision electronic testing bench with copper probes hovering over an illuminated circuit board, soft daylight, 50mm lens, slate and amber palette",
+    ],
     sfx: "subtle electronic hum, high frequency data processing audio, clean foley, no background music",
   },
   {
     regex: /(data center|pusat data|server|server rack|rak server|energi|listrik|daya listrik|daya komputasi|infrastruktur|pendingin|liquid cooling|cooling|megawatt|gigawatt|cloud|komputasi awan)/i,
-    prompt: "hyper-scale futuristic data center interior, endless corridors of humming high-density server racks, glowing blue LED status lights, liquid cooling conduits, atmospheric mist and volumetric light beams, Unreal Engine 5 cinematic photorealistic 8k, faceless, no people, no text",
+    prompts: [
+      "wide shot of quiet high-density server corridor, humming server racks with cool white status LEDs and neat cabling, symmetrical center frame, 35mm film still, muted blue and cool slate tones, film grain",
+      "tilt-shift miniature diorama of two server towers racing along parallel tracks with red and blue fiber cables, soft daylight, pastel palette, high angle",
+      "wide shot of industrial server cooling bay with frosted pipes and gentle vapor mist under cool blue fluorescent lights, symmetrical composition, 24mm lens",
+      "close-up of server rack patch panel with organized glowing ethernet cables fanning out into neat bundles, shallow depth of field, 85mm lens, deep navy and cyan light",
+    ],
     sfx: "deep ambient server room drone, low cooling airflow hum, no background music",
   },
   {
     regex: /(model|llm|neural|transformer|bobot|parameter|inferensi|token|nalar|reasoning|deep learning|algoritma|chatgpt|claude|gemini|openai|anthropic|arsitektur model|pelatihan)/i,
-    prompt: "abstract 3D visualization of deep neural network topology, radiant interconnected mathematical nodes, glowing fiber optic synaptic pathways through dark space, holographic multidimensional data tensors, Unreal Engine 5 sci-fi cinematic render, faceless, no people, no text",
+    prompts: [
+      "clean isometric 3D illustration of small robotic workers on a conveyor belt assembling colored blocks, a single large hand-shaped lever at the end, flat colors, soft shadows, light gray background, mint and coral palette",
+      "overhead view of a lab tray with hundreds of small gray beads, tweezers lifting one distinct purple bead out of the pile, macro lens, bright clean light, mint and coral palette",
+      "close-up of a brass balance scale on a clean laboratory bench, a miniature robotic arm on one pan and a wooden hand figurine on the other, macro lens, bokeh background, cool white light",
+      "isometric 3D illustration of a geometric turnstile checkpoint on a pathway of colored cubes, flat colors, soft shadows, light gray background, amber and gray palette",
+    ],
     sfx: "rising futuristic whoosh, harmonic digital resonance, no background music",
   },
   {
     regex: /(robot|humanoid|drone|otonom|autonomous|otomatisasi|sensor|aktuator|mekanik|swarm|navigasi)/i,
-    prompt: "sleek futuristic robotic mechanism performing ultra-precision calibration in high-tech laboratory, matte black carbon fiber and brushed titanium, laser scanning beam, clean ambient workshop lighting, Unreal Engine 5 render, faceless, no people, no human body, no text",
+    prompts: [
+      "close-up of robotic manipulator arm performing precision assembly on a clean workbench, soft natural daylight, 50mm lens, brushed titanium and matte black finishes, shallow depth of field",
+      "overhead shot of a wooden mannequin hand and a small jointed robotic arm resting on one sheet of blank staff paper, together holding a single pencil, warm desk lamp light, 35mm film still, orange and teal tones",
+      "macro shot of rows of tiny toggle switches flipping one after another with small green LEDs lighting in sequence, shallow depth of field, cool white light, mint and gray palette",
+      "split composition: left half punched paper tape curling across desk, right half wooden mannequin hand turning a brass dial, macro lens, soft daylight, cool white and coral accents",
+    ],
     sfx: "mechanical servo foley, precision pneumatic clicks, no background music",
   },
   {
-    regex: /(keamanan|peretas|hacker|cyber|privasi|kebijakan privasi|regulasi|sensitif|senjata|surveilan|enkripsi|firewall|pelanggaran|serangan)/i,
-    prompt: "abstract visualization of cyber security mainframe, geometric holographic firewall shields rotating around glowing cryptographic core, streams of encrypted binary telemetry, dark navy and teal aesthetic, Unreal Engine 5 render, faceless, no people, no text",
+    regex: /(keamanan|peretas|hacker|cyber|privasi|kebijakan privasi|regulasi|sensitif|senjata|surveilan|enkripsi|firewall|pelanggaran|serangan|hukum|pemerintah|kebijakan)/i,
+    prompts: [
+      "empty leather chair behind a long polished mahogany desk in a quiet formal office, small brass desk lamp on, wide shot, 35mm film still, muted amber and gray tones, film grain",
+      "empty wooden podium with a single microphone on a quiet stage, soft spotlight, colorful audio waveforms on backdrop screen, wide shot, 35mm film still, warm amber tones, shallow depth of field",
+      "overhead shot of a long mahogany conference table with a brass globe at its center, empty chairs, notepads and water glasses, warm lamp light, 35mm film still, amber tones, film grain",
+      "wide shot through a glass wall into a bright boardroom where rows of empty chairs face a lectern with several microphones, soft reflections on glass, 35mm film still, cool daylight, muted red and cream accents",
+    ],
     sfx: "subtle digital pulse, ominous low sub-bass hum, no background music",
   },
   {
     regex: /(molekul|antimikroba|biologi|biologis|kimia|obat|protein|penelitian ilmiah|laboratorium sains|kandidat obat)/i,
-    prompt: "3D scientific visualization of synthetic antimicrobial molecular structure, glowing chemical bonds and atom spheres rotating in dark void, holographic volumetric depth, Unreal Engine 5 aesthetic, cinematic scientific render, faceless, no people, no text",
+    prompts: [
+      "overhead view of a white lab tray with hundreds of tiny gray beads, laboratory tweezers lifting one purple bead out of the pile, macro lens, bright clean laboratory light, mint and cool white palette",
+      "macro photograph of dense three-dimensional web of fine glass fibers and tiny metal spheres suspended in dark air, each catching a point of light, 100mm macro lens, cool blue-white light, shallow depth of field",
+      "macro photograph of geometric mineral crystals growing along a gold seam on dark basalt stone, side lighting, 85mm lens, deep teal and amber accents",
+      "close-up of a laboratory glass beaker with clear layered solutions beside an illuminated digital sensor readout, warm side light, shallow depth of field, cool mint and slate palette",
+    ],
     sfx: "gentle resonant tone, microscopic ambient shimmer, no background music",
   },
   {
-    regex: /(pertumbuhan|pasar|kapitalisasi|valuasi|investasi|saham|persen|pendapatan|keuntungan|miliar|triliun|bisnis|komersial)/i,
-    prompt: "dynamic holographic data telemetry of tech industry analytics, floating glowing charts and volumetric graph lines in modern architectural glass boardroom at night, Unreal Engine 5 aesthetic, cinematic moody lighting, faceless, no people, no text",
+    regex: /(pertumbuhan|pasar|kapitalisasi|valuasi|investasi|saham|persen|pendapatan|keuntungan|miliar|triliun|bisnis|komersial|belanja|e-commerce|ritel)/i,
+    prompts: [
+      "overhead flat lay of a modern smartphone showing a clean product card with a price tag '$49', surrounded by small paper shipping parcels and coffee cup on wooden table, soft daylight, pastel peach and sky blue palette, clean product photography",
+      "isometric 3D illustration of a friendly sorting machine scanning product boxes, a digital chat panel showing product specs and price '$29', flat colors, soft shadows, light background, peach and sky blue palette",
+      "product photography of a sneaker, a lamp and a backpack arranged on a pastel pedestal beside a smartphone with soft concentric ripple graphic, clean studio light, 85mm lens, peach and sky blue palette",
+      "overhead shot of a cardboard world map where small toy delivery trucks and paper planes follow threads curving toward a chat bubble sculpture, soft daylight, tilt-shift effect, pastel palette",
+    ],
     sfx: "subtle digital clicks, ambient corporate atmospheric tone, no background music",
+  },
+  {
+    regex: /(musik|lagu|suara|audio|kreatif|seni|komposisi|instrumen|sound)/i,
+    prompts: [
+      "layered paper-cut art of a vintage hardware audio sampler with colorful paper waves unfolding across the frame, warm orange, magenta and teal, handmade texture, centered symmetrical composition",
+      "layered paper-cut art of tangled colorful ribbons flowing into a vintage mixing console and turning into neat sound waves, warm orange and teal, handmade texture, centered symmetrical composition",
+      "close-up of a professional mixing console with faders at uneven heights forming a jagged skyline, one fader caught mid-motion with motion blur, 35mm film still, warm amber and teal light, shallow depth of field",
+      "macro photograph of colored sand forming concentric resonance patterns on a vibrating speaker cone, shallow depth of field, warm light, orange, magenta and teal palette",
+    ],
+    sfx: "clean audio foley, resonant tone, no background music",
   },
 ];
 
 const DEFAULT_THEME: VisualTheme = {
   regex: /.*/,
-  prompt: "sleek futuristic technology abstraction, glowing blue and amber light trails tracing computational circuit pathways across glass architecture, volumetric haze, cinematic sci-fi Unreal Engine 5 render, faceless, no people, no text",
+  prompts: [
+    "overhead shot of a tidy modern workspace desk with a laptop, open notebook with clean flowchart diagram, and coffee cup, soft morning window light, 50mm lens, warm neutral tones, shallow depth of field",
+    "wide shot of a quiet open-plan office at dusk, rows of desks with monitors showing clean statistical charts, one desk lamp on, soft window light, 35mm film still, warm neutral tones, film grain",
+    "tilt-shift miniature diorama of a small wooden bridge connecting four tiny islands: a government building, a recording studio, a factory, and a shop with smartphone sign, soft daylight, pastel palette, high angle",
+    "close-up of a studio desk with a microphone, a ring light, a clean red circular button, and a brass bell mid-swing with motion blur, 85mm lens, shallow depth of field, warm neutral and crimson tones",
+  ],
   sfx: "futuristic ambient room hum, clean foley, no background music",
 };
 
 /** Pilih tema visual deterministik utk teks beat (dipakai fallback mapper + guard STATIC-blank). */
-export function themedHintFor(text: string): { prompt: string; sfx: string } {
+export function themedHintFor(text: string, cycleIndex = 0): { prompt: string; sfx: string } {
   const t = THEMES.find((th) => th.regex.test(text)) ?? DEFAULT_THEME;
-  return { prompt: t.prompt, sfx: t.sfx };
+  const p = t.prompts[Math.abs(cycleIndex) % t.prompts.length];
+  return { prompt: p, sfx: t.sfx };
 }
 
 const STATIC_TRIGGER = /(\d+\s*persen|melaporkan|dilaporkan|techcrunch|the verge|wired|mit|decoder|openai blog|miliar|juta|ceo|mengumumkan|menurut|hasil survei|laporan resmi)/i;
@@ -167,9 +218,13 @@ export async function classifyBeats(
   _chapters: string[],
   _images: string[],
 ): Promise<BeatHint[]> {
+  const themeCounts = new Map<VisualTheme, number>();
   const out: BeatHint[] = beats.map((b) => {
     // 1. Tentukan tema semantik
     const matchedTheme = THEMES.find((t) => t.regex.test(b)) ?? DEFAULT_THEME;
+    const count = themeCounts.get(matchedTheme) ?? 0;
+    themeCounts.set(matchedTheme, count + 1);
+    const promptVariant = matchedTheme.prompts[count % matchedTheme.prompts.length];
 
     // 2. Tentukan jenis visual awal
     const isStatic = STATIC_TRIGGER.test(b);
@@ -181,7 +236,7 @@ export async function classifyBeats(
 
     return {
       visual,
-      prompt: visual === "STATIC_IMAGE_MOTION" ? "" : matchedTheme.prompt,
+      prompt: visual === "STATIC_IMAGE_MOTION" ? "" : promptVariant,
       sfx: matchedTheme.sfx,
     };
   });
@@ -194,7 +249,10 @@ export async function classifyBeats(
     for (let i = 0; i < out.length && needed > 0; i++) {
       if (out[i].visual === "STATIC_IMAGE_MOTION") {
         const theme = THEMES.find((t) => t.regex.test(beats[i])) ?? DEFAULT_THEME;
-        out[i] = { visual: "T2V_GENERATION", prompt: theme.prompt, sfx: theme.sfx };
+        const count = themeCounts.get(theme) ?? 0;
+        themeCounts.set(theme, count + 1);
+        const promptVariant = theme.prompts[count % theme.prompts.length];
+        out[i] = { visual: "T2V_GENERATION", prompt: promptVariant, sfx: theme.sfx };
         needed--;
       }
     }
@@ -203,27 +261,49 @@ export async function classifyBeats(
   const t2vCount = out.filter((h) => h.visual === "T2V_GENERATION").length;
   const staticCount = out.filter((h) => h.visual === "STATIC_IMAGE_MOTION").length;
   const i2vCount = out.filter((h) => h.visual === "I2V_ANIMATE_IMAGE").length;
-  console.log(`[llm-long] Thematic Visual Mapper (fallback): ${t2vCount} T2V, ${i2vCount} I2V, ${staticCount} STATIC (0 LLM call, instan)`);
+  console.log(`[llm-long] Thematic Visual Mapper (fallback multi-style): ${t2vCount} T2V, ${i2vCount} I2V, ${staticCount} STATIC (0 LLM call, instan)`);
 
   return out;
 }
 
 // ─── Stage 2 (LLM): storyboard visual per beat ─────────────────────────────
-export const STUDIO_TAGS = ", Unreal Engine 5 aesthetic, cinematic volumetric lighting, 8k, faceless, no people, no text";
+export const STUDIO_TAGS = "";
 
-const SYSTEM_STORYBOARD = `You are the visual director of a faceless Indonesian AI-news long-form YouTube video. For EACH numbered narration beat, choose the visual treatment and write a concise, concrete scene description.
+const SYSTEM_STORYBOARD = `You are the visual director of an Indonesian tech news long-form video (FastAINews / nash_future). For EACH numbered narration beat, choose the visual treatment and write a concrete, diverse scene description.
 
 CRITICAL: Do NOT output <think> tags, chain-of-thought, reasoning, or conversational preamble. Output the raw JSON array IMMEDIATELY starting with '[' and ending with ']'.
 
 Return STRICT JSON ONLY: an array with EXACTLY one object per input beat, in the same order:
-[{"visual": "STATIC_IMAGE_MOTION" | "T2V_GENERATION" | "I2V_ANIMATE_IMAGE", "scene": "<concrete visual subject in 15-25 english words>", "sfx": "<clean ambient sound in 3-6 english words>", "srcImage": "<exact image path or empty string>"}]
+[{"visual": "STATIC_IMAGE_MOTION" | "T2V_GENERATION" | "I2V_ANIMATE_IMAGE", "scene": "<concrete visual prompt following the 6-style bible in 25-45 english words>", "sfx": "<clean ambient sound in 3-6 english words>", "srcImage": "<exact image path or empty string>"}]
 
 Rules:
-1. "scene": pure English, 15-25 words, describing ONLY the concrete visual subject (e.g. products, microchips, data center servers, algorithms, robotic arms, lab equipment, financial charts) specific to the beat narration. Do NOT write boilerplate quality buzzwords like "Unreal Engine 5", "8k", "faceless", "no people" (our rendering engine appends studio quality tags automatically).
-2. "visual": use "STATIC_IMAGE_MOTION" when the beat is a pure factual report/numbers best shown by the source news image; use "I2V_ANIMATE_IMAGE" when one of the AVAILABLE IMAGES clearly matches the beat subject; use "T2V_GENERATION" otherwise. At least 35% of beats must be "T2V_GENERATION".
-3. "srcImage": for I2V_ANIMATE_IMAGE / STATIC_IMAGE_MOTION copy the best matching path from AVAILABLE IMAGES EXACTLY; if nothing matches or the list is empty use "". For T2V_GENERATION always "".
-4. "sfx": 3-6 English words for ambient sound/foley (e.g. "subtle electronic hum", "server room cooling air", "precision servo clicks"). Do NOT add "no background music" (automatically appended).
-5. Output the JSON array ONLY. Start immediately with '[' and end with ']'. NEVER echo or transcribe input text.`;
+1. Dynamic Style Bible (ROTATE styles across segments to avoid visual repetition / dejavu):
+   - Editorial Documentary: "35mm film still, soft natural light, muted amber and gray tones, film grain" (suited for policy, empty conference rooms, TV studios, podiums)
+   - Macro Photography: "macro lens, bokeh, shallow depth of field, warm tungsten/cool light" (suited for microchips, circuit nodes, lab trays, hardware switches)
+   - Isometric 3D / Diorama: "clean isometric 3D illustration, flat colors, soft shadows, mint and coral palette" or "tilt-shift miniature diorama" (suited for AI pipelines, robot workers, data sorting, market race)
+   - Paper-Cut / Mixed Media: "layered paper-cut art, handmade texture, warm orange, magenta and teal" (suited for creative AI, music synthesis, audio waveforms)
+   - Product Photography: "overhead flat lay, clean studio light, pastel peach and sky blue palette, clean product photography" (suited for smartphones, e-commerce, shopping apps)
+   - Cinematic Volumetric: "wide shot, 24mm lens, cinematic volumetric light" (RESTRICT to <= 15% of total beats, only for global tectonic/continental scale)
+
+2. Concrete Objects Only (NO Abstract Buzzwords):
+   - BAN abstract verbs: NEVER write "representing", "symbolizing", "illustrating the concept of", or "visualizing the transition".
+   - BAN public figure names (Dario Amodei, Sam Altman, Jensen Huang) -> use physical situational sets: "empty wooden podium with single microphone", "empty leather chair behind polished mahogany desk", "empty late-night talk show set".
+   - Use tangible physical items: lab trays with tweezers and beads, brass balance scales, toggle switches, punched paper tapes, wooden mannequin hands.
+
+3. Functional Text & UI Elements ARE PERMITTED:
+   - When visualizing apps, devices, or dashboards, specify clean, simple contextual UI elements (e.g. "smartphone showing a clean shopping cart card with a '$49' price tag", "monitor displaying a bar chart with '+72%' metric", "chat bubble icon", "paper staff lines with music notes") to clarify the news context.
+
+4. Strict Compositional Faceless (MUTLAK FACELESS):
+   - Every human element must be strictly faceless: use rear-facing / over-the-shoulder framing, steep bird's-eye overhead angles, framing cropped below the neck (hands only), wooden mannequin hands, or completely empty room sets. NEVER describe front-facing faces, readable facial features, eyes, or smiling people.
+
+5. Visual Distribution:
+   - "STATIC_IMAGE_MOTION": use when the beat is a pure factual report best represented by source news photo.
+   - "I2V_ANIMATE_IMAGE": use when one of the AVAILABLE IMAGES clearly matches the beat subject.
+   - "T2V_GENERATION": use for generated conceptual scenes. At least 35% of beats must be T2V.
+
+6. "srcImage": for I2V_ANIMATE_IMAGE / STATIC_IMAGE_MOTION copy the best matching path from AVAILABLE IMAGES EXACTLY; if nothing matches or the list is empty use "". For T2V_GENERATION always "".
+7. "sfx": 3-6 English words for ambient sound/foley (e.g. "subtle electronic hum", "server room cooling air", "precision servo clicks"). Do NOT add "no background music" (automatically appended).
+8. Output the JSON array ONLY. Start immediately with '[' and end with ']'. NEVER echo or transcribe input text.`;
 
 function buildUserPrompt(
   batch: { text: string; chapter: string }[],
@@ -237,8 +317,63 @@ function buildUserPrompt(
   return `AVAILABLE IMAGES:\n${imgList}\n\nBEATS TO VISUALIZE:\n${beatList}\n\nDo NOT think or explain. Output ONLY the JSON array of ${batch.length} objects for beats ${offset + 1}-${offset + batch.length} starting immediately with '[':`;
 }
 
+export const STYLE_KEYWORDS = /(35mm|film still|macro|isometric|paper-cut|product photography|tilt-shift|diorama|establishing shot|lens|shallow depth|bokeh|volumetric|overhead flat lay|clean studio light)/i;
+
+/** Perkaya prompt jika model LLM menghasilkan deskripsi ringkas tanpa detail kamera/medium. */
+export function enrichPromptIfNeeded(rawScene: string, chapterTitle = "", beatIndex = 0): string {
+  let prompt = rawScene.replace(/[\r\n]+/g, " ").trim();
+  if (!prompt) return "";
+  // Jika prompt sudah mengandung kata kunci kamera/medium, pertahankan apa adanya
+  if (STYLE_KEYWORDS.test(prompt)) return prompt;
+
+  const c = chapterTitle.toLowerCase();
+  if (c.includes("intro") || c.includes("tesis")) {
+    const variants = [
+      ", wide establishing shot, 24mm lens, cinematic volumetric light, deep teal and orange",
+      ", symmetrical center frame, 35mm film still, soft natural light, muted warm tones, film grain",
+      ", macro lens, bokeh, warm tungsten light, shallow depth of field",
+    ];
+    prompt += variants[beatIndex % variants.length];
+  } else if (c.includes("konteks") || c.includes("makro")) {
+    const variants = [
+      ", 35mm film still, soft window light, muted amber and gray tones, film grain",
+      ", overhead composition, natural daylight, muted warm tones, shallow depth of field",
+      ", tilt-shift miniature diorama, soft daylight, pastel palette, high angle",
+    ];
+    prompt += variants[beatIndex % variants.length];
+  } else if (c.includes("deep-dive") || c.includes("berita")) {
+    const variants = [
+      ", 100mm macro lens, shallow depth of field, warm tungsten and amber lighting",
+      ", clean isometric 3D illustration, flat colors, soft shadows, mint and coral palette",
+      ", layered paper-cut art, handmade texture, warm orange, magenta and teal palette",
+      ", overhead flat lay, clean studio light, pastel peach and sky blue palette, clean product photography",
+    ];
+    prompt += variants[beatIndex % variants.length];
+  } else if (c.includes("analisis") || c.includes("prediksi")) {
+    const variants = [
+      ", clean isometric 3D illustration, flat colors, soft shadows, light gray background",
+      ", 35mm film still, warm evening window light, muted neutral tones, film grain",
+      ", tilt-shift miniature diorama, soft daylight, pastel palette, high angle",
+    ];
+    prompt += variants[beatIndex % variants.length];
+  } else {
+    const variants = [
+      ", 35mm film still, warm morning window light, warm neutral tones, shallow depth of field",
+      ", 85mm lens, shallow depth of field, clean studio light, warm neutral tones",
+      ", symmetrical center frame, 24mm lens, volumetric soft lighting, deep amber and slate",
+    ];
+    prompt += variants[beatIndex % variants.length];
+  }
+  return prompt;
+}
+
 /** Parse jawaban LLM storyboard jadi BeatHint[]; tolak format rusak (dipakai utk retry). */
-export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
+export function parseStoryboardJson(
+  raw: string,
+  expected: number,
+  chapterTitles: string[] = [],
+  offset = 0,
+): BeatHint[] {
   const VALID = ["STATIC_IMAGE_MOTION", "T2V_GENERATION", "I2V_ANIMATE_IMAGE"];
 
   // 1. Coba cari pembuka array '[' yang diikuti '{' (dengan toleransi spasi/newline)
@@ -283,7 +418,7 @@ export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
     throw new Error("JSON array tidak ditemukan di output LLM");
   }
 
-  const cleaned = (arr as Record<string, unknown>[]).map((o) => {
+  const cleaned = (arr as Record<string, unknown>[]).map((o, idx) => {
     const e = o as Partial<BeatHint> & { scene?: unknown; srcImage?: unknown };
     if (e.visual !== "STATIC_IMAGE_MOTION" && e.visual !== "T2V_GENERATION" && e.visual !== "I2V_ANIMATE_IMAGE") {
       return null;
@@ -291,9 +426,9 @@ export function parseStoryboardJson(raw: string, expected: number): BeatHint[] {
     const rawScene = typeof e.scene === "string" ? e.scene.trim() : typeof e.prompt === "string" ? e.prompt.trim() : "";
     let prompt = "";
     if (e.visual !== "STATIC_IMAGE_MOTION" && rawScene) {
-      // Bersihkan jika LLM sempat menulis tag kualitas, lalu tambahkan studio tags standar
-      const baseScene = rawScene.replace(/(?:,\s*)?(?:unreal engine 5|8k|faceless|no people|no text|cinematic).*$/i, "").trim();
-      prompt = `${baseScene || rawScene}${STUDIO_TAGS}`;
+      const chapter = chapterTitles[idx] ?? "";
+      prompt = enrichPromptIfNeeded(rawScene, chapter, offset + idx);
+      if (STUDIO_TAGS) prompt = `${prompt}${STUDIO_TAGS}`;
     }
 
     let rawSfx = typeof e.sfx === "string" ? e.sfx.trim() : "";
@@ -367,7 +502,7 @@ export async function generateLongStoryboard(
         // maxTokens 4000: cukup leluasa menampung output JSON 8 beat sekaligus memberi ruang jika model memancarkan thinking tokens
         const raw = await chat([{ role: "system", content: SYSTEM_STORYBOARD }, { role: "user", content: prompt }], 4000, 0.2);
         lastRaw = raw;
-        hints = parseStoryboardJson(raw, batch.length);
+        hints = parseStoryboardJson(raw, batch.length, batch.map((b) => b.chapter), off);
       } catch (err) {
         lastErr = err as Error;
         console.warn(`[llm-long] storyboard batch ${no}/${totalBatches} percobaan ${attempt}/2 gagal: ${lastErr.message}`);
@@ -398,7 +533,7 @@ export async function generateLongStoryboard(
       stats.partialBatches.push({ no, got: hints.length, expected: batch.length });
       console.warn(`[llm-long] batch ${no}/${totalBatches} objek LLM parsial (${hints.length}/${batch.length}, ${elapsed()} dtk) — sisanya diisi prompt tema deterministik`);
       for (let j = hints.length; j < batch.length; j++) {
-        const themed = themedHintFor(batch[j].text);
+        const themed = themedHintFor(batch[j].text, off + j);
         hints.push({ visual: "T2V_GENERATION", prompt: themed.prompt, sfx: themed.sfx, srcImage: null });
       }
     } else {

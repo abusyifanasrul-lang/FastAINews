@@ -10,7 +10,7 @@ const estSec = (words: number) => Math.min(25, Math.max(12, (words / WPM_ID) * 6
 const MIN_BEAT_WORDS = 15;
 const TARGET_SCENE_WORDS = 45;
 const MAX_SCENE_WORDS = 60;
-const MAX_IMG_USES = 4;
+const MAX_IMG_USES = 2;
 
 export interface Beat {
   i: number; chapter: string; startSec: number; estSec: number;
@@ -87,26 +87,46 @@ export function splitBeats(
     const useCount = (p: string) => imgUse.get(p) ?? 0;
     const track = (p: string | null) => { if (p) imgUse.set(p, useCount(p) + 1); };
     let srcImage: string | null = null;
-    if (needImg) {
-      if (hinted) { srcImage = hinted; track(srcImage); }
-      else if (images.length > 0) {
-        const fresh = images.filter((p) => useCount(p) < MAX_IMG_USES);
-        const pool = fresh.length > 0 ? fresh : images;
-        srcImage = pool.reduce((a, b) => (useCount(a) <= useCount(b) ? a : b));
-        track(srcImage);
-      }
-    }
     let visual = hint.visual;
     let prompt = hint.prompt ?? "";
     let sfx = hint.sfx ?? LONG_AUDIO_PROMPT;
+
+    if (needImg) {
+      if (hinted) {
+        srcImage = hinted;
+        track(srcImage);
+      } else if (images.length > 0) {
+        const fresh = images.filter((p) => useCount(p) < MAX_IMG_USES);
+        if (fresh.length > 0) {
+          srcImage = fresh.reduce((a, b) => (useCount(a) <= useCount(b) ? a : b));
+          track(srcImage);
+        } else {
+          // Seluruh gambar sudah mencapai pagu (>= MAX_IMG_USES) -> alihkan otomatis ke T2V
+          // agar penonton tidak mengalami visual dejavu melihat foto yang sama berulang kali.
+          visual = "T2V_GENERATION";
+          const themed = themedHintFor(text, k);
+          prompt = themed.prompt;
+          sfx = themed.sfx;
+          srcImage = null;
+        }
+      }
+    }
+
     // Guard anti-blank: STATIC tanpa gambar ter-resolve (hanya terjadi bila edisi 0 gambar
     // terdownload) tidak boleh tanpa arahan visual — alihkan ke T2V prompt tema deterministik.
     if (visual === "STATIC_IMAGE_MOTION" && srcImage == null) {
-      const themed = themedHintFor(text);
+      const themed = themedHintFor(text, k);
       visual = "T2V_GENERATION";
       prompt = themed.prompt;
       sfx = themed.sfx;
       srcImage = null;
+    }
+
+    // Guard anti-empty T2V prompt: pastikan prompt tidak kosong
+    if (visual !== "STATIC_IMAGE_MOTION" && !prompt.trim()) {
+      const themed = themedHintFor(text, k);
+      prompt = themed.prompt;
+      sfx = themed.sfx;
     }
     const beat: Beat = {
       i: k + 1, chapter, startSec: Math.round(t * 10) / 10, estSec: dur, text,
@@ -166,10 +186,10 @@ export function buildStoryboardMd(
 /** Ekstrak teks prompts murni Text-to-Image (1 baris per beat, tanpa penomoran/caption). */
 export function extractPromptsText(beats: Beat[]): string {
   return beats
-    .map((b) => {
+    .map((b, idx) => {
       let p = b.prompt ? b.prompt.trim() : "";
       if (!p) {
-        const themed = themedHintFor(b.text);
+        const themed = themedHintFor(b.text, idx);
         p = themed.prompt;
       }
       // Pastikan murni 1 baris (hilangkan newline di dalam prompt jika ada)
