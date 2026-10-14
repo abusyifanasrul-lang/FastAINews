@@ -1,9 +1,10 @@
 import assert from "node:assert";
-import { stripMidroll, validateLongScript, formatTimestamp, trimNaskahToLength } from "../src/long/validate.js";
+import { stripMidroll, validateLongScript, formatTimestamp, trimNaskahToLength, validateScriptHook } from "../src/long/validate.js";
 import { parseGdriveId, splitPublishLongArgs } from "../src/long/gdrive.js";
 import { splitBeats, validateChapters, chaptersToDescription, extractPromptsText, extractNarrationsText } from "../src/long/storyboard.js";
 import { classifyBeats, parseStoryboardJson, themedHintFor, enrichPromptIfNeeded } from "../src/long/llm-long.js";
 import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/cinematic.js";
+import { extractHookContent, buildHookHtml } from "./render-hook.js";
 
 // 1. stripMidroll: marker hilang dari teks, posisi tersimpan
 {
@@ -301,5 +302,45 @@ import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/ci
   }
 
   console.log("ok Anti-Dejavu Architecture (multi-variant fallback cycling, prompt enricher, MAX_IMG_USES=2 auto-convert)");
+}
+// 16. Hook Validator: Tolak pembuka klise sastrawi, wajib kontrak nilai audiens
+{
+  assert.throws(() => validateScriptHook("Tujuh puluh dua jam terakhir telah menjadi saksi bisu bagi pergeseran tektonik."), /klise/);
+  assert.throws(() => validateScriptHook("Selamat datang kembali di kanal FastAINews pada kesempatan kali ini."), /klise/);
+  assert.throws(() => validateScriptHook("Berita ini menceritakan tentang teknologi kecerdasan buatan tanpa menyapa."), /kontrak nilai/);
+  // Valid hook passes:
+  validateScriptHook("Perang AI memasuki babak paling agresif: Meta meluncurkan model frontier baru yang menantang monopoli. Mengapa 10 menit ke depan sangat penting untuk Anda simak? Kita akan membongkar 3 fakta krusial.");
+  console.log("ok validateScriptHook (tolak klise 'saksi bisu', wajib sapaan & value contract)");
+}
+// 17. Broadcast Contextual ASS HUD: NavBreadcrumb, Context Anchor Card, Kinetic Subtitles
+{
+  const assFull = buildAssHud(2, "Infrastruktur AI", "FAST AI // PART 02", 12, {
+    contextTitle: "META PLATFORMS // MUSE WONDER",
+    keyMetric: "+28% Efficiency",
+    visualClue: "Simulasi Arsitektur Transformator",
+    navBreadcrumb: "[ 02 / 07 ] INFRASTRUKTUR AI // TRANSPARANSI DATA",
+    paraText: "Meta meluncurkan Muse Wonder dengan efisiensi memori yang revolusioner untuk industri.",
+  });
+  assert(assFull.includes("NavBreadcrumb") && assFull.includes("AnchorTitle") && assFull.includes("AnchorMetric"), "style HUD baru hilang");
+  assert(assFull.includes("MUSE WONDER"), "contextTitle tidak masuk");
+  assert(assFull.includes("+28% Efficiency"), "keyMetric tidak masuk");
+  assert(assFull.includes("[Konteks: Simulasi Arsitektur Transformator]"), "visualClue tidak masuk");
+  assert(assFull.includes("KineticSub") && assFull.includes("{\\c&H00F8BD38&}Meta"), "kinetic subtitle atau highlight hilang");
+
+  // Backward compatibility test: tanpa options tetap valid
+  const assMinimal = buildAssHud(1, "Intro", "TAG", 8);
+  assert(assMinimal.includes("TopicBadge") && assMinimal.includes("TopicTag"), "backward compatibility rusak");
+  console.log("ok Broadcast Contextual ASS HUD (NavBreadcrumb, Anchor Card, Kinetic Subtitle Stream)");
+}
+// 18. HyperFrames Dynamic Hook Opener: Content Extraction & Template Generator
+{
+  const content = extractHookContent("2026-10-13");
+  assert(content.badge.includes("2026-10-13"), "badge tanggal salah");
+  assert(content.title.length > 5, "judul hook kosong");
+  assert(content.card1.text.length > 5 && content.card2.text.length > 5, "kartu teaser kosong");
+  const html = buildHookHtml(content);
+  assert(html.includes(content.title) && html.includes("FAST AI NEWS"), "template hook gagal memuat data");
+  assert(html.includes("data-composition-id=\"long-hook\""), "komposisi id HyperFrames hilang");
+  console.log("ok HyperFrames Dynamic Hook Opener (content extractor & template builder)");
 }
 console.log("SEMUA UJI LONG-FORM LOLOS");

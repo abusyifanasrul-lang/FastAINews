@@ -20,13 +20,20 @@ export async function generateLongScript(items: NewsItem[]): Promise<{ script: s
   const system = `You are a professional Indonesian tech journalist and long-form video essay director. You must write exhaustive, expansive, flowing, highly detailed prose in natural formal Indonesian (baku-populer bertutur: gunakan Kita, Saya, Anda — dilarang kata gaul seperti gue/elu). Never be terse. Never summarize or compress into bullet points.
 TARGET PANJANG: 1150 - 1350 KATA (MINIMAL 950 KATA — syarat video iklan mid-roll YouTube >= 8 menit, maksimal 13.500 karakter).
 
+ATURAN MUTLAK 10 DETIK PERTAMA (HOOK RETENSI TINGGI):
+- DILARANG MEMBUKA DENGAN KLISE SASTRAWI: Dilarang keras membuka dengan kalimat seperti "telah menjadi saksi bisu", "pada kesempatan kali ini", "selamat datang", "pada video kali ini", "perkembangan pesat".
+- WAJIB FORMULA HOOK 3-TAHAP (Paragraf 1):
+  1. Kalimat 1 (Detik 0-4): The Provocation — Langsung tembakkan peristiwa paling radikal, kontradiksi mengejutkan, atau ketegangan terbesar dalam 72 jam ini.
+  2. Kalimat 2 (Detik 4-8): The Value Contract — Jelaskan dengan tegas kepada penonton MENGAPA mereka harus merelakan 10 menit berharga untuk menonton video ini (apa keuntungan nyata, risiko jika tertinggal, atau wawasan eksklusif yang mereka dapatkan).
+  3. Kalimat 3-4 (Detik 8-15): The Roadmap Teaser — Rangkum cepat 3 bom berita atau manuver rahasia yang akan kita bongkar di video ini.
+
 Daftar ${items.length} berita 72 jam terakhir wajib dibahas tuntas satu per satu secara berurutan.
 Untuk SETIAP berita, tulis pembahasan mendalam dan berbobot teknis (1-2 paragraf padat per topik):
 - Paragraf 1: Detail fakta teknis, metrik/angka spesifik, apa yang diluncurkan/terjadi, serta konteks arsitekturnya.
 - Paragraf 2: Implikasi industri nyata, komparasi pasar, dan dampaknya bagi ekosistem AI global.
 
 Struktur Naskah Lengkap:
-1. Hook Pembuka & Tesis Utama (3-4 kalimat menggugah, sebut narasi besar 72 jam ini)
+1. Hook Pembuka & Value Contract (Formula 3-Tahap di atas, 3-4 kalimat menggugah rasa ingin tahu dan menjanjikan nilai konkret)
 2. Konteks Makro 72 Jam Terakhir (rangkuman naratif pergeseran lanskap industri AI terkini)
 3. Deep-Dive Topik 1 sampai ${items.length} (masing-masing 1-2 paragraf padat sesuai panduan di atas)
    * Sisipkan tepat di tengah naskah (setelah topik ke-${half}): [MID-ROLL AD BREAK: 04:30]
@@ -97,12 +104,23 @@ ATURAN FORMAT WAJIB:
 }
 
 export type BeatVisual = "STATIC_IMAGE_MOTION" | "T2V_GENERATION" | "I2V_ANIMATE_IMAGE";
-export interface BeatHint { visual: BeatVisual; prompt: string; sfx: string; srcImage?: string | null }
+export interface BeatHint {
+  visual: BeatVisual;
+  prompt: string;
+  sfx: string;
+  srcImage?: string | null;
+  contextTitle?: string;
+  keyMetric?: string;
+  visualClue?: string;
+}
 
 interface VisualTheme {
   regex: RegExp;
   prompts: string[];
   sfx: string;
+  contextTitle: string;
+  keyMetric: string;
+  visualClue: string;
 }
 
 const THEMES: VisualTheme[] = [
@@ -115,6 +133,9 @@ const THEMES: VisualTheme[] = [
       "overhead view of precision electronic testing bench with copper probes hovering over an illuminated circuit board, soft daylight, 50mm lens, slate and amber palette",
     ],
     sfx: "subtle electronic hum, high frequency data processing audio, clean foley, no background music",
+    contextTitle: "HARDWARE // SEMIKONDUKTOR",
+    keyMetric: "Arsitektur Silikon & Komputasi",
+    visualClue: "Wafer Sirkuit Mikro Emas",
   },
   {
     regex: /(data center|pusat data|server|server rack|rak server|energi|listrik|daya listrik|daya komputasi|infrastruktur|pendingin|liquid cooling|cooling|megawatt|gigawatt|cloud|komputasi awan)/i,
@@ -125,6 +146,9 @@ const THEMES: VisualTheme[] = [
       "close-up of server rack patch panel with organized glowing ethernet cables fanning out into neat bundles, shallow depth of field, 85mm lens, deep navy and cyan light",
     ],
     sfx: "deep ambient server room drone, low cooling airflow hum, no background music",
+    contextTitle: "INFRASTRUKTUR // PUSAT DATA",
+    keyMetric: "Daya Komputasi & Pendingin",
+    visualClue: "Koridor Rak Server Modern",
   },
   {
     regex: /(model|llm|neural|transformer|bobot|parameter|inferensi|token|nalar|reasoning|deep learning|algoritma|chatgpt|claude|gemini|openai|anthropic|arsitektur model|pelatihan)/i,
@@ -135,6 +159,9 @@ const THEMES: VisualTheme[] = [
       "isometric 3D illustration of a geometric turnstile checkpoint on a pathway of colored cubes, flat colors, soft shadows, light gray background, amber and gray palette",
     ],
     sfx: "rising futuristic whoosh, harmonic digital resonance, no background music",
+    contextTitle: "ARSITEKTUR // FRONTIER MODEL",
+    keyMetric: "Penalaran & Skala Inferensi",
+    visualClue: "Simulasi Arsitektur Model Hibrida",
   },
   {
     regex: /(robot|humanoid|drone|otonom|autonomous|otomatisasi|sensor|aktuator|mekanik|swarm|navigasi)/i,
@@ -145,6 +172,9 @@ const THEMES: VisualTheme[] = [
       "split composition: left half punched paper tape curling across desk, right half wooden mannequin hand turning a brass dial, macro lens, soft daylight, cool white and coral accents",
     ],
     sfx: "mechanical servo foley, precision pneumatic clicks, no background music",
+    contextTitle: "ROBOTIKA // SISTEM OTONOM",
+    keyMetric: "Sensor & Manipulasi Presisi",
+    visualClue: "Perakitan Mekanik Presisi Lab",
   },
   {
     regex: /(keamanan|peretas|hacker|cyber|privasi|kebijakan privasi|regulasi|sensitif|senjata|surveilan|enkripsi|firewall|pelanggaran|serangan|hukum|pemerintah|kebijakan)/i,
@@ -155,6 +185,9 @@ const THEMES: VisualTheme[] = [
       "wide shot through a glass wall into a bright boardroom where rows of empty chairs face a lectern with several microphones, soft reflections on glass, 35mm film still, cool daylight, muted red and cream accents",
     ],
     sfx: "subtle digital pulse, ominous low sub-bass hum, no background music",
+    contextTitle: "KEBIJAKAN // REGULASI GLOBAL",
+    keyMetric: "Kepatuhan & Privasi Data",
+    visualClue: "Ruang Konferensi Pengambilan Keputusan",
   },
   {
     regex: /(molekul|antimikroba|biologi|biologis|kimia|obat|protein|penelitian ilmiah|laboratorium sains|kandidat obat)/i,
@@ -165,6 +198,9 @@ const THEMES: VisualTheme[] = [
       "close-up of a laboratory glass beaker with clear layered solutions beside an illuminated digital sensor readout, warm side light, shallow depth of field, cool mint and slate palette",
     ],
     sfx: "gentle resonant tone, microscopic ambient shimmer, no background music",
+    contextTitle: "SAINS // BIOLOGI KOMPUTASI",
+    keyMetric: "Prediksi Molekuler AI",
+    visualClue: "Struktur Kristal Riset Ekologi",
   },
   {
     regex: /(pertumbuhan|pasar|kapitalisasi|valuasi|investasi|saham|persen|pendapatan|keuntungan|miliar|triliun|bisnis|komersial|belanja|e-commerce|ritel)/i,
@@ -175,6 +211,9 @@ const THEMES: VisualTheme[] = [
       "overhead shot of a cardboard world map where small toy delivery trucks and paper planes follow threads curving toward a chat bubble sculpture, soft daylight, tilt-shift effect, pastel palette",
     ],
     sfx: "subtle digital clicks, ambient corporate atmospheric tone, no background music",
+    contextTitle: "EKONOMI // VALUASI PASAR",
+    keyMetric: "Pertumbuhan & Adopsi Enterprise",
+    visualClue: "Mockup Transaksi & Antarmuka Ritel",
   },
   {
     regex: /(musik|lagu|suara|audio|kreatif|seni|komposisi|instrumen|sound)/i,
@@ -185,6 +224,9 @@ const THEMES: VisualTheme[] = [
       "macro photograph of colored sand forming concentric resonance patterns on a vibrating speaker cone, shallow depth of field, warm light, orange, magenta and teal palette",
     ],
     sfx: "clean audio foley, resonant tone, no background music",
+    contextTitle: "KREATIF // SINTESIS AUDIO",
+    keyMetric: "Generasi Suara Kustom AI",
+    visualClue: "Pita Audio Paper-Cut Art",
   },
 ];
 
@@ -197,13 +239,16 @@ const DEFAULT_THEME: VisualTheme = {
     "close-up of a studio desk with a microphone, a ring light, a clean red circular button, and a brass bell mid-swing with motion blur, 85mm lens, shallow depth of field, warm neutral and crimson tones",
   ],
   sfx: "futuristic ambient room hum, clean foley, no background music",
+  contextTitle: "FAST AI NEWS // ANALISIS",
+  keyMetric: "Laporan Riset 72 Jam",
+  visualClue: "Ruang Analisis Teknologi",
 };
 
 /** Pilih tema visual deterministik utk teks beat (dipakai fallback mapper + guard STATIC-blank). */
-export function themedHintFor(text: string, cycleIndex = 0): { prompt: string; sfx: string } {
+export function themedHintFor(text: string, cycleIndex = 0): { prompt: string; sfx: string; contextTitle: string; keyMetric: string; visualClue: string } {
   const t = THEMES.find((th) => th.regex.test(text)) ?? DEFAULT_THEME;
   const p = t.prompts[Math.abs(cycleIndex) % t.prompts.length];
-  return { prompt: p, sfx: t.sfx };
+  return { prompt: p, sfx: t.sfx, contextTitle: t.contextTitle, keyMetric: t.keyMetric, visualClue: t.visualClue };
 }
 
 const STATIC_TRIGGER = /(\d+\s*persen|melaporkan|dilaporkan|techcrunch|the verge|wired|mit|decoder|openai blog|miliar|juta|ceo|mengumumkan|menurut|hasil survei|laporan resmi)/i;
@@ -238,6 +283,9 @@ export async function classifyBeats(
       visual,
       prompt: visual === "STATIC_IMAGE_MOTION" ? "" : promptVariant,
       sfx: matchedTheme.sfx,
+      contextTitle: matchedTheme.contextTitle,
+      keyMetric: matchedTheme.keyMetric,
+      visualClue: matchedTheme.visualClue,
     };
   });
 
@@ -252,7 +300,14 @@ export async function classifyBeats(
         const count = themeCounts.get(theme) ?? 0;
         themeCounts.set(theme, count + 1);
         const promptVariant = theme.prompts[count % theme.prompts.length];
-        out[i] = { visual: "T2V_GENERATION", prompt: promptVariant, sfx: theme.sfx };
+        out[i] = {
+          visual: "T2V_GENERATION",
+          prompt: promptVariant,
+          sfx: theme.sfx,
+          contextTitle: theme.contextTitle,
+          keyMetric: theme.keyMetric,
+          visualClue: theme.visualClue,
+        };
         needed--;
       }
     }
@@ -274,7 +329,7 @@ const SYSTEM_STORYBOARD = `You are the visual director of an Indonesian tech new
 CRITICAL: Do NOT output <think> tags, chain-of-thought, reasoning, or conversational preamble. Output the raw JSON array IMMEDIATELY starting with '[' and ending with ']'.
 
 Return STRICT JSON ONLY: an array with EXACTLY one object per input beat, in the same order:
-[{"visual": "STATIC_IMAGE_MOTION" | "T2V_GENERATION" | "I2V_ANIMATE_IMAGE", "scene": "<concrete visual prompt following the 6-style bible in 25-45 english words>", "sfx": "<clean ambient sound in 3-6 english words>", "srcImage": "<exact image path or empty string>"}]
+[{"visual": "STATIC_IMAGE_MOTION" | "T2V_GENERATION" | "I2V_ANIMATE_IMAGE", "scene": "<concrete visual prompt following the 6-style bible in 25-45 english words>", "sfx": "<clean ambient sound in 3-6 english words>", "srcImage": "<exact image path or empty string>", "contextTitle": "<Entity or Chapter Topic in 2-4 uppercase words>", "keyMetric": "<Key quantitative fact or focus in 2-4 words>", "visualClue": "<Contextual connection bridging visual to news in 3-6 Indonesian words>"}]
 
 Rules:
 1. Dynamic Style Bible (ROTATE styles across segments to avoid visual repetition / dejavu):
@@ -436,11 +491,18 @@ export function parseStoryboardJson(
     sfx = sfx ? `${sfx}, clean foley, no background music` : LONG_AUDIO_PROMPT;
 
     const srcImage = typeof e.srcImage === "string" && e.srcImage.trim() ? e.srcImage.trim() : null;
+    const contextTitle = typeof e.contextTitle === "string" && e.contextTitle.trim() ? e.contextTitle.trim() : undefined;
+    const keyMetric = typeof e.keyMetric === "string" && e.keyMetric.trim() ? e.keyMetric.trim() : undefined;
+    const visualClue = typeof e.visualClue === "string" && e.visualClue.trim() ? e.visualClue.trim() : undefined;
+
     return {
       visual: e.visual,
       prompt: e.visual === "STATIC_IMAGE_MOTION" ? "" : prompt,
       sfx,
       srcImage,
+      contextTitle,
+      keyMetric,
+      visualClue,
     } as BeatHint;
   }).filter((h): h is BeatHint => h !== null);
   if (cleaned.length === 0) throw new Error("visual tidak valid di semua objek — tidak ada objek storyboard utuh di output LLM");

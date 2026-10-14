@@ -18,6 +18,9 @@ export interface Beat {
   faceless: boolean; negative_prompt: string;
   audio: { music: boolean; ambient_sfx: boolean; audio_prompt: string };
   srcImage: string | null;
+  contextTitle?: string;
+  keyMetric?: string;
+  visualClue?: string;
 }
 export interface Chapter { title: string; startSec: number }
 
@@ -122,9 +125,8 @@ export function splitBeats(
       srcImage = null;
     }
 
-    // Guard anti-empty T2V prompt: pastikan prompt tidak kosong
+    const themed = themedHintFor(text, k);
     if (visual !== "STATIC_IMAGE_MOTION" && !prompt.trim()) {
-      const themed = themedHintFor(text, k);
       prompt = themed.prompt;
       sfx = themed.sfx;
     }
@@ -134,6 +136,9 @@ export function splitBeats(
       faceless: true, negative_prompt: FACELESS_NEGATIVE,
       audio: { music: false, ambient_sfx: true, audio_prompt: sfx },
       srcImage,
+      contextTitle: hint.contextTitle ?? themed.contextTitle,
+      keyMetric: hint.keyMetric ?? themed.keyMetric,
+      visualClue: hint.visualClue ?? themed.visualClue,
     };
     t += dur;
     return beat;
@@ -174,6 +179,9 @@ export function buildStoryboardMd(
   ];
   for (const b of beats) {
     L.push(`### Beat ${b.i} — ${formatTimestamp(b.startSec)} (~${b.estSec} dtk) — Bab: ${b.chapter}`);
+    if (b.contextTitle || b.keyMetric || b.visualClue) {
+      L.push(`> 🏷️ **Context:** \`${b.contextTitle ?? "-"}\` | 📊 **Metric:** \`${b.keyMetric ?? "-"}\` | 💡 **Clue:** *${b.visualClue ?? "-"}*`);
+    }
     L.push(`${LABEL[b.visual]}${b.srcImage ? ` file: \`${b.srcImage}\`` : ""}`);
     L.push(`\`\`\``, b.text, `\`\`\``);
     if (b.prompt) L.push(`Prompt video: ${b.prompt}`);

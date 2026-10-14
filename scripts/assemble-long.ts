@@ -11,6 +11,7 @@ import { chaptersToDescription, type Chapter, type Beat } from "../src/long/stor
 import { uploadYoutube } from "../src/publisher.js";
 import { db, getLongContentByDate } from "../src/db.js";
 import { buildAssHud, getCinematicKenBurns, getHudContent } from "../src/long/cinematic.js";
+import { renderHookVideo } from "./render-hook.js";
 
 const { values } = parseArgs({ options: { date: { type: "string" }, "gdrive-url": { type: "string" }, force: { type: "boolean" } } });
 const date = (values.date ?? "").trim();
@@ -203,6 +204,21 @@ async function run(): Promise<void> {
   normalizedImages.sort(naturalSort);
   console.log(`[assemble-long] ${normalizedImages.length} file gambar siap dirangkai`);
 
+  // 3.5 Siapkan Hook Opener (Detik 0-7) via HyperFrames jika ada template
+  let hookOpenerPath: string | null = null;
+  const hookCandidate = join(workDir, "hook_opener.mp4");
+  try {
+    hookOpenerPath = renderHookVideo(date, hookCandidate);
+    if (!existsSync(hookOpenerPath) || statSync(hookOpenerPath).size < 1000) {
+      hookOpenerPath = null;
+    } else {
+      console.log(`[assemble-long] HyperFrames Hook Opener berhasil disiapkan: ${hookOpenerPath}`);
+    }
+  } catch (err) {
+    console.warn(`[assemble-long] Render Hook Opener HyperFrames dilewati: ${(err as Error).message}`);
+    hookOpenerPath = null;
+  }
+
   // Siapkan master audio narasi: gabungkan seluruh MP3 jika lebih dari satu
   let masterAudioPath = audioFilesRaw[0];
   if (audioFilesRaw.length > 1) {
@@ -372,6 +388,9 @@ async function run(): Promise<void> {
     wordCount: number;
     imagePath: string;
     chapterName: string;
+    contextTitle?: string;
+    keyMetric?: string;
+    visualClue?: string;
   }
 
   interface RenderGroup {
@@ -395,6 +414,9 @@ async function run(): Promise<void> {
             wordCount: Math.max(1, bp.beat.text.trim().split(/\s+/).length),
             imagePath: imgPath,
             chapterName: bp.beat.chapter || "FastAI News",
+            contextTitle: bp.beat.contextTitle,
+            keyMetric: bp.beat.keyMetric,
+            visualClue: bp.beat.visualClue,
           });
         }
       });
@@ -429,6 +451,9 @@ async function run(): Promise<void> {
           wordCount: Math.max(1, b.text.trim().split(/\s+/).length),
           imagePath: imgPath,
           chapterName: b.chapter || "FastAI News",
+          contextTitle: b.contextTitle,
+          keyMetric: b.keyMetric,
+          visualClue: b.visualClue,
         }],
       });
     });
@@ -455,6 +480,9 @@ async function run(): Promise<void> {
               wordCount: Math.max(1, bp.beat.text.trim().split(/\s+/).length),
               imagePath: imgPath,
               chapterName: bp.beat.chapter || "FastAI News",
+              contextTitle: bp.beat.contextTitle,
+              keyMetric: bp.beat.keyMetric,
+              visualClue: bp.beat.visualClue,
             });
           }
         });
@@ -490,10 +518,34 @@ async function run(): Promise<void> {
             wordCount: Math.max(1, b.text.trim().split(/\s+/).length),
             imagePath: imgPath,
             chapterName: b.chapter || "FastAI News",
+            contextTitle: b.contextTitle,
+            keyMetric: b.keyMetric,
+            visualClue: b.visualClue,
           }],
         });
       });
     }
+  }
+
+  // Inject HyperFrames Hook Opener into segment 0 jika ada
+  if (hookOpenerPath && renderGroups.length > 0) {
+    const g0 = renderGroups[0];
+    const originalBeats = [...g0.beats];
+    const hookBeat: RenderBeat = {
+      globalIdx: 0,
+      wordCount: Math.max(1, Math.round(g0.beats.reduce((acc, b) => acc + b.wordCount, 0) / 2)),
+      imagePath: hookOpenerPath,
+      chapterName: g0.chapterName,
+      contextTitle: "FAST AI NEWS // HOOK INTEL",
+      keyMetric: "72-Hour Frontier Intel",
+      visualClue: "Dynamic HyperFrames Hook Opener",
+    };
+    if (g0.targetDurSec > 8 && originalBeats.length > 0) {
+      g0.beats = [hookBeat, ...originalBeats];
+    } else {
+      g0.beats = [hookBeat];
+    }
+    console.log(`[assemble-long] Segmen pembuka diperkaya dengan HyperFrames Hook Opener (${g0.beats.length} sub-adegan)`);
   }
 
   console.log(`[assemble-long] merakit ${renderGroups.length} segmen visual via Cinematic Native Engine (2.5K Ken Burns, xfade dissolve, HUD ASS, VFX grading)...`);
@@ -507,23 +559,53 @@ async function run(): Promise<void> {
     const K = group.beats.length;
     const targetDur = group.targetDurSec;
 
-    // Buat file subtitle ASS untuk HUD Lower-Third di direktori workDir
+    // Buat file subtitle ASS untuk HUD Lower-Third dan Broadcast Contextual Cues di direktori workDir
     const hudAssName = `hud_${p + 1}.ass`;
     const hudAssPath = join(workDir, hudAssName);
-    const hud = getHudContent(p, renderGroups.length, group.chapterName, group.paraText);
-    writeFileSync(hudAssPath, buildAssHud(p + 1, hud.title, hud.tag, targetDur), "utf8");
+    const firstBeat = group.beats[0];
+    const isFirstGroupHook = p === 0 && hookOpenerPath !== null && firstBeat?.imagePath === hookOpenerPath;
+
+    const hud = getHudContent(p, renderGroups.length, group.chapterName, group.paraText, {
+      contextTitle: firstBeat?.contextTitle,
+      keyMetric: firstBeat?.keyMetric,
+      visualClue: firstBeat?.visualClue,
+    });
+
+    const writeAss = !(isFirstGroupHook && group.beats.length === 1);
+    if (writeAss) {
+      writeFileSync(
+        hudAssPath,
+        buildAssHud(p + 1, hud.title, hud.tag, targetDur, {
+          contextTitle: hud.contextTitle,
+          keyMetric: hud.keyMetric,
+          visualClue: hud.visualClue,
+          navBreadcrumb: hud.navBreadcrumb,
+          paraText: group.paraText,
+        }),
+        "utf8",
+      );
+    }
 
     let filterComplex = "";
     const inputArgs: string[] = [];
 
     if (K === 1) {
       const b = group.beats[0];
+      const isVideo = extname(b.imagePath).toLowerCase() === ".mp4";
       const totalFrames = Math.round(targetDur * fps);
-      inputArgs.push("-loop", "1", "-t", targetDur.toFixed(2), "-i", b.imagePath);
+      if (isVideo) {
+        inputArgs.push("-t", targetDur.toFixed(2), "-i", b.imagePath);
+      } else {
+        inputArgs.push("-loop", "1", "-t", targetDur.toFixed(2), "-i", b.imagePath);
+      }
 
-      const kbFilter = getCinematicKenBurns(b.globalIdx, totalFrames, fps);
-      const vfxChain = `vignette=PI/4.5,eq=contrast=1.05:brightness=-0.01:saturation=1.10,ass=${hudAssName},fade=t=out:st=${Math.max(0, targetDur - 0.35).toFixed(2)}:d=0.35`;
-      filterComplex = `[0:v]${kbFilter},${vfxChain}[outv]`;
+      const visualFilter = isVideo
+        ? `scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1`
+        : getCinematicKenBurns(b.globalIdx, totalFrames, fps);
+      const vfxChain = writeAss
+        ? `vignette=PI/4.5,eq=contrast=1.05:brightness=-0.01:saturation=1.10,ass=${hudAssName},fade=t=out:st=${Math.max(0, targetDur - 0.35).toFixed(2)}:d=0.35`
+        : `fade=t=out:st=${Math.max(0, targetDur - 0.35).toFixed(2)}:d=0.35`;
+      filterComplex = `[0:v]${visualFilter},${vfxChain}[outv]`;
     } else {
       const wordCounts = group.beats.map((b) => b.wordCount);
       const totalW = wordCounts.reduce((acc, w) => acc + w, 0);
@@ -543,12 +625,19 @@ async function run(): Promise<void> {
       const fcLines: string[] = [];
       for (let i = 0; i < K; i++) {
         const b = group.beats[i];
+        const isVideo = extname(b.imagePath).toLowerCase() === ".mp4";
         const clipDur = baseDurs[i] + (i < K - 1 ? transDur : 0);
         const totalFrames = Math.round(clipDur * fps);
-        inputArgs.push("-loop", "1", "-t", clipDur.toFixed(2), "-i", b.imagePath);
+        if (isVideo) {
+          inputArgs.push("-t", clipDur.toFixed(2), "-i", b.imagePath);
+        } else {
+          inputArgs.push("-loop", "1", "-t", clipDur.toFixed(2), "-i", b.imagePath);
+        }
 
-        const kbFilter = getCinematicKenBurns(b.globalIdx, totalFrames, fps);
-        fcLines.push(`[${i}:v]${kbFilter}[v${i}]`);
+        const visualFilter = isVideo
+          ? `scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1`
+          : getCinematicKenBurns(b.globalIdx, totalFrames, fps);
+        fcLines.push(`[${i}:v]${visualFilter}[v${i}]`);
       }
 
       let curOffset = 0;
@@ -560,7 +649,9 @@ async function run(): Promise<void> {
         fcLines.push(`${prevLabel}${nextLabel}xfade=transition=dissolve:duration=${transDur.toFixed(2)}:offset=${curOffset.toFixed(2)}${outLabel}`);
       }
 
-      const vfxChain = `vignette=PI/4.5,eq=contrast=1.05:brightness=-0.01:saturation=1.10,ass=${hudAssName},fade=t=out:st=${Math.max(0, targetDur - 0.35).toFixed(2)}:d=0.35`;
+      const vfxChain = writeAss
+        ? `vignette=PI/4.5,eq=contrast=1.05:brightness=-0.01:saturation=1.10,ass=${hudAssName},fade=t=out:st=${Math.max(0, targetDur - 0.35).toFixed(2)}:d=0.35`
+        : `fade=t=out:st=${Math.max(0, targetDur - 0.35).toFixed(2)}:d=0.35`;
       fcLines.push(`[mx]${vfxChain}[outv]`);
       filterComplex = fcLines.join(";");
     }

@@ -29,17 +29,20 @@
       "chapter": "Intro & Tesis Utama",
       "startSec": 0,
       "estSec": 15.2,
-      "text": "Tujuh puluh dua jam terakhir telah menjadi saksi bisu bagi pergeseran tektonik dalam lanskap kecerdasan buatan, di mana batas antara inovasi teknis, manuver politik, dan urgensi keberlanjutan lingkungan bertemu di satu titik krusial.",
+      "text": "Perang kecerdasan buatan baru saja memasuki babak yang paling agresif: Meta secara mengejutkan meluncurkan model frontier Muse Wonder yang menantang hegemoni model tertutup, sementara di sisi lain Silicon Valley mulai dipaksa membongkar kerahasiaan operasional pusat data mereka.",
       "visual": "T2V_GENERATION",
-      "prompt": "Cinematic wide shot of a vast, empty desert landscape at dusk, shifting tectonic plates of dark obsidian rock, volumetric light rays piercing through heavy clouds, 24mm lens, muted amber and gray tones.",
+      "prompt": "Clean isometric 3D illustration of a futuristic data processor core surrounded by glowing telemetry displays, floating digital cards labeled 'FRONTIER' and 'TRANSPARENCY', mint and slate palette, soft studio lighting.",
       "faceless": true,
       "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
       "audio": {
         "music": false,
         "ambient_sfx": true,
-        "audio_prompt": "low frequency tectonic rumble, clean foley, no background music"
+        "audio_prompt": "futuristic digital riser, low sub-bass hum, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "FAST AI NEWS // HOOK INTEL",
+      "keyMetric": "72-Jam Disrupsi Frontier",
+      "visualClue": "Pusat Kendali Telemetri Frontier"
     },
     {
       "i": 2,
@@ -56,7 +59,10 @@
         "ambient_sfx": true,
         "audio_prompt": "precision servo motor clicks, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "INFRASTRUKTUR // PUSAT DATA",
+      "keyMetric": "Daya Komputasi & Pendingin",
+      "visualClue": "Koridor Rak Server Modern"
     },
     {
       "i": 3,
@@ -73,7 +79,10 @@
         "ambient_sfx": true,
         "audio_prompt": "metallic mechanical balance shift, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "HARDWARE // SEMIKONDUKTOR",
+      "keyMetric": "Arsitektur Silikon & Komputasi",
+      "visualClue": "Wafer Sirkuit Mikro Emas"
     },
     {
       "i": 4,
@@ -90,7 +99,10 @@
         "ambient_sfx": true,
         "audio_prompt": "faint ambient room tone, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src6.jpg"
+      "srcImage": "content/long/2026-10-13/images/src6.jpg",
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 5,
@@ -107,7 +119,10 @@
         "ambient_sfx": true,
         "audio_prompt": "digital data processing hum, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src5.png"
+      "srcImage": "content/long/2026-10-13/images/src5.png",
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 6,
@@ -124,7 +139,10 @@
         "ambient_sfx": true,
         "audio_prompt": "paper rustling and sliding, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "INFRASTRUKTUR // PUSAT DATA",
+      "keyMetric": "Daya Komputasi & Pendingin",
+      "visualClue": "Koridor Rak Server Modern"
     },
     {
       "i": 7,
@@ -141,7 +159,10 @@
         "ambient_sfx": true,
         "audio_prompt": "soft forest ambient sounds, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src4.jpg"
+      "srcImage": "content/long/2026-10-13/images/src4.jpg",
+      "contextTitle": "KEBIJAKAN // REGULASI GLOBAL",
+      "keyMetric": "Kepatuhan & Privasi Data",
+      "visualClue": "Ruang Konferensi Pengambilan Keputusan"
     },
     {
       "i": 8,
@@ -158,7 +179,10 @@
         "ambient_sfx": true,
         "audio_prompt": "subtle electronic interface chime, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src1.jpg"
+      "srcImage": "content/long/2026-10-13/images/src1.jpg",
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 9,
@@ -175,7 +199,10 @@
         "ambient_sfx": true,
         "audio_prompt": "subtle electronic data hum, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src3.jpg"
+      "srcImage": "content/long/2026-10-13/images/src3.jpg",
+      "contextTitle": "HARDWARE // SEMIKONDUKTOR",
+      "keyMetric": "Arsitektur Silikon & Komputasi",
+      "visualClue": "Wafer Sirkuit Mikro Emas"
     },
     {
       "i": 10,
@@ -192,7 +219,10 @@
         "ambient_sfx": true,
         "audio_prompt": "server room cooling air, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 11,
@@ -209,7 +239,10 @@
         "ambient_sfx": true,
         "audio_prompt": "hollow room ambient noise, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src5.png"
+      "srcImage": "content/long/2026-10-13/images/src5.png",
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 12,
@@ -226,7 +259,10 @@
         "ambient_sfx": true,
         "audio_prompt": "soft digital interface click, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 13,
@@ -243,7 +279,10 @@
         "ambient_sfx": true,
         "audio_prompt": "paper rustling and movement, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 14,
@@ -260,7 +299,10 @@
         "ambient_sfx": true,
         "audio_prompt": "precision servo clicks, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src2.jpg"
+      "srcImage": "content/long/2026-10-13/images/src2.jpg",
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 15,
@@ -277,7 +319,10 @@
         "ambient_sfx": true,
         "audio_prompt": "mechanical switch metallic click, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 16,
@@ -294,7 +339,10 @@
         "ambient_sfx": true,
         "audio_prompt": "low frequency electrical hum, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "HARDWARE // SEMIKONDUKTOR",
+      "keyMetric": "Arsitektur Silikon & Komputasi",
+      "visualClue": "Wafer Sirkuit Mikro Emas"
     },
     {
       "i": 17,
@@ -311,7 +359,10 @@
         "ambient_sfx": true,
         "audio_prompt": "digital data processing hum, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src5.png"
+      "srcImage": "content/long/2026-10-13/images/src5.png",
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 18,
@@ -328,7 +379,10 @@
         "ambient_sfx": true,
         "audio_prompt": "soft mechanical clicking sound, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 19,
@@ -345,7 +399,10 @@
         "ambient_sfx": true,
         "audio_prompt": "server room cooling air, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src3.jpg"
+      "srcImage": "content/long/2026-10-13/images/src3.jpg",
+      "contextTitle": "INFRASTRUKTUR // PUSAT DATA",
+      "keyMetric": "Daya Komputasi & Pendingin",
+      "visualClue": "Koridor Rak Server Modern"
     },
     {
       "i": 20,
@@ -362,7 +419,10 @@
         "ambient_sfx": true,
         "audio_prompt": "metallic scale balancing sound, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "INFRASTRUKTUR // PUSAT DATA",
+      "keyMetric": "Daya Komputasi & Pendingin",
+      "visualClue": "Koridor Rak Server Modern"
     },
     {
       "i": 21,
@@ -379,7 +439,10 @@
         "ambient_sfx": true,
         "audio_prompt": "hollow room ambient echo, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "FAST AI NEWS // ANALISIS",
+      "keyMetric": "Laporan Riset 72 Jam",
+      "visualClue": "Ruang Analisis Teknologi"
     },
     {
       "i": 22,
@@ -396,7 +459,10 @@
         "ambient_sfx": true,
         "audio_prompt": "light wooden block clatter, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "FAST AI NEWS // ANALISIS",
+      "keyMetric": "Laporan Riset 72 Jam",
+      "visualClue": "Ruang Analisis Teknologi"
     },
     {
       "i": 23,
@@ -413,7 +479,10 @@
         "ambient_sfx": true,
         "audio_prompt": "paper rustling soft texture, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "HARDWARE // SEMIKONDUKTOR",
+      "keyMetric": "Arsitektur Silikon & Komputasi",
+      "visualClue": "Wafer Sirkuit Mikro Emas"
     },
     {
       "i": 24,
@@ -430,7 +499,10 @@
         "ambient_sfx": true,
         "audio_prompt": "gentle laboratory equipment clink, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src4.jpg"
+      "srcImage": "content/long/2026-10-13/images/src4.jpg",
+      "contextTitle": "FAST AI NEWS // ANALISIS",
+      "keyMetric": "Laporan Riset 72 Jam",
+      "visualClue": "Ruang Analisis Teknologi"
     },
     {
       "i": 25,
@@ -447,7 +519,10 @@
         "ambient_sfx": true,
         "audio_prompt": "soft rustling of leaves, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src4.jpg"
+      "srcImage": "content/long/2026-10-13/images/src4.jpg",
+      "contextTitle": "SAINS // BIOLOGI KOMPUTASI",
+      "keyMetric": "Prediksi Molekuler AI",
+      "visualClue": "Struktur Kristal Riset Ekologi"
     },
     {
       "i": 26,
@@ -464,7 +539,10 @@
         "ambient_sfx": true,
         "audio_prompt": "subtle electronic data hum, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 27,
@@ -481,7 +559,10 @@
         "ambient_sfx": true,
         "audio_prompt": "mechanical servo clicks, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "KREATIF // SINTESIS AUDIO",
+      "keyMetric": "Generasi Suara Kustom AI",
+      "visualClue": "Pita Audio Paper-Cut Art"
     },
     {
       "i": 28,
@@ -498,7 +579,10 @@
         "ambient_sfx": true,
         "audio_prompt": "gentle ambient office air, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "INFRASTRUKTUR // PUSAT DATA",
+      "keyMetric": "Daya Komputasi & Pendingin",
+      "visualClue": "Koridor Rak Server Modern"
     },
     {
       "i": 29,
@@ -515,7 +599,10 @@
         "ambient_sfx": true,
         "audio_prompt": "digital interface chime, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src5.png"
+      "srcImage": "content/long/2026-10-13/images/src5.png",
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 30,
@@ -532,7 +619,10 @@
         "ambient_sfx": true,
         "audio_prompt": "rapid keyboard typing sounds, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 31,
@@ -549,7 +639,10 @@
         "ambient_sfx": true,
         "audio_prompt": "soft paper rustling sound, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 32,
@@ -566,7 +659,10 @@
         "ambient_sfx": true,
         "audio_prompt": "low room tone echo, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src3.jpg"
+      "srcImage": "content/long/2026-10-13/images/src3.jpg",
+      "contextTitle": "FAST AI NEWS // ANALISIS",
+      "keyMetric": "Laporan Riset 72 Jam",
+      "visualClue": "Ruang Analisis Teknologi"
     },
     {
       "i": 33,
@@ -583,7 +679,10 @@
         "ambient_sfx": true,
         "audio_prompt": "digital interface data processing, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src5.png"
+      "srcImage": "content/long/2026-10-13/images/src5.png",
+      "contextTitle": "EKONOMI // VALUASI PASAR",
+      "keyMetric": "Pertumbuhan & Adopsi Enterprise",
+      "visualClue": "Mockup Transaksi & Antarmuka Ritel"
     },
     {
       "i": 34,
@@ -600,7 +699,10 @@
         "ambient_sfx": true,
         "audio_prompt": "paper rustling and sliding, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src6.jpg"
+      "srcImage": "content/long/2026-10-13/images/src6.jpg",
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 35,
@@ -617,7 +719,10 @@
         "ambient_sfx": true,
         "audio_prompt": "metallic scale clicking sound, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "INFRASTRUKTUR // PUSAT DATA",
+      "keyMetric": "Daya Komputasi & Pendingin",
+      "visualClue": "Koridor Rak Server Modern"
     },
     {
       "i": 36,
@@ -634,7 +739,10 @@
         "ambient_sfx": true,
         "audio_prompt": "pen scratching on paper, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src7.jpg"
+      "srcImage": "content/long/2026-10-13/images/src7.jpg",
+      "contextTitle": "KEBIJAKAN // REGULASI GLOBAL",
+      "keyMetric": "Kepatuhan & Privasi Data",
+      "visualClue": "Ruang Konferensi Pengambilan Keputusan"
     },
     {
       "i": 37,
@@ -651,7 +759,10 @@
         "ambient_sfx": true,
         "audio_prompt": "hollow room ambient echo, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "INFRASTRUKTUR // PUSAT DATA",
+      "keyMetric": "Daya Komputasi & Pendingin",
+      "visualClue": "Koridor Rak Server Modern"
     },
     {
       "i": 38,
@@ -668,7 +779,10 @@
         "ambient_sfx": true,
         "audio_prompt": "subtle digital clicks, ambient corporate atmospheric tone, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "EKONOMI // VALUASI PASAR",
+      "keyMetric": "Pertumbuhan & Adopsi Enterprise",
+      "visualClue": "Mockup Transaksi & Antarmuka Ritel"
     },
     {
       "i": 39,
@@ -685,7 +799,10 @@
         "ambient_sfx": true,
         "audio_prompt": "subtle digital pulse, ominous low sub-bass hum, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "KEBIJAKAN // REGULASI GLOBAL",
+      "keyMetric": "Kepatuhan & Privasi Data",
+      "visualClue": "Ruang Konferensi Pengambilan Keputusan"
     },
     {
       "i": 40,
@@ -702,7 +819,10 @@
         "ambient_sfx": true,
         "audio_prompt": "subtle digital pulse, ominous low sub-bass hum, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "KEBIJAKAN // REGULASI GLOBAL",
+      "keyMetric": "Kepatuhan & Privasi Data",
+      "visualClue": "Ruang Konferensi Pengambilan Keputusan"
     },
     {
       "i": 41,
@@ -719,7 +839,10 @@
         "ambient_sfx": true,
         "audio_prompt": "low frequency digital pulse, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src7.jpg"
+      "srcImage": "content/long/2026-10-13/images/src7.jpg",
+      "contextTitle": "KEBIJAKAN // REGULASI GLOBAL",
+      "keyMetric": "Kepatuhan & Privasi Data",
+      "visualClue": "Ruang Konferensi Pengambilan Keputusan"
     },
     {
       "i": 42,
@@ -736,7 +859,10 @@
         "ambient_sfx": true,
         "audio_prompt": "mechanical gear grinding sound, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "EKONOMI // VALUASI PASAR",
+      "keyMetric": "Pertumbuhan & Adopsi Enterprise",
+      "visualClue": "Mockup Transaksi & Antarmuka Ritel"
     },
     {
       "i": 43,
@@ -753,7 +879,10 @@
         "ambient_sfx": true,
         "audio_prompt": "metallic scale clicking sound, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "FAST AI NEWS // ANALISIS",
+      "keyMetric": "Laporan Riset 72 Jam",
+      "visualClue": "Ruang Analisis Teknologi"
     },
     {
       "i": 44,
@@ -770,7 +899,10 @@
         "ambient_sfx": true,
         "audio_prompt": "soft paper rustling sound, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src5.png"
+      "srcImage": "content/long/2026-10-13/images/src5.png",
+      "contextTitle": "INFRASTRUKTUR // PUSAT DATA",
+      "keyMetric": "Daya Komputasi & Pendingin",
+      "visualClue": "Koridor Rak Server Modern"
     },
     {
       "i": 45,
@@ -787,7 +919,10 @@
         "ambient_sfx": true,
         "audio_prompt": "distant room echo, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 46,
@@ -804,7 +939,10 @@
         "ambient_sfx": true,
         "audio_prompt": "soft digital chime, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
     },
     {
       "i": 47,
@@ -821,7 +959,10 @@
         "ambient_sfx": true,
         "audio_prompt": "stylus tapping on glass, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "INFRASTRUKTUR // PUSAT DATA",
+      "keyMetric": "Daya Komputasi & Pendingin",
+      "visualClue": "Koridor Rak Server Modern"
     },
     {
       "i": 48,
@@ -838,7 +979,10 @@
         "ambient_sfx": true,
         "audio_prompt": "ambient office white noise, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "FAST AI NEWS // ANALISIS",
+      "keyMetric": "Laporan Riset 72 Jam",
+      "visualClue": "Ruang Analisis Teknologi"
     },
     {
       "i": 49,
@@ -855,7 +999,10 @@
         "ambient_sfx": true,
         "audio_prompt": "soft wooden piece click, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src3.jpg"
+      "srcImage": "content/long/2026-10-13/images/src3.jpg",
+      "contextTitle": "EKONOMI // VALUASI PASAR",
+      "keyMetric": "Pertumbuhan & Adopsi Enterprise",
+      "visualClue": "Mockup Transaksi & Antarmuka Ritel"
     },
     {
       "i": 50,
@@ -872,7 +1019,10 @@
         "ambient_sfx": true,
         "audio_prompt": "low hum of cooling, clean foley, no background music"
       },
-      "srcImage": null
+      "srcImage": null,
+      "contextTitle": "INFRASTRUKTUR // PUSAT DATA",
+      "keyMetric": "Daya Komputasi & Pendingin",
+      "visualClue": "Koridor Rak Server Modern"
     },
     {
       "i": 51,
@@ -889,7 +1039,10 @@
         "ambient_sfx": true,
         "audio_prompt": "subtle digital notification chime, clean foley, no background music"
       },
-      "srcImage": "content/long/2026-10-13/images/src5.png"
+      "srcImage": "content/long/2026-10-13/images/src5.png",
+      "contextTitle": "FAST AI NEWS // ANALISIS",
+      "keyMetric": "Laporan Riset 72 Jam",
+      "visualClue": "Ruang Analisis Teknologi"
     }
   ],
   "midrollAtSec": 431,
