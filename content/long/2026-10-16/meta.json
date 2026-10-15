@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-16",
+  "topicTitle": "Turbulensi Epik AI: Dari Gugatan Hukum hingga Revolusi Sains",
+  "status": "READY_FOR_ASSETS",
+  "beats": 38,
+  "estTotalSec": 604.7,
+  "midrollAtSec": 307,
+  "t2vCount": 26,
+  "i2vCount": 11,
+  "staticCount": 1,
+  "images": 7,
+  "sources": 7,
+  "paragraphs": 12,
+  "storyboardBatchesExecuted": 5,
+  "storyboardTotalBatches": 5,
+  "storyboardLlmOkBatches": 5,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
