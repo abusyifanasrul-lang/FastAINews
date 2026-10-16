@@ -59,9 +59,16 @@ if (videoPath && existsSync(videoPath)) {
 const summary = (c?.script_text ?? c?.caption ?? "").slice(0, 1500);
 const sources = c ? db.prepare("SELECT title, url, publisher FROM sources WHERE content_id = ?").all(contentId) as any[] : [];
 const srcLines = sources.map((s: any, i: number) => `${i + 1}. ${s.publisher ?? "Sumber"}: ${s.title}`).join("\n");
-const caption = summary ? `${summary}\n\n📰 Sumber:\n${srcLines}\n\n#AI #BeritaAI #Teknologi` : `AI News ${c?.date ?? new Date().toISOString().slice(0,10)}\n\n#AI #BeritaAI #Teknologi`;
+const frictionQuestion = "💬 Menurut Anda, apakah terobosan AI ini ancaman nyata bagi pekerjaan atau peluang emas? Tulis opini Anda di bawah! 👇";
+const caption = summary 
+  ? `${summary}\n\n${frictionQuestion}\n\n📰 Sumber:\n${srcLines}\n\n#AI #BeritaAI #Teknologi #ArtificialIntelligence #TechNews` 
+  : `Update Perkembangan AI Terbaru\n\n${frictionQuestion}\n\n#AI #BeritaAI #Teknologi #ArtificialIntelligence`;
+
 const date = c?.date ?? new Date().toISOString().slice(0, 10);
-const topicLine = c?.topic_title ?? `Berita AI ${date}`;
+const rawTopic = c?.topic_title?.trim();
+const isGenericTitle = !rawTopic || rawTopic.toLowerCase().startsWith("berita ai");
+const topicClean = isGenericTitle ? `Terobosan AI Terbaru ${date}` : rawTopic;
+const ytTitle = `${topicClean.slice(0, 75)} #Shorts`;
 
 const results: PublishResult[] = [];
 
@@ -76,7 +83,7 @@ try {
 
 // YouTube
 try {
-  const ytId = await uploadYoutube(videoPath, `${topicLine} | AI News ${date}`, caption, "public");
+  const ytId = await uploadYoutube(videoPath, ytTitle, caption, "public");
   results.push({ platform: "youtube", ok: true, externalId: ytId, url: `https://youtu.be/${ytId}` });
 } catch (e) {
   console.error("[publish] youtube gagal:", (e as Error).message);
