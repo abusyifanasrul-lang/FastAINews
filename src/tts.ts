@@ -12,7 +12,8 @@ import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
 };
 
 const KEY = process.env.GOOGLE_API_KEY;
-const MODEL = process.env.GEMINI_TTS_MODEL ?? "gemini-3.1-flash-tts-preview";
+const MODEL = process.env.GEMINI_TTS_MODEL ?? "gemini-3.8-flash-lite-tts";
+const FALLBACK_MODELS = ["gemini-3.8-flash-tts", "gemini-2.5-flash-preview-tts", "gemini-3.1-flash-tts-preview"];
 const VOICE = process.env.GEMINI_TTS_VOICE ?? "Algieba";
 const EDGE_VOICE = process.env.EDGE_TTS_VOICE ?? "id-ID-GadisNeural";
 // utk sinkron cut↔audio: mp3 24kHz sama dgn Gemini (ffprobe durasi presisi)
@@ -121,16 +122,19 @@ async function synthSegment(text: string, outPath: string): Promise<{ dur: numbe
     const dur = await synthGemini(text, outPath, MODEL);
     return { dur, provider: "gemini" };
   } catch (e: any) {
-    console.warn("  [tts] ⚠️ Gemini model utama gagal:", e?.message ?? e, "→ mencoba Gemini fallback model...");
+    console.warn("  [tts] ⚠️ Gemini model utama gagal:", e?.message ?? e, "→ mencoba Gemini fallback models...");
   }
 
-  // 2. Coba Gemini fallback model (gemini-2.0-flash / gemini-2.5-flash-preview)
-  const FALLBACK_GEMINI_MODEL = "gemini-2.0-flash";
-  try {
-    const dur = await synthGemini(text, outPath, FALLBACK_GEMINI_MODEL);
-    return { dur, provider: "gemini" };
-  } catch (e: any) {
-    console.warn("  [tts] ⚠️ Gemini fallback model juga gagal:", e?.message ?? e, "→ mencoba Edge TTS...");
+  // 2. Coba Gemini fallback models (flash-tts, preview-tts)
+  for (const fbModel of FALLBACK_MODELS) {
+    if (fbModel === MODEL) continue;
+    try {
+      console.log(`  [tts] Mencoba fallback ke model ${fbModel}...`);
+      const dur = await synthGemini(text, outPath, fbModel);
+      return { dur, provider: "gemini" };
+    } catch (e: any) {
+      console.warn(`  [tts] ⚠️ Model fallback ${fbModel} gagal:`, e?.message ?? e);
+    }
   }
 
   // 3. Fallback terakhir ke Edge TTS
