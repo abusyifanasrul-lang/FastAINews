@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>MIT Tech Review AI Serving Harness</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; padding: 0; background: #070a13; color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
+      }
+      #root { position: relative; width: 100%; height: 100%; background: #070a13; overflow: hidden; }
+      .bg-glow {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.12) 0%, transparent 50%),
+          linear-gradient(180deg, #070a13 0%, #08111e 100%);
+      }
+      .grid-lines {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+      .container {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        padding: 80px; z-index: 10;
+      }
+      .badge-wrap {
+        display: inline-flex; align-items: center; gap: 12px;
+        background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(16, 185, 129, 0.4);
+        border-radius: 9999px; padding: 10px 24px; margin-bottom: 24px;
+      }
+      .badge-dot { width: 10px; height: 10px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
+      .badge-text { font-size: 16px; font-weight: 800; letter-spacing: 3px; color: #10b981; text-transform: uppercase; }
+      .main-title {
+        font-size: 56px; font-weight: 900; text-align: center; line-height: 1.15;
+        max-width: 1400px; margin: 0 0 44px 0;
+        background: linear-gradient(180deg, #ffffff 40%, #cbd5e1 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      .pipeline-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+        width: 100%; max-width: 1440px;
+      }
+      .node-card {
+        background: rgba(13, 20, 36, 0.85); border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px; padding: 36px 30px; backdrop-filter: blur(12px);
+      }
+      .node-step { font-size: 14px; font-weight: 800; letter-spacing: 2px; color: #10b981; text-transform: uppercase; margin-bottom: 12px; }
+      .node-h2 { font-size: 26px; font-weight: 800; color: #ffffff; margin-bottom: 12px; }
+      .node-p { font-size: 16px; line-height: 1.6; color: #94a3b8; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="pipe-harness" data-width="1920" data-height="1080" data-duration="7">
+      <div class="bg-glow"></div>
+      <div class="grid-lines"></div>
+
+      <div class="container">
+        <div id="badge" class="badge-wrap">
+          <div class="badge-dot"></div>
+          <div class="badge-text">INFRASTRUCTURE ARCHITECTURE // MIT TECH REVIEW</div>
+        </div>
+
+        <h1 id="title" class="main-title">
+          Desain AI Serving Harness yang Tahan Lama dan Efisien
+        </h1>
+
+        <div class="pipeline-grid">
+          <div class="node-card" id="node-1">
+            <div class="node-step">01 // MODULAR TRAFFIC ROUTER</div>
+            <div class="node-h2">Routing Beban Dinamis</div>
+            <div class="node-p">
+              Mengalokasikan permintaan inferensi ke kluster akselerator secara adaptif tanpa latensi terputus.
+            </div>
+          </div>
+
+          <div class="node-card" id="node-2" style="border-color: rgba(16, 185, 129, 0.4); background: rgba(10, 26, 32, 0.88);">
+            <div class="node-step">02 // FAULT-TOLERANT HARNESS</div>
+            <div class="node-h2">Zero Downtime Upgrade</div>
+            <div class="node-p">
+              Memungkinkan penggantian model bobot baru secara on-the-fly tanpa merestart seluruh pipeline komputasi.
+            </div>
+          </div>
+
+          <div class="node-card" id="node-3">
+            <div class="node-step">03 // SUSTAINABLE INFERENCE</div>
+            <div class="node-h2">Optimasi Daya & Termal</div>
+            <div class="node-p">
+              Menjaga stabilitas operasional model AI jangka panjang dengan efisiensi konsumsi listrik data center.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#badge", { y: -30, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+      tl.from("#title", { y: -30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+      tl.from(".node-card", { y: 50, opacity: 0, stagger: 0.2, duration: 0.8, ease: "back.out(1.3)" }, 0.6);
+      tl.to(".container", { scale: 1.02, duration: 5.5, ease: "none" }, 0.5);
+      tl.to("#root", { opacity: 0, duration: 0.45, ease: "power2.in" }, 6.55);
+      window.__timelines["pipe-harness"] = tl;
+    </script>
+  </body>
+</html>

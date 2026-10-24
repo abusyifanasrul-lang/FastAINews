@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>AT&T Legal AI Transformation Metric</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; padding: 0; background: #070a13; color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
+      }
+      #root { position: relative; width: 100%; height: 100%; background: #070a13; overflow: hidden; }
+      .bg-glow {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 70% 70%, rgba(129, 140, 248, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, #070a13 0%, #0d1526 100%);
+      }
+      .grid-lines {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+      .container {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        padding: 80px; z-index: 10;
+      }
+      .badge-wrap {
+        display: inline-flex; align-items: center; gap: 12px;
+        background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(56, 189, 248, 0.4);
+        border-radius: 9999px; padding: 10px 24px; margin-bottom: 24px;
+      }
+      .badge-dot { width: 10px; height: 10px; background: #38bdf8; border-radius: 50%; box-shadow: 0 0 10px #38bdf8; }
+      .badge-text { font-size: 16px; font-weight: 800; letter-spacing: 3px; color: #38bdf8; text-transform: uppercase; }
+      .main-title {
+        font-size: 56px; font-weight: 900; text-align: center; line-height: 1.15;
+        max-width: 1400px; margin: 0 0 48px 0;
+        background: linear-gradient(180deg, #ffffff 40%, #cbd5e1 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      .metric-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+        width: 100%; max-width: 1300px;
+      }
+      .metric-box {
+        background: rgba(13, 20, 36, 0.85); border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px; padding: 44px; backdrop-filter: blur(12px);
+        display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+      }
+      .metric-box.active { border-color: rgba(56, 189, 248, 0.4); background: rgba(14, 28, 48, 0.88); }
+      .box-tag { font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+      .stat-number { font-size: 72px; font-weight: 900; line-height: 1; margin-bottom: 12px; }
+      .stat-desc { font-size: 18px; color: #94a3b8; line-height: 1.5; max-width: 440px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="metric-att" data-width="1920" data-height="1080" data-duration="7">
+      <div class="bg-glow"></div>
+      <div class="grid-lines"></div>
+
+      <div class="container">
+        <div id="badge" class="badge-wrap">
+          <div class="badge-dot"></div>
+          <div class="badge-text">ENTERPRISE LEGAL TRANSFORMATION // AT&T × OPENAI</div>
+        </div>
+
+        <h1 id="title" class="main-title">
+          Revolusi Departemen Hukum: Analisis Kontrak Ribuan Halaman
+        </h1>
+
+        <div class="metric-grid">
+          <div class="metric-box" id="box-1">
+            <div class="box-tag" style="color:#f59e0b;">ALUR KERJA KONVENSIONAL</div>
+            <div class="stat-number" style="color:#f59e0b;">Mingguan</div>
+            <div class="stat-desc">
+              Siklus peninjauan kontrak manual memakan waktu berhari-hari dengan risiko kelalaian klausul hukum penting.
+            </div>
+          </div>
+
+          <div class="metric-box active" id="box-2">
+            <div class="box-tag" style="color:#38bdf8;">INTEGRASI LLM AT&T</div>
+            <div class="stat-number" style="color:#38bdf8;">Detik</div>
+            <div class="stat-desc">
+              Pemrosesan ribuan dokumen hukum simultan, mitigasi risiko kesalahan manusia, dan pemangkasan biaya overhead raksasa.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#badge", { y: -30, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+      tl.from("#title", { y: -30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+      tl.from("#box-1", { x: -40, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.6);
+      tl.from("#box-2", { x: 40, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.8);
+      tl.to(".container", { scale: 1.02, duration: 5.5, ease: "none" }, 0.5);
+      tl.to("#root", { opacity: 0, duration: 0.45, ease: "power2.in" }, 6.55);
+      window.__timelines["metric-att"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>OpenAI Air-Gapped Circuit Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; padding: 0; background: #070a13; color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
+      }
+      #root { position: relative; width: 100%; height: 100%; background: #070a13; overflow: hidden; }
+      .bg-glow {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.15) 0%, transparent 60%),
+          radial-gradient(circle at 80% 80%, rgba(239, 68, 68, 0.12) 0%, transparent 50%),
+          linear-gradient(180deg, #070a13 0%, #0c1322 100%);
+      }
+      .grid-lines {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+      .container {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        padding: 80px; z-index: 10;
+      }
+      .badge-wrap {
+        display: inline-flex; align-items: center; gap: 12px;
+        background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(56, 189, 248, 0.4);
+        border-radius: 9999px; padding: 10px 24px; margin-bottom: 24px;
+      }
+      .badge-dot { width: 10px; height: 10px; background: #38bdf8; border-radius: 50%; box-shadow: 0 0 10px #38bdf8; }
+      .badge-text { font-size: 16px; font-weight: 800; letter-spacing: 3px; color: #38bdf8; text-transform: uppercase; }
+      .main-title {
+        font-size: 56px; font-weight: 900; text-align: center; line-height: 1.15;
+        max-width: 1400px; margin: 0 0 48px 0;
+        background: linear-gradient(180deg, #ffffff 40%, #cbd5e1 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      .diagram-grid {
+        display: grid; grid-template-columns: 1fr 140px 1.2fr; gap: 32px;
+        align-items: center; width: 100%; max-width: 1400px;
+      }
+      .diag-card {
+        background: rgba(13, 20, 36, 0.85); border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px; padding: 36px; backdrop-filter: blur(12px);
+      }
+      .card-red { border-color: rgba(239, 68, 68, 0.35); }
+      .card-blue { border-color: rgba(56, 189, 248, 0.35); }
+      .card-tag { font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+      .tag-red { color: #ef4444; }
+      .tag-blue { color: #38bdf8; }
+      .card-h2 { font-size: 26px; font-weight: 800; margin: 0 0 16px 0; color: #f8fafc; }
+      .card-p { font-size: 17px; line-height: 1.6; color: #94a3b8; margin: 0; }
+      .cut-zone {
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+      }
+      .scissors-icon {
+        width: 64px; height: 64px; background: rgba(239, 68, 68, 0.15);
+        border: 2px dashed #ef4444; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 28px; color: #ef4444; font-weight: 900;
+      }
+      .cut-label { font-size: 13px; font-weight: 800; color: #ef4444; letter-spacing: 1.5px; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="diag-airgap" data-width="1920" data-height="1080" data-duration="7">
+      <div class="bg-glow"></div>
+      <div class="grid-lines"></div>
+
+      <div class="container">
+        <div id="badge" class="badge-wrap">
+          <div class="badge-dot"></div>
+          <div class="badge-text">AIR-GAP SECURITY TOPOLOGY // OPENAI</div>
+        </div>
+
+        <h1 id="title" class="main-title">
+          Isolasi Fisik Total: Pelatihan Model Frontier Tanpa Internet
+        </h1>
+
+        <div class="diagram-grid">
+          <div class="diag-card card-red" id="box-public">
+            <div class="card-tag tag-red">01 // PUBLIC INTERNET & OUTSIDE</div>
+            <div class="card-h2">Jalur Jaringan Terputus</div>
+            <p class="card-p">
+              Eliminasi celah serangan eksfiltrasi data, eksploitasi man-in-the-middle, dan kebocoran bobot model awal ke pihak ketiga.
+            </p>
+          </div>
+
+          <div class="cut-zone" id="cut-indicator">
+            <div class="scissors-icon">✕</div>
+            <div class="cut-label">AIR-GAP SEVERED</div>
+          </div>
+
+          <div class="diag-card card-blue" id="box-secure">
+            <div class="card-tag tag-blue">02 // SECURE TRAINING CLUSTER</div>
+            <div class="card-h2">Sirkuit Tertutup Mandiri</div>
+            <p class="card-p">
+              Komputasi puluhan ribu akselerator GPU berjalan 100% pada jaringan lokal terenkripsi, memproteksi kekayaan intelektual paling sensitif.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#badge", { y: -30, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+      tl.from("#title", { y: -30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+      tl.from("#box-public", { x: -50, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.6);
+      tl.from("#box-secure", { x: 50, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.8);
+      tl.from("#cut-indicator", { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(1.5)" }, 1.1);
+      tl.to(".container", { scale: 1.02, duration: 5.5, ease: "none" }, 0.5);
+      tl.to("#root", { opacity: 0, duration: 0.45, ease: "power2.in" }, 6.55);
+      window.__timelines["diag-airgap"] = tl;
+    </script>
+  </body>
+</html>
