@@ -2,7 +2,7 @@ name: AI News Daily Pipeline
 
 on:
   schedule:
-    - cron: '0 19 * * *'
+    - cron: '30 20 * * *' # 03:30 WIB (20:30 UTC) - Siap tayang subuh
   workflow_dispatch:
     inputs:
       content_id:
@@ -79,6 +79,9 @@ jobs:
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           ZERNIO_API_KEY: ${{ secrets.ZERNIO_API_KEY }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
           REMOTION_BROWSER_EXECUTABLE: /usr/bin/google-chrome-stable

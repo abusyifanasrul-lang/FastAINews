@@ -127,6 +127,56 @@ async function run() {
   await sendPreview(contentId, 0, thumbUrl);
   updateContentStatus(contentId, "PENDING_REVIEW");
   console.log("Preview terkirim → PENDING_REVIEW");
+
+  // 6. Zero-Approval Autonomous Publish to Multi-Platform
+  console.log("[pipeline] Menjalankan rilis otomatis tanpa approval (Zero-Approval Autopilot)...");
+  try {
+    const videoShort = v.shorts;
+    if (existsSync(videoShort)) {
+      const summary = (cFull?.script_text ?? cFull?.caption ?? "").slice(0, 1500);
+      const sources = cFull ? (await import("../src/db.js")).db.prepare("SELECT title, url, publisher FROM sources WHERE content_id = ?").all(contentId) as any[] : [];
+      const srcLines = sources.map((s: any, i: number) => `${i + 1}. ${s.publisher ?? "Sumber"}: ${s.title}`).join("\n");
+      const frictionQuestion = "💬 Menurut Anda, apakah terobosan AI ini ancaman nyata bagi pekerjaan atau peluang emas? Tulis opini Anda di bawah! 👇";
+      const caption = summary 
+        ? `${summary}\n\n${frictionQuestion}\n\n📰 Sumber:\n${srcLines}\n\n#AI #BeritaAI #Teknologi #ArtificialIntelligence #TechNews` 
+        : `Update Perkembangan AI Terbaru\n\n${frictionQuestion}\n\n#AI #BeritaAI #Teknologi #ArtificialIntelligence`;
+
+      const rawTopic = cFull?.topic_title?.trim();
+      const isGenericTitle = !rawTopic || rawTopic.toLowerCase().startsWith("berita ai");
+      const topicClean = isGenericTitle ? `Terobosan AI Terbaru ${date}` : rawTopic;
+      const ytTitle = `${topicClean.slice(0, 75)} #Shorts`;
+
+      const { publishToSocialDirect } = await import("../src/zernio.js");
+      const { uploadYoutube } = await import("../src/publisher.js");
+
+      const pubResults: any[] = [];
+      // Publish TikTok + Instagram via Zernio
+      try {
+        const social = await publishToSocialDirect(videoShort, caption, date, contentId, undefined, thumbUrl);
+        pubResults.push(...social);
+      } catch (zErr: any) {
+        console.error("[pipeline] auto-publish zernio gagal:", zErr.message);
+        pubResults.push({ platform: "tiktok+instagram", ok: false, error: zErr.message });
+      }
+
+      // Publish YouTube Shorts
+      try {
+        const ytId = await uploadYoutube(videoShort, ytTitle, caption, "public");
+        pubResults.push({ platform: "youtube", ok: true, externalId: ytId, url: `https://youtu.be/${ytId}` });
+      } catch (yErr: any) {
+        console.error("[pipeline] auto-publish youtube gagal:", yErr.message);
+        pubResults.push({ platform: "youtube", ok: false, error: yErr.message });
+      }
+
+      const allOk = pubResults.every((r: any) => r.ok);
+      updateContentStatus(contentId, allOk ? "PUBLISHED" : "PUBLISH_FAILED");
+      console.log(`[pipeline] Auto-publish selesai: ${allOk ? "SUCCESS" : "PARTIAL/FAILED"}`);
+    } else {
+      console.warn("[pipeline] Video short tidak ditemukan untuk auto-publish:", videoShort);
+    }
+  } catch (pubErr: any) {
+    console.error("[pipeline] Error saat auto-publish:", pubErr.message);
+  }
 }
 
 try {
