@@ -206,19 +206,12 @@ export async function generateTtsChunks(text: string, outDir: string, filename: 
     const file = join(outDir, `chunk-${i + 1}.mp3`);
     const { dur, provider: p } = await synthSegment(chunks[i], file);
     if (p === "edge") provider = "edge";
-    // trim leading/trailing silence halus (jangan potong audio data, 0.08s threshold -45dB)
-    const trimmedFile = join(outDir, `chunk-${i + 1}-trimmed.mp3`);
-    execFileSync("ffmpeg", [
-      "-y", "-i", file,
-      "-af", "areverse,silenceremove=start_periods=1:start_duration=0.08:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_duration=0.08:start_threshold=-45dB,afade=t=in:st=0:d=0.03,afade=t=out:st=max(0,d-0.03):d=0.03",
-      trimmedFile,
-    ], { stdio: "pipe" });
-    const trimmedDur = parseFloat(
-      execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", trimmedFile]).toString().trim()
-    );
+    // Gunakan audio asli segmen Gemini secara langsung (durasi presisi tanpa distorsi pemotongan filter)
+    const trimmedFile = file;
+    const trimmedDur = dur;
     chunkFiles.push(trimmedFile);
     chunkDurations.push(trimmedDur);
-    console.log(`  [tts] chunk ${i + 1}/${chunks.length} [${p}]: ${trimmedDur.toFixed(2)}s (raw ${dur.toFixed(2)}s, ${chunks[i].length} char)`);
+    console.log(`  [tts] chunk ${i + 1}/${chunks.length} [${p}]: ${trimmedDur.toFixed(2)}s (${chunks[i].length} char)`);
     // jaga rate limit Gemini 15 RPM (minimal interval 4500ms antar chunk)
     if (i < chunks.length - 1) await new Promise(r => setTimeout(r, 4500));
   }
