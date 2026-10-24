@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-24",
+  "topicTitle": "Revolusi AI Tiga Hari Terakhir Mengubah Peta Persaingan Global",
+  "status": "READY_FOR_ASSETS",
+  "beats": 42,
+  "estTotalSec": 597.8,
+  "midrollAtSec": 304,
+  "t2vCount": 28,
+  "i2vCount": 11,
+  "staticCount": 3,
+  "images": 6,
+  "sources": 7,
+  "paragraphs": 12,
+  "storyboardBatchesExecuted": 6,
+  "storyboardTotalBatches": 6,
+  "storyboardLlmOkBatches": 6,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}

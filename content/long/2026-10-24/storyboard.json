@@ -1,0 +1,907 @@
+{
+  "date": "2026-10-24",
+  "title": "Revolusi AI Tiga Hari Terakhir Mengubah Peta Persaingan Global",
+  "chapters": [
+    {
+      "title": "Intro & Tesis Utama",
+      "startSec": 0
+    },
+    {
+      "title": "Konteks 72 Jam Terakhir",
+      "startSec": 72
+    },
+    {
+      "title": "Deep-Dive Berita AI",
+      "startSec": 209
+    },
+    {
+      "title": "Analisis & Prediksi Industri",
+      "startSec": 430
+    },
+    {
+      "title": "Peluang & Penutup",
+      "startSec": 526
+    }
+  ],
+  "beats": [
+    {
+      "i": 1,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 0,
+      "estSec": 16.2,
+      "text": "Tiga hari terakhir mencatat pergeseran tektonik saat OpenAI memutus koneksi internet bagi pusat data pelatihan model frontier mereka, sebuah langkah drastis yang menandai era baru keamanan siber tingkat tinggi di tengah perlombaan senjata kecerdasan buatan.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a server rack with blinking amber lights, dark industrial room, high-contrast shadows, cinematic film grain, focus on a physical ethernet cable being unplugged from a port., wide establishing shot, 24mm lens, cinematic volumetric light, deep teal and orange",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "sharp mechanical click sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src2.jpg",
+      "contextTitle": "OPENAI SECURITY SHIFT",
+      "keyMetric": "ZERO INTERNET ACCESS",
+      "visualClue": "Keamanan data jadi prioritas"
+    },
+    {
+      "i": 2,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 16.2,
+      "estSec": 12,
+      "text": "Anda perlu memahami pergeseran ini secara mendalam agar tidak tertinggal dalam gelombang disrupsi yang kini merambah sektor transportasi, hukum, hingga pengembangan perangkat lunak mandiri.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama showing a miniature city grid with tiny autonomous vehicles, a legal gavel on a desk, and a laptop screen displaying code, mint and coral color palette.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital notification chime, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "SECTOR DISRUPTION WAVE",
+      "keyMetric": "CROSS SECTOR IMPACT",
+      "visualClue": "Disrupsi merambah berbagai sektor"
+    },
+    {
+      "i": 3,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 28.2,
+      "estSec": 15.7,
+      "text": "Kita akan membedah secara tuntas manuver robotaxi inDrive di Asia Tengah, keberhasilan model Kimi K3.1 Pro menantang dominasi Claude Opus, serta fenomena Flint, sebuah model koding yang diklaim lahir dari rahim AI itu sendiri.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency data hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src1.webp",
+      "contextTitle": "AI MARKET RACE",
+      "keyMetric": "RAPID MODEL EVOLUTION",
+      "visualClue": "Persaingan model AI global"
+    },
+    {
+      "i": 4,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 43.9,
+      "estSec": 12,
+      "text": "Lanskap industri kecerdasan buatan dalam 72 jam terakhir menunjukkan bahwa kita sedang bergeser dari sekadar eksperimentasi menjadi fase implementasi yang sangat terstruktur dan tertutup.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a heavy industrial steel door closing, shallow depth of field, cool blue lighting, metallic textures, focus on the locking mechanism engaging.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "heavy metallic door slam, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "STRUCTURED IMPLEMENTATION",
+      "keyMetric": "CLOSED SYSTEM SHIFT",
+      "visualClue": "Fase implementasi yang tertutup"
+    },
+    {
+      "i": 5,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 55.9,
+      "estSec": 16.2,
+      "text": "Perusahaan-perusahaan besar kini tidak lagi hanya fokus pada peningkatan parameter model, melainkan mulai mengunci infrastruktur fisik, mengintegrasikan AI ke dalam alur kerja birokrasi korporasi yang kaku, serta mempercepat demokratisasi akses melalui komunitas yang lebih inklusif.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Overhead flat lay of a diverse group of hands working on a large paper-cut art map of global tech hubs, warm orange and teal paper textures, clean studio lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "paper rustling and movement, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src3.jpg",
+      "contextTitle": "DEMOCRATIZING AI ACCESS",
+      "keyMetric": "INCLUSIVE TECH GROWTH",
+      "visualClue": "Demokratisasi akses teknologi"
+    },
+    {
+      "i": 6,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 72.1,
+      "estSec": 12,
+      "text": "Kita melihat konsolidasi kekuatan di mana keamanan data menjadi komoditas paling mahal, sementara efisiensi operasional menjadi tolak ukur utama kesuksesan adopsi teknologi di pasar global.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Editorial documentary style, empty mahogany boardroom table with a single brass balance scale, soft natural light from a window, muted amber and gray tones., tilt-shift miniature diorama, soft daylight, pastel palette, high angle",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle ambient room tone, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "DATA AS COMMODITY",
+      "keyMetric": "SECURITY VALUE SPIKE",
+      "visualClue": "Keamanan data jadi komoditas"
+    },
+    {
+      "i": 7,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 84.1,
+      "estSec": 12,
+      "text": "Langkah OpenAI untuk melatih model frontier mereka dalam lingkungan tertutup tanpa akses internet adalah sebuah deklarasi perang terhadap potensi ancaman eksfiltrasi data dan serangan siber eksternal.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro lens shot of a fiber optic cable glowing with pulses of light, dark background, shallow depth of field, tungsten light highlights on the cable casing.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "faint electrical buzzing sound, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "CYBER THREAT DEFENSE",
+      "keyMetric": "ZERO EXTERNAL RISK",
+      "visualClue": "Perang melawan ancaman siber"
+    },
+    {
+      "i": 8,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 96.1,
+      "estSec": 12,
+      "text": "Secara arsitektural, ini berarti seluruh proses komputasi, mulai dari pemrosesan dataset hingga penyesuaian bobot saraf model, kini terisolasi sepenuhnya dalam infrastruktur fisik yang aman.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D illustration of a server farm inside a glass cube, clean flat colors, soft shadows, showing data packets moving in a closed loop circuit.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server room cooling air, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ISOLATED COMPUTATION",
+      "keyMetric": "PHYSICAL INFRASTRUCTURE LOCK",
+      "visualClue": "Komputasi terisolasi sepenuhnya"
+    },
+    {
+      "i": 9,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 108.1,
+      "estSec": 13.4,
+      "text": "Keputusan ini secara teknis meminimalkan celah serangan \"man-in-the-middle\" serta memastikan bahwa kekayaan intelektual paling sensitif tidak bocor ke domain publik selama fase pembelajaran kritis yang membutuhkan kapasitas komputasi masif.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a server rack with blinking amber status lights, disconnected ethernet cables hanging loose, 35mm film grain, soft industrial lighting, dark metallic textures.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Low frequency server hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src2.jpg",
+      "contextTitle": "SECURE AI TRAINING",
+      "keyMetric": "Zero internet access",
+      "visualClue": "Keamanan data model kritis"
+    },
+    {
+      "i": 10,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 121.5,
+      "estSec": 18.5,
+      "text": "Implikasi bagi industri sangat jelas, yaitu standar keamanan tingkat tinggi akan menjadi prasyarat bagi pemain AI skala besar, dan perusahaan yang gagal mengisolasi lingkungan pelatihan mereka akan dianggap sebagai risiko keamanan yang tidak dapat diterima oleh klien korporasi maupun pemerintah.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Editorial documentary style, empty mahogany boardroom table with a single locked steel briefcase in the center, soft natural light from a window, muted gray tones., 35mm film still, soft window light, muted amber and gray tones, film grain",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Heavy metal latch click, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "CORPORATE SECURITY STANDARDS",
+      "keyMetric": "High security prerequisite",
+      "visualClue": "Standar keamanan industri baru"
+    },
+    {
+      "i": 11,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 140,
+      "estSec": 12,
+      "text": "Sementara itu, inDrive secara mengejutkan mengumumkan rencana ambisius untuk menguji coba armada robotaxi di Asia Tengah pada tahun 2027 dengan menggandeng Pony AI dan Nvidia.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Overhead shot of a stylized map of Central Asia with glowing digital nodes connected by lines, minimalist aesthetic, clean isometric 3D illustration, mint and coral palette.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Digital ping notification sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src1.webp",
+      "contextTitle": "INDRIVE ROBOTAXI EXPANSION",
+      "keyMetric": "2027 launch target",
+      "visualClue": "Ekspansi robotaxi Asia Tengah"
+    },
+    {
+      "i": 12,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 152,
+      "estSec": 12,
+      "text": "Penggunaan teknologi Nvidia sebagai tulang punggung komputasi tepi, dikombinasikan dengan algoritma persepsi Pony AI, menempatkan inDrive sebagai penantang serius bagi dominasi Uber dalam pasar transportasi otonom.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a high-performance GPU chip mounted on a circuit board, shallow depth of field, warm tungsten lighting, bokeh background of electronic components.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Precision electrical circuit buzz, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "COMPUTING HARDWARE BACKBONE",
+      "keyMetric": "Nvidia edge computing",
+      "visualClue": "Teknologi komputasi tepi Nvidia"
+    },
+    {
+      "i": 13,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 164,
+      "estSec": 12,
+      "text": "Secara teknis, inDrive memanfaatkan infrastruktur perangkat keras Nvidia yang mumpuni untuk memproses data sensor real-time guna navigasi otonom di lingkungan perkotaan yang kompleks.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Tilt-shift miniature diorama of a complex urban intersection, tiny autonomous vehicle models moving through traffic, soft shadows, clean isometric 3D style.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Soft mechanical servo movement, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "AUTONOMOUS NAVIGATION TECH",
+      "keyMetric": "Real-time sensor processing",
+      "visualClue": "Navigasi otonom perkotaan kompleks"
+    },
+    {
+      "i": 14,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 176,
+      "estSec": 16.6,
+      "text": "Langkah ini merupakan manuver strategis untuk menjangkau pasar yang selama ini diabaikan oleh raksasa teknologi Barat, sekaligus membuktikan bahwa teknologi otonom kini mulai merambah ke wilayah dengan karakteristik infrastruktur jalan yang jauh lebih dinamis dan menantang.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Wide shot of a rugged, winding mountain road in a desert landscape, cinematic volumetric light, 24mm lens, high contrast, dusty atmosphere.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Wind blowing across plains, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "DYNAMIC INFRASTRUCTURE CHALLENGE",
+      "keyMetric": "Emerging market reach",
+      "visualClue": "Pasar baru infrastruktur dinamis"
+    },
+    {
+      "i": 15,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 192.6,
+      "estSec": 12.5,
+      "text": "Di sisi lain, model Kimi K3.1 Pro asal Tiongkok kini tercatat semakin mendekati performa Anthropic Claude Opus 5.5 dalam berbagai benchmark penalaran logis dan pemrosesan bahasa alami.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A monitor displaying a glowing, complex neural network graph with a rising performance curve, clean studio light, pastel peach and sky blue UI elements.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Soft digital data stream, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src5.png",
+      "contextTitle": "KIMI K3.1 PERFORMANCE",
+      "keyMetric": "Closing benchmark gap",
+      "visualClue": "Performa model Kimi meningkat"
+    },
+    {
+      "i": 16,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 205.1,
+      "estSec": 12.9,
+      "text": "Kimi K3.1 Pro menunjukkan efisiensi arsitektural yang luar biasa dalam penanganan konteks panjang, yang secara langsung mengancam posisi Claude Opus sebagai standar emas untuk tugas-tugas analisis dokumen kompleks.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Layered paper-cut art showing a stack of documents being processed by a digital stream, warm orange and teal colors, handmade texture, clean composition.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Paper rustling and scanning, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "LONG CONTEXT EFFICIENCY",
+      "keyMetric": "Complex analysis standard",
+      "visualClue": "Efisiensi analisis dokumen panjang"
+    },
+    {
+      "i": 17,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 218,
+      "estSec": 13.4,
+      "text": "Persaingan ini bukan sekadar tentang angka benchmark, melainkan tentang kedaulatan teknologi di mana model-model asal Tiongkok mulai mampu menawarkan alternatif yang kompetitif terhadap model-model yang dikembangkan di Silicon Valley.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a digital dashboard showing performance metrics of Kimi K3.1 Pro, with glowing data bars rising against a dark background, 35mm film grain, soft blue ambient light.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency digital hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src5.png",
+      "contextTitle": "GLOBAL AI SOVEREIGNTY",
+      "keyMetric": "COMPETITIVE ALTERNATIVE",
+      "visualClue": "Persaingan model AI global"
+    },
+    {
+      "i": 18,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 231.4,
+      "estSec": 12,
+      "text": "Hal ini memaksa para pengembang global untuk terus berinovasi lebih cepat guna mempertahankan keunggulan kompetitif mereka di pasar internasional.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a fast-paced assembly line with robotic arms moving at high speed, mint and coral color palette, clean shadows, minimalist aesthetic.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical rhythmic clicking, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "INNOVATION RACE",
+      "keyMetric": "RAPID DEVELOPMENT",
+      "visualClue": "Inovasi global yang cepat"
+    },
+    {
+      "i": 19,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 243.4,
+      "estSec": 12,
+      "text": "Inovasi juga merambah dunia pengembangan perangkat lunak dengan diluncurkannya Flint oleh Recursive, sebuah model koding yang diklaim sebagian besar dikembangkan oleh AI itu sendiri.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Overhead shot of a sleek laptop open on a wooden desk, screen displaying complex code snippets, soft natural light, shallow depth of field.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft mechanical keyboard typing, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src7.webp",
+      "contextTitle": "RECURSIVE FLINT",
+      "keyMetric": "AI-BUILT CODING",
+      "visualClue": "Model koding buatan AI"
+    },
+    {
+      "i": 20,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 255.4,
+      "estSec": 13.8,
+      "text": "Flint dirancang khusus untuk berjalan secara lokal pada perangkat laptop, memungkinkan pengembang untuk menulis, menguji, dan men-debug kode tanpa harus bergantung pada API pihak ketiga atau koneksi cloud yang stabil.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a laptop motherboard with glowing circuit nodes, shallow depth of field, cool tungsten lighting, focus on the processor chip.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic pulse, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "LOCAL HARDWARE",
+      "keyMetric": "OFFLINE PROCESSING",
+      "visualClue": "Pemrosesan lokal perangkat"
+    },
+    {
+      "i": 21,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 269.2,
+      "estSec": 14.8,
+      "text": "Secara teknis, ini adalah bukti nyata dari konsep \"self-improving code\" di mana model AI dilatih untuk memahami sintaksis dan logika pemrograman melalui iterasi yang dipandu oleh model AI yang lebih besar sebelumnya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Paper-cut art style showing layered geometric shapes representing code logic, warm orange and teal colors, handmade texture, soft studio lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "paper rustling sounds, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "SELF-IMPROVING CODE",
+      "keyMetric": "ITERATIVE LOGIC",
+      "visualClue": "Evolusi logika pemrograman"
+    },
+    {
+      "i": 22,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 284,
+      "estSec": 13.4,
+      "text": "Kehadiran Flint akan mengubah paradigma pengembangan perangkat lunak secara drastis, memungkinkan efisiensi koding yang jauh lebih tinggi bagi pengembang individu maupun tim kecil yang beroperasi dengan sumber daya terbatas.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Product photography of a minimalist workspace with a single laptop and a notepad, pastel peach and sky blue palette, clean studio lighting, faceless perspective.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "ambient office silence, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "DEVELOPER EFFICIENCY",
+      "keyMetric": "HIGH PRODUCTIVITY",
+      "visualClue": "Efisiensi pengembang individu"
+    },
+    {
+      "i": 23,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 297.4,
+      "estSec": 19.8,
+      "text": "Transformasi AI juga menyentuh korporasi tradisional seperti AT&T, yang kini merombak total alur kerja legal mereka dengan mengintegrasikan OpenAI. Penggunaan AI dalam departemen hukum AT&T bukan sekadar otomatisasi tugas administratif, melainkan pendalaman analisis kontrak yang mampu memproses ribuan dokumen hukum dalam hitungan detik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Editorial documentary style, empty mahogany conference table with stacks of legal documents, soft natural light from a window, muted amber and gray tones., layered paper-cut art, handmade texture, warm orange, magenta and teal palette",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "distant office chatter, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "CORPORATE LEGAL AI",
+      "keyMetric": "CONTRACT ANALYSIS",
+      "visualClue": "Transformasi alur kerja legal"
+    },
+    {
+      "i": 24,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 317.2,
+      "estSec": 12.5,
+      "text": "Secara teknis, sistem ini menggunakan model bahasa besar yang disetel secara khusus untuk memahami terminologi hukum, memitigasi risiko kesalahan manusia, dan mempercepat siklus peninjauan kontrak secara signifikan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro lens shot of a brass balance scale resting on a stack of legal papers, soft bokeh background, warm tungsten light, precise focus.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic clinking sound, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "LEGAL RISK MITIGATION",
+      "keyMetric": "ERROR REDUCTION",
+      "visualClue": "Analisis kontrak presisi"
+    },
+    {
+      "i": 25,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 329.7,
+      "estSec": 13.8,
+      "text": "Keberhasilan AT&T menunjukkan bahwa integrasi AI ke dalam fungsi hukum perusahaan adalah langkah krusial untuk meningkatkan efisiensi operasional dan mengurangi biaya overhead yang selama ini membebani perusahaan telekomunikasi raksasa tersebut.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft muffled office chatter, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src4.jpg",
+      "contextTitle": "LEGAL AI INTEGRATION",
+      "keyMetric": "OPERATIONAL EFFICIENCY",
+      "visualClue": "Efisiensi hukum melalui AI"
+    },
+    {
+      "i": 26,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 343.5,
+      "estSec": 12,
+      "text": "Di sisi lain, diskusi mengenai infrastruktur AI kini berfokus pada desain \"AI serving harness\" yang tahan lama dan efisien, sebagaimana disorot oleh MIT Tech Review.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Macro shot of a complex server rack harness with neatly organized cables, shallow depth of field, cool blue LED lighting, industrial aesthetic, high-tech hardware focus.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low hum of cooling, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src4.jpg",
+      "contextTitle": "AI SERVING HARNESS",
+      "keyMetric": "INFRASTRUCTURE DESIGN",
+      "visualClue": "Desain infrastruktur AI tahan lama"
+    },
+    {
+      "i": 27,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 355.5,
+      "estSec": 12,
+      "text": "Membangun sistem yang mampu melayani permintaan AI secara terus-menerus tanpa degradasi performa memerlukan arsitektur perangkat lunak yang modular dan toleran terhadap kesalahan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a modular software architecture, floating glowing data blocks connecting to a central hub, mint and coral color palette, soft shadows, clean minimalist design.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital data processing clicks, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "MODULAR ARCHITECTURE",
+      "keyMetric": "SYSTEM STABILITY",
+      "visualClue": "Arsitektur perangkat lunak modular"
+    },
+    {
+      "i": 28,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 367.5,
+      "estSec": 13.8,
+      "text": "Fokus utama saat ini adalah pada pembuatan harness yang tidak hanya mampu menangani beban kerja tinggi, tetapi juga mudah dipelihara seiring dengan pembaruan model yang terjadi setiap beberapa bulan sekali.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a technician's hands using tweezers to adjust a small circuit board component, warm tungsten light, bokeh background of server racks, precision engineering.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "precision metal clicking sounds, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "MAINTENANCE HARNESS",
+      "keyMetric": "WORKLOAD CAPACITY",
+      "visualClue": "Pemeliharaan beban kerja tinggi"
+    },
+    {
+      "i": 29,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 381.3,
+      "estSec": 14.3,
+      "text": "Ini adalah fondasi teknis yang sering luput dari perhatian publik, padahal tanpa infrastruktur yang kokoh, model AI secanggih apa pun tidak akan mampu memberikan nilai bisnis yang konsisten dalam jangka panjang.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Cinematic wide shot of a massive, empty data center floor with rows of glowing server towers, volumetric lighting, deep shadows, cold industrial atmosphere, high-tech scale.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "deep server room drone, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "TECHNICAL FOUNDATION",
+      "keyMetric": "BUSINESS VALUE",
+      "visualClue": "Fondasi teknis infrastruktur AI"
+    },
+    {
+      "i": 30,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 395.6,
+      "estSec": 20.3,
+      "text": "Terakhir, gerakan sosial yang membantu perempuan untuk terjun ke industri AI semakin mendapatkan momentum, seperti yang dilaporkan oleh Wired. Fokus mereka bukan hanya pada pelatihan teknis, tetapi juga pada pembentukan jaringan pendukung yang memungkinkan perempuan untuk menavigasi ekosistem AI yang masih didominasi oleh laki-laki.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Overhead flat lay of a wooden table with notebooks, pens, and a laptop displaying a collaborative network graph, soft natural light, pastel peach and sky blue accents.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft paper rustling sounds, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src3.jpg",
+      "contextTitle": "SOCIAL AI MOVEMENT",
+      "keyMetric": "INCLUSIVE NETWORKING",
+      "visualClue": "Gerakan sosial perempuan di AI"
+    },
+    {
+      "i": 31,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 415.9,
+      "estSec": 12,
+      "text": "Langkah ini sangat krusial karena keberagaman dalam pengembangan AI akan memastikan bahwa bias dalam model dapat diidentifikasi dan dikurangi sejak tahap awal pengembangan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Paper-cut art style showing layered silhouettes of diverse hands working on a glowing neural network, warm orange and teal colors, handmade texture, symbolic of collaboration.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft rhythmic paper sliding, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "DIVERSITY IN AI",
+      "keyMetric": "BIAS REDUCTION",
+      "visualClue": "Keberagaman kurangi bias model"
+    },
+    {
+      "i": 32,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 427.9,
+      "estSec": 16.2,
+      "text": "Keberhasilan komunitas ini dalam meningkatkan partisipasi perempuan akan memberikan dampak jangka panjang terhadap kualitas dan keadilan produk AI yang kita gunakan sehari-hari, menciptakan ekosistem yang lebih inklusif dan representatif terhadap kebutuhan masyarakat global yang beragam.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D illustration of a global network of interconnected nodes, vibrant colors, clean lines, representing a balanced and inclusive digital ecosystem, soft ambient lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "gentle electronic chime sequence, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "INCLUSIVE ECOSYSTEM",
+      "keyMetric": "GLOBAL IMPACT",
+      "visualClue": "Ekosistem AI yang inklusif"
+    },
+    {
+      "i": 33,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 444.1,
+      "estSec": 12,
+      "text": "Sintesis dari ketujuh peristiwa ini menunjukkan bahwa kita sedang memasuki fase \"konsolidasi infrastruktur dan spesialisasi\".",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a complex factory floor with interlocking gears and glowing data nodes, mint and coral palette, clean flat lighting, organized modular structure, high-angle shot.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rhythmic mechanical gear rotation, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "INDUSTRI KONSOLIDASI",
+      "keyMetric": "Fase Konsolidasi Infrastruktur",
+      "visualClue": "Fase baru industri teknologi"
+    },
+    {
+      "i": 34,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 456.1,
+      "estSec": 14.3,
+      "text": "Dalam 6 hingga 12 bulan ke depan, kita akan melihat lebih banyak perusahaan yang membangun model mereka sendiri dalam isolasi, mirip dengan apa yang dilakukan OpenAI, untuk melindungi aset intelektual mereka.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A dark, secure server room with rows of blinking blue LED lights, heavy steel doors, no windows, industrial cooling fans, cinematic film grain, 35mm film still.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "deep server room hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src2.jpg",
+      "contextTitle": "ISOLASI MODEL AI",
+      "keyMetric": "Keamanan Aset Intelektual",
+      "visualClue": "Model AI dalam isolasi"
+    },
+    {
+      "i": 35,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 470.4,
+      "estSec": 16.2,
+      "text": "Di saat yang sama, persaingan antara model global seperti Claude Opus dan Kimi K3.1 Pro akan semakin sengit, yang pada akhirnya akan menguntungkan pengguna dengan harga yang lebih terjangkau dan kemampuan penalaran yang lebih tajam.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of two high-end microchips placed on a brass balance scale, shallow depth of field, warm tungsten lighting, bokeh background, sharp metallic textures.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic scale balance click, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "PERSAINGAN MODEL GLOBAL",
+      "keyMetric": "Harga dan Penalaran",
+      "visualClue": "Persaingan model semakin sengit"
+    },
+    {
+      "i": 36,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 486.6,
+      "estSec": 15.2,
+      "text": "Robotaxi dan alat koding lokal seperti Flint akan mulai bertransformasi dari sekadar prototipe menjadi solusi yang siap pakai di pasar, yang akan menciptakan lapangan kerja baru sekaligus meniadakan peran-peran tradisional yang bersifat repetitif.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Overhead flat lay of a sleek laptop displaying complex code, next to a miniature toy car, clean studio light, pastel peach and sky blue background, professional workspace.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft keyboard typing sounds, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src7.webp",
+      "contextTitle": "TRANSFORMASI SOLUSI PASAR",
+      "keyMetric": "Prototipe ke Solusi",
+      "visualClue": "Robotaxi dan alat koding"
+    },
+    {
+      "i": 37,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 501.8,
+      "estSec": 17.1,
+      "text": "Bagi Anda, individu yang ingin tetap relevan di tengah badai perubahan ini, langkah konkret yang bisa diambil adalah mulai mempelajari cara berinteraksi dengan model lokal seperti Flint atau model open-source lainnya yang bisa dijalankan di perangkat pribadi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Close-up of hands typing on a mechanical keyboard, warm amber light, film grain, focus on the fingers and keys, no face visible, cinematic documentary style., clean isometric 3D illustration, flat colors, soft shadows, light gray background",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "crisp mechanical key clicks, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "RELEVANSI INDIVIDU",
+      "keyMetric": "Interaksi Model Lokal",
+      "visualClue": "Belajar model lokal pribadi"
+    },
+    {
+      "i": 38,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 518.9,
+      "estSec": 14.3,
+      "text": "Jangan hanya menjadi konsumen pasif dari layanan AI berbasis cloud. Mulailah mengintegrasikan alat bantu AI ke dalam alur kerja harian Anda, baik itu untuk penulisan kode, peninjauan dokumen, atau analisis data.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Layered paper-cut art showing a digital workflow, warm orange and teal paper textures, stylized icons of documents and data charts, handmade aesthetic, soft shadows.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "paper rustling and sliding, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "INTEGRASI ALUR KERJA",
+      "keyMetric": "Produktivitas AI Harian",
+      "visualClue": "Integrasi alat bantu AI"
+    },
+    {
+      "i": 39,
+      "chapter": "Peluang & Penutup",
+      "startSec": 533.2,
+      "estSec": 16.6,
+      "text": "Peluang karier di masa depan tidak lagi hanya berpusat pada siapa yang bisa menulis kode terbaik, melainkan siapa yang paling mahir dalam mengorkestrasi berbagai model AI untuk menyelesaikan masalah bisnis yang nyata secara efisien dan aman.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A wooden mannequin hand arranging colorful wooden blocks on a desk, overhead bird's-eye view, clean studio lighting, pastel background, minimalist composition.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "wooden blocks sliding together, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "PELUANG KARIER MASA",
+      "keyMetric": "Orkestrasi Model AI",
+      "visualClue": "Keahlian mengorkestrasi AI"
+    },
+    {
+      "i": 40,
+      "chapter": "Peluang & Penutup",
+      "startSec": 549.8,
+      "estSec": 20.3,
+      "text": "Dunia sedang berubah dengan kecepatan yang belum pernah kita saksikan sebelumnya, dan ketujuh peristiwa ini hanyalah puncak dari gunung es. Apakah Anda merasa bahwa isolasi model AI seperti yang dilakukan OpenAI adalah langkah yang tepat untuk keamanan, ataukah justru akan menghambat kolaborasi riset global?",
+      "visual": "T2V_GENERATION",
+      "prompt": "Cinematic wide shot of a vast, misty mountain range at dawn, volumetric light piercing through clouds, 24mm lens, epic scale, muted gray and blue tones.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "distant wind blowing softly, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "MASA DEPAN TEKNOLOGI",
+      "keyMetric": "Keamanan vs Kolaborasi",
+      "visualClue": "Dunia berubah sangat cepat"
+    },
+    {
+      "i": 41,
+      "chapter": "Peluang & Penutup",
+      "startSec": 570.1,
+      "estSec": 15.7,
+      "text": "Sampaikan pendapat Anda di kolom komentar di bawah, dan pastikan Anda telah menekan tombol subscribe serta mengaktifkan lonceng notifikasi agar tidak melewatkan analisis mendalam selanjutnya mengenai dinamika teknologi yang membentuk masa depan kita bersama.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a sleek, minimalist desk setup featuring a glowing notification bell icon and a floating 'Subscribe' button. Soft mint and coral color palette, clean studio lighting, high-quality 3D render.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital chime notification, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ENGAGEMENT CALL",
+      "keyMetric": "SUBSCRIBE AND NOTIFY",
+      "visualClue": "Ajak penonton berinteraksi aktif"
+    },
+    {
+      "i": 42,
+      "chapter": "Peluang & Penutup",
+      "startSec": 585.8,
+      "estSec": 12,
+      "text": "Mari kita diskusikan bagaimana perkembangan ini akan memengaruhi karier dan industri Anda di tahun mendatang.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle ambient room tone, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-10-24/images/src3.jpg",
+      "contextTitle": "FUTURE IMPACT",
+      "keyMetric": "INDUSTRY CAREER SHIFT",
+      "visualClue": "Refleksi dampak teknologi masa depan"
+    }
+  ],
+  "midrollAtSec": 304,
+  "estTotalSec": 597.8,
+  "sources": [
+    {
+      "title": "Uber rival inDrive eyes 2027 robotaxi tests in Central Asia with Pony AI and Nvidia",
+      "url": "https://techcrunch.com/2026/10/22/uber-rival-indrive-eyes-2027-robotaxi-tests-in-central-asia-with-pony-ai-and-nvidia/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "OpenAI now trains its frontier AI models with no internet access",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1018021/openai-training-top-ai-models-no-internet",
+      "publisher": "The Verge"
+    },
+    {
+      "title": "The Social Society Helping Women Join the AI Boom",
+      "url": "https://www.wired.com/story/aged-intelligence-society-interview/",
+      "publisher": "Wired AI"
+    },
+    {
+      "title": "Designing an AI serving harness built to last",
+      "url": "https://www.technologyreview.com/2026/10/22/1146109/designing-an-ai-serving-harness-built-to-last/",
+      "publisher": "MIT Tech Review"
+    },
+    {
+      "title": "Chinese AI model Kimi K3.1 Pro is closing in on Anthropic's Claude Opus 5.5",
+      "url": "https://the-decoder.com/chinese-ai-model-kimi-k3-1-pro-is-closing-in-on-anthropics-claude-opus-5-5/",
+      "publisher": "The Decoder"
+    },
+    {
+      "title": "How AT&T is rethinking in-house legal work with OpenAI",
+      "url": "https://openai.com/index/att-legal",
+      "publisher": "OpenAI Blog"
+    },
+    {
+      "title": "Recursive launches Flint, a laptop coding model it says was largely built by AI",
+      "url": "https://techcrunch.com/2026/10/21/recursive-launches-flint-a-laptop-coding-model-it-says-was-largely-built-by-ai/",
+      "publisher": "TechCrunch AI"
+    }
+  ]
+}
