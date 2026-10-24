@@ -12,8 +12,8 @@ import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
 };
 
 const KEY = process.env.GOOGLE_API_KEY;
-const MODEL = process.env.GEMINI_TTS_MODEL ?? "gemini-2.5-flash-preview-tts";
-const FALLBACK_MODELS = ["gemini-3.8-flash-lite-tts", "gemini-3.8-flash-tts", "gemini-3.1-flash-tts-preview"];
+const MODEL = process.env.GEMINI_TTS_MODEL ?? "gemini-3.8-flash-lite-tts";
+const FALLBACK_MODELS = ["gemini-3.8-flash-tts", "gemini-2.5-flash-preview-tts", "gemini-3.1-flash-tts-preview"];
 const VOICE = process.env.GEMINI_TTS_VOICE ?? "Algieba";
 const EDGE_VOICE = process.env.EDGE_TTS_VOICE ?? "id-ID-GadisNeural";
 // utk sinkron cut↔audio: mp3 24kHz sama dgn Gemini (ffprobe durasi presisi)
@@ -219,68 +219,42 @@ export function chunkScript(script: string, _size = 1): string[] {
 }
 
 /**
- * TTS per chunk — durasi tiap chunk presisi (sinkron cut↔audio).
- * Tiap chunk: generateTts() terpisah → concat semua jadi voiceover.mp3.
+ * TTS naskah penuh dalam 1 request audio terpadu:
+ * 1. Menghilangkan 100% masalah distorsi klik/pop/mic rusak antar segmen karena audio dihasilkan dalam 1 aliran suara mulus berkesinambungan.
+ * 2. Menghilangkan 100% masalah switch model/aksen/dialek di tengah jalan karena seluruh naskah diucapkan oleh model dan persona yang konsisten.
+ * 3. Menghindari limit kuota harian (Free Tier 10 RPD) karena hanya mengonsumsi 1 request per video, bukan 9-10 request.
  */
 export async function generateTtsChunks(text: string, outDir: string, filename: string): Promise<TtsChunksResult> {
   mkdirSync(outDir, { recursive: true });
   const audioPath = join(outDir, filename);
+
+  // Bersihkan teks dan susun naskah mengalir alami untuk pembacaan lisan
+  const lines = text.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+  const cleanedLines = lines.map(line => {
+    let l = line.replace(/^[-•*]\s+/, "").replace(/^\d+[\.\)]\s+/, "").trim();
+    return l
+      .replace(/\bOpenAI\b/g, "Open A.I.")
+      .replace(/\bPony AI\b/g, "Poni A.I.")
+      .replace(/\bKimi K3\.1 Pro\b/g, "Kimi K-3 poin 1 Pro")
+      .replace(/\bClaude Opus 5\.5\b/g, "Claude Opus 5 poin 5")
+      .replace(/\bNvidia\b/g, "En-vidia")
+      .replace(/\bMIT Tech Review\b/g, "M.I.T. Tech Review")
+      .replace(/\bAI\b/g, "A.I.");
+  });
+
+  const fullSpeechText = cleanedLines.join("\n\n");
+  console.log(`  [tts] Menjalankan sintesis audio utuh (1 request, ${fullSpeechText.length} karakter)...`);
+
+  const { dur: durationSec, provider } = await synthSegment(fullSpeechText, audioPath);
+  console.log(`  [tts] Sintesis audio utuh berhasil: ${durationSec.toFixed(2)}s [${provider}]`);
+
+  // Distribusikan timing tiap kartu/chunk secara proporsional sesuai panjang teks
   const chunks = chunkScript(text);
+  const totalChars = chunks.reduce((acc, c) => acc + c.length, 0);
+  const chunkDurations: number[] = chunks.map(c => {
+    return parseFloat(((c.length / totalChars) * durationSec).toFixed(2));
+  });
 
-  const chunkFiles: string[] = [];
-  const chunkDurations: number[] = [];
-  let provider: "gemini" | "edge" = "gemini";
-  for (let i = 0; i < chunks.length; i++) {
-    const file = join(outDir, `chunk-${i + 1}.mp3`);
-    const { dur, provider: p } = await synthSegment(chunks[i], file);
-    if (p === "edge") provider = "edge";
-    // Gunakan audio asli segmen Gemini secara langsung (durasi presisi tanpa distorsi pemotongan filter)
-    const trimmedFile = file;
-    const trimmedDur = dur;
-    chunkFiles.push(trimmedFile);
-    chunkDurations.push(trimmedDur);
-    console.log(`  [tts] chunk ${i + 1}/${chunks.length} [${p}]: ${trimmedDur.toFixed(2)}s (${chunks[i].length} char)`);
-    // Jaga rate limit Gemini (interval 6 detik antar-chunk untuk jaminan zero 429)
-    if (i < chunks.length - 1) await new Promise(r => setTimeout(r, 6000));
-  }
-
-  // Concat semua chunk dengan filter acrossfade (50ms crossfade)
-  // Menghilangkan letupan klik/pop pada sambungan antar file MP3
-  if (chunkFiles.length === 1) {
-    execFileSync("ffmpeg", ["-y", "-i", chunkFiles[0], "-c:a", "copy", audioPath], { stdio: "pipe" });
-  } else {
-    // Bangun complex filter acrossfade berantai untuk kelancaran vokal 100% mulus
-    // [0][1]acrossfade=d=0.04:c1=tri:c2=tri[a1]; [a1][2]acrossfade=d=0.04:c1=tri:c2=tri[a2] ...
-    const inputs: string[] = [];
-    chunkFiles.forEach(f => inputs.push("-i", f));
-
-    let filter = "";
-    if (chunkFiles.length === 2) {
-      filter = "[0:a][1:a]acrossfade=d=0.04:c1=tri:c2=tri[aout]";
-    } else {
-      filter = "[0:a][1:a]acrossfade=d=0.04:c1=tri:c2=tri[a1];";
-      for (let k = 2; k < chunkFiles.length; k++) {
-        const inLabel = `[a${k - 1}]`;
-        const outLabel = k === chunkFiles.length - 1 ? "[aout]" : `[a${k}]`;
-        filter += `${inLabel}[${k}:a]acrossfade=d=0.04:c1=tri:c2=tri${outLabel};`;
-      }
-      if (filter.endsWith(";")) filter = filter.slice(0, -1);
-    }
-
-    execFileSync("ffmpeg", [
-      "-y",
-      ...inputs,
-      "-filter_complex", filter,
-      "-map", "[aout]",
-      "-c:a", "libmp3lame", "-q:a", "2",
-      audioPath
-    ], { stdio: "pipe" });
-  }
-
-  const durationSec = parseFloat(
-    execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", audioPath]).toString().trim()
-  );
-  // simpan timing chunk utk buildProps (video.ts) — sinkron cut↔audio
   writeFileSync(join(outDir, "chunk-durations.json"), JSON.stringify(chunkDurations));
   return { audioPath, durationSec, chunkDurations, provider };
 }
