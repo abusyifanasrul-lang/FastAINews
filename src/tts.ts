@@ -21,52 +21,79 @@ const EDGE_FORMAT = OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3;
 export interface TtsResult {
   audioPath: string;
   durationSec: number;
-  provider: "gemini" | "edge" | "silent";
+  provider: "gemini" | "edge";
 }
 
 export interface TtsChunksResult extends TtsResult {
   chunkDurations: number[]; // durasi tiap chunk (detik), utk sinkronisasi cut
 }
 
-/** Gemini TTS satu segmen → mp3. Return durasi audio. Retry 429 w/ backoff. */
-let geminiDown = false; // sekali 429/error → sisa chunk pakai Edge
-
-/** Gemini TTS satu segmen → mp3. Return durasi audio. */
+/** Gemini TTS satu segmen → mp3. Return durasi audio. Dilengkapi retry dengan exponential backoff. */
 async function synthGemini(text: string, outPath: string): Promise<number> {
   if (!KEY) throw new Error("GOOGLE_API_KEY missing (Gemini TTS)");
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text }] }],
-        generationConfig: {
-          responseModalities: ["AUDIO"],
-          speechConfig: {
-            voiceConfig: { prebuiltVoiceConfig: { voiceName: VOICE } },
-          },
-        },
-      }),
-    }
-  );
-  if (res.status === 429 || !res.ok) {
-    throw new Error(`Gemini TTS ${res.status}`);
-  }
-  const j = await res.json();
-  const parts = j.candidates?.[0]?.content?.parts ?? [];
-  const audio = parts.find((p: any) => p.inlineData?.data);
-  if (!audio) throw new Error("Gemini TTS: tidak ada audio di response");
+  
+  const maxRetries = 3;
+  let lastErr: any = null;
 
-  const rawPath = outPath.replace(/\.mp3$/, ".pcm");
-  writeFileSync(rawPath, Buffer.from(audio.inlineData.data, "base64"));
-  execFileSync("ffmpeg", [
-    "-y", "-f", "s16le", "-ar", "24000", "-ac", "1", "-i", rawPath,
-    "-codec:a", "libmp3lame", "-q:a", "4", outPath,
-  ], { stdio: "pipe" });
-  return parseFloat(
-    execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", outPath]).toString().trim()
-  );
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text }] }],
+            generationConfig: {
+              responseModalities: ["AUDIO"],
+              speechConfig: {
+                voiceConfig: { prebuiltVoiceConfig: { voiceName: VOICE } },
+              },
+            },
+          }),
+        }
+      );
+
+      if (res.status === 429 || res.status === 503 || res.status === 502) {
+        console.warn(`  [tts] Gemini returned ${res.status} (attempt ${attempt}/${maxRetries}), waiting backoff...`);
+        if (attempt < maxRetries) {
+          await new Promise((r) => setTimeout(r, attempt * 4000));
+          continue;
+        }
+        throw new Error(`Gemini TTS ${res.status}`);
+      }
+
+      if (!res.ok) {
+        const errBody = await res.text().catch(() => "");
+        throw new Error(`Gemini TTS HTTP ${res.status}: ${errBody}`);
+      }
+
+      const j = await res.json();
+      const parts = j.candidates?.[0]?.content?.parts ?? [];
+      const audio = parts.find((p: any) => p.inlineData?.data);
+      if (!audio) throw new Error("Gemini TTS: tidak ada audio di response");
+
+      const rawPath = outPath.replace(/\.mp3$/, ".pcm");
+      writeFileSync(rawPath, Buffer.from(audio.inlineData.data, "base64"));
+      execFileSync("ffmpeg", [
+        "-y", "-f", "s16le", "-ar", "24000", "-ac", "1", "-i", rawPath,
+        "-codec:a", "libmp3lame", "-q:a", "4", outPath,
+      ], { stdio: "pipe" });
+      rmSync(rawPath, { force: true });
+      return parseFloat(
+        execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", outPath]).toString().trim()
+      );
+    } catch (err: any) {
+      lastErr = err;
+      if (attempt < maxRetries && (err.message.includes("429") || err.message.includes("fetch failed"))) {
+        await new Promise((r) => setTimeout(r, attempt * 4000));
+      } else {
+        break;
+      }
+    }
+  }
+
+  throw lastErr ?? new Error("Gemini TTS failed after retries");
 }
 
 /** Edge neural TTS (free, fallback saat Gemini quota habis). */
@@ -84,33 +111,21 @@ async function synthEdge(text: string, outPath: string): Promise<number> {
   );
 }
 
-/** Dispatcher: Gemini dulu, fallback Edge saat quota habis. Kalau keduanya gagal → silent chunk. */
-async function synthSegment(text: string, outPath: string): Promise<{ dur: number; provider: "gemini" | "edge" | "silent" }> {
-  if (!geminiDown) {
-    try {
-      const dur = await synthGemini(text, outPath);
-      return { dur, provider: "gemini" };
-    } catch (e: any) {
-      const msg = e?.message ?? "";
-      if (msg.includes("429") || msg.includes("400") || msg.includes("quota") || msg.includes("503") || msg.includes("502")) {
-        console.log("  [tts] ⚠️ Gemini error → fallback Edge TTS");
-        geminiDown = true;
-      } else if (msg.includes("GOOGLE_API_KEY")) {
-        geminiDown = true;
-      } else {
-        throw e;
-      }
-    }
+/** Dispatcher: Gemini dulu, fallback Edge saat quota habis. Kalau keduanya gagal → lempar Error (jangan buat silent audio). */
+async function synthSegment(text: string, outPath: string): Promise<{ dur: number; provider: "gemini" | "edge" }> {
+  try {
+    const dur = await synthGemini(text, outPath);
+    return { dur, provider: "gemini" };
+  } catch (e: any) {
+    console.warn("  [tts] ⚠️ Gemini TTS gagal:", e?.message ?? e, "→ mencoba Edge TTS...");
   }
+
   try {
     const dur = await synthEdge(text, outPath);
     return { dur, provider: "edge" };
   } catch (e: any) {
-    console.warn("  [tts] ⚠️ Edge TTS juga gagal:", (e as Error).message, "→ silent chunk");
-    // generate silent audio (1 detik per 50 char) supaya timeline tetap jalan
-    const silentDur = Math.max(1, Math.ceil(text.length / 50));
-    execFileSync("ffmpeg", ["-y", "-f", "lavfi", "-i", `anullsrc=r=24000:cl=mono`, "-t", String(silentDur), "-c:a", "libmp3lame", "-q:a", "4", outPath], { stdio: "pipe" });
-    return { dur: silentDur, provider: "silent" };
+    console.error("  [tts] ❌ Edge TTS juga gagal:", (e as Error).message);
+    throw new Error(`TTS gagal total untuk teks: "${text.slice(0, 50)}...": ${(e as Error).message}`);
   }
 }
 
@@ -186,13 +201,15 @@ export async function generateTtsChunks(text: string, outDir: string, filename: 
     chunkFiles.push(trimmedFile);
     chunkDurations.push(trimmedDur);
     console.log(`  [tts] chunk ${i + 1}/${chunks.length} [${p}]: ${trimmedDur.toFixed(2)}s (raw ${dur.toFixed(2)}s, ${chunks[i].length} char)`);
-    // jaga rate limit Gemini (fallback Edge otomatis kalau kena) — delay kecil
-    if (i < chunks.length - 1) await new Promise(r => setTimeout(r, 1000));
+    // jaga rate limit Gemini 15 RPM (minimal interval 4000ms antar chunk)
+    if (i < chunks.length - 1) await new Promise(r => setTimeout(r, 4000));
   }
 
   // concat semua chunk → voiceover.mp3 (ffmpeg concat, re-encode utk konsistensi)
+  // Catatan: path di listFile wajib resolve ke absolute path agar tidak kena double relative path di ffmpeg
+  const { resolve } = await import("node:path");
   const listFile = join(outDir, "chunks.txt");
-  writeFileSync(listFile, chunkFiles.map(f => `file '${f.replace(/\\/g, "/")}'`).join("\n"));
+  writeFileSync(listFile, chunkFiles.map(f => `file '${resolve(f).replace(/\\/g, "/")}'`).join("\n"));
   execFileSync("ffmpeg", ["-y", "-f", "concat", "-safe", "0", "-i", listFile, "-c:a", "libmp3lame", "-q:a", "4", audioPath], { stdio: "pipe" });
 
   const durationSec = parseFloat(
