@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Kimi K3.1 Pro vs Claude Opus Benchmark</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; padding: 0;
+        background: #070a13; color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        overflow: hidden;
+      }
+      #root {
+        position: relative; width: 100%; height: 100%;
+        background: #070a13; overflow: hidden;
+      }
+      .bg-glow {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(circle at 20% 30%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, #070a13 0%, #0d1424 100%);
+      }
+      .grid-lines {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+      .container {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        padding: 80px; z-index: 10;
+      }
+      .badge-wrap {
+        display: inline-flex; align-items: center; gap: 12px;
+        background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(245, 158, 11, 0.4);
+        border-radius: 9999px; padding: 10px 24px; margin-bottom: 24px;
+        box-shadow: 0 0 24px rgba(245, 158, 11, 0.2);
+      }
+      .badge-dot { width: 10px; height: 10px; background: #f59e0b; border-radius: 50%; box-shadow: 0 0 10px #f59e0b; }
+      .badge-text { font-size: 16px; font-weight: 800; letter-spacing: 3px; color: #f59e0b; text-transform: uppercase; }
+      .main-title {
+        font-size: 58px; font-weight: 900; text-align: center; line-height: 1.15;
+        max-width: 1400px; margin: 0 0 48px 0;
+        background: linear-gradient(180deg, #ffffff 40%, #cbd5e1 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      .benchmark-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+        width: 100%; max-width: 1440px;
+      }
+      .bench-card {
+        background: rgba(13, 20, 36, 0.85); border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px; padding: 36px 40px;
+        backdrop-filter: blur(12px); box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
+      }
+      .card-header {
+        display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;
+      }
+      .model-name { font-size: 26px; font-weight: 800; color: #f8fafc; }
+      .model-score { font-size: 44px; font-weight: 900; }
+      .score-claude { color: #38bdf8; text-shadow: 0 0 20px rgba(56, 189, 248, 0.3); }
+      .score-kimi { color: #f59e0b; text-shadow: 0 0 20px rgba(245, 158, 11, 0.3); }
+      .bar-track {
+        height: 20px; background: rgba(255, 255, 255, 0.08); border-radius: 10px; overflow: hidden; margin-bottom: 20px;
+      }
+      .bar-fill { height: 100%; border-radius: 10px; width: 0%; }
+      .fill-claude { background: linear-gradient(90deg, #38bdf8, #818cf8); }
+      .fill-kimi { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+      .metric-details { display: flex; justify-content: space-between; font-size: 16px; color: #94a3b8; font-weight: 600; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="bench-clash" data-width="1920" data-height="1080" data-duration="7">
+      <div class="bg-glow"></div>
+      <div class="grid-lines"></div>
+
+      <div class="container">
+        <div id="badge" class="badge-wrap">
+          <div class="badge-dot"></div>
+          <div class="badge-text">FRONTIER REASONING BENCHMARK // 2026</div>
+        </div>
+
+        <h1 id="title" class="main-title">
+          Kimi K3.1 Pro Asal Tiongkok Mendekati Claude Opus 5.5
+        </h1>
+
+        <div class="benchmark-grid">
+          <!-- Anthropic Claude Opus -->
+          <div class="bench-card" id="card-claude">
+            <div class="card-header">
+              <div class="model-name">Anthropic Claude Opus 5.5</div>
+              <div class="model-score score-claude">95.1%</div>
+            </div>
+            <div class="bar-track">
+              <div id="bar-claude" class="bar-fill fill-claude"></div>
+            </div>
+            <div class="metric-details">
+              <span>Standard Emas Analisis Dokumen</span>
+              <span style="color:#38bdf8;">Silicon Valley Frontier</span>
+            </div>
+          </div>
+
+          <!-- Moonshot Kimi K3.1 Pro -->
+          <div class="bench-card" id="card-kimi">
+            <div class="card-header">
+              <div class="model-name">Moonshot Kimi K3.1 Pro</div>
+              <div class="model-score score-kimi">94.2%</div>
+            </div>
+            <div class="bar-track">
+              <div id="bar-kimi" class="bar-fill fill-kimi"></div>
+            </div>
+            <div class="metric-details">
+              <span>Arsitektur Konteks Panjang Ekstrem</span>
+              <span style="color:#f59e0b;">Penantang Utama Asia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#badge", { y: -30, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+      tl.from("#title", { y: -30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+      tl.from(".bench-card", { y: 50, opacity: 0, stagger: 0.2, duration: 0.8, ease: "back.out(1.2)" }, 0.6);
+      tl.fromTo("#bar-claude", { width: "0%" }, { width: "95.1%", duration: 1.5, ease: "power2.out" }, 1.0);
+      tl.fromTo("#bar-kimi", { width: "0%" }, { width: "94.2%", duration: 1.5, ease: "power2.out" }, 1.2);
+      tl.to(".container", { scale: 1.02, duration: 5.5, ease: "none" }, 0.5);
+      tl.to("#root", { opacity: 0, duration: 0.45, ease: "power2.in" }, 6.55);
+      window.__timelines["bench-clash"] = tl;
+    </script>
+  </body>
+</html>
