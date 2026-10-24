@@ -44,7 +44,14 @@ async function synthGemini(text: string, outPath: string, modelName: string = MO
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [{ parts: [{ text }] }],
+            contents: [{
+              parts: [{
+                text,
+                speech_metadata: {
+                  style: "formal Indonesian news anchor, natural Indonesian pronunciation and native Indonesian accent",
+                },
+              }],
+            }],
             generationConfig: {
               responseModalities: ["AUDIO"],
               speechConfig: {
@@ -75,12 +82,23 @@ async function synthGemini(text: string, outPath: string, modelName: string = MO
       const audio = parts.find((p: any) => p.inlineData?.data);
       if (!audio) throw new Error("Gemini TTS: tidak ada audio di response");
 
-      const rawPath = outPath.replace(/\.mp3$/, ".pcm");
-      writeFileSync(rawPath, Buffer.from(audio.inlineData.data, "base64"));
-      execFileSync("ffmpeg", [
-        "-y", "-f", "s16le", "-ar", "24000", "-ac", "1", "-i", rawPath,
-        "-codec:a", "libmp3lame", "-q:a", "4", outPath,
-      ], { stdio: "pipe" });
+      const buf = Buffer.from(audio.inlineData.data, "base64");
+      const isWav = buf.slice(0, 4).toString("ascii") === "RIFF";
+      const rawPath = outPath.replace(/\.mp3$/, isWav ? ".wav" : ".pcm");
+      writeFileSync(rawPath, buf);
+
+      // Konversi ke MP3 berkualitas tinggi dengan micro-fade 10ms (smooth zero-crossing)
+      // Mencegah letupan klik/pop atau suara distorsi mic di awal/akhir segmen audio
+      const ffmpegArgs = ["-y"];
+      if (!isWav) {
+        ffmpegArgs.push("-f", "s16le", "-ar", "24000", "-ac", "1");
+      }
+      ffmpegArgs.push(
+        "-i", rawPath,
+        "-af", "afade=t=in:ss=0:d=0.01,afade=t=out:st=300:d=0.01",
+        "-codec:a", "libmp3lame", "-q:a", "2", outPath
+      );
+      execFileSync("ffmpeg", ffmpegArgs, { stdio: "pipe" });
       rmSync(rawPath, { force: true });
       return parseFloat(
         execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", outPath]).toString().trim()
@@ -165,7 +183,17 @@ export function chunkScript(script: string, _size = 1): string[] {
     for (const line of lines) {
       if (bulletRegex.test(line) || numberRegex.test(line)) {
         if (current) { chunks.push(current.trim()); current = ''; }
-        current = line.replace(/^[-•*]\s+/, '').replace(/^\d+[\.\)]\s+/, '');
+        let lineClean = line.replace(/^[-•*]\s+/, '').replace(/^\d+[\.\)]\s+/, '').trim();
+        // Ganti pelafalan brand asing agar tidak dibaca dengan dialek bahasa Inggris yang aneh
+        lineClean = lineClean
+          .replace(/\bOpenAI\b/g, "Open A.I.")
+          .replace(/\bPony AI\b/g, "Poni A.I.")
+          .replace(/\bKimi K3\.1 Pro\b/g, "Kimi K-3 poin 1 Pro")
+          .replace(/\bClaude Opus 5\.5\b/g, "Claude Opus 5 poin 5")
+          .replace(/\bNvidia\b/g, "En-vidia")
+          .replace(/\bMIT Tech Review\b/g, "M.I.T. Tech Review")
+          .replace(/\bAI\b/g, "A.I.");
+        current = lineClean;
       } else {
         current += (current ? ' ' : '') + line;
       }
@@ -216,12 +244,38 @@ export async function generateTtsChunks(text: string, outDir: string, filename: 
     if (i < chunks.length - 1) await new Promise(r => setTimeout(r, 6000));
   }
 
-  // concat semua chunk → voiceover.mp3 (ffmpeg concat, re-encode utk konsistensi)
-  // Catatan: path di listFile wajib resolve ke absolute path agar tidak kena double relative path di ffmpeg
-  const { resolve } = await import("node:path");
-  const listFile = join(outDir, "chunks.txt");
-  writeFileSync(listFile, chunkFiles.map(f => `file '${resolve(f).replace(/\\/g, "/")}'`).join("\n"));
-  execFileSync("ffmpeg", ["-y", "-f", "concat", "-safe", "0", "-i", listFile, "-c:a", "libmp3lame", "-q:a", "4", audioPath], { stdio: "pipe" });
+  // Concat semua chunk dengan filter acrossfade (50ms crossfade)
+  // Menghilangkan letupan klik/pop pada sambungan antar file MP3
+  if (chunkFiles.length === 1) {
+    execFileSync("ffmpeg", ["-y", "-i", chunkFiles[0], "-c:a", "copy", audioPath], { stdio: "pipe" });
+  } else {
+    // Bangun complex filter acrossfade berantai untuk kelancaran vokal 100% mulus
+    // [0][1]acrossfade=d=0.04:c1=tri:c2=tri[a1]; [a1][2]acrossfade=d=0.04:c1=tri:c2=tri[a2] ...
+    const inputs: string[] = [];
+    chunkFiles.forEach(f => inputs.push("-i", f));
+
+    let filter = "";
+    if (chunkFiles.length === 2) {
+      filter = "[0:a][1:a]acrossfade=d=0.04:c1=tri:c2=tri[aout]";
+    } else {
+      filter = "[0:a][1:a]acrossfade=d=0.04:c1=tri:c2=tri[a1];";
+      for (let k = 2; k < chunkFiles.length; k++) {
+        const inLabel = `[a${k - 1}]`;
+        const outLabel = k === chunkFiles.length - 1 ? "[aout]" : `[a${k}]`;
+        filter += `${inLabel}[${k}:a]acrossfade=d=0.04:c1=tri:c2=tri${outLabel};`;
+      }
+      if (filter.endsWith(";")) filter = filter.slice(0, -1);
+    }
+
+    execFileSync("ffmpeg", [
+      "-y",
+      ...inputs,
+      "-filter_complex", filter,
+      "-map", "[aout]",
+      "-c:a", "libmp3lame", "-q:a", "2",
+      audioPath
+    ], { stdio: "pipe" });
+  }
 
   const durationSec = parseFloat(
     execFileSync("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", audioPath]).toString().trim()
