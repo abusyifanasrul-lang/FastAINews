@@ -177,15 +177,15 @@ async function run(): Promise<void> {
   }
   console.log(`[assemble-long] ${audioFilesRaw.length} file audio ditemukan: ${audioFilesRaw.map((f) => basename(f)).slice(0, 5).join(", ")}${audioFilesRaw.length > 5 ? "..." : ""}`);
 
-  // Cari seluruh file gambar (.jpg, .jpeg, .png, .webp, .jfif)
-  const IMG_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".jfif"];
+  // Cari seluruh file visual (.jpg, .jpeg, .png, .webp, .jfif, .mp4)
+  const VISUAL_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".jfif", ".mp4"];
   const imageFilesRaw = allFiles.filter((f) => {
     const b = basename(f);
-    return !b.startsWith(".") && !f.includes("__MACOSX") && IMG_EXTS.includes(extname(f).toLowerCase());
+    return !b.startsWith(".") && !f.includes("__MACOSX") && VISUAL_EXTS.includes(extname(f).toLowerCase());
   });
 
   if (imageFilesRaw.length === 0) {
-    fail(row.id, "Tidak ditemukan file gambar (.jpg / .jfif / .png) di dalam asset.zip!");
+    fail(row.id, "Tidak ditemukan file visual (.jpg / .jfif / .png / .mp4) di dalam asset.zip!");
   }
 
   // Normalisasi ekstensi .jfif -> .jpg
@@ -600,7 +600,7 @@ async function run(): Promise<void> {
       }
 
       const visualFilter = isVideo
-        ? `scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1`
+        ? `fps=${fps},scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1`
         : getCinematicKenBurns(b.globalIdx, totalFrames, fps);
       const vfxChain = writeAss
         ? `vignette=PI/4.5,eq=contrast=1.05:brightness=-0.01:saturation=1.10,ass=${hudAssName},fade=t=out:st=${Math.max(0, targetDur - 0.35).toFixed(2)}:d=0.35`
@@ -635,7 +635,7 @@ async function run(): Promise<void> {
         }
 
         const visualFilter = isVideo
-          ? `scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1`
+          ? `fps=${fps},scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1`
           : getCinematicKenBurns(b.globalIdx, totalFrames, fps);
         fcLines.push(`[${i}:v]${visualFilter}[v${i}]`);
       }
@@ -744,7 +744,8 @@ async function run(): Promise<void> {
   );
 
   // Thumbnail: gunakan gambar pertama dari zip atau cover edisi
-  const thumbnailCandidate = normalizedImages[0] ?? join(process.cwd(), "content", "long", date, "images", "src1.jpg");
+  const imageOnly = normalizedImages.filter(f => !f.toLowerCase().endsWith(".mp4"));
+  const thumbnailCandidate = imageOnly[0] ?? normalizedImages[0] ?? join(process.cwd(), "content", "long", date, "images", "src1.jpg");
   const thumbnailPath = existsSync(thumbnailCandidate) ? thumbnailCandidate : undefined;
 
   console.log(`[assemble-long] mengunggah video ke YouTube (${videoSizeMb} MB)...`);
