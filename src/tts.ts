@@ -12,8 +12,8 @@ import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
 };
 
 const KEY = process.env.GOOGLE_API_KEY;
-const MODEL = process.env.GEMINI_TTS_MODEL ?? "gemini-3.8-flash-lite-tts";
-const FALLBACK_MODELS = ["gemini-3.8-flash-tts", "gemini-2.5-flash-preview-tts", "gemini-3.1-flash-tts-preview"];
+const MODEL = process.env.GEMINI_TTS_MODEL ?? "gemini-2.5-flash-preview-tts";
+const FALLBACK_MODELS = ["gemini-3.8-flash-lite-tts", "gemini-3.8-flash-tts", "gemini-3.1-flash-tts-preview"];
 const VOICE = process.env.GEMINI_TTS_VOICE ?? "Algieba";
 const EDGE_VOICE = process.env.EDGE_TTS_VOICE ?? "id-ID-GadisNeural";
 // utk sinkron cut↔audio: mp3 24kHz sama dgn Gemini (ffprobe durasi presisi)
@@ -212,8 +212,8 @@ export async function generateTtsChunks(text: string, outDir: string, filename: 
     chunkFiles.push(trimmedFile);
     chunkDurations.push(trimmedDur);
     console.log(`  [tts] chunk ${i + 1}/${chunks.length} [${p}]: ${trimmedDur.toFixed(2)}s (${chunks[i].length} char)`);
-    // jaga rate limit Gemini 15 RPM (minimal interval 4500ms antar chunk)
-    if (i < chunks.length - 1) await new Promise(r => setTimeout(r, 4500));
+    // Jaga rate limit Gemini (interval 6 detik antar-chunk untuk jaminan zero 429)
+    if (i < chunks.length - 1) await new Promise(r => setTimeout(r, 6000));
   }
 
   // concat semua chunk → voiceover.mp3 (ffmpeg concat, re-encode utk konsistensi)

@@ -108,7 +108,7 @@ export async function runPipeline(opts: PipelineOptions = {}) {
  * Menyimpan revision row + memakai video paths baru di contents.
  */
 export async function runRevision(contentId: number, feedback: string): Promise<{ version: number }> {
-  const TIMEOUT_MS = 5 * 60 * 1000; // 5 menit max per step
+  const TIMEOUT_MS = 15 * 60 * 1000; // 15 menit max per step (TTS dengan jeda rate limit aman butuh waktu)
   const withTimeout = <T>(p: Promise<T>, label: string): Promise<T> =>
     Promise.race([p, new Promise<never>((_, rej) =>
       setTimeout(() => rej(new Error(`timeout: ${label} >${TIMEOUT_MS / 1000}s`)), TIMEOUT_MS)
