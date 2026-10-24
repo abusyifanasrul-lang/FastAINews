@@ -28,17 +28,17 @@ export interface TtsChunksResult extends TtsResult {
   chunkDurations: number[]; // durasi tiap chunk (detik), utk sinkronisasi cut
 }
 
-/** Gemini TTS satu segmen → mp3. Return durasi audio. Dilengkapi retry dengan exponential backoff. */
-async function synthGemini(text: string, outPath: string): Promise<number> {
+/** Gemini TTS satu segmen → mp3. Return durasi audio. Dilengkapi retry dengan exponential backoff dan fallback model. */
+async function synthGemini(text: string, outPath: string, modelName: string = MODEL): Promise<number> {
   if (!KEY) throw new Error("GOOGLE_API_KEY missing (Gemini TTS)");
   
-  const maxRetries = 3;
+  const maxRetries = 5;
   let lastErr: any = null;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${KEY}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -55,9 +55,10 @@ async function synthGemini(text: string, outPath: string): Promise<number> {
       );
 
       if (res.status === 429 || res.status === 503 || res.status === 502) {
-        console.warn(`  [tts] Gemini returned ${res.status} (attempt ${attempt}/${maxRetries}), waiting backoff...`);
+        const waitSec = Math.min(attempt * 5, 20);
+        console.warn(`  [tts] Gemini returned ${res.status} (attempt ${attempt}/${maxRetries}), waiting ${waitSec}s backoff...`);
         if (attempt < maxRetries) {
-          await new Promise((r) => setTimeout(r, attempt * 4000));
+          await new Promise((r) => setTimeout(r, waitSec * 1000));
           continue;
         }
         throw new Error(`Gemini TTS ${res.status}`);
@@ -85,8 +86,10 @@ async function synthGemini(text: string, outPath: string): Promise<number> {
       );
     } catch (err: any) {
       lastErr = err;
-      if (attempt < maxRetries && (err.message.includes("429") || err.message.includes("fetch failed"))) {
-        await new Promise((r) => setTimeout(r, attempt * 4000));
+      const waitSec = Math.min(attempt * 5, 20);
+      if (attempt < maxRetries) {
+        console.warn(`  [tts] Gemini attempt ${attempt} error: ${err.message}, waiting ${waitSec}s...`);
+        await new Promise((r) => setTimeout(r, waitSec * 1000));
       } else {
         break;
       }
@@ -113,13 +116,24 @@ async function synthEdge(text: string, outPath: string): Promise<number> {
 
 /** Dispatcher: Gemini dulu, fallback Edge saat quota habis. Kalau keduanya gagal → lempar Error (jangan buat silent audio). */
 async function synthSegment(text: string, outPath: string): Promise<{ dur: number; provider: "gemini" | "edge" }> {
+  // 1. Coba Gemini model utama
   try {
-    const dur = await synthGemini(text, outPath);
+    const dur = await synthGemini(text, outPath, MODEL);
     return { dur, provider: "gemini" };
   } catch (e: any) {
-    console.warn("  [tts] ⚠️ Gemini TTS gagal:", e?.message ?? e, "→ mencoba Edge TTS...");
+    console.warn("  [tts] ⚠️ Gemini model utama gagal:", e?.message ?? e, "→ mencoba Gemini fallback model...");
   }
 
+  // 2. Coba Gemini fallback model (gemini-2.0-flash / gemini-2.5-flash-preview)
+  const FALLBACK_GEMINI_MODEL = "gemini-2.0-flash";
+  try {
+    const dur = await synthGemini(text, outPath, FALLBACK_GEMINI_MODEL);
+    return { dur, provider: "gemini" };
+  } catch (e: any) {
+    console.warn("  [tts] ⚠️ Gemini fallback model juga gagal:", e?.message ?? e, "→ mencoba Edge TTS...");
+  }
+
+  // 3. Fallback terakhir ke Edge TTS
   try {
     const dur = await synthEdge(text, outPath);
     return { dur, provider: "edge" };
@@ -201,8 +215,8 @@ export async function generateTtsChunks(text: string, outDir: string, filename: 
     chunkFiles.push(trimmedFile);
     chunkDurations.push(trimmedDur);
     console.log(`  [tts] chunk ${i + 1}/${chunks.length} [${p}]: ${trimmedDur.toFixed(2)}s (raw ${dur.toFixed(2)}s, ${chunks[i].length} char)`);
-    // jaga rate limit Gemini 15 RPM (minimal interval 4000ms antar chunk)
-    if (i < chunks.length - 1) await new Promise(r => setTimeout(r, 4000));
+    // jaga rate limit Gemini 15 RPM (minimal interval 4500ms antar chunk)
+    if (i < chunks.length - 1) await new Promise(r => setTimeout(r, 4500));
   }
 
   // concat semua chunk → voiceover.mp3 (ffmpeg concat, re-encode utk konsistensi)
