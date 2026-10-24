@@ -79,20 +79,25 @@ export async function renderVideos(date: string): Promise<{ shorts: string; dura
 
   // render vertical (480p)
   const shorts = join(outDir, "shorts-916.mp4");
-  renderComposition("Explainer", shorts, propsPath, 480, 854);
+  const fps = 24;
+  const totalFrames = Math.ceil(dur * fps);
+  renderComposition("Explainer", shorts, propsPath, 480, 854, totalFrames, fps);
 
   db.prepare("UPDATE contents SET video_916_path = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?").run(shorts, c.id);
   return { shorts, durationSec: dur };
 }
 
-function renderComposition(comp: string, outFile: string, propsPath: string, width: number, height: number) {
+function renderComposition(comp: string, outFile: string, propsPath: string, width: number, height: number, totalFrames?: number, fps: number = 24) {
   // panggil remotion CLI via node langsung (bukan npx/npx.cmd — .cmd shim gagal di spawnSync Windows)
   const cli = join(COMPOSER, "node_modules", "@remotion", "cli", "remotion-cli.js");
   // priority: REMOTION_BROWSER_EXECUTABLE (standard) → REMOTION_CHROMIUM_EXECUTABLE (legacy) → null (Remotion auto-download)
   const CHROME = process.env.REMOTION_BROWSER_EXECUTABLE || process.env.REMOTION_CHROMIUM_EXECUTABLE || "";
   const concurrency = Math.max(1, Math.min(2, cpus().length || 1));
   const args = [cli, "render", "src/index.tsx", comp, outFile,
-    `--props=${propsPath}`, "--codec=h264", `--width=${width}`, `--height=${height}`, "--fps=24", `--concurrency=${concurrency}`, "--quality=60", "--gl=swangle"];
+    `--props=${propsPath}`, "--codec=h264", `--width=${width}`, `--height=${height}`, `--fps=${fps}`, `--concurrency=${concurrency}`, "--quality=60", "--gl=swangle"];
+  if (totalFrames && totalFrames > 0) {
+    args.push(`--frames=0-${totalFrames - 1}`);
+  }
   if (CHROME) args.push(`--browser-executable=${CHROME}`);
   const r = spawnSync(process.execPath, args, {
     cwd: COMPOSER,
