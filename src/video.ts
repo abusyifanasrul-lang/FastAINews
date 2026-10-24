@@ -140,20 +140,23 @@ export function buildProps(title: string, script: string, dur: number, images: s
     }
     // layout: chunk 0 = pembuka; chunks 1.. = topik ber-publisher
     const topicLabel = i === 0 ? "Berita AI Harian" : (titles[i - 1] ?? `Poin ${i}`);
+    // Skala dinamis fontSize agar teks panjang tidak pernah meluap dari layar:
+    const cardFontSize = chunks[i].length > 140 ? 32 : chunks[i].length > 100 ? 36 : 42;
     addCut({
       id: `c${CUTS.length + 1}`, type: "text_card", text: chunks[i],
       title: topicLabel,
       in_seconds: t, out_seconds: Math.min(t + segDur, dur - 1),
-      fontSize: 42, color: "#F8FAFC", backgroundColor: "transparent",
+      fontSize: cardFontSize, color: "#F8FAFC", backgroundColor: "transparent",
       ...(bgImg ? { backgroundImage: bgImg, backgroundOverlay: 0.6 }
         : brollName ? { backgroundVideo: brollName, backgroundOverlay: 0.55 } : {}),
     });
   }
 
-  // callout (3s) lalu CTA — sisakan ruang, tanpa overlap. Kalau tak cukup ruang, lewati CTA.
-  const ctaDur = 2.5;
-  const ctaStart = Math.min(t + 3, dur - ctaDur);
-  if (ctaStart > t + 0.5) {
+  // callout (maks 2.5s) lalu CTA singkat (1.5s) — pangkas agar tidak menyisakan ruang hening panjang di akhir
+  const remainingTime = Math.max(0, dur - t);
+  if (remainingTime >= 3.0) {
+    const calloutDur = Math.min(2.5, remainingTime - 1.5);
+    const ctaStart = t + calloutDur;
     addCut({
       id: `c${CUTS.length + 1}`, type: "callout",
       text: sentences[sentences.length - 1] ?? "Tetap update dengan AI.",
@@ -168,7 +171,7 @@ export function buildProps(title: string, script: string, dur: number, images: s
       backgroundColor: "#0A0F1A",
       textColor: "#FFFFFF",
     });
-  } else {
+  } else if (remainingTime > 0.5) {
     addCut({
       id: `c${CUTS.length + 1}`, type: "callout",
       text: sentences[sentences.length - 1] ?? "Tetap update dengan AI.",

@@ -306,7 +306,10 @@ Kamu akan merevisi naskah yang sudah ada sesuai catatan reviewer.
 Terdapat ${items.length} topik berita. PERTAHANKAN cakupan SEMUA ${items.length} topik — revisi boleh ubah gaya/wording, jangan buang topik.
 Struktur tetap: hook → fakta (semua topik) → analisis → peluang awam → CTA.
 Bahasa Indonesia natural, gaya news presenter, tanpa markdown, tanpa emoji, tanpa kata "menurut sumber".
-PENTING: revisi sesuai catatan reviewer. Tetap hanya gunakan fakta dari sumber.
+ATURAN FORMAT WAJIB (SANGAT PENTING):
+1. Setiap poin atau bagian (hook, fakta per topik, analisis, peluang awam, CTA) WAJIB berada di baris terpisah dan diawali dengan bullet (•) atau strip (-).
+2. DILARANG menggabungkan beberapa berita ke dalam satu paragraf panjang. Maksimal 2 kalimat per bullet point agar subtitle muat di layar dan durasi jeda teratur.
+3. Catatan revisi dari reviewer HARUS dipatuhi sepenuhnya.
 DILARANG KERAS: Jangan menuliskan proses berpikir, analisis internal, coretan perhitungan kata, atau teks bahasa Inggris.
 LANGSUNG mulai output pada baris pertama dengan format: JUDUL: <judul>`;
 

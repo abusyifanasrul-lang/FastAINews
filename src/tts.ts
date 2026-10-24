@@ -156,16 +156,16 @@ export function chunkScript(script: string, _size = 1): string[] {
     return chunks.filter(c => c.length > 0);
   }
 
-  // Fallback: sentence-based detection.
+  // Fallback: sentence-based detection jika naskah tidak memakai bullet.
+  // Batasi chunk maksimal ~180 karakter agar teks tidak meluap di screen dan narasi berirama.
   const sentences = script.split(/(?<=[.!?])\s+/).map(s => s.trim()).filter(s => s.length > 0);
-  const hook = sentences[0] ?? "";
-  const rest = sentences.slice(1).join(" ");
-  const chunks: string[] = [hook];
+  const chunks: string[] = [];
   let cur = "";
-  for (const s of rest ? rest.split(/(?<=[.!?])\s+/) : []) {
-    const isTopicStart = /^[A-Za-zÀ-ÿ][^:]{2,40}:\s/.test(s) ||
-                         /^\s*(Sementara itu|Terakhir|Di sisi lain|Selanjutnya|Kedua|Ketiga|Berikutnya|Lainnya|Analisis|Peluang)[,:]\s/.test(s);
-    if (isTopicStart && cur) { chunks.push(cur.trim()); cur = ""; }
+  for (const s of sentences) {
+    if (cur && (cur.length + s.length > 180 || /^[A-Za-zÀ-ÿ][^:]{2,40}:\s/.test(s) || /^\s*(Sementara itu|Terakhir|Di sisi lain|Selanjutnya|Kedua|Ketiga|Berikutnya|Lainnya|Analisis|Peluang|Pertama|Bagi Anda|Jangan lewatkan)[,:]\s/i.test(s))) {
+      chunks.push(cur.trim());
+      cur = "";
+    }
     cur += (cur ? " " : "") + s;
   }
   if (cur.trim()) chunks.push(cur.trim());
