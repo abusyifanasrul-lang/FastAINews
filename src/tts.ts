@@ -206,11 +206,11 @@ export async function generateTtsChunks(text: string, outDir: string, filename: 
     const file = join(outDir, `chunk-${i + 1}.mp3`);
     const { dur, provider: p } = await synthSegment(chunks[i], file);
     if (p === "edge") provider = "edge";
-    // trim leading/trailing silence so duration reflects actual speech
+    // trim leading/trailing silence halus (jangan potong audio data, 0.08s threshold -45dB)
     const trimmedFile = join(outDir, `chunk-${i + 1}-trimmed.mp3`);
     execFileSync("ffmpeg", [
       "-y", "-i", file,
-      "-af", "silenceremove=stop_periods=-1:stop_duration=0.05:stop_threshold=-40dB",
+      "-af", "areverse,silenceremove=start_periods=1:start_duration=0.08:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_duration=0.08:start_threshold=-45dB,afade=t=in:st=0:d=0.03,afade=t=out:st=max(0,d-0.03):d=0.03",
       trimmedFile,
     ], { stdio: "pipe" });
     const trimmedDur = parseFloat(

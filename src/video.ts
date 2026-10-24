@@ -5,6 +5,7 @@ import { execFileSync, spawnSync } from "node:child_process";
 import { cpus } from "node:os";
 import { chunkScript } from "./tts.js";
 import { fetchBroll } from "./broll.js";
+import { fetchOgImage } from "./research.js";
 import "dotenv/config";
 
 const COMPOSER = join(process.cwd(), "vendor-openmontage");
@@ -32,6 +33,24 @@ export async function renderVideos(date: string): Promise<{ shorts: string; dura
   if (!dur || isNaN(dur) || dur > 120 || dur < 20) {
     throw new Error(`[video] Durasi audio tidak valid untuk render: ${dur}s (batas aman 20-120s)`);
   }
+
+  // 1. Re-download gambar sumber jika belum ada di disk (misal saat render di runner baru / revisi)
+  const imgDir = join(process.cwd(), "content", c.date, "images");
+  mkdirSync(imgDir, { recursive: true });
+  await Promise.all(c.sources.map(async (s, i) => {
+    const curPath = s.image_path;
+    if (!curPath || !existsSync(curPath)) {
+      if (s.url) {
+        try {
+          const downloaded = await fetchOgImage(s.url, join(imgDir, `src${i + 1}`));
+          if (downloaded) {
+            s.image_path = downloaded;
+            db.prepare("UPDATE sources SET image_path = ? WHERE id = ?").run(downloaded, s.id);
+          }
+        } catch {}
+      }
+    }
+  }));
 
   // timing chunk audio (dari TTS per-chunk) — sinkron cut↔narasi
   let chunkDurations: number[] = [];
@@ -147,37 +166,26 @@ export function buildProps(title: string, script: string, dur: number, images: s
       title: topicLabel,
       in_seconds: t, out_seconds: Math.min(t + segDur, dur - 1),
       fontSize: cardFontSize, color: "#F8FAFC", backgroundColor: "transparent",
-      ...(bgImg ? { backgroundImage: bgImg, backgroundOverlay: 0.6 }
-        : brollName ? { backgroundVideo: brollName, backgroundOverlay: 0.55 } : {}),
+      ...(bgImg ? { backgroundImage: bgImg, backgroundOverlay: 0.65 }
+        : brollName ? { backgroundVideo: brollName, backgroundOverlay: 0.55 }
+        : heroImg ? { backgroundImage: heroImg, backgroundOverlay: 0.7 } : {}),
     });
   }
 
-  // callout (maks 2.5s) lalu CTA singkat (1.5s) — pangkas agar tidak menyisakan ruang hening panjang di akhir
+  // Outro modern: branding kartu penutup clean tanpa style 'jadul' callout
   const remainingTime = Math.max(0, dur - t);
-  if (remainingTime >= 3.0) {
-    const calloutDur = Math.min(2.5, remainingTime - 1.5);
-    const ctaStart = t + calloutDur;
+  if (remainingTime > 0.5) {
     addCut({
-      id: `c${CUTS.length + 1}`, type: "callout",
-      text: sentences[sentences.length - 1] ?? "Tetap update dengan AI.",
-      title: "💡 Kesimpulan", callout_type: "tip",
-      in_seconds: t, out_seconds: ctaStart,
-      backgroundColor: "#1E293B",
-    });
-    addCut({
-      id: `c${CUTS.length + 1}`, type: "hero_title", text: "Ikuti terus kabar AI terbaru!",
-      heroSubtitle: "Sampai jumpa besok! 👋", in_seconds: ctaStart, out_seconds: dur,
-      accentColor: "#22D3EE",
-      backgroundColor: "#0A0F1A",
+      id: `c${CUTS.length + 1}`,
+      type: "hero_title",
+      text: "FastAINews",
+      heroSubtitle: "Kabar Kecerdasan Buatan Tercepat Setiap Hari ⚡",
+      in_seconds: t,
+      out_seconds: dur,
+      accentColor: "#38BDF8",
+      backgroundColor: "#0B0F19",
       textColor: "#FFFFFF",
-    });
-  } else if (remainingTime > 0.5) {
-    addCut({
-      id: `c${CUTS.length + 1}`, type: "callout",
-      text: sentences[sentences.length - 1] ?? "Tetap update dengan AI.",
-      title: "💡 Kesimpulan", callout_type: "tip",
-      in_seconds: t, out_seconds: dur,
-      backgroundColor: "#1E293B",
+      ...(heroImg ? { backgroundImage: heroImg, backgroundOverlay: 0.75 } : {}),
     });
   }
 
