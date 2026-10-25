@@ -149,13 +149,15 @@ async function renderFullVideo() {
 
       const dur = vDurs[i];
       const isVid = v.type === "video";
+      const totalFrames = Math.round(dur * fps);
 
       if (isVid) {
         inputArgs.push("-t", dur.toFixed(2), "-i", vPath);
         filterParts.push(`[${i}:v]fps=${fps},scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1[v${i}]`);
       } else {
         inputArgs.push("-loop", "1", "-t", dur.toFixed(2), "-i", vPath);
-        filterParts.push(`[${i}:v]scale=1920:1080,setsar=1,fps=${fps}[v${i}]`);
+        const kb = getCinematicKenBurns(pIdx * 3 + i, totalFrames, fps);
+        filterParts.push(`[${i}:v]${kb}[v${i}]`);
       }
       concatInputs.push(`[v${i}]`);
     }

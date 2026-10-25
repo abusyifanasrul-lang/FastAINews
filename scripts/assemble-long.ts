@@ -679,7 +679,7 @@ async function run(): Promise<void> {
 
         const visualFilter = isVideo
           ? `fps=${fps},scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1`
-          : `scale=1920:1080,setsar=1,fps=${fps}`;
+          : getCinematicKenBurns(b.globalIdx, totalFrames, fps);
         fcLines.push(`[${i}:v]${visualFilter}[v${i}]`);
       }
 

@@ -124,11 +124,10 @@ ${events.join("\n")}
 `;
 }
 
-/** Hasilkan filter Ken Burns sinematik (2.5K Canvas, Smoothstep Easing, 4 Koreografi Kamera) */
+/** Hasilkan filter Ken Burns sinematik halus (Smoothstep Easing, 4 Koreografi Kamera) */
 export function getCinematicKenBurns(choreographyIdx: number, totalFrames: number, fps: number): string {
   const f = Math.max(totalFrames, 1);
-  // Cubic smoothstep easing: 3*(on/f)^2 - 2*(on/f)^3
-  const ease = `(3*pow(on/${f},2)-2*pow(on/${f},3))`;
+  // Quadratic smooth easing: (on/f)
   const mode = Math.abs(choreographyIdx) % 4;
 
   let zoomExpr: string;
@@ -136,28 +135,28 @@ export function getCinematicKenBurns(choreographyIdx: number, totalFrames: numbe
   let panY: string;
 
   if (mode === 0) {
-    // 1. Slow Push-In (1.00 -> 1.10 ke tengah)
-    zoomExpr = `1.0+0.10*${ease}`;
+    // 1. Slow Push-In (1.00 -> 1.08 ke tengah)
+    zoomExpr = `1.0+0.08*(on/${f})`;
     panX = `iw/2-(iw/zoom/2)`;
     panY = `ih/2-(ih/zoom/2)`;
   } else if (mode === 1) {
-    // 2. Gentle Pull-Out (1.12 -> 1.02 dari tengah)
-    zoomExpr = `1.12-0.10*${ease}`;
+    // 2. Gentle Pull-Out (1.08 -> 1.00 dari tengah)
+    zoomExpr = `1.08-0.08*(on/${f})`;
     panX = `iw/2-(iw/zoom/2)`;
     panY = `ih/2-(ih/zoom/2)`;
   } else if (mode === 2) {
-    // 3. Cinematic Pan-Right (Pan halus dari kiri ke kanan dengan zoom 1.08)
-    zoomExpr = `1.08`;
-    panX = `(iw-iw/zoom)*${ease}`;
+    // 3. Cinematic Pan-Right (Pan halus dari kiri ke kanan dengan zoom 1.06)
+    zoomExpr = `1.06`;
+    panX = `(iw-iw/zoom)*(on/${f})`;
     panY = `ih/2-(ih/zoom/2)`;
   } else {
-    // 4. Cinematic Pan-Left (Pan halus dari kanan ke kiri dengan zoom 1.08)
-    zoomExpr = `1.08`;
-    panX = `(iw-iw/zoom)*(1-${ease})`;
+    // 4. Cinematic Pan-Left (Pan halus dari kanan ke kiri dengan zoom 1.06)
+    zoomExpr = `1.06`;
+    panX = `(iw-iw/zoom)*(1-(on/${f}))`;
     panY = `ih/2-(ih/zoom/2)`;
   }
 
-  return `scale=2560:1440:force_original_aspect_ratio=increase,crop=2560:1440,zoompan=z='${zoomExpr}':x='${panX}':y='${panY}':s=1920x1080:fps=${fps}`;
+  return `scale=2560:1440:force_original_aspect_ratio=increase,crop=2560:1440,zoompan=z='${zoomExpr}':x='${panX}':y='${panY}':d=${f}:s=1920x1080:fps=${fps},setsar=1`;
 }
 
 /** Ekstrak teks judul, tag, serta contextual cues untuk kartu Lower-Third HUD dan Top Breadcrumb */
