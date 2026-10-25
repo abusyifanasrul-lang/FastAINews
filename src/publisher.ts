@@ -97,12 +97,18 @@ export async function uploadYoutube(videoPath: string, title: string, descriptio
 
 /** Set thumbnail custom pasca-upload (non-fatal). Return video id. */
 async function finishYoutubeUpload(token: string, videoId: string, thumbnailUrl?: string): Promise<string> {
-  // set custom thumbnail dari URL (non-fatal — video sudah aman ter-upload)
+  // set custom thumbnail dari URL atau local file path (non-fatal — video sudah aman ter-upload)
   if (thumbnailUrl) {
     try {
-      const imgResp = await fetch(thumbnailUrl);
-      if (imgResp.ok) {
-        const imgBuf = Buffer.from(await imgResp.arrayBuffer());
+      let imgBuf: Buffer | null = null;
+      if (thumbnailUrl.startsWith("http://") || thumbnailUrl.startsWith("https://")) {
+        const imgResp = await fetch(thumbnailUrl);
+        if (imgResp.ok) imgBuf = Buffer.from(await imgResp.arrayBuffer());
+      } else if (existsSync(thumbnailUrl)) {
+        imgBuf = readFileSync(thumbnailUrl);
+      }
+
+      if (imgBuf) {
         const tRes = await fetch(`https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${videoId}`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}`, "Content-Type": "image/jpeg" },
