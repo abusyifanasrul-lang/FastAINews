@@ -401,9 +401,49 @@ async function run(): Promise<void> {
     beats: RenderBeat[];
   }
 
+  // Periksa apakah ada semantic_manifest.json (1-ke-1 Strict Semantic Binding)
+  const manifestPath = join(baseDir, "semantic_manifest.json");
+  let semanticManifest: any = null;
+  if (existsSync(manifestPath)) {
+    try {
+      semanticManifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+      console.log(`[assemble-long] Ditemukan semantic_manifest.json! Mengaktifkan Strict Semantic Dual-Visual Engine.`);
+    } catch {}
+  }
+
   const renderGroups: RenderGroup[] = [];
 
-  if (isParaMode) {
+  if (semanticManifest && semanticManifest.paragraphs && isParaMode) {
+    for (let p = 0; p < scriptParas.length; p++) {
+      const pCfg = semanticManifest.paragraphs[p];
+      const pBeats: RenderBeat[] = [];
+      const pVisuals = pCfg?.visuals || [];
+
+      for (let vIdx = 0; vIdx < pVisuals.length; vIdx++) {
+        const v = pVisuals[vIdx];
+        const vFilename = v.file;
+        const matchedImg = normalizedImages.find(img => {
+          const b = basename(img);
+          return b === vFilename || b.replace(/^00_/, "").replace(/^\d\d_/, "") === vFilename.replace(/^00_/, "").replace(/^\d\d_/, "");
+        }) || normalizedImages[p % normalizedImages.length];
+
+        pBeats.push({
+          globalIdx: p * 2 + vIdx,
+          wordCount: vIdx === 0 ? 60 : 40,
+          imagePath: matchedImg,
+          chapterName: pCfg.topic || sbData.chapters[p]?.title || "FastAI News",
+        });
+      }
+
+      renderGroups.push({
+        pIdx: p,
+        targetDurSec: paraDurations[p] || (actualAudioSec / scriptParas.length),
+        paraText: scriptParas[p],
+        chapterName: pCfg.topic || "FastAI News",
+        beats: pBeats,
+      });
+    }
+  } else if (isParaMode) {
     for (let p = 0; p < scriptParas.length; p++) {
       const pBeats: RenderBeat[] = [];
       beatsWithPara.forEach((bp, idx) => {
@@ -527,8 +567,8 @@ async function run(): Promise<void> {
     }
   }
 
-  // Inject HyperFrames Hook Opener into segment 0 jika ada
-  if (hookOpenerPath && renderGroups.length > 0) {
+  // Inject HyperFrames Hook Opener into segment 0 jika ada (skip jika sudah dikelola via semanticManifest)
+  if (!semanticManifest && hookOpenerPath && renderGroups.length > 0) {
     const g0 = renderGroups[0];
     const originalBeats = [...g0.beats];
     const hookBeat: RenderBeat = {
@@ -636,7 +676,7 @@ async function run(): Promise<void> {
 
         const visualFilter = isVideo
           ? `fps=${fps},scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1`
-          : getCinematicKenBurns(b.globalIdx, totalFrames, fps);
+          : `scale=1920:1080,setsar=1,fps=${fps}`;
         fcLines.push(`[${i}:v]${visualFilter}[v${i}]`);
       }
 
