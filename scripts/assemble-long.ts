@@ -427,9 +427,12 @@ async function run(): Promise<void> {
           return b === vFilename || b.replace(/^00_/, "").replace(/^\d\d_/, "") === vFilename.replace(/^00_/, "").replace(/^\d\d_/, "");
         }) || normalizedImages[p % normalizedImages.length];
 
+        const isVid = extname(matchedImg).toLowerCase() === ".mp4";
+        const wCount = isVid ? 35 : Math.round(65 / Math.max(1, pVisuals.length - 1));
+
         pBeats.push({
-          globalIdx: p * 2 + vIdx,
-          wordCount: vIdx === 0 ? 60 : 40,
+          globalIdx: p * 3 + vIdx,
+          wordCount: wCount,
           imagePath: matchedImg,
           chapterName: pCfg.topic || sbData.chapters[p]?.title || "FastAI News",
         });

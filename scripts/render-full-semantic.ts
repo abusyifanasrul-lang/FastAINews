@@ -101,106 +101,81 @@ async function renderFullVideo() {
     writeFileSync(hudAssPath, buildAssHud(pIdx, hud.title, hud.tag, targetDur, { ...hud, paraText }), "utf8");
 
     const visuals = pCfg.visuals;
+    const numV = visuals.length;
 
-    if (visuals.length === 1) {
-      // 1 Visual Tunggal (Foto Sinematik Ken Burns sepanjang durasi paragraf)
-      const v = visuals[0];
-      const imgPath = join(imagesDir, v.file);
-      const totalFrames = Math.round(targetDur * fps);
-      const kbFilter = getCinematicKenBurns(pIdx, totalFrames, fps);
-
-      execFileSync("ffmpeg", [
-        "-y",
-        "-loop", "1", "-t", targetDur.toFixed(2), "-i", imgPath,
-        "-filter_complex", `[0:v]${kbFilter},ass=${hudAssName}[outv]`,
-        "-map", "[outv]",
-        "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p",
-        "-t", targetDur.toFixed(2),
-        clipOut
-      ], { cwd: workDir });
-
-    } else if (visuals.length === 2) {
-      // 2 Visual: Bisa (Video + Foto) seperti P1, atau (Foto + Video Klip HyperFrames) seperti P3-P8, P10, P11
-      const v1 = visuals[0];
-      const v2 = visuals[1];
-
-      function resolveVisualPath(v: ManifestVisual): string {
-        if (v.type === "video") {
-          const direct = join(baseDir, v.file);
-          if (existsSync(direct)) return direct;
-          const stripped = join(baseDir, v.file.replace(/^00_/, "").replace(/^\d\d_/, ""));
-          if (existsSync(stripped)) return stripped;
-          return direct;
-        } else {
-          return join(imagesDir, v.file);
-        }
-      }
-
-      const v1Path = resolveVisualPath(v1);
-      const v2Path = resolveVisualPath(v2);
-
-      if (!existsSync(v1Path)) throw new Error(`v1Path not found: ${v1Path}`);
-      if (!existsSync(v2Path)) throw new Error(`v2Path not found: ${v2Path}`);
-
-      // Hitung durasi masing-masing
-      let d1 = 0;
-      let d2 = 0;
-
-      if (v1.durationSec) {
-        // Misal Hook Opener (7.0 detik)
-        d1 = v1.durationSec;
-        d2 = Math.max(1.0, targetDur - d1);
-      } else if (v2.type === "video") {
-        // Klip HyperFrames di paruh kedua: tampilkan 7 detik penuh!
-        d2 = 7.0;
-        d1 = Math.max(1.0, targetDur - d2);
+    function resolveVisualPath(v: ManifestVisual): string {
+      if (v.type === "video") {
+        const direct = join(baseDir, v.file);
+        if (existsSync(direct)) return direct;
+        const stripped = join(baseDir, v.file.replace(/^00_/, "").replace(/^\d\d_/, ""));
+        if (existsSync(stripped)) return stripped;
+        return direct;
       } else {
-        d1 = targetDur / 2;
-        d2 = targetDur - d1;
+        return join(imagesDir, v.file);
       }
-
-      const f1Frames = Math.round(d1 * fps);
-      const f2Frames = Math.round(d2 * fps);
-
-      const isV1Video = v1.type === "video";
-      const isV2Video = v2.type === "video";
-
-      const v1Filter = isV1Video
-        ? `fps=${fps},scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1`
-        : `scale=1920:1080,setsar=1,fps=${fps}`;
-
-      const v2Filter = isV2Video
-        ? `fps=${fps},scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1`
-        : `scale=1920:1080,setsar=1,fps=${fps}`;
-
-      const filterComplex = `[0:v]${v1Filter}[v0];[1:v]${v2Filter}[v1];[v0][v1]concat=n=2:v=1:a=0,ass=${hudAssName}[outv]`;
-
-      const inputArgs: string[] = [];
-      if (isV1Video) {
-        inputArgs.push("-t", d1.toFixed(2), "-i", v1Path);
-      } else {
-        inputArgs.push("-loop", "1", "-t", d1.toFixed(2), "-i", v1Path);
-      }
-
-      if (isV2Video) {
-        inputArgs.push("-t", d2.toFixed(2), "-i", v2Path);
-      } else {
-        inputArgs.push("-loop", "1", "-t", d2.toFixed(2), "-i", v2Path);
-      }
-
-      execFileSync("ffmpeg", [
-        "-y",
-        ...inputArgs,
-        "-filter_complex", filterComplex,
-        "-map", "[outv]",
-        "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p",
-        "-t", targetDur.toFixed(2),
-        clipOut
-      ], { cwd: workDir });
     }
 
+    // Hitung alokasi durasi setiap visual
+    // Jika ada video berdurasi tetap (misal klip HF 7.0s), alokasikan durasi tersebut, sisanya dibagi rata ke gambar
+    const vDurs: number[] = new Array(numV).fill(0);
+    let reservedTime = 0;
+    let autoCount = 0;
+
+    for (let i = 0; i < numV; i++) {
+      if (visuals[i].durationSec) {
+        vDurs[i] = visuals[i].durationSec!;
+        reservedTime += visuals[i].durationSec!;
+      } else {
+        autoCount++;
+      }
+    }
+
+    const remainingTime = Math.max(0, targetDur - reservedTime);
+    const perAutoTime = autoCount > 0 ? remainingTime / autoCount : 0;
+    for (let i = 0; i < numV; i++) {
+      if (!visuals[i].durationSec) {
+        vDurs[i] = perAutoTime;
+      }
+    }
+
+    const inputArgs: string[] = [];
+    const filterParts: string[] = [];
+    const concatInputs: string[] = [];
+
+    for (let i = 0; i < numV; i++) {
+      const v = visuals[i];
+      const vPath = resolveVisualPath(v);
+      if (!existsSync(vPath)) throw new Error(`Visual path not found: ${vPath}`);
+
+      const dur = vDurs[i];
+      const isVid = v.type === "video";
+
+      if (isVid) {
+        inputArgs.push("-t", dur.toFixed(2), "-i", vPath);
+        filterParts.push(`[${i}:v]fps=${fps},scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1[v${i}]`);
+      } else {
+        inputArgs.push("-loop", "1", "-t", dur.toFixed(2), "-i", vPath);
+        filterParts.push(`[${i}:v]scale=1920:1080,setsar=1,fps=${fps}[v${i}]`);
+      }
+      concatInputs.push(`[v${i}]`);
+    }
+
+    const filterComplex = numV === 1
+      ? `${filterParts[0].replace(`[v0]`, `[pre]`)}[pre]ass=${hudAssName}[outv]`
+      : `${filterParts.join(";")};${concatInputs.join("")}concat=n=${numV}:v=1:a=0,ass=${hudAssName}[outv]`;
+
+    execFileSync("ffmpeg", [
+      "-y",
+      ...inputArgs,
+      "-filter_complex", filterComplex,
+      "-map", "[outv]",
+      "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", "-pix_fmt", "yuv420p",
+      "-t", targetDur.toFixed(2),
+      clipOut
+    ], { cwd: workDir });
+
     clipPaths.push(clipOut);
-    console.log(`  -> Selesai: segment_${String(pIdx).padStart(2, "0")}.mp4`);
+    console.log(`  -> Selesai: segment_${String(pIdx).padStart(2, "0")}.mp4 (${numV} visual beat)`);
   }
 
   // 5. Gabungkan seluruh 12 segmen video
