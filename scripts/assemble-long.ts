@@ -674,7 +674,8 @@ async function run(): Promise<void> {
         if (isVideo) {
           inputArgs.push("-t", clipDur.toFixed(2), "-i", b.imagePath);
         } else {
-          inputArgs.push("-loop", "1", "-t", clipDur.toFixed(2), "-i", b.imagePath);
+          // PENTING: DILARANG pakai -loop 1 pada zoompan agar tidak infinite loop/shaking
+          inputArgs.push("-i", b.imagePath);
         }
 
         const visualFilter = isVideo

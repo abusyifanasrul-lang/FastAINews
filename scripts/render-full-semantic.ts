@@ -88,8 +88,10 @@ async function renderFullVideo() {
     const paraText = paras[p];
     const clipOut = join(workDir, `segment_${String(pIdx).padStart(2, "0")}.mp4`);
 
-    if (existsSync(clipOut)) {
-      unlinkSync(clipOut);
+    if (existsSync(clipOut) && statSync(clipOut).size > 100000) {
+      console.log(`[render-full] Segmen ${pIdx}/12 sudah ada, skip render...`);
+      clipPaths.push(clipOut);
+      continue;
     }
 
     console.log(`\n[render-full] Merender Segmen ${pIdx}/12 (${pCfg.topic}, ${targetDur.toFixed(1)}s)...`);
@@ -140,31 +142,56 @@ async function renderFullVideo() {
 
     const inputArgs: string[] = [];
     const filterParts: string[] = [];
-    const concatInputs: string[] = [];
+    const transDur = 0.5;
 
+    // Hitung durasi base per visual dan total frame yang harus digenerate
+    // Untuk item i < numV - 1, tambahkan transDur agar saat di-xfade durasinya pas
     for (let i = 0; i < numV; i++) {
       const v = visuals[i];
       const vPath = resolveVisualPath(v);
       if (!existsSync(vPath)) throw new Error(`Visual path not found: ${vPath}`);
 
-      const dur = vDurs[i];
       const isVid = v.type === "video";
-      const totalFrames = Math.round(dur * fps);
+      const baseDur = vDurs[i];
+      const clipDur = isVid ? baseDur : baseDur + (i < numV - 1 ? transDur : 0);
+      const totalFrames = Math.round(clipDur * fps);
 
       if (isVid) {
-        inputArgs.push("-t", dur.toFixed(2), "-i", vPath);
+        inputArgs.push("-t", clipDur.toFixed(2), "-i", vPath);
         filterParts.push(`[${i}:v]fps=${fps},scale=1920:1080:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1[v${i}]`);
       } else {
-        inputArgs.push("-loop", "1", "-t", dur.toFixed(2), "-i", vPath);
+        // PENTING: DILARANG pakai -loop 1 pada zoompan agar tidak infinite loop/shaking
+        inputArgs.push("-i", vPath);
         const kb = getCinematicKenBurns(pIdx * 3 + i, totalFrames, fps);
         filterParts.push(`[${i}:v]${kb}[v${i}]`);
       }
-      concatInputs.push(`[v${i}]`);
     }
 
-    const filterComplex = numV === 1
-      ? `${filterParts[0].replace(`[v0]`, `[pre]`)}[pre]ass=${hudAssName}[outv]`
-      : `${filterParts.join(";")};${concatInputs.join("")}concat=n=${numV}:v=1:a=0,ass=${hudAssName}[outv]`;
+    let filterComplex = "";
+    if (numV === 1) {
+      filterComplex = `${filterParts[0].replace(`[v0]`, `[pre]`)};[pre]ass=${hudAssName}[outv]`;
+    } else {
+      const xfadeParts: string[] = [];
+      let curOffset = 0;
+
+      for (let i = 0; i < numV - 1; i++) {
+        // Jika visual pertama adalah video berdurasi tetap (misal Hook 7s)
+        const isFirstVideo = i === 0 && visuals[0].type === "video";
+        if (isFirstVideo) {
+          curOffset = vDurs[0] - transDur;
+        } else {
+          curOffset += vDurs[i];
+        }
+
+        const prevLabel = i === 0 ? `[v0]` : `[x${i - 1}]`;
+        const nextLabel = `[v${i + 1}]`;
+        const outLabel = i === numV - 2 ? `[mx]` : `[x${i}]`;
+
+        xfadeParts.push(`${prevLabel}${nextLabel}xfade=transition=dissolve:duration=${transDur.toFixed(2)}:offset=${curOffset.toFixed(2)}${outLabel}`);
+      }
+
+      filterComplex = `${filterParts.join(";")};${xfadeParts.join(";")};[mx]ass=${hudAssName}[outv]`;
+    }
 
     execFileSync("ffmpeg", [
       "-y",
@@ -177,7 +204,7 @@ async function renderFullVideo() {
     ], { cwd: workDir });
 
     clipPaths.push(clipOut);
-    console.log(`  -> Selesai: segment_${String(pIdx).padStart(2, "0")}.mp4 (${numV} visual beat)`);
+    console.log(`  -> Selesai: segment_${String(pIdx).padStart(2, "0")}.mp4 (${numV} visual beat, xfade dissolve)`);
   }
 
   // 5. Gabungkan seluruh 12 segmen video
