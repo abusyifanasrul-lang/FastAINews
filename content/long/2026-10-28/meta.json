@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-28",
+  "topicTitle": "Revolusi AI: Anthropic IPO, OpenAI Terra, dan Masa Depan Komputasi",
+  "status": "READY_FOR_ASSETS",
+  "beats": 42,
+  "estTotalSec": 672.3,
+  "midrollAtSec": 370,
+  "t2vCount": 30,
+  "i2vCount": 8,
+  "staticCount": 4,
+  "images": 6,
+  "sources": 7,
+  "paragraphs": 15,
+  "storyboardBatchesExecuted": 6,
+  "storyboardTotalBatches": 6,
+  "storyboardLlmOkBatches": 6,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [
+    {
+      "no": 4,
+      "got": 5,
+      "expected": 8
+    }
+  ],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
