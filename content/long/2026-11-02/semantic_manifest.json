@@ -1,0 +1,186 @@
+{
+  "edition": "2026-11-02",
+  "paragraphs": [
+    {
+      "index": 1,
+      "topic": "Intro: Kontrol Manusia vs Mesin",
+      "visuals": [
+        {
+          "file": "00_hook_opener.mp4",
+          "durationSec": 7.0,
+          "type": "video"
+        },
+        {
+          "file": "01_workstation_night.jpg",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "topic": "OpenAI Compute Campuses: Krisis Energi & Monopoli",
+      "visuals": [
+        {
+          "file": "02_compute_campus.jpg",
+          "type": "image"
+        },
+        {
+          "file": "src1.jpg",
+          "type": "image"
+        },
+        {
+          "file": "02_campus_infra_clip.mp4",
+          "durationSec": 14.0,
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "topic": "Chatbot Navigasi: Halusinasi & Bahaya Fisik",
+      "visuals": [
+        {
+          "file": "03_hiker_mountain.jpg",
+          "type": "image"
+        },
+        {
+          "file": "src2.jpg",
+          "type": "image"
+        },
+        {
+          "file": "03_hiker_map_clip.mp4",
+          "durationSec": 14.0,
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "topic": "Adobe Photoshop Agent: Dari Operator ke Konseptor",
+      "visuals": [
+        {
+          "file": "04_photoshop_macro.jpg",
+          "type": "image"
+        },
+        {
+          "file": "src3.png",
+          "type": "image"
+        },
+        {
+          "file": "04_photoshop_agent_clip.mp4",
+          "durationSec": 14.0,
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "topic": "AI Tamagotchi ESP32: Kemenangan Solo Builder",
+      "visuals": [
+        {
+          "file": "05_tamagotchi_esp32.jpg",
+          "type": "image"
+        },
+        {
+          "file": "src4.jpg",
+          "type": "image"
+        },
+        {
+          "file": "05_esp32_circuit_clip.mp4",
+          "durationSec": 14.0,
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "topic": "OpenAI Web Preferences: Perang Kedaulatan Konten",
+      "visuals": [
+        {
+          "file": "06_server_gatekeeper.jpg",
+          "type": "image"
+        },
+        {
+          "file": "src1.jpg",
+          "type": "image"
+        },
+        {
+          "file": "06_robots_txt_clip.mp4",
+          "durationSec": 14.0,
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "topic": "Biaya Ekologis: Jejak Karbon Agen Otonom MIT",
+      "visuals": [
+        {
+          "file": "07_power_cooling_macro.jpg",
+          "type": "image"
+        },
+        {
+          "file": "src6.jpg",
+          "type": "image"
+        },
+        {
+          "file": "07_carbon_footprint_clip.mp4",
+          "durationSec": 14.0,
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "topic": "Kesenjangan Sosial: Efisiensi CEO vs Nasib Pekerja",
+      "visuals": [
+        {
+          "file": "08_boardroom_table.jpg",
+          "type": "image"
+        },
+        {
+          "file": "src7.webp",
+          "type": "image"
+        },
+        {
+          "file": "08_worker_gap_clip.mp4",
+          "durationSec": 14.0,
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "topic": "Sintesis Industri: Benturan Fisik dan Regulasi",
+      "visuals": [
+        {
+          "file": "09_wafer_gavel_bench.jpg",
+          "type": "image"
+        },
+        {
+          "file": "src6.jpg",
+          "type": "image"
+        },
+        {
+          "file": "09_roadmap_clip.mp4",
+          "durationSec": 14.0,
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "topic": "Langkah Nyata: Navigasi Era Baru & Penutup",
+      "visuals": [
+        {
+          "file": "10_morning_command_desk.jpg",
+          "type": "image"
+        },
+        {
+          "file": "01_workstation_night.jpg",
+          "type": "image"
+        }
+      ]
+    }
+  ]
+}
