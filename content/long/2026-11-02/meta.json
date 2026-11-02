@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-02",
+  "topicTitle": "Revolusi AI Tiga Hari Terakhir Mengubah Lanskap Digital Kita",
+  "status": "READY_FOR_ASSETS",
+  "beats": 44,
+  "estTotalSec": 654,
+  "midrollAtSec": 360,
+  "t2vCount": 26,
+  "i2vCount": 14,
+  "staticCount": 4,
+  "images": 6,
+  "sources": 7,
+  "paragraphs": 19,
+  "storyboardBatchesExecuted": 6,
+  "storyboardTotalBatches": 6,
+  "storyboardLlmOkBatches": 6,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [
+    {
+      "no": 2,
+      "got": 4,
+      "expected": 8
+    }
+  ],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
