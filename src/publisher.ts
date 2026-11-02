@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { db } from "./db.js";
-import { statSync, openSync, readSync, closeSync } from "node:fs";
+import { statSync, openSync, readSync, closeSync, existsSync, readFileSync } from "node:fs";
 import { publishToSocial } from "./zernio.js";
 
 export interface PublishResult {
@@ -112,7 +112,7 @@ async function finishYoutubeUpload(token: string, videoId: string, thumbnailUrl?
         const tRes = await fetch(`https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${videoId}`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}`, "Content-Type": "image/jpeg" },
-          body: imgBuf,
+          body: imgBuf as any,
         });
         console.log(tRes.ok ? "[youtube] thumbnail custom diset" : `[youtube] set thumbnail gagal ${tRes.status} (video tetap live)`);
       }

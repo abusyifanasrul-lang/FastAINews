@@ -402,7 +402,9 @@ async function run(): Promise<void> {
   }
 
   // Periksa apakah ada semantic_manifest.json (1-ke-1 Strict Semantic Binding)
-  const manifestPath = join(baseDir, "semantic_manifest.json");
+  const manifestPath = existsSync(join(extractDir, "semantic_manifest.json"))
+    ? join(extractDir, "semantic_manifest.json")
+    : join(process.cwd(), "content", "long", date, "semantic_manifest.json");
   let semanticManifest: any = null;
   if (existsSync(manifestPath)) {
     try {

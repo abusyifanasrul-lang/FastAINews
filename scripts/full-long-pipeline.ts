@@ -8,7 +8,7 @@ import { curateLongNews } from "../src/long/curator.js";
 import { generateLongScript, generateLongStoryboard } from "../src/long/llm-long.js";
 import { splitBeats, validateChapters, buildStoryboardMd, extractPromptsText, extractNarrationsText, extractParagraphsText, type Chapter } from "../src/long/storyboard.js";
 import { stripMidroll } from "../src/long/validate.js";
-import { upsertLongContent, getLongContentByDate, getLatestPastLongContent } from "../src/db.js";
+import { upsertLongContent, getLongContentByDate, getLatestPastLongContent, autoSkipStalledLongContents } from "../src/db.js";
 
 // Helper waktu: default tanggal mengacu ke WITA (UTC+8)
 const defaultDate = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Makassar" }).format(new Date());
@@ -35,14 +35,29 @@ async function run(): Promise<void> {
     return;
   }
 
+  // Auto-skip edisi macet/basi (>= 3 hari di READY_FOR_ASSETS atau >= 6 jam di PUBLISHING)
+  const autoSkipped = autoSkipStalledLongContents(date, 3);
+  for (const s of autoSkipped) {
+    console.log(`[long] AUTO-SKIP: Edisi ${s.date} ("${s.topic_title ?? ""}") basi/macet -> otomatis ditandai SKIPPED.`);
+    await tgSend(
+      `⚠️ *Auto-Skip Long-Form Basi* (${s.date})\nTopik: "${s.topic_title ?? "-"}" telah melewati batas siklus 3 hari tanpa perakitan aset.\nStatus otomatis diubah ke *SKIPPED* agar tidak memblokir kurasi edisi baru ${date}.`
+    );
+  }
+
   // Throttle Interlock Guard (hanya berlaku pada run otomatis / tanpa flag --force)
   if (!force) {
     const latestPast = getLatestPastLongContent(date);
     if (latestPast) {
-      // 1. Jika edisi sebelumnya masih belum selesai dirakit/dipublish
+      // 1. Jika edisi sebelumnya masih belum selesai dirakit/dipublish (< 3 hari)
       if (["READY_FOR_ASSETS", "PUBLISHING"].includes(latestPast.status)) {
+        const pastDateObj = new Date(latestPast.date);
+        const curDateObj = new Date(date);
+        const daysSincePast = Math.round((curDateObj.getTime() - pastDateObj.getTime()) / (1000 * 3600 * 24));
         console.log(
-          `[long] THROTTLE INTERLOCK: Edisi sebelumnya (${latestPast.date}) masih berstatus '${latestPast.status}' (belum selesai dipublish). Menunda kurasi baru dan menggeser 24 jam ke jadwal berikutnya.`
+          `[long] THROTTLE INTERLOCK: Edisi sebelumnya (${latestPast.date}) masih berstatus '${latestPast.status}' (${daysSincePast} hari lalu). Menunda kurasi baru.`
+        );
+        await tgSend(
+          `⏰ *Reminder Perakitan Long-Form* (${latestPast.date})\nTopik: "${latestPast.topic_title ?? "-"}"\nStatus: ${latestPast.status} (Hari ke-${daysSincePast} dari batas 3 hari).\nSiapkan aset audio & visual lalu kirim perintah:\n\`/assemble_long ${latestPast.date} <link_gdrive>\`\n*(Jika tidak dirakit dalam 3 hari, edisi ini akan otomatis di-skip karena berita basi)*`
         );
         return;
       }

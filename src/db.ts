@@ -181,6 +181,37 @@ export function getLongContentByDate(date: string): LongContentRow | undefined {
   return db.prepare("SELECT * FROM long_contents WHERE date = ?").get(date) as LongContentRow | undefined;
 }
 
+export function autoSkipStalledLongContents(beforeDate: string, maxDays = 3): LongContentRow[] {
+  const rows = db.prepare(`
+    SELECT * FROM long_contents 
+    WHERE date < ? AND status IN ('READY_FOR_ASSETS', 'PUBLISHING')
+    ORDER BY date ASC
+  `).all(beforeDate) as LongContentRow[];
+
+  const skipped: LongContentRow[] = [];
+  const curTime = new Date(beforeDate).getTime();
+
+  for (const row of rows) {
+    const rowDate = new Date(row.date).getTime();
+    const daysDiff = Math.round((curTime - rowDate) / (1000 * 3600 * 24));
+
+    if (row.status === "READY_FOR_ASSETS" && daysDiff >= maxDays) {
+      db.prepare("UPDATE long_contents SET status='SKIPPED', updated_at=CURRENT_TIMESTAMP WHERE id=?").run(row.id);
+      skipped.push({ ...row, status: "SKIPPED" });
+    } else if (row.status === "PUBLISHING") {
+      const rawTime = row.updated_at || row.created_at;
+      const lastUtc = new Date(rawTime.includes("Z") ? rawTime : rawTime.replace(" ", "T") + "Z").getTime();
+      const hoursSince = (Date.now() - lastUtc) / (1000 * 3600);
+      if (hoursSince >= 6) {
+        db.prepare("UPDATE long_contents SET status='SKIPPED', updated_at=CURRENT_TIMESTAMP WHERE id=?").run(row.id);
+        skipped.push({ ...row, status: "SKIPPED" });
+      }
+    }
+  }
+
+  return skipped;
+}
+
 export function getLatestPastLongContent(beforeDate: string): LongContentRow | undefined {
   return db.prepare(`
     SELECT * FROM long_contents 
