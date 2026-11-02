@@ -105,12 +105,10 @@
       tl.from("#card-llm", { x: -40, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.8);
       tl.from("#card-reality", { x: 40, opacity: 0, duration: 0.7, ease: "power3.out" }, 1.1);
 
-      tl.to("#card-llm", { scale: 1.02, duration: 2, yoyo: true, repeat: -1, ease: "sine.inOut" }, 1.8);
+      tl.to("#card-llm", { scale: 1.02, duration: 2, yoyo: true, repeat: 5, ease: "sine.inOut" }, 1.8);
 
-      window.__seek = (frame) => {
-        const fps = 30;
-        tl.seek(frame / fps);
-      };
+      window.__timelines = window.__timelines || {};
+      window.__timelines["hiker-map"] = tl;
     </script>
   </body>
 </html>

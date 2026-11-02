@@ -16,32 +16,59 @@ function toAssTime(sec: number): string {
   return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}.${String(cs).padStart(2, "0")}`;
 }
 
-/** Pisah naskah paragraf menjadi baris subtitle (maks 6 kata) dengan durasi terdistribusi */
+/** Pisah naskah paragraf menjadi baris subtitle mengikuti batas kalimat & klausa alami (anti-kata nanggung) */
 function generateSubtitleEvents(paraText: string, durationSec: number): string[] {
-  const words = paraText.replace(/[\r\n]+/g, " ").trim().split(/\s+/).filter(Boolean);
-  if (words.length === 0) return [];
+  // 1. Pecah menjadi kalimat-kalimat utuh (split by . ! ?)
+  const rawSentences = paraText.split(String.fromCharCode(10)).join(" ").trim().split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
 
-  const chunks: string[] = [];
-  const chunkSize = 6;
-  for (let i = 0; i < words.length; i += chunkSize) {
-    chunks.push(words.slice(i, i + chunkSize).join(" "));
-  }
+  if (rawSentences.length === 0) return [];
 
-  const chunkDur = durationSec / chunks.length;
+  const totalChars = rawSentences.reduce((acc, s) => acc + s.length, 0) || 1;
   const events: string[] = [];
+  let curTime = 0.0;
 
-  chunks.forEach((chunk, i) => {
-    const start = i * chunkDur;
-    const end = Math.min((i + 1) * chunkDur, durationSec);
-    // Sorot kata kunci (nama brand / angka / persentase) dengan warna emas
-    const highlighted = chunk
-      .replace(/[\\{}]/g, "")
-      .replace(/(\b[A-Z][a-zA-Z0-9_\-\.]{2,}\b|\b\d+[\d\.,%]*\b)/g, "{\\c&H00F8BD38&}$1{\\c&H00F8FAFC&}");
+  for (const sent of rawSentences) {
+    const sentDur = (sent.length / totalChars) * durationSec;
+    const words = sent.split(/\s+/).filter(Boolean);
+    const chunks: string[] = [];
+    let curChunk: string[] = [];
 
-    events.push(
-      `Dialogue: 3,${toAssTime(start)},${toAssTime(end)},KineticSub,,0,0,0,,{\\fad(150,150)}${highlighted}`
-    );
-  });
+    for (const w of words) {
+      curChunk.push(w);
+      // Potong jika ada koma/titik dua/tanda pisah, atau sudah mencapai 6-7 kata
+      if (/[,\;:\—]$/.test(w) || curChunk.length >= 7) {
+        chunks.push(curChunk.join(" "));
+        curChunk = [];
+      }
+    }
+
+    if (curChunk.length > 0) {
+      // Jika chunk sisa terlalu pendek (<= 2 kata) dan sudah ada chunk sebelumnya, satukan agar tidak nanggung!
+      if (curChunk.length <= 2 && chunks.length > 0) {
+        chunks[chunks.length - 1] += " " + curChunk.join(" ");
+      } else {
+        chunks.push(curChunk.join(" "));
+      }
+    }
+
+    const sentChars = chunks.reduce((acc, c) => acc + c.length, 0) || 1;
+
+    for (const chunk of chunks) {
+      const cDur = (chunk.length / sentChars) * sentDur;
+      const start = curTime;
+      const end = Math.min(curTime + cDur, durationSec);
+      curTime += cDur;
+
+      // Sorot kata kunci (nama brand / angka / persentase) dengan warna emas
+      const highlighted = chunk
+        .replace(/[\\{}]/g, "")
+        .replace(/(\b[A-Z][a-zA-Z0-9_\-\.]{2,}\b|\b\d+[\d\.,%]*\b)/g, "{\\c&H00F8BD38&}$1{\\c&H00F8FAFC&}");
+
+      events.push(
+        `Dialogue: 3,${toAssTime(start)},${toAssTime(end)},KineticSub,,0,0,0,,{\\fad(150,150)}${highlighted}`
+      );
+    }
+  }
 
   return events;
 }
