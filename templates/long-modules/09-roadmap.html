@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>AI Frontier Strategic Roadmap 6-12 Months</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; padding: 0; background: #070a13; color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
+      }
+      #root { position: relative; width: 100%; height: 100%; background: #070a13; overflow: hidden; }
+      .bg-glow {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(circle at 50% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 60%),
+          radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+          linear-gradient(180deg, #070a13 0%, #0d1424 100%);
+      }
+      .grid-lines {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+      .container {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        padding: 80px; z-index: 10;
+      }
+      .badge-wrap {
+        display: inline-flex; align-items: center; gap: 12px;
+        background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(245, 158, 11, 0.4);
+        border-radius: 9999px; padding: 10px 24px; margin-bottom: 24px;
+      }
+      .badge-dot { width: 10px; height: 10px; background: #f59e0b; border-radius: 50%; box-shadow: 0 0 10px #f59e0b; }
+      .badge-text { font-size: 16px; font-weight: 800; letter-spacing: 3px; color: #f59e0b; text-transform: uppercase; }
+      .main-title {
+        font-size: 54px; font-weight: 900; text-align: center; line-height: 1.15;
+        max-width: 1400px; margin: 0 0 44px 0;
+        background: linear-gradient(180deg, #ffffff 40%, #cbd5e1 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      .roadmap-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+        width: 100%; max-width: 1440px;
+      }
+      .road-card {
+        background: rgba(13, 20, 36, 0.85); border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px; padding: 36px 30px; backdrop-filter: blur(12px);
+      }
+      .card-step { font-size: 14px; font-weight: 800; letter-spacing: 2px; color: #f59e0b; text-transform: uppercase; margin-bottom: 12px; }
+      .card-h2 { font-size: 26px; font-weight: 800; color: #ffffff; margin-bottom: 12px; }
+      .card-p { font-size: 16px; line-height: 1.6; color: #94a3b8; }
+      .stat-highlight { font-size: 32px; font-weight: 900; color: #f59e0b; margin: 12px 0 8px 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="roadmap-predict" data-width="1920" data-height="1080" data-duration="14">
+      <div class="bg-glow"></div>
+      <div class="grid-lines"></div>
+
+      <div class="container">
+        <div id="badge" class="badge-wrap">
+          <div class="badge-dot"></div>
+          <div class="badge-text">STRATEGIC HORIZON // 6-12 BULAN</div>
+        </div>
+
+        <h1 id="title" class="main-title">
+          Dua Medan Pertarungan Penentu Masa Depan AI
+        </h1>
+
+        <div class="roadmap-grid">
+          <div class="road-card" id="rc-1">
+            <div class="card-step">01 // BENTENG FISIK</div>
+            <div class="card-h2">Perebutan Energi & Lahan</div>
+            <div class="stat-highlight">Gigawatt Race</div>
+            <div class="card-p">
+              Model frontier terkunci di tangan raksasa yang menguasai infrastruktur mandiri dan akses energi prioritas.
+            </div>
+          </div>
+
+          <div class="road-card" id="rc-2" style="border-color: rgba(245, 158, 11, 0.4); background: rgba(26, 20, 10, 0.88);">
+            <div class="card-step">02 // REGULASI & LIABILITAS</div>
+            <div class="card-h2">Tanggung Jawab Hukum</div>
+            <div class="stat-highlight">Product Liability</div>
+            <div class="card-p">
+              Tekanan hukum atas halusinasi keselamatan fisik, transparansi crawler data, dan audit emisi karbon agen mandiri.
+            </div>
+          </div>
+
+          <div class="road-card" id="rc-3">
+            <div class="card-step">03 // KEBANGKITAN MAKER</div>
+            <div class="card-h2">Kedaulatan Individu</div>
+            <div class="stat-highlight">Edge & On-Device</div>
+            <div class="card-p">
+              Pengembang independen memanfaatkan model efisien dan perangkat terdistribusi untuk menghindari monopoli cloud.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#badge", { y: -30, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+      tl.from("#title", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+      tl.from("#rc-1", { x: -40, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.8);
+      tl.from("#rc-2", { y: 40, opacity: 0, duration: 0.7, ease: "power3.out" }, 1.1);
+      tl.from("#rc-3", { x: 40, opacity: 0, duration: 0.7, ease: "power3.out" }, 1.4);
+
+      tl.to("#rc-2", { scale: 1.02, duration: 2, yoyo: true, repeat: -1, ease: "sine.inOut" }, 2.0);
+
+      window.__seek = (frame) => {
+        const fps = 30;
+        tl.seek(frame / fps);
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>OpenAI Compute Campuses Topology</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; padding: 0; background: #070a13; color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
+      }
+      #root { position: relative; width: 100%; height: 100%; background: #070a13; overflow: hidden; }
+      .bg-glow {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(circle at 30% 20%, rgba(56, 189, 248, 0.15) 0%, transparent 60%),
+          radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.12) 0%, transparent 50%),
+          linear-gradient(180deg, #070a13 0%, #0c1322 100%);
+      }
+      .grid-lines {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+      .container {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        padding: 80px; z-index: 10;
+      }
+      .badge-wrap {
+        display: inline-flex; align-items: center; gap: 12px;
+        background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(56, 189, 248, 0.4);
+        border-radius: 9999px; padding: 10px 24px; margin-bottom: 24px;
+      }
+      .badge-dot { width: 10px; height: 10px; background: #38bdf8; border-radius: 50%; box-shadow: 0 0 10px #38bdf8; }
+      .badge-text { font-size: 16px; font-weight: 800; letter-spacing: 3px; color: #38bdf8; text-transform: uppercase; }
+      .main-title {
+        font-size: 54px; font-weight: 900; text-align: center; line-height: 1.15;
+        max-width: 1400px; margin: 0 0 44px 0;
+        background: linear-gradient(180deg, #ffffff 40%, #cbd5e1 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      .campus-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+        width: 100%; max-width: 1440px;
+      }
+      .campus-card {
+        background: rgba(13, 20, 36, 0.85); border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px; padding: 36px 30px; backdrop-filter: blur(12px);
+      }
+      .card-step { font-size: 14px; font-weight: 800; letter-spacing: 2px; color: #38bdf8; text-transform: uppercase; margin-bottom: 12px; }
+      .card-h2 { font-size: 26px; font-weight: 800; color: #ffffff; margin-bottom: 12px; }
+      .card-p { font-size: 16px; line-height: 1.6; color: #94a3b8; }
+      .stat-highlight { font-size: 36px; font-weight: 900; color: #38bdf8; margin: 12px 0 8px 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="campus-infra" data-width="1920" data-height="1080" data-duration="14">
+      <div class="bg-glow"></div>
+      <div class="grid-lines"></div>
+
+      <div class="container">
+        <div id="badge" class="badge-wrap">
+          <div class="badge-dot"></div>
+          <div class="badge-text">INFRASTRUCTURE SCALE // OPENAI</div>
+        </div>
+
+        <h1 id="title" class="main-title">
+          Transisi Menuju "AI Compute Campuses" Multi-Gigawatt
+        </h1>
+
+        <div class="campus-grid">
+          <div class="campus-card" id="card-1">
+            <div class="card-step">01 // KONSOLIDASI FISIK</div>
+            <div class="card-h2">Klaster Mandiri</div>
+            <div class="stat-highlight">Multi-GW</div>
+            <div class="card-p">
+              Mengintegrasikan komputasi akselerator masif dalam satu kawasan terisolasi tanpa perantara cloud sewaan.
+            </div>
+          </div>
+
+          <div class="campus-card" id="card-2" style="border-color: rgba(56, 189, 248, 0.4); background: rgba(10, 24, 40, 0.88);">
+            <div class="card-step">02 // DAYA & PENDINGINAN</div>
+            <div class="card-h2">Energi & Liquid Cooling</div>
+            <div class="stat-highlight">100% Cair</div>
+            <div class="card-p">
+              Gardu listrik khusus dan sistem pendingin cair skala industri guna menopang pelatihan model frontier generasi baru.
+            </div>
+          </div>
+
+          <div class="campus-card" id="card-3">
+            <div class="card-step">03 // KEDAULATAN HARDWARE</div>
+            <div class="card-h2">Independensi Cloud</div>
+            <div class="stat-highlight">Zero Bottleneck</div>
+            <div class="card-p">
+              Membebaskan diri dari ketergantungan eksklusif hyperscaler untuk mengamankan kepemilikan komputasi masa depan.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#badge", { y: -30, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+      tl.from("#title", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+      tl.from("#card-1", { x: -40, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.8);
+      tl.from("#card-2", { y: 40, opacity: 0, duration: 0.7, ease: "power3.out" }, 1.1);
+      tl.from("#card-3", { x: 40, opacity: 0, duration: 0.7, ease: "power3.out" }, 1.4);
+
+      // subtle breathing animation
+      tl.to("#card-2", { scale: 1.02, duration: 2, yoyo: true, repeat: -1, ease: "sine.inOut" }, 2.0);
+
+      const root = document.getElementById("root");
+      window.__seek = (frame) => {
+        const fps = 30;
+        tl.seek(frame / fps);
+      };
+    </script>
+  </body>
+</html>

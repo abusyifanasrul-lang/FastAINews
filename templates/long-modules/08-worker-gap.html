@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>AI Enterprise Efficiency vs Worker Gap</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; padding: 0; background: #070a13; color: #ffffff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
+      }
+      #root { position: relative; width: 100%; height: 100%; background: #070a13; overflow: hidden; }
+      .bg-glow {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(circle at 30% 30%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 70% 70%, rgba(56, 189, 248, 0.12) 0%, transparent 50%),
+          linear-gradient(180deg, #070a13 0%, #121018 100%);
+      }
+      .grid-lines {
+        position: absolute; inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+        background-size: 64px 64px;
+      }
+      .container {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        padding: 80px; z-index: 10;
+      }
+      .badge-wrap {
+        display: inline-flex; align-items: center; gap: 12px;
+        background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(245, 158, 11, 0.4);
+        border-radius: 9999px; padding: 10px 24px; margin-bottom: 24px;
+      }
+      .badge-dot { width: 10px; height: 10px; background: #f59e0b; border-radius: 50%; box-shadow: 0 0 10px #f59e0b; }
+      .badge-text { font-size: 16px; font-weight: 800; letter-spacing: 3px; color: #f59e0b; text-transform: uppercase; }
+      .main-title {
+        font-size: 54px; font-weight: 900; text-align: center; line-height: 1.15;
+        max-width: 1400px; margin: 0 0 44px 0;
+        background: linear-gradient(180deg, #ffffff 40%, #cbd5e1 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      .gap-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+        width: 100%; max-width: 1360px;
+      }
+      .gap-card {
+        background: rgba(13, 20, 36, 0.85); border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px; padding: 40px; backdrop-filter: blur(12px);
+      }
+      .card-tag { font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+      .gap-h2 { font-size: 28px; font-weight: 800; margin-bottom: 16px; }
+      .stat-badge { font-size: 36px; font-weight: 900; margin-bottom: 12px; }
+      .gap-p { font-size: 17px; line-height: 1.6; color: #94a3b8; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="worker-gap" data-width="1920" data-height="1080" data-duration="14">
+      <div class="bg-glow"></div>
+      <div class="grid-lines"></div>
+
+      <div class="container">
+        <div id="badge" class="badge-wrap">
+          <div class="badge-dot"></div>
+          <div class="badge-text">SOCIOECONOMIC DIVIDE // TECHCRUNCH ANALYSIS</div>
+        </div>
+
+        <h1 id="title" class="main-title">
+          Paradoks Efisiensi: Keuntungan Korporasi vs Nasib Pekerja
+        </h1>
+
+        <div class="gap-grid">
+          <div class="gap-card" id="card-ceo" style="border-color: rgba(56, 189, 248, 0.4); background: rgba(10, 24, 40, 0.85);">
+            <div class="card-tag" style="color: #38bdf8;">DEWAN DIREKSI & EKSEKUTIF</div>
+            <div class="gap-h2" style="color: #bae6fd;">Pemangkasan Biaya & Output</div>
+            <div class="stat-badge" style="color: #38bdf8;">Margin Laba Melonjak</div>
+            <div class="gap-p">
+              AI korporat dirancang khusus untuk memotong anggaran operasional, mempercepat siklus kerja, dan memperkaya pemilik modal.
+            </div>
+          </div>
+
+          <div class="gap-card" id="card-worker" style="border-color: rgba(245, 158, 11, 0.4); background: rgba(30, 20, 10, 0.85);">
+            <div class="card-tag" style="color: #f59e0b;">PEKERJA LAPANGAN & KREATIF</div>
+            <div class="gap-h2" style="color: #fde68a;">Ketidakpastian Karier</div>
+            <div class="stat-badge" style="color: #f59e0b;">Beban & Disrupsi Staf</div>
+            <div class="gap-p">
+              Otomasi teknis menekan tarif kompensasi, meningkatkan target beban kerja, dan memicu ancaman pengurangan staf operasional.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#badge", { y: -30, opacity: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+      tl.from("#title", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+      tl.from("#card-ceo", { x: -40, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.8);
+      tl.from("#card-worker", { x: 40, opacity: 0, duration: 0.7, ease: "power3.out" }, 1.1);
+
+      tl.to("#card-ceo", { scale: 1.02, duration: 2, yoyo: true, repeat: -1, ease: "sine.inOut" }, 1.8);
+
+      window.__seek = (frame) => {
+        const fps = 30;
+        tl.seek(frame / fps);
+      };
+    </script>
+  </body>
+</html>
