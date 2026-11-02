@@ -254,6 +254,18 @@ async function run(): Promise<void> {
     estTotalSec: number;
   };
 
+  // Baca chapters interaktif jika ada semantic_manifest.json
+  const manifestPath = existsSync(join(extractDir, "semantic_manifest.json"))
+    ? join(extractDir, "semantic_manifest.json")
+    : join(process.cwd(), "content", "long", date, "semantic_manifest.json");
+  let semanticManifest: any = null;
+  if (existsSync(manifestPath)) {
+    try {
+      semanticManifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+      console.log(`[assemble-long] Ditemukan semantic_manifest.json! Mengaktifkan Strict Semantic Dual-Visual Engine.`);
+    } catch {}
+  }
+
   const actualAudioSec = getAudioDuration(masterAudioPath);
   if (!actualAudioSec || actualAudioSec < 60) {
     fail(row.id, `Durasi total audio tidak valid: ${actualAudioSec} dtk (minimal 60 detik)`);
@@ -263,16 +275,22 @@ async function run(): Promise<void> {
   // 5. Penyelarasan Waktu Narasi (Mendukung 3 Mode: Paragraf naskah, Beat 1:1, atau Proporsional)
   const beats = sbData.beats;
 
-  // Baca paragraf naskah dari script.md jika ada
+  // Baca paragraf naskah dari paragraphs.txt atau script.md jika ada
+  const parasFile = join(process.cwd(), "content", "long", date, "paragraphs.txt");
   const scriptFile = join(process.cwd(), "content", "long", date, "script.md");
   let scriptParas: string[] = [];
-  if (existsSync(scriptFile)) {
+  if (existsSync(parasFile)) {
+    scriptParas = readFileSync(parasFile, "utf8")
+      .split("\n")
+      .map((p) => p.trim())
+      .filter(Boolean);
+  } else if (existsSync(scriptFile)) {
     const rawScript = readFileSync(scriptFile, "utf8");
     const cleanScript = rawScript.replace(/^#\s+[^\n]+\n+/, "").trim();
     scriptParas = cleanScript
       .split(/\n\s*\n/)
-      .map((p) => p.trim().replace(/\*\*/g, "").replace(/[\r\n]+/g, " "))
-      .filter(Boolean);
+      .map((p) => p.trim().replace(/\*\*/g, ""))
+      .filter((p) => Boolean(p) && !p.startsWith("##") && !p.startsWith("**Judul**"));
   }
 
   const isParaMode = scriptParas.length > 0 && audioFilesRaw.length === scriptParas.length;
@@ -374,12 +392,22 @@ async function run(): Promise<void> {
     });
   }
 
-  // Sinkronkan chapters timestamp ke durasi audio riil (mengikuti startSec beat pertama di tiap bab)
-  const alignedChapters = sbData.chapters.map((c) => {
-    const firstBeat = alignedBeats.find((_, idx) => sbData.beats[idx]?.chapter === c.title);
-    const startSec = firstBeat ? Math.round(firstBeat.startSec) : 0;
-    return { title: c.title, startSec };
-  });
+  // Sinkronkan chapters timestamp ke durasi audio riil (mengikuti startSec beat/paragraf pertama di tiap bab)
+  let alignedChapters: Chapter[] = [];
+  if (semanticManifest && semanticManifest.paragraphs && isParaMode) {
+    let curSec = 0;
+    alignedChapters = semanticManifest.paragraphs.map((p: any, idx: number) => {
+      const startSec = Math.round(curSec);
+      curSec += (paraDurations[idx] || 0);
+      return { title: p.topic || `Topik ${idx + 1}`, startSec };
+    });
+  } else {
+    alignedChapters = sbData.chapters.map((c) => {
+      const firstBeat = alignedBeats.find((_, idx) => sbData.beats[idx]?.chapter === c.title);
+      const startSec = firstBeat ? Math.round(firstBeat.startSec) : 0;
+      return { title: c.title, startSec };
+    });
+  }
   if (alignedChapters.length > 0) alignedChapters[0].startSec = 0;
 
   // 6. Perakitan Video via Cinematic Native Engine (2.5K Ken Burns, xfade dissolve, Lower-Third HUD, VFX Grading)
@@ -399,18 +427,6 @@ async function run(): Promise<void> {
     paraText: string;
     chapterName: string;
     beats: RenderBeat[];
-  }
-
-  // Periksa apakah ada semantic_manifest.json (1-ke-1 Strict Semantic Binding)
-  const manifestPath = existsSync(join(extractDir, "semantic_manifest.json"))
-    ? join(extractDir, "semantic_manifest.json")
-    : join(process.cwd(), "content", "long", date, "semantic_manifest.json");
-  let semanticManifest: any = null;
-  if (existsSync(manifestPath)) {
-    try {
-      semanticManifest = JSON.parse(readFileSync(manifestPath, "utf8"));
-      console.log(`[assemble-long] Ditemukan semantic_manifest.json! Mengaktifkan Strict Semantic Dual-Visual Engine.`);
-    } catch {}
   }
 
   const renderGroups: RenderGroup[] = [];
