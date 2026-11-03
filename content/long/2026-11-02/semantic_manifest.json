@@ -12,6 +12,17 @@
         },
         {
           "file": "01_workstation_night.jpg",
+          "durationSec": 15.0,
+          "type": "image"
+        },
+        {
+          "file": "01b_telecom_grid.jpg",
+          "durationSec": 14.5,
+          "type": "image"
+        },
+        {
+          "file": "01c_chess_silicon.jpg",
+          "durationSec": 14.64,
           "type": "image"
         }
       ]
@@ -22,10 +33,12 @@
       "visuals": [
         {
           "file": "02_compute_campus.jpg",
+          "durationSec": 17.5,
           "type": "image"
         },
         {
           "file": "src1.jpg",
+          "durationSec": 17.48,
           "type": "image"
         },
         {
@@ -41,10 +54,12 @@
       "visuals": [
         {
           "file": "03_hiker_mountain.jpg",
+          "durationSec": 17.0,
           "type": "image"
         },
         {
           "file": "src2.jpg",
+          "durationSec": 16.66,
           "type": "image"
         },
         {
@@ -59,16 +74,18 @@
       "topic": "Adobe Photoshop Agent: Dari Operator ke Konseptor",
       "visuals": [
         {
-          "file": "04_photoshop_macro.jpg",
+          "file": "04a_trail_liability.jpg",
+          "durationSec": 16.0,
           "type": "image"
         },
         {
-          "file": "src3.png",
+          "file": "04_photoshop_macro.jpg",
+          "durationSec": 17.0,
           "type": "image"
         },
         {
           "file": "04_photoshop_agent_clip.mp4",
-          "durationSec": 14.0,
+          "durationSec": 13.99,
           "type": "video"
         }
       ]
@@ -78,11 +95,13 @@
       "topic": "AI Tamagotchi ESP32: Kemenangan Solo Builder",
       "visuals": [
         {
-          "file": "05_tamagotchi_esp32.jpg",
+          "file": "05a_design_swatches.jpg",
+          "durationSec": 16.0,
           "type": "image"
         },
         {
-          "file": "src4.jpg",
+          "file": "05_tamagotchi_esp32.jpg",
+          "durationSec": 18.22,
           "type": "image"
         },
         {
@@ -98,10 +117,12 @@
       "visuals": [
         {
           "file": "06_server_gatekeeper.jpg",
+          "durationSec": 15.5,
           "type": "image"
         },
         {
           "file": "src1.jpg",
+          "durationSec": 15.48,
           "type": "image"
         },
         {
@@ -116,11 +137,13 @@
       "topic": "Biaya Ekologis: Jejak Karbon Agen Otonom MIT",
       "visuals": [
         {
-          "file": "07_power_cooling_macro.jpg",
+          "file": "07a_data_archive.jpg",
+          "durationSec": 15.5,
           "type": "image"
         },
         {
-          "file": "src6.jpg",
+          "file": "07_power_cooling_macro.jpg",
+          "durationSec": 16.58,
           "type": "image"
         },
         {
@@ -135,11 +158,13 @@
       "topic": "Kesenjangan Sosial: Efisiensi CEO vs Nasib Pekerja",
       "visuals": [
         {
-          "file": "08_boardroom_table.jpg",
+          "file": "08a_empty_office.jpg",
+          "durationSec": 16.0,
           "type": "image"
         },
         {
-          "file": "src7.webp",
+          "file": "08_boardroom_table.jpg",
+          "durationSec": 16.27,
           "type": "image"
         },
         {
@@ -155,10 +180,12 @@
       "visuals": [
         {
           "file": "09_wafer_gavel_bench.jpg",
+          "durationSec": 15.0,
           "type": "image"
         },
         {
           "file": "src6.jpg",
+          "durationSec": 14.87,
           "type": "image"
         },
         {
@@ -174,10 +201,12 @@
       "visuals": [
         {
           "file": "10_morning_command_desk.jpg",
+          "durationSec": 22.5,
           "type": "image"
         },
         {
-          "file": "01_workstation_night.jpg",
+          "file": "10b_auditorium_podium.jpg",
+          "durationSec": 22.43,
           "type": "image"
         }
       ]
