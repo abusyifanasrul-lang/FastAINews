@@ -101,7 +101,7 @@ export function buildAssHud(
     );
   }
 
-  // 3. Contextual Anchor Card (Pojok Kiri Atas - Persisten menjembatani background visual ke narasi)
+  // 3. Contextual Anchor Card (Sisi Kiri Tengah / Mid-Left - Persisten menjembatani background visual ke narasi)
   if (options?.contextTitle || options?.visualClue || options?.keyMetric) {
     const entity = (options.contextTitle || cleanTitle).replace(/[\\{}]/g, "").trim().slice(0, 40);
     const metric = (options.keyMetric || "").replace(/[\\{}]/g, "").trim().slice(0, 36);
@@ -136,14 +136,15 @@ PlayResY: 1080
 WrapStyle: 0
 
 [V4+ Styles]
-Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: TopicBadge, Arial, 26, &H00F8FAFC, &H00000000, &H80000000, &HBF0D1117, -1, 0, 0, 0, 100, 100, 1, 0, 3, 16, 4, 1, 80, 80, 80, 1
-Style: TopicTag, Arial, 15, &H00F8BD38, &H00000000, &H00000000, &H00000000, -1, 0, 0, 0, 100, 100, 2, 0, 1, 0, 0, 1, 96, 80, 150, 1
+// Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+// Alignment: 7=Top-Left, 8=Top-Center, 9=Top-Right, 4=Mid-Left, 5=Mid-Center, 6=Mid-Right, 1=Bottom-Left, 2=Bottom-Center, 3=Bottom-Right
+Style: TopicBadge, Arial, 26, &H00F8FAFC, &H00000000, &H80000000, &HBF0D1117, -1, 0, 0, 0, 100, 100, 1, 0, 3, 16, 4, 7, 80, 80, 120, 1
+Style: TopicTag, Arial, 15, &H00F8BD38, &H00000000, &H00000000, &H00000000, -1, 0, 0, 0, 100, 100, 2, 0, 1, 0, 0, 7, 96, 80, 190, 1
 Style: NavBreadcrumb, Arial, 15, &H00CBD5E1, &H00000000, &H80000000, &HBF090D16, -1, 0, 0, 0, 100, 100, 2, 0, 3, 12, 0, 8, 80, 80, 28, 1
-Style: AnchorTitle, Arial, 18, &H00F8FAFC, &H00000000, &H80000000, &HBF070A10, -1, 0, 0, 0, 100, 100, 1, 0, 3, 10, 0, 7, 70, 80, 60, 1
-Style: AnchorMetric, Arial, 14, &H0038BDF8, &H00000000, &H00000000, &H00000000, -1, 0, 0, 0, 100, 100, 1, 0, 1, 0, 0, 7, 85, 80, 96, 1
-Style: AnchorClue, Arial, 13, &H00F8BD38, &H00000000, &H00000000, &H00000000, 0, -1, 0, 0, 100, 100, 1, 0, 1, 0, 0, 7, 85, 80, 122, 1
-Style: KineticSub, Arial, 26, &H00F8FAFC, &H00000000, &H90000000, &HBF05070B, -1, 0, 0, 0, 100, 100, 1, 0, 3, 14, 2, 2, 100, 100, 64, 1
+Style: AnchorTitle, Arial, 18, &H00F8FAFC, &H00000000, &H80000000, &HBF070A10, -1, 0, 0, 0, 100, 100, 1, 0, 3, 10, 0, 4, 70, 80, 0, 1
+Style: AnchorMetric, Arial, 14, &H0038BDF8, &H00000000, &H00000000, &H00000000, -1, 0, 0, 0, 100, 100, 1, 0, 1, 0, 0, 4, 85, 80, -36, 1
+Style: AnchorClue, Arial, 13, &H00F8BD38, &H00000000, &H00000000, &H00000000, 0, -1, 0, 0, 100, 100, 1, 0, 1, 0, 0, 4, 85, 80, -62, 1
+Style: KineticSub, Arial, 26, &H00F8FAFC, &H00000000, &H90000000, &HBF05070B, -1, 0, 0, 0, 100, 100, 1, 0, 3, 14, 2, 2, 100, 100, 160, 1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
