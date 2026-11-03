@@ -52,11 +52,11 @@ export function countWords(text: string): number {
   return text.split(/\s+/).filter(Boolean).length;
 }
 
-export function validateLongScript(text: string, minWords = 900): void {
-  if (text.length < 3500) throw new Error(`Naskah long terlalu pendek (${text.length} char < 3500).`);
+export function validateLongScript(text: string, minWords = 1200): void {
+  if (text.length < 8000) throw new Error(`Naskah long terlalu pendek (${text.length} char < 8000). Target durasi >= 8:30 menit.`);
   if (text.length > 15000) throw new Error(`Naskah long terlalu panjang (${text.length} char > 15000).`);
   const words = countWords(text);
-  if (words < minWords) throw new Error(`Naskah long terlalu pendek (${words} kata < ${minWords}).`);
+  if (words < minWords) throw new Error(`Naskah long terlalu pendek (${words} kata < ${minWords} kata / target 8.5-10 menit).`);
   const hits = REASONING_PATTERNS.filter((r) => r.test(text));
   if (hits.length > 2) throw new Error(`Naskah mengandung reasoning internal (${hits.length} pola cocok).`);
   validateScriptHook(text);

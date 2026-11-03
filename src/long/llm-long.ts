@@ -18,7 +18,7 @@ export async function generateLongScript(items: NewsItem[]): Promise<{ script: s
   const half = Math.max(1, Math.ceil(items.length / 2));
 
   const system = `You are a professional Indonesian tech journalist and long-form video essay director. You must write exhaustive, expansive, flowing, highly detailed prose in natural formal Indonesian (baku-populer bertutur: gunakan Kita, Saya, Anda — dilarang kata gaul seperti gue/elu). Never be terse. Never summarize or compress into bullet points.
-TARGET PANJANG: 1150 - 1350 KATA (MINIMAL 950 KATA — syarat video iklan mid-roll YouTube >= 8 menit, maksimal 13.500 karakter).
+TARGET PANJANG: 1350 - 1650 KATA (MINIMAL 1200 KATA / MINIMAL 8.500 KARAKTER — syarat mutlak video YouTube durasi aman 8:30 - 10:30 menit untuk kelayakan iklan mid-roll, maksimal 14.500 karakter). Naskah di bawah 1200 kata DITOLAK.
 
 ATURAN MUTLAK 10 DETIK PERTAMA (HOOK RETENSI TINGGI):
 - DILARANG MEMBUKA DENGAN KLISE SASTRAWI: Dilarang keras membuka dengan kalimat seperti "telah menjadi saksi bisu", "pada kesempatan kali ini", "selamat datang", "pada video kali ini", "perkembangan pesat".
@@ -77,7 +77,7 @@ ATURAN FORMAT WAJIB:
     const raw = await chat([{ role: "system", content: system }, { role: "user", content: user }], 6000);
     const { script, topicTitle } = extract(raw);
     try {
-      validateLongScript(script, 900);
+      validateLongScript(script, 1200);
       console.log(`[llm-long] naskah berhasil dibuat: ${countWords(script)} kata (percobaan ${attempt}/${MAX_ATTEMPTS})`);
       return { script, topicTitle };
     } catch (err) {
@@ -94,7 +94,7 @@ ATURAN FORMAT WAJIB:
     const trimmed = trimNaskahToLength(lastScript, 14500);
     if (trimmed) {
       try {
-        validateLongScript(trimmed, 900);
+        validateLongScript(trimmed, 1200);
         console.warn(`[llm-long] naskah 3x gagal validasi — dipangkas ${lastScript.length} -> ${trimmed.length} char (fallback, ekor dibuang)`);
         return { script: trimmed, topicTitle: lastTitle || items[0]?.title || "Deep-dive AI 3 hari" };
       } catch {}
