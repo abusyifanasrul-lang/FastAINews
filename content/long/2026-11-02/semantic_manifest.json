@@ -53,18 +53,23 @@
       "topic": "Chatbot Navigasi: Halusinasi & Bahaya Fisik",
       "visuals": [
         {
+          "file": "02_compute_campus.jpg",
+          "durationSec": 14.5,
+          "type": "image"
+        },
+        {
           "file": "03_hiker_mountain.jpg",
-          "durationSec": 17.0,
+          "durationSec": 11.0,
           "type": "image"
         },
         {
           "file": "src2.jpg",
-          "durationSec": 16.66,
+          "durationSec": 10.0,
           "type": "image"
         },
         {
           "file": "03_hiker_map_clip.mp4",
-          "durationSec": 14.0,
+          "durationSec": 12.16,
           "type": "video"
         }
       ]
@@ -96,12 +101,17 @@
       "visuals": [
         {
           "file": "05a_design_swatches.jpg",
-          "durationSec": 16.0,
+          "durationSec": 13.0,
+          "type": "image"
+        },
+        {
+          "file": "src4.jpg",
+          "durationSec": 10.5,
           "type": "image"
         },
         {
           "file": "05_tamagotchi_esp32.jpg",
-          "durationSec": 18.22,
+          "durationSec": 10.72,
           "type": "image"
         },
         {
@@ -116,13 +126,18 @@
       "topic": "OpenAI Web Preferences: Perang Kedaulatan Konten",
       "visuals": [
         {
+          "file": "src4.jpg",
+          "durationSec": 11.5,
+          "type": "image"
+        },
+        {
           "file": "06_server_gatekeeper.jpg",
-          "durationSec": 15.5,
+          "durationSec": 10.5,
           "type": "image"
         },
         {
           "file": "src1.jpg",
-          "durationSec": 15.48,
+          "durationSec": 8.98,
           "type": "image"
         },
         {
