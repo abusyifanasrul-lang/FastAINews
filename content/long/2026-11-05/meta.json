@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-05",
+  "topicTitle": "Ketegangan Baru Industri AI dan Tujuh Peristiwa Krusial",
+  "status": "READY_FOR_ASSETS",
+  "beats": 43,
+  "estTotalSec": 624.3,
+  "midrollAtSec": 339,
+  "t2vCount": 30,
+  "i2vCount": 12,
+  "staticCount": 1,
+  "images": 7,
+  "sources": 7,
+  "paragraphs": 18,
+  "storyboardBatchesExecuted": 6,
+  "storyboardTotalBatches": 6,
+  "storyboardLlmOkBatches": 6,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [
+    {
+      "no": 1,
+      "got": 3,
+      "expected": 8
+    },
+    {
+      "no": 4,
+      "got": 3,
+      "expected": 8
+    }
+  ],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
