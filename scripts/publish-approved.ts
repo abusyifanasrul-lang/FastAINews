@@ -6,6 +6,7 @@ import { db } from "../src/db.js";
 import { publishToSocialDirect } from "../src/zernio.js";
 import { uploadYoutube } from "../src/publisher.js";
 import type { PublishResult } from "../src/publisher.js";
+import { sendPublishReport } from "../src/telegram.js";
 
 const { values } = parseArgs({ options: { "content-id": { type: "string" } } });
 const contentId = Number(values["content-id"]);
@@ -16,8 +17,13 @@ if (!contentId || isNaN(contentId)) {
 
 // DB row (optional — approve mungkin tanpa DB yang valid)
 const c = db.prepare(
-  "SELECT id, date, video_916_path, video_169_path, topic_title, script_text, caption, telegram_file_id FROM contents WHERE id = ?"
+  "SELECT id, date, video_916_path, video_169_path, topic_title, script_text, caption, telegram_file_id, status FROM contents WHERE id = ?"
 ).get(contentId) as any;
+
+if (c?.status === "PUBLISHED") {
+  console.log(`[publish] Konten #${contentId} sudah berstatus PUBLISHED. Melewati untuk mencegah duplikasi rilis.`);
+  process.exit(0);
+}
 
 const videoFileIdFromWorker = process.env.VIDEO_FILE_ID;
 const videoFileIdFromDb = c?.telegram_file_id;
@@ -97,6 +103,11 @@ if (c) {
     allOk ? "PUBLISHED" : "PUBLISH_FAILED",
     contentId
   );
+  try {
+    await sendPublishReport(contentId, results);
+  } catch (e) {
+    console.warn("[publish] sendPublishReport gagal:", e);
+  }
 }
 
 console.log("\n=== HASIL PUBLISH ===");

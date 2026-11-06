@@ -2,9 +2,9 @@ import { parseArgs } from "node:util";
 import { runPipeline, runRevision } from "../src/pipeline.js";
 import { generateTtsChunks } from "../src/tts.js";
 import { renderVideos } from "../src/video.js";
-import { getContentByDate, getContentWithSources, updateContentStatus } from "../src/db.js";
-import { sendPreview } from "../src/telegram.js";
-import { sendAlert } from "../src/telegram.js";
+import { getContentByDate, getContentWithSources, updateContentStatus, getContentById } from "../src/db.js";
+import { sendPreview, sendAlert, sendPublishReport } from "../src/telegram.js";
+import { PIPELINE_CONFIG } from "../src/config.js";
 import { join } from "node:path";
 import { mkdirSync, existsSync, renameSync } from "node:fs";
 import { execFileSync } from "node:child_process";
@@ -123,10 +123,73 @@ async function run() {
     console.warn("Tidak ada sumber untuk thumbnail");
   }
 
-  // 5. kirim preview ke Telegram — thumbnail URL ditempel di caption
-  await sendPreview(contentId, 0, thumbUrl);
-  updateContentStatus(contentId, "PENDING_REVIEW");
-  console.log("Preview terkirim → PENDING_REVIEW");
+  // 5. Cek Mode Publikasi: Manual Approval vs Autopilot (Zero-Approval)
+  const requireApproval = PIPELINE_CONFIG.REQUIRE_APPROVAL;
+
+  if (requireApproval) {
+    // MODE MANUAL APPROVAL (Konfirmasi Manual via Telegram)
+    console.log("[pipeline] 5/5 Mode Manual Approval aktif — mengirim preview dengan tombol konfirmasi...");
+    await sendPreview(contentId, 0, thumbUrl, { requireApproval: true });
+    updateContentStatus(contentId, "PENDING_REVIEW");
+    console.log("Preview terkirim → PENDING_REVIEW. Menunggu konfirmasi Owner di Telegram.");
+    return;
+  }
+
+  // MODE AUTOPILOT (ZERO-APPROVAL) DENGAN RANDOM TIMING
+  console.log("[pipeline] 5/5 Mode Autopilot aktif (tanpa perlu konfirmasi Owner)...");
+
+  // Hitung jeda waktu acak (random timing / jitter)
+  let delayMinutes = 0;
+  let publishTimeWIB = "";
+  if (PIPELINE_CONFIG.RANDOM_TIMING.ENABLED) {
+    const minM = PIPELINE_CONFIG.RANDOM_TIMING.MIN_MINUTES;
+    const maxM = PIPELINE_CONFIG.RANDOM_TIMING.MAX_MINUTES;
+    delayMinutes = Math.floor(Math.random() * (maxM - minM + 1)) + minM;
+    const targetTimestamp = Date.now() + delayMinutes * 60 * 1000;
+    publishTimeWIB = new Date(targetTimestamp).toLocaleTimeString("id-ID", {
+      timeZone: "Asia/Jakarta",
+      hour: "2-digit",
+      minute: "2-digit",
+    }) + " WIB";
+    console.log(`[pipeline] Random Timing Jitter: +${delayMinutes} menit (target publikasi: ± ${publishTimeWIB})`);
+  }
+
+  // Kirim preview notifikasi ke Telegram (informatif, tanpa meminta approve)
+  await sendPreview(contentId, 0, thumbUrl, {
+    requireApproval: false,
+    delayMinutes: delayMinutes > 0 ? delayMinutes : undefined,
+    publishTimeWIB: publishTimeWIB || undefined,
+  });
+  updateContentStatus(contentId, "READY_FOR_PUBLISH");
+  console.log("Preview Autopilot terkirim → READY_FOR_PUBLISH");
+
+  // Jeda waktu acak (dengan polling cek pembatalan/skip/percepat dari Owner)
+  if (delayMinutes > 0) {
+    console.log(`[pipeline] Memulai hitung mundur jeda acak selama ${delayMinutes} menit...`);
+    const totalMs = delayMinutes * 60 * 1000;
+    const checkIntervalMs = 10000; // cek tiap 10 detik
+    const startMs = Date.now();
+
+    while (Date.now() - startMs < totalMs) {
+      await new Promise((r) => setTimeout(r, Math.min(checkIntervalMs, totalMs - (Date.now() - startMs))));
+
+      // Cek apakah Owner membatalkan atau meminta revisi selama jeda
+      const current = getContentById(contentId);
+      if (current?.status === "SKIPPED") {
+        console.log(`[pipeline] Konten #${contentId} dibatalkan (SKIPPED) oleh Owner via Telegram. Menghentikan publikasi.`);
+        return;
+      }
+      if (current?.status === "REVISION_PENDING") {
+        console.log(`[pipeline] Konten #${contentId} diminta revisi oleh Owner. Menghentikan publikasi otomatis.`);
+        return;
+      }
+      if (current?.status === "PUBLISHED") {
+        console.log(`[pipeline] Konten #${contentId} telah dipublikasikan di sesi lain. Melewati.`);
+        return;
+      }
+    }
+    console.log("[pipeline] Jeda waktu acak selesai. Melanjutkan publikasi...");
+  }
 
   // 6. Zero-Approval Autonomous Publish to Multi-Platform
   console.log("[pipeline] Menjalankan rilis otomatis tanpa approval (Zero-Approval Autopilot)...");
@@ -171,6 +234,9 @@ async function run() {
       const allOk = pubResults.every((r: any) => r.ok);
       updateContentStatus(contentId, allOk ? "PUBLISHED" : "PUBLISH_FAILED");
       console.log(`[pipeline] Auto-publish selesai: ${allOk ? "SUCCESS" : "PARTIAL/FAILED"}`);
+
+      // Kirim laporan publikasi ke Telegram
+      await sendPublishReport(contentId, pubResults);
     } else {
       console.warn("[pipeline] Video short tidak ditemukan untuk auto-publish:", videoShort);
     }

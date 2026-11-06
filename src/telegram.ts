@@ -37,11 +37,24 @@ function loadContent(contentId: number) {
 // escape MarkdownV2 special chars
 function esc(s: string) { return s.replace(/([_*\[\]()~`>#+\-=|{}.!\\])/g, "\\$1"); }
 
-function buildKeyboard(contentId: number) {
+export interface PreviewOptions {
+  requireApproval?: boolean;
+  delayMinutes?: number;
+  publishTimeWIB?: string;
+}
+
+function buildKeyboard(contentId: number, requireApproval = true) {
+  if (requireApproval) {
+    return new InlineKeyboard()
+      .text("✅ Approve", `approve_${contentId}`)
+      .text("✏️ Revisi", `revisi_${contentId}`)
+      .text("⏭ Skip", `skip_${contentId}`);
+  }
+  // Mode Autopilot: Tidak perlu konfirmasi manual. Tombol opsi percepat/revisi/batalkan saja
   return new InlineKeyboard()
-    .text("✅ Approve", `approve_${contentId}`)
+    .text("⚡ Rilis Sekarang", `approve_${contentId}`)
     .text("✏️ Revisi", `revisi_${contentId}`)
-    .text("⏭ Skip", `skip_${contentId}`);
+    .text("⏭ Batalkan", `skip_${contentId}`);
 }
 
 // edit msg: video → editMessageCaption, text → editMessageText
@@ -61,17 +74,31 @@ async function editMsg(ctx: MyContext, text: string, extra?: Record<string, unkn
 }
 
 // kirim preview: video 9:16 (jika ada) + caption; fallback naskah text
-export async function sendPreview(contentId: number, revision = 0, thumbUrl?: string) {
+export async function sendPreview(contentId: number, revision = 0, thumbUrl?: string, options?: PreviewOptions) {
   const data = loadContent(contentId);
-  const keyboard = buildKeyboard(contentId);
+  const requireApproval = options?.requireApproval ?? true;
+  const keyboard = buildKeyboard(contentId, requireApproval);
   const revLabel = revision > 0 ? ` — Revisi ke-${revision}` : "";
   const srcText = data.sources.slice(0, 6).map(s => `- ${s.publisher ?? "sumber"}: ${s.url}`).join("\n");
   const srcMore = data.sources.length > 6 ? `\n… +${data.sources.length - 6} sumber lain` : "";
 
   // thumbnail URL ditempel di caption — approve callback membacanya dari sini
   const thumbLine = thumbUrl ? `\n🖼 Thumbnail: ${thumbUrl}\n` : "";
+
+  let statusLine = "";
+  if (requireApproval) {
+    statusLine = `*Status:* ⏸ Menunggu persetujuan Anda (Mode Manual)\n\n`;
+  } else {
+    const timingInfo = options?.delayMinutes 
+      ? `dalam ~${options.delayMinutes} menit (± ${options.publishTimeWIB ?? "sebentar lagi"})`
+      : "sebentar lagi";
+    statusLine = `*Status:* ⏳ Dijadwalkan rilis otomatis ${timingInfo}\n_Mode Autopilot aktif — video diposting otomatis tanpa konfirmasi._\n\n`;
+  }
+
   const caption = `📰 *Konten AI News*${revLabel} — ${data.date}\n\n` +
-    `*Topik:* ${data.topic_title ?? "(tanpa judul)"}\n${thumbLine}\n` +
+    `*Topik:* ${data.topic_title ?? "(tanpa judul)"}\n` +
+    statusLine +
+    `${thumbLine}` +
     `*Sumber:*\n${srcText}${srcMore}`;
 
   const videoPath = data.video_916_path ?? data.video_169_path;
@@ -280,6 +307,24 @@ export async function sendAlert(msg: string) {
     const bot = new Bot(token!);
     await bot.api.sendMessage(ownerId, `🚨 *Pipeline Alert*\n\n${msg}`, { parse_mode: "Markdown" });
   } catch {}
+}
+
+// publish report — kirim laporan hasil publikasi setelah auto-post selesai
+export async function sendPublishReport(contentId: number, results: PublishResult[]) {
+  try {
+    if (!ownerId) return;
+    const data = loadContent(contentId);
+    const lines = results.map(r => `${r.ok ? "✅" : "❌"} ${r.platform}: ${r.url ?? r.error ?? "ok"}`).join("\n");
+    const nowWIB = new Date().toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta" });
+    const msg = `🚀 *FastAINews Berhasil Dipublikasikan!*\n\n` +
+      `*Topik:* ${data.topic_title ?? "(tanpa judul)"}\n` +
+      `*Waktu Rilis:* ${nowWIB} WIB\n\n` +
+      `*Hasil Multi-Platform:*\n${lines}`;
+    const b = new Bot(token!);
+    await b.api.sendMessage(ownerId, msg, { parse_mode: "Markdown" });
+  } catch (e) {
+    console.warn("[telegram] Gagal kirim publish report:", e instanceof Error ? e.message : e);
+  }
 }
 
 // Trigger GitHub Actions workflow

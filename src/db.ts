@@ -104,6 +104,10 @@ export function getContentByDate(date: string): ContentRow | undefined {
   return db.prepare("SELECT * FROM contents WHERE date = ?").get(date) as ContentRow | undefined;
 }
 
+export function getContentById(id: number): (ContentRow & { telegram_file_id?: string | null }) | undefined {
+  return db.prepare("SELECT * FROM contents WHERE id = ?").get(id) as any;
+}
+
 export function getContentWithSources(date: string): (ContentRow & { sources: SourceRow[] }) | null {
   const c = getContentByDate(date);
   if (!c) return null;

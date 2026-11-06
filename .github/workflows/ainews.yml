@@ -17,7 +17,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     # cegah 2 run revisi paralel overwrite naskah yg sama
     concurrency:
       group: ainews-pipeline
@@ -87,6 +87,10 @@ jobs:
           REMOTION_BROWSER_EXECUTABLE: /usr/bin/google-chrome-stable
           CONTENT_ID: ${{ github.event.inputs.content_id }}
           REVISION_NOTE: ${{ github.event.inputs.revision_note }}
+          REQUIRE_APPROVAL: ${{ secrets.REQUIRE_APPROVAL || vars.REQUIRE_APPROVAL }}
+          RANDOM_TIMING_ENABLED: ${{ vars.RANDOM_TIMING_ENABLED }}
+          RANDOM_DELAY_MIN_MINUTES: ${{ vars.RANDOM_DELAY_MIN_MINUTES }}
+          RANDOM_DELAY_MAX_MINUTES: ${{ vars.RANDOM_DELAY_MAX_MINUTES }}
         run: |
           for attempt in 1 2 3; do
             echo "Attempt $attempt..."
