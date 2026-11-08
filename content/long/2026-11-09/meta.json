@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-09",
+  "topicTitle": "Runtuhnya Batas AI: Valuasi Triliunan dan Revolusi Robotika Baru",
+  "status": "READY_FOR_ASSETS",
+  "beats": 38,
+  "estTotalSec": 588.5,
+  "midrollAtSec": 253,
+  "t2vCount": 27,
+  "i2vCount": 10,
+  "staticCount": 1,
+  "images": 7,
+  "sources": 7,
+  "paragraphs": 12,
+  "storyboardBatchesExecuted": 5,
+  "storyboardTotalBatches": 5,
+  "storyboardLlmOkBatches": 5,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [
+    {
+      "no": 3,
+      "got": 4,
+      "expected": 8
+    }
+  ],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
