@@ -1,0 +1,1047 @@
+{
+  "date": "2026-11-12",
+  "title": "Revolusi Senyap AI: Tujuh Pergeseran Fundamental yang Mengubah Dunia",
+  "chapters": [
+    {
+      "title": "Intro & Tesis Utama",
+      "startSec": 0
+    },
+    {
+      "title": "Konteks 72 Jam Terakhir",
+      "startSec": 88
+    },
+    {
+      "title": "Deep-Dive Berita AI",
+      "startSec": 256
+    },
+    {
+      "title": "Analisis & Prediksi Industri",
+      "startSec": 527
+    },
+    {
+      "title": "Peluang & Penutup",
+      "startSec": 645
+    }
+  ],
+  "beats": [
+    {
+      "i": 1,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 0,
+      "estSec": 13.8,
+      "text": "Tujuh puluh dua jam terakhir telah menjadi periode paling destruktif sekaligus konstruktif dalam sejarah kecerdasan buatan, di mana batas antara perusahaan rintisan perangkat lunak dan raksasa infrastruktur fisik benar-benar runtuh.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a crumbling stone wall transitioning into a sleek glass skyscraper. Mint and coral color palette, soft shadows, clean geometric shapes representing the collapse of software and physical infrastructure boundaries.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Deep bass structural rumble, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "INFRASTRUCTURE BOUNDARY COLLAPSE",
+      "keyMetric": "72 HOUR SHIFT",
+      "visualClue": "Batas software fisik runtuh"
+    },
+    {
+      "i": 2,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 13.8,
+      "estSec": 22.2,
+      "text": "Anda wajib menyimak analisis ini karena dalam sepuluh menit ke depan, kita akan membedah bagaimana strategi akuisisi OpenAI, ambisi IPO Anthropic, hingga krisis energi di pusat data akan menentukan apakah teknologi yang Anda gunakan hari ini akan tetap relevan atau justru menjadi barang antik di akhir tahun depan.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close up of a monitor displaying a clean Linux terminal interface with AI-integrated code snippets, next to a sleek Oura ring on a desk. Macro lens, shallow depth of field, cool tungsten lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Soft mechanical keyboard clicks, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src3.jpg",
+      "contextTitle": "OS AND HEALTH INTEGRATION",
+      "keyMetric": "LINUX VS MACOS",
+      "visualClue": "Sistem operasi berbasis AI"
+    },
+    {
+      "i": 3,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 36,
+      "estSec": 17.5,
+      "text": "Kita akan membongkar manuver OpenAI dalam mengubah ChatGPT menjadi direktori bisnis global, melacak langkah Oura dalam mengintegrasikan AI medis, serta menganalisis bagaimana sistem operasi Linux berbasis AI mulai mengancam dominasi Windows dan macOS di meja kerja para pengembang.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Overhead flat lay of a digital map being overlaid with physical gears and circuit boards. Pastel peach and sky blue palette, clean studio lighting, representing aggressive vertical integration into the economy.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Precision servo motor whir, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "VERTICAL INTEGRATION SHIFT",
+      "keyMetric": "AGGRESSIVE ECONOMIC INTEGRATION",
+      "visualClue": "Integrasi vertikal ekonomi fisik"
+    },
+    {
+      "i": 4,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 53.5,
+      "estSec": 13.4,
+      "text": "Lanskap teknologi dalam tiga hari terakhir menunjukkan sebuah pola yang sangat jelas: transisi dari sekadar \"obrolan pintar\" menuju integrasi vertikal yang agresif ke dalam ekosistem ekonomi fisik dan operasional.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a lab tray containing small brass beads and a miniature stethoscope next to a server rack node. Warm tungsten light, shallow depth of field, focus on the intersection of health and compute.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Soft electronic data pulse, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "AI UTILITY EXPANSION",
+      "keyMetric": "HEALTH AND LOGISTICS",
+      "visualClue": "Mesin pengelola logistik kesehatan"
+    },
+    {
+      "i": 5,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 66.9,
+      "estSec": 15.7,
+      "text": "Kita tidak lagi berbicara tentang model bahasa besar yang hanya bisa menulis puisi atau kode pemrograman, melainkan tentang mesin yang mampu mengelola perjalanan bisnis, mendiagnosis kesehatan, hingga mengendalikan infrastruktur komputasi paling mendasar di dunia.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Overhead view of a travel itinerary document being stamped with an AI logo. Clean studio light, pastel peach and sky blue palette, clean product photography style, focusing on the Odessia acquisition.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Paper rustling and stamp, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src1.webp",
+      "contextTitle": "OPENAI TRAVEL ACQUISITION",
+      "keyMetric": "ODESSIA VERTICAL CONTROL",
+      "visualClue": "Akuisisi startup travel Odessia"
+    },
+    {
+      "i": 6,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 82.6,
+      "estSec": 12,
+      "text": "Pergeseran ini menandai berakhirnya era eksperimentasi bebas dan dimulainya era \"AI utilitas\" yang terikat erat dengan regulasi, profitabilitas korporasi, dan kebutuhan energi global yang semakin mendesak.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of complex logistics nodes connected by glowing lines. Flat colors, mint and coral palette, soft shadows, representing the dynamic processing of travel complexity.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Digital data stream hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "LOGISTICS ARCHITECTURE",
+      "keyMetric": "DYNAMIC PROCESSING POWER",
+      "visualClue": "Arsitektur logistik yang dinamis"
+    },
+    {
+      "i": 7,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 94.6,
+      "estSec": 20.8,
+      "text": "Mari kita bedah peristiwa pertama, yakni manuver OpenAI yang baru saja mengakuisisi Odessia, sebuah startup perjalanan yang didirikan oleh pendiri Sonder. Akuisisi ini bukan sekadar langkah untuk menambah portofolio talenta, melainkan sebuah sinyal bahwa OpenAI sedang bersiap untuk menguasai vertikal industri travel dengan presisi tinggi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "close-up of a brass balance scale on a clean laboratory bench, a miniature robotic arm on one pan and a wooden hand figurine on the other, macro lens, bokeh background, cool white light",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
+    },
+    {
+      "i": 8,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 115.4,
+      "estSec": 12,
+      "text": "Odessia memiliki basis arsitektur yang mampu memproses kompleksitas logistik perjalanan yang sangat dinamis, sesuatu yang selama ini menjadi kelemahan model bahasa besar generik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "isometric 3D illustration of a geometric turnstile checkpoint on a pathway of colored cubes, flat colors, soft shadows, light gray background, amber and gray palette",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
+    },
+    {
+      "i": 9,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 127.4,
+      "estSec": 13.4,
+      "text": "Dengan mengintegrasikan teknologi Odessia, OpenAI tidak hanya ingin menjawab pertanyaan tentang destinasi wisata, tetapi ingin menjadi perantara aktif yang mampu memesan, mengelola, dan memecahkan masalah perjalanan pengguna secara real-time.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a smartphone screen displaying a travel booking interface with a chat bubble confirming a flight reservation, soft studio lighting, clean minimalist aesthetic., tilt-shift miniature diorama, soft daylight, pastel palette, high angle",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft digital notification chime, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src1.webp",
+      "contextTitle": "OPENAI TRAVEL INTEGRATION",
+      "keyMetric": "REAL-TIME BOOKING",
+      "visualClue": "OpenAI kini mengelola perjalanan"
+    },
+    {
+      "i": 10,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 140.8,
+      "estSec": 18,
+      "text": "Implikasi dari langkah ini sangat masif bagi ekosistem travel online global. Pemain lama seperti Expedia atau Booking.com kini menghadapi ancaman eksistensial dari agen AI yang tidak lagi sekadar memberikan rekomendasi, tetapi bertindak sebagai asisten pribadi yang memiliki otoritas eksekusi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama showing a digital travel agency office with tiny robotic arms moving paper tickets between stacks, mint and coral color palette, soft shadows.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical sorting machine clicks, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "GLOBAL TRAVEL DISRUPTION",
+      "keyMetric": "EXISTENTIAL MARKET THREAT",
+      "visualClue": "Ancaman bagi pemain lama"
+    },
+    {
+      "i": 11,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 158.8,
+      "estSec": 15.7,
+      "text": "Jika OpenAI berhasil mengintegrasikan kapabilitas Odessia ke dalam ChatGPT, kita akan melihat pergeseran besar di mana pencarian informasi perjalanan tidak lagi dilakukan di mesin pencari tradisional, melainkan melalui antarmuka percakapan yang langsung mengeksekusi transaksi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a glass keyboard with a glowing chat interface on a monitor, shallow depth of field, warm tungsten light reflecting on keys.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rhythmic keyboard typing sounds, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "CONVERSATIONAL SEARCH SHIFT",
+      "keyMetric": "TRANSACTIONAL AI INTERFACE",
+      "visualClue": "Pencarian beralih ke percakapan"
+    },
+    {
+      "i": 12,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 174.5,
+      "estSec": 12,
+      "text": "Peristiwa kedua datang dari ranah kesehatan personal, di mana Oura, pemimpin pasar cincin pintar, resmi mengakuisisi startup chatbot AI medis bernama Counsel Health.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A sleek smart ring resting on a clean white surface next to a medical report, overhead flat lay, soft pastel peach and sky blue lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src2.jpg",
+      "contextTitle": "OURA MEDICAL ACQUISITION",
+      "keyMetric": "AI CHATBOT INTEGRATION",
+      "visualClue": "Oura mengakuisisi chatbot medis"
+    },
+    {
+      "i": 13,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 186.5,
+      "estSec": 14.3,
+      "text": "Oura selama ini dikenal sebagai perangkat yang mengumpulkan data biometrik pasif, namun dengan Counsel Health, mereka kini memiliki otak yang mampu menerjemahkan data mentah tersebut menjadi saran medis yang dapat ditindaklanjuti.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro lens shot of a digital brain icon glowing inside a biometric sensor, bokeh background, cool blue light, high-tech laboratory aesthetic.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "data processing digital pulses, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "BIOMETRIC DATA TRANSLATION",
+      "keyMetric": "ACTIONABLE MEDICAL ADVICE",
+      "visualClue": "Data diubah jadi saran medis"
+    },
+    {
+      "i": 14,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 200.8,
+      "estSec": 12,
+      "text": "Ini adalah lompatan besar dari sekadar pelacak tidur menjadi perangkat pemantau kesehatan proaktif yang bisa memberikan interpretasi hasil lab atau gejala kesehatan secara instan kepada penggunanya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Paper-cut art style showing a layered health chart with a heartbeat line transforming into a text bubble, warm orange and teal paper textures.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "paper rustling and sliding, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "PROACTIVE HEALTH MONITORING",
+      "keyMetric": "INSTANT LAB INTERPRETATION",
+      "visualClue": "Pelacak tidur jadi proaktif"
+    },
+    {
+      "i": 15,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 212.8,
+      "estSec": 13.4,
+      "text": "Bagi industri kesehatan digital, akuisisi ini menegaskan bahwa masa depan perangkat pakai bukan terletak pada sensor yang lebih sensitif, melainkan pada kemampuan AI untuk memberikan konteks pada data tersebut.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Editorial documentary style, empty laboratory tray with tweezers and small circuit nodes, soft natural light, muted amber and gray tones., tilt-shift miniature diorama, soft daylight, pastel palette, high angle",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "ambient lab room silence, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "DIGITAL HEALTH FUTURE",
+      "keyMetric": "AI CONTEXTUAL DATA",
+      "visualClue": "Masa depan perangkat pakai"
+    },
+    {
+      "i": 16,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 226.2,
+      "estSec": 14.8,
+      "text": "Oura secara efektif sedang membangun benteng pertahanan yang sulit ditembus oleh kompetitor seperti Apple atau Samsung, karena mereka menggabungkan data fisik yang sangat akurat dengan kecerdasan buatan yang terspesialisasi dalam domain medis.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D illustration of a fortress made of glowing circuit boards, protecting a central biometric sensor, clean flat colors, soft lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency digital hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "COMPETITIVE DEFENSIVE MOAT",
+      "keyMetric": "PHYSICAL DATA DOMINANCE",
+      "visualClue": "Benteng pertahanan Oura"
+    },
+    {
+      "i": 17,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 241,
+      "estSec": 12,
+      "text": "Ini adalah langkah berani yang akan memaksa standar privasi data kesehatan menjadi lebih ketat sekaligus lebih bernilai bagi konsumen.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a sleek wearable ring resting on a sterile white medical tray, soft clinical lighting, bokeh background, high-end product photography style.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft clinical beeping sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src2.jpg",
+      "contextTitle": "HEALTH DATA PRIVACY",
+      "keyMetric": "STRICTER DATA STANDARDS",
+      "visualClue": "Privasi data kesehatan konsumen"
+    },
+    {
+      "i": 18,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 253,
+      "estSec": 12,
+      "text": "Ketiga, kita melihat munculnya fenomena sistem operasi baru berbasis Linux yang dirancang khusus untuk para pengembang AI, yang dikenal sebagai Kora.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical keyboard typing sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src3.jpg",
+      "contextTitle": "KORA OS LAUNCH",
+      "keyMetric": "NEW LINUX PARADIGM",
+      "visualClue": "Sistem operasi baru Kora"
+    },
+    {
+      "i": 19,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 265,
+      "estSec": 15.7,
+      "text": "Kora membawa paradigma baru di mana kernel sistem operasi dioptimalkan untuk beban kerja komputasi AI lokal, memungkinkan pengembang untuk menjalankan model besar langsung di perangkat keras mereka tanpa harus bergantung sepenuhnya pada komputasi awan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a high-end GPU chip glowing with soft blue light, surrounded by intricate circuit board nodes, shallow depth of field, cool tungsten lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "LOCAL AI COMPUTING",
+      "keyMetric": "KERNEL OPTIMIZATION",
+      "visualClue": "Komputasi AI lokal perangkat"
+    },
+    {
+      "i": 20,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 280.7,
+      "estSec": 12,
+      "text": "Arsitektur ini menggunakan manajemen memori yang sangat efisien, yang secara khusus dirancang untuk menangani latensi rendah saat melakukan inferensi model AI secara lokal.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D illustration of a data packet flowing through a streamlined memory pipeline, mint and coral color palette, clean soft shadows, minimalist design.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital data processing clicks, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "MEMORY MANAGEMENT",
+      "keyMetric": "LOW LATENCY INFERENCE",
+      "visualClue": "Manajemen memori efisien"
+    },
+    {
+      "i": 21,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 292.7,
+      "estSec": 19.8,
+      "text": "Kehadiran Kora merupakan tantangan langsung bagi dominasi sistem operasi tradisional. Di saat Windows dan macOS masih berjuang untuk mengintegrasikan AI sebagai lapisan tambahan atau \"fitur\" di atas sistem yang sudah ada, Kora justru membangun fondasi dari nol dengan AI sebagai inti dari arsitekturnya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Two contrasting desktop setups: one cluttered with legacy software icons, the other a clean, empty workspace with a single glowing 'AI Core' icon, cinematic volumetric light.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency bass pulse, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "OS ARCHITECTURE",
+      "keyMetric": "AI-FIRST FOUNDATION",
+      "visualClue": "Fondasi AI dari nol"
+    },
+    {
+      "i": 22,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 312.5,
+      "estSec": 18,
+      "text": "Bagi komunitas pengembang, ini adalah angin segar yang menawarkan kontrol penuh atas privasi data dan efisiensi komputasi, sekaligus menjadi sinyal bahwa masa depan komputasi desktop akan sangat bergantung pada seberapa baik sistem operasi tersebut berinteraksi dengan akselerator AI lokal.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Overhead flat lay of a wooden mannequin hand resting on a desk next to a smartphone displaying a privacy dashboard, pastel peach and sky blue palette.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft paper rustling sound, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "DEVELOPER CONTROL",
+      "keyMetric": "PRIVACY AND EFFICIENCY",
+      "visualClue": "Kontrol privasi pengembang"
+    },
+    {
+      "i": 23,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 330.5,
+      "estSec": 19.8,
+      "text": "Keempat, kita mencatat perkembangan krusial dari MIT Tech Review mengenai arah kebijakan publik terkait AI. Suksesi kepemimpinan di tingkat politik Amerika Serikat kini mulai menargetkan regulasi ketat terhadap AI, sementara di sisi lain, pusat data global mulai mengalami krisis daya listrik yang kronis.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "An empty wooden podium with a single microphone in a dimly lit hall, 35mm film still, muted amber and gray tones, cinematic film grain.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "distant echo of footsteps, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src4.jpg",
+      "contextTitle": "POLICY AND POWER",
+      "keyMetric": "REGULATORY TARGETS",
+      "visualClue": "Regulasi ketat pusat data"
+    },
+    {
+      "i": 24,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 350.3,
+      "estSec": 19.8,
+      "text": "Kebutuhan energi untuk melatih model AI skala besar telah mencapai titik di mana infrastruktur kelistrikan konvensional tidak lagi sanggup menopang laju pertumbuhan ini. Ini bukan lagi sekadar masalah teknis, melainkan masalah geopolitik dan lingkungan yang akan membatasi kecepatan inovasi AI di masa depan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Wide shot of a massive industrial power grid station at dusk, cinematic volumetric light, silhouettes of cooling towers, high-contrast industrial aesthetic.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "deep electrical buzzing hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ENERGY CRISIS",
+      "keyMetric": "POWER INFRASTRUCTURE",
+      "visualClue": "Krisis daya listrik kronis"
+    },
+    {
+      "i": 25,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 370.1,
+      "estSec": 12,
+      "text": "Dampak dari krisis daya ini akan memaksa perusahaan AI untuk mengubah strategi mereka dari model yang \"sebesar mungkin\" menjadi model yang \"seefisien mungkin\".",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a glowing silicon wafer being swapped out by a robotic arm. Shallow depth of field, cool blue LED lighting, industrial laboratory setting with metallic textures and precision engineering.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical arm hydraulic hiss, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "AI ENERGY CRISIS",
+      "keyMetric": "Efficiency over scale",
+      "visualClue": "Krisis daya paksa efisiensi"
+    },
+    {
+      "i": 26,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 382.1,
+      "estSec": 12,
+      "text": "Kita akan melihat pergeseran investasi besar-besaran dari pengembangan parameter model menuju pengembangan perangkat keras yang hemat energi dan pusat data yang mandiri secara energi.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a smartphone screen displaying a business directory interface with AI agent chat bubbles. Clean studio lighting, pastel peach background, overhead flat lay composition.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital notification ping sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src5.png",
+      "contextTitle": "OPENAI BUSINESS AGENTS",
+      "keyMetric": "Automated customer service",
+      "visualClue": "ChatGPT jadi direktori bisnis"
+    },
+    {
+      "i": 27,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 394.1,
+      "estSec": 12.5,
+      "text": "Bagi industri global, ini berarti biaya komputasi mungkin akan meningkat, namun di sisi lain, akan memicu inovasi di sektor energi terbarukan yang terintegrasi langsung dengan komputasi awan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Overhead bird's-eye view of a digital network map expanding rapidly. Glowing nodes connecting small business icons. Clean white background, minimalist aesthetic, high-speed data transmission lines., layered paper-cut art, handmade texture, warm orange, magenta and teal palette",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "fast data processing clicks, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ECOSYSTEM LOCK-IN",
+      "keyMetric": "Massive network effect",
+      "visualClue": "Dominasi ekosistem OpenAI"
+    },
+    {
+      "i": 28,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 406.6,
+      "estSec": 12,
+      "text": "Kelima, OpenAI kembali membuat gebrakan dengan mengubah ChatGPT menjadi direktori bisnis yang dilengkapi dengan agen AI yang mampu menangani pertanyaan pelanggan secara mandiri.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Cinematic shot of a polished mahogany boardroom table with an empty leather chair. Soft volumetric light streaming through a window, film grain, 35mm aesthetic.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "distant city traffic ambient, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src6.jpg",
+      "contextTitle": "ANTHROPIC IPO PLANS",
+      "keyMetric": "Public funding target",
+      "visualClue": "Anthropic menuju IPO"
+    },
+    {
+      "i": 29,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 418.6,
+      "estSec": 18.9,
+      "text": "Ini adalah perubahan model bisnis yang sangat radikal, di mana ChatGPT tidak lagi menjadi alat bantu penulisan, melainkan menjadi platform layanan pelanggan otomatis yang terintegrasi. Agen-agen ini mampu memahami konteks spesifik bisnis, menjawab keluhan, hingga memproses pesanan tanpa campur tangan manusia.",
+      "visual": "T2V_GENERATION",
+      "prompt": "clean isometric 3D illustration of small robotic workers on a conveyor belt assembling colored blocks, a single large hand-shaped lever at the end, flat colors, soft shadows, light gray background, mint and coral palette",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
+    },
+    {
+      "i": 30,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 437.5,
+      "estSec": 19.4,
+      "text": "Langkah ini secara langsung menantang industri perangkat lunak layanan pelanggan atau SaaS yang selama ini mengandalkan chatbot berbasis aturan yang kaku. Dengan kemampuan agen AI yang jauh lebih adaptif, OpenAI sedang memposisikan diri untuk merebut pangsa pasar perangkat lunak bisnis secara masif.",
+      "visual": "T2V_GENERATION",
+      "prompt": "overhead view of a lab tray with hundreds of small gray beads, tweezers lifting one distinct purple bead out of the pile, macro lens, bright clean light, mint and coral palette",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
+    },
+    {
+      "i": 31,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 456.9,
+      "estSec": 15.7,
+      "text": "Ini akan memaksa jutaan bisnis kecil dan menengah untuk berpindah ke ekosistem OpenAI, yang pada akhirnya akan memperkuat dominasi data mereka dan menciptakan efek jaringan yang hampir mustahil untuk disaingi oleh perusahaan rintisan kecil.",
+      "visual": "T2V_GENERATION",
+      "prompt": "close-up of a brass balance scale on a clean laboratory bench, a miniature robotic arm on one pan and a wooden hand figurine on the other, macro lens, bokeh background, cool white light",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
+    },
+    {
+      "i": 32,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 472.6,
+      "estSec": 19.4,
+      "text": "Keenam, laporan mengenai rencana Anthropic untuk melangkah menuju penawaran umum perdana atau IPO menjadi sorotan utama di bursa teknologi. Anthropic, yang selama ini dikenal sebagai pesaing terkuat OpenAI dengan fokus pada keamanan dan etika AI, kini siap mencari pendanaan publik yang masif.",
+      "visual": "T2V_GENERATION",
+      "prompt": "isometric 3D illustration of a geometric turnstile checkpoint on a pathway of colored cubes, flat colors, soft shadows, light gray background, amber and gray palette",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
+    },
+    {
+      "i": 33,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 492,
+      "estSec": 12,
+      "text": "Langkah ini menunjukkan bahwa Anthropic membutuhkan modal raksasa untuk memenangkan perlombaan infrastruktur komputasi yang semakin mahal dan kompetitif.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a sleek, modern office building exterior with glass facades reflecting the sunset, symbolizing corporate growth and the high-stakes nature of AI infrastructure investment., 100mm macro lens, shallow depth of field, warm tungsten and amber lighting",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency city rumble, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src6.jpg",
+      "contextTitle": "ANTHROPIC IPO PLANS",
+      "keyMetric": "GIANT CAPITAL NEEDS",
+      "visualClue": "Anthropic butuh modal besar"
+    },
+    {
+      "i": 34,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 504,
+      "estSec": 12,
+      "text": "Rencana IPO ini akan menjadi ujian besar bagi pasar modal untuk menilai valuasi perusahaan AI murni di tengah ketidakpastian regulasi dan tingginya biaya operasional.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "hollow room ambient echo, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src7.jpg",
+      "contextTitle": "MARKET VALUATION TEST",
+      "keyMetric": "HIGH OPERATIONAL COSTS",
+      "visualClue": "Ujian besar pasar modal"
+    },
+    {
+      "i": 35,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 516,
+      "estSec": 22.2,
+      "text": "Jika Anthropic berhasil melantai di bursa dengan valuasi yang tinggi, ini akan memicu gelombang investasi baru ke sektor AI, namun jika pasar memberikan respons dingin, kita mungkin akan melihat konsolidasi besar-besaran di mana perusahaan AI yang lebih kecil akan terpaksa menjual diri ke raksasa teknologi yang sudah mapan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama showing a complex network of glowing data nodes connecting smaller clusters to a massive central hub, illustrating potential market consolidation and acquisition.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "digital data stream hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "INDUSTRY CONSOLIDATION",
+      "keyMetric": "MARKET RESPONSE RISK",
+      "visualClue": "Potensi konsolidasi besar"
+    },
+    {
+      "i": 36,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 538.2,
+      "estSec": 12,
+      "text": "Ketujuh, pernyataan David Ellison mengenai AI sebagai \"kunci kreatif terbesar dalam sejarah modern\" memberikan perspektif baru dari sisi industri hiburan.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A cinematic shot of a film studio set with professional lighting rigs and a blank green screen, capturing the essence of creative industry transformation., tilt-shift miniature diorama, soft daylight, pastel palette, high angle",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "studio light buzzing sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src7.jpg",
+      "contextTitle": "CREATIVE AI UNLOCK",
+      "keyMetric": "MODERN HISTORY SHIFT",
+      "visualClue": "Perspektif industri hiburan"
+    },
+    {
+      "i": 37,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 550.2,
+      "estSec": 12,
+      "text": "Ellison, yang kini memegang kendali atas Paramount dan Skydance, memandang AI bukan sebagai ancaman bagi seniman, melainkan sebagai alat yang akan mendemokratisasi produksi konten skala studio.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a wooden mannequin hand holding a digital stylus over a tablet displaying complex 3D wireframe models, representing human-AI collaboration in production.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft stylus tapping sound, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "DEMOCRATIZING PRODUCTION",
+      "keyMetric": "STUDIO SCALE CONTENT",
+      "visualClue": "Alat demokratisasi konten"
+    },
+    {
+      "i": 38,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 562.2,
+      "estSec": 13.8,
+      "text": "Ini adalah pengakuan dari salah satu tokoh paling berpengaruh di Hollywood bahwa masa depan produksi film dan konten akan sangat bergantung pada kolaborasi antara visi manusia dan daya komputasi AI.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Overhead flat lay of a film editing desk with a script, a high-end monitor showing a timeline, and a cup of coffee, emphasizing the blend of human vision and computation.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical keyboard typing clicks, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "HOLLYWOOD FUTURE",
+      "keyMetric": "HUMAN-AI COLLABORATION",
+      "visualClue": "Kolaborasi visi manusia"
+    },
+    {
+      "i": 39,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 576,
+      "estSec": 18.5,
+      "text": "Implikasi dari pandangan ini sangat luas bagi masa depan industri kreatif. Kita akan melihat produksi konten yang jauh lebih cepat, biaya produksi yang lebih efisien, dan kemungkinan untuk menciptakan dunia visual yang sebelumnya mustahil dilakukan tanpa anggaran ratusan juta dolar.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Paper-cut art style showing a layered landscape of a fantasy world being rendered, with warm orange and teal tones, illustrating the efficiency of AI-driven visual production.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "paper rustling soft texture, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "CREATIVE IMPLICATIONS",
+      "keyMetric": "EFFICIENT PRODUCTION COST",
+      "visualClue": "Produksi konten lebih cepat"
+    },
+    {
+      "i": 40,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 594.5,
+      "estSec": 16.2,
+      "text": "Namun, ini juga membawa tantangan etika dan hak cipta yang sangat kompleks yang harus diselesaikan oleh industri hiburan dalam beberapa tahun ke depan agar AI dapat diterima sebagai mitra kreatif, bukan pengganti tenaga kerja manusia.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro shot of brass balance scales on a desk, with a digital chip on one side and a fountain pen on the other, representing the ethical tension between AI and human labor.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic scale clicking sound, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ETHICAL CHALLENGES",
+      "keyMetric": "COPYRIGHT COMPLEXITY",
+      "visualClue": "Tantangan etika hak cipta"
+    },
+    {
+      "i": 41,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 610.7,
+      "estSec": 14.8,
+      "text": "Jika kita melihat ketujuh peristiwa ini sebagai satu kesatuan, terlihat jelas bahwa kita sedang berada di ambang era di mana AI tidak lagi menjadi produk sampingan, melainkan menjadi infrastruktur dasar peradaban modern.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Cinematic volumetric wide shot of a vast, glowing digital grid landscape stretching to the horizon. Translucent geometric structures rise from the ground, representing the foundational infrastructure of modern civilization. 24mm lens, deep blue and gold lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Deep resonant bass hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ERA INFRASTRUKTUR AI",
+      "keyMetric": "AI SEBAGAI FONDASI",
+      "visualClue": "AI menjadi infrastruktur dasar"
+    },
+    {
+      "i": 42,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 625.5,
+      "estSec": 12,
+      "text": "Dalam 6 hingga 12 bulan ke depan, kita akan melihat perang perebutan kendali atas \"agen AI\" yang mampu mengelola transaksi ekonomi, kesehatan pribadi, dan produksi konten.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro shot of a glowing fiber optic cable bundle pulsing with light. The light patterns shift rapidly, representing data and computational power. Shallow depth of field, cool blue and violet light.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "High frequency data stream, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "SEJARAH DALAM KODE",
+      "keyMetric": "KECEPATAN INOVASI",
+      "visualClue": "Sejarah ditulis dalam kode"
+    },
+    {
+      "i": 43,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 637.5,
+      "estSec": 12,
+      "text": "Perusahaan yang mampu mengintegrasikan agen-agen ini ke dalam kehidupan sehari-hari pengguna dengan cara yang paling mulus akan menjadi pemenang mutlak dalam dekade ini.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a digital news feed on a tablet screen showing headlines about OpenAI and Oura acquisitions. The screen flickers slightly with a subtle UI animation of a loading bar. Clean studio lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Soft screen tap sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-12/images/src5.png",
+      "contextTitle": "MONOPOLI ATAU KEMAJUAN",
+      "keyMetric": "AKUISISI AGRESIF",
+      "visualClue": "Dampak akuisisi perusahaan"
+    },
+    {
+      "i": 44,
+      "chapter": "Peluang & Penutup",
+      "startSec": 649.5,
+      "estSec": 12,
+      "text": "Bagi Anda yang ingin tetap relevan di tengah pergeseran ini, langkah paling praktis adalah mulai mengadopsi alur kerja yang berbasis pada agen AI.",
+      "visual": "T2V_GENERATION",
+      "prompt": "close-up of a studio desk with a microphone, a ring light, a clean red circular button, and a brass bell mid-swing with motion blur, 85mm lens, shallow depth of field, warm neutral and crimson tones",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "FAST AI NEWS // ANALISIS",
+      "keyMetric": "Laporan Riset 72 Jam",
+      "visualClue": "Ruang Analisis Teknologi"
+    },
+    {
+      "i": 45,
+      "chapter": "Peluang & Penutup",
+      "startSec": 661.5,
+      "estSec": 12,
+      "text": "Jangan lagi memandang AI sebagai sekadar alat untuk menjawab pertanyaan, tetapi mulailah membangun sistem di mana AI mengelola tugas-tugas administratif atau operasional Anda.",
+      "visual": "T2V_GENERATION",
+      "prompt": "overhead shot of a tidy modern workspace desk with a laptop, open notebook with clean flowchart diagram, and coffee cup, soft morning window light, 50mm lens, warm neutral tones, shallow depth of field",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "futuristic ambient room hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "FAST AI NEWS // ANALISIS",
+      "keyMetric": "Laporan Riset 72 Jam",
+      "visualClue": "Ruang Analisis Teknologi"
+    },
+    {
+      "i": 46,
+      "chapter": "Peluang & Penutup",
+      "startSec": 673.5,
+      "estSec": 14.3,
+      "text": "Peluang karier di masa depan tidak lagi terletak pada kemampuan untuk mengoperasikan perangkat lunak, tetapi pada kemampuan untuk mengarahkan dan mengawasi agen AI dalam mencapai tujuan bisnis atau pribadi yang kompleks.",
+      "visual": "T2V_GENERATION",
+      "prompt": "isometric 3D illustration of a friendly sorting machine scanning product boxes, a digital chat panel showing product specs and price '$29', flat colors, soft shadows, light background, peach and sky blue palette",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital clicks, ambient corporate atmospheric tone, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "EKONOMI // VALUASI PASAR",
+      "keyMetric": "Pertumbuhan & Adopsi Enterprise",
+      "visualClue": "Mockup Transaksi & Antarmuka Ritel"
+    },
+    {
+      "i": 47,
+      "chapter": "Peluang & Penutup",
+      "startSec": 687.8,
+      "estSec": 13.8,
+      "text": "Kita sedang menyaksikan sejarah yang ditulis dalam kode dan daya komputasi. Apakah Anda akan menjadi orang yang menguasai alat-alat baru ini, atau justru menjadi penonton yang tertinggal oleh kecepatan inovasi?",
+      "visual": "T2V_GENERATION",
+      "prompt": "macro shot of gleaming silicon processor die reflecting multicolored refraction fringes on dark matte substrate, 100mm macro lens, cool cyan and tungsten accents",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic hum, high frequency data processing audio, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "HARDWARE // SEMIKONDUKTOR",
+      "keyMetric": "Arsitektur Silikon & Komputasi",
+      "visualClue": "Wafer Sirkuit Mikro Emas"
+    },
+    {
+      "i": 48,
+      "chapter": "Peluang & Penutup",
+      "startSec": 701.6,
+      "estSec": 15.7,
+      "text": "Saya sangat ingin mendengar pendapat Anda di kolom komentar: menurut Anda, apakah akuisisi agresif oleh OpenAI dan Oura ini akan menciptakan monopoli baru yang berbahaya, atau justru mempercepat kemajuan yang selama ini kita impikan?",
+      "visual": "T2V_GENERATION",
+      "prompt": "isometric 3D illustration of a geometric turnstile checkpoint on a pathway of colored cubes, flat colors, soft shadows, light gray background, amber and gray palette",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rising futuristic whoosh, harmonic digital resonance, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ARSITEKTUR // FRONTIER MODEL",
+      "keyMetric": "Penalaran & Skala Inferensi",
+      "visualClue": "Simulasi Arsitektur Model Hibrida"
+    },
+    {
+      "i": 49,
+      "chapter": "Peluang & Penutup",
+      "startSec": 717.3,
+      "estSec": 15.2,
+      "text": "Pastikan Anda menekan tombol subscribe dan nyalakan notifikasi agar tidak ketinggalan analisis mendalam berikutnya, karena di dunia yang bergerak secepat ini, informasi adalah aset paling berharga yang Anda miliki. Mari berdiskusi di bawah.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a sleek, modern desk setup with a glowing notification bell icon hovering above a smartphone, mint and coral color palette, soft studio lighting, clean minimalist aesthetic.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft mechanical bell chime, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "SUBSCRIBE & NOTIFY",
+      "keyMetric": "STAY UPDATED DAILY",
+      "visualClue": "Ajakan untuk terus terhubung"
+    }
+  ],
+  "midrollAtSec": 416,
+  "estTotalSec": 732.5,
+  "sources": [
+    {
+      "title": "OpenAI acquires Odessia, travel startup created by Sonder founder",
+      "url": "https://techcrunch.com/2026/11/10/openai-acquires-odessia-travel-startup-created-by-sonder-founder/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "Oura is acquiring medical AI chatbot startup Counsel Health",
+      "url": "https://www.theverge.com/gadgets/1031284/oura-counsel-health-acquisition",
+      "publisher": "The Verge"
+    },
+    {
+      "title": "This New Linux-Based Desktop Operating System Is Built for AI Nerds",
+      "url": "https://www.wired.com/story/kora-new-linux-based-desktop-operating-system-is-built-for-ai-nerds/",
+      "publisher": "Wired AI"
+    },
+    {
+      "title": "The Download: Pelosi’s successor targets AI and data centers face power woes",
+      "url": "https://www.technologyreview.com/2026/11/10/1148150/the-download-pelosi-successor-ai-regulation-data-center-backlash/",
+      "publisher": "MIT Tech Review"
+    },
+    {
+      "title": "OpenAI turns ChatGPT into a business directory with AI agents that handle customer questions",
+      "url": "https://the-decoder.com/openai-turns-chatgpt-into-a-business-directory-with-ai-agents-that-handle-customer-questions/",
+      "publisher": "The Decoder"
+    },
+    {
+      "title": "Anthropic reportedly plans to move forward with IPO plans",
+      "url": "https://techcrunch.com/2026/11/09/anthropic-reportedly-plans-to-move-forward-with-ipo-plans/",
+      "publisher": "TechCrunch AI"
+    },
+    {
+      "title": "David Ellison says AI could be the ‘biggest creative unlock in modern history’",
+      "url": "https://www.theverge.com/entertainment/1030510/paramount-skydance-david-ellison-ai",
+      "publisher": "The Verge"
+    }
+  ]
+}
