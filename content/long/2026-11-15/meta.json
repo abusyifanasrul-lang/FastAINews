@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-15",
+  "topicTitle": "Runtuhnya Imperium Jensen Huang dan Revolusi Ekonomi Agen AI",
+  "status": "READY_FOR_ASSETS",
+  "beats": 41,
+  "estTotalSec": 611.6,
+  "midrollAtSec": 321,
+  "t2vCount": 27,
+  "i2vCount": 14,
+  "staticCount": 0,
+  "images": 7,
+  "sources": 7,
+  "paragraphs": 14,
+  "storyboardBatchesExecuted": 6,
+  "storyboardTotalBatches": 6,
+  "storyboardLlmOkBatches": 6,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [
+    {
+      "no": 3,
+      "got": 6,
+      "expected": 8
+    },
+    {
+      "no": 4,
+      "got": 3,
+      "expected": 8
+    }
+  ],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
