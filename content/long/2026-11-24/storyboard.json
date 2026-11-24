@@ -1,0 +1,867 @@
+{
+  "date": "2026-11-24",
+  "title": "Runtuhnya Ilusi Kecerdasan Buatan dan Realitas Keamanan Digital Terbaru",
+  "chapters": [
+    {
+      "title": "Intro & Tesis Utama",
+      "startSec": 0
+    },
+    {
+      "title": "Konteks 72 Jam Terakhir",
+      "startSec": 75
+    },
+    {
+      "title": "Deep-Dive Berita AI",
+      "startSec": 217
+    },
+    {
+      "title": "Analisis & Prediksi Industri",
+      "startSec": 447
+    },
+    {
+      "title": "Peluang & Penutup",
+      "startSec": 547
+    }
+  ],
+  "beats": [
+    {
+      "i": 1,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 0,
+      "estSec": 17.1,
+      "text": "Dalam tujuh puluh dua jam terakhir, fondasi industri kecerdasan buatan mengalami guncangan hebat ketika ribuan agen otonom gagal total dalam simulasi dunia kerja nyata, sementara sektor perbankan global mulai mendeklarasikan perang terbuka terhadap otomatisasi yang tidak terkendali.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a chaotic office floor, tiny robot figures collapsing at desks, scattered paper documents, mint and coral color palette, soft shadows, clean minimalist aesthetic.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical failure glitch sound, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "INDUSTRI AI GUNCANG",
+      "keyMetric": "KEGAGALAN AGEN OTONOM",
+      "visualClue": "Agen AI gagal total"
+    },
+    {
+      "i": 2,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 17.1,
+      "estSec": 17.5,
+      "text": "Anda harus memahami bahwa janji manis tentang efisiensi AI yang menggantikan tenaga manusia saat ini sedang berada di titik nadir kredibilitas, dan mengabaikan pergeseran ini berarti membiarkan aset serta privasi Anda menjadi tumbal eksperimen teknologi yang belum matang.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Macro photography of a polished mahogany desk with a heavy brass balance scale, one side holding a smartphone, the other side empty, shallow depth of field, warm tungsten lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft metallic clicking sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src2.jpg",
+      "contextTitle": "KREDIBILITAS AI MENURUN",
+      "keyMetric": "TITIK NADIR KEPERCAYAAN",
+      "visualClue": "Janji efisiensi AI meragukan"
+    },
+    {
+      "i": 3,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 34.6,
+      "estSec": 20.3,
+      "text": "Kita akan membedah bagaimana pengembang game papan atas menarik diri dari penggunaan AI, mengapa agen pengodean hanya mampu menyelesaikan kurang dari sepuluh persen tugas nyata, hingga ancaman nyata pencurian kunci enkripsi oleh penyedia layanan inferensi murah yang kini mengintai data pribadi Anda tanpa disadari.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Overhead flat lay of a computer monitor displaying complex code snippets, a pair of tweezers holding a small microchip, clean studio lighting, pastel peach and sky blue background.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "faint electronic data hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src3.jpg",
+      "contextTitle": "ANCAMAN DATA PRIBADI",
+      "keyMetric": "PENCURIAN KUNCI ENKRIPSI",
+      "visualClue": "Risiko keamanan inferensi murah"
+    },
+    {
+      "i": 4,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 54.9,
+      "estSec": 14.3,
+      "text": "Lanskap teknologi yang kita saksikan dalam tiga hari terakhir bukanlah sekadar fluktuasi pasar biasa, melainkan sebuah koreksi masif terhadap narasi optimisme berlebihan yang selama ini dipaksakan oleh para raksasa Silicon Valley.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low room tone ambience, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src4.jpg",
+      "contextTitle": "KOREKSI PASAR MASIF",
+      "keyMetric": "NARASI SILICON VALLEY",
+      "visualClue": "Optimisme berlebihan mulai runtuh"
+    },
+    {
+      "i": 5,
+      "chapter": "Intro & Tesis Utama",
+      "startSec": 69.2,
+      "estSec": 12,
+      "text": "Kita sedang menyaksikan transisi dari fase euforia menuju fase realitas yang pahit, di mana keterbatasan teknis berbenturan keras dengan ekspektasi bisnis yang terlalu tinggi.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a glass prism refracting light into a spectrum, sharp focus on the edge of the glass, cool blue and warm orange light contrast.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "sharp glass refraction sound, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "TRANSISI REALITAS PAHIT",
+      "keyMetric": "BATASAN TEKNIS BISNIS",
+      "visualClue": "Benturan ekspektasi dan realitas"
+    },
+    {
+      "i": 6,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 81.2,
+      "estSec": 20.3,
+      "text": "Pergeseran ini ditandai dengan munculnya resistensi dari berbagai sektor krusial, mulai dari industri kreatif yang mulai menolak penggunaan konten generatif secara membabi buta, hingga institusi keuangan yang secara agresif memperketat protokol keamanan demi membendung potensi kerusakan sistemik yang ditimbulkan oleh agen AI yang otonom.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Paper-cut art style, layered textures of bank vault doors and digital lock icons, warm orange and teal color palette, handmade paper texture.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "heavy vault door locking, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src6.png",
+      "contextTitle": "RESISTENSI SEKTOR KRUSIAL",
+      "keyMetric": "PROTOKOL KEAMANAN KETAT",
+      "visualClue": "Perbankan melawan agen AI"
+    },
+    {
+      "i": 7,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 101.5,
+      "estSec": 13.8,
+      "text": "Mari kita mulai dengan fenomena menarik dari industri pengembangan permainan video, di mana pengembang *The Binding of Isaac* secara resmi menarik kembali integrasi musik berbasis AI dalam pembaruan *Repentance Plus*.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Product photography, overhead flat lay of a vintage game controller next to a handwritten musical score on parchment, soft natural light, clean composition.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft paper rustling sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src1.jpg",
+      "contextTitle": "INDUSTRI KREATIF MENOLAK",
+      "keyMetric": "PENARIKAN MUSIK AI",
+      "visualClue": "Pengembang game hapus AI"
+    },
+    {
+      "i": 8,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 115.3,
+      "estSec": 14.3,
+      "text": "Keputusan ini bukan sekadar langkah teknis, melainkan sebuah pernyataan sikap etis yang menegaskan bahwa kreativitas manusia tetap memiliki nilai intrinsik yang tidak bisa direplikasi oleh model bahasa besar maupun generator audio.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a wooden mannequin hand resting on a piano key, shallow depth of field, soft natural light, muted gray background.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "single piano note resonance, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "NILAI KREATIVITAS MANUSIA",
+      "keyMetric": "NILAI INTRINSIK SENI",
+      "visualClue": "Kreativitas manusia tak tergantikan"
+    },
+    {
+      "i": 9,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 129.6,
+      "estSec": 18.9,
+      "text": "Secara arsitektural, penggunaan aset AI dalam *game* yang sangat bergantung pada atmosfer dan respons emosional pemain sering kali gagal menghasilkan kedalaman yang sama dengan komposisi manusia, yang pada akhirnya justru merusak integritas artistik dari sebuah karya yang telah dibangun selama bertahun-tahun.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Layered paper-cut art of a video game character standing in a desolate landscape, warm orange and teal paper textures, delicate shadows, handmade aesthetic, focus on the character's silhouette.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Soft melancholic piano notes, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src1.jpg",
+      "contextTitle": "GAME ART INTEGRITY",
+      "keyMetric": "Artistic Soul Loss",
+      "visualClue": "Kualitas artistik game menurun"
+    },
+    {
+      "i": 10,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 148.5,
+      "estSec": 16.6,
+      "text": "Tindakan ini memicu preseden penting bagi pengembang lain untuk lebih berhati-hati dalam mengintegrasikan alat bantu otomatisasi, karena konsumen kini semakin cerdas dalam membedakan antara karya yang memiliki jiwa dan produk yang sekadar dihasilkan oleh algoritma statistik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a wooden mannequin hand holding a vintage fountain pen, hovering over a blank sheet of paper, shallow depth of field, warm tungsten lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Scratching pen on paper, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "DEVELOPER PRECEDENT",
+      "keyMetric": "Consumer Awareness Rise",
+      "visualClue": "Pengembang mulai lebih selektif"
+    },
+    {
+      "i": 11,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 165.1,
+      "estSec": 12,
+      "text": "Di sisi lain, sektor perbankan kini berada pada titik jenuh menghadapi serbuan agen AI yang mencoba mengakses sistem mereka secara mandiri.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Macro lens shot of a heavy steel vault door handle, cool blue lighting, metallic textures, bokeh background of a dark server room, high contrast.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Heavy metallic locking sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src2.jpg",
+      "contextTitle": "BANKING AI AGENTS",
+      "keyMetric": "System Saturation Point",
+      "visualClue": "Sektor perbankan menolak AI"
+    },
+    {
+      "i": 12,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 177.1,
+      "estSec": 12.5,
+      "text": "Bank-bank besar di seluruh dunia mulai menerapkan kebijakan blokir ketat terhadap akses yang berasal dari agen otonom karena risiko keamanan yang ditimbulkannya jauh melampaui potensi manfaat operasional.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a digital firewall barrier, mint and coral palette, glowing red data packets bouncing off a solid wall, clean flat shadows.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Digital glitch and hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "AUTONOMOUS BLOCKING",
+      "keyMetric": "Security Risk Threshold",
+      "visualClue": "Blokir ketat akses otonom"
+    },
+    {
+      "i": 13,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 189.6,
+      "estSec": 18.5,
+      "text": "Dari perspektif keamanan siber, agen AI yang tidak terverifikasi bertindak seperti pengguna yang memiliki kemampuan eksekusi tinggi namun tidak memiliki tanggung jawab moral atau hukum, menciptakan celah yang bisa dimanfaatkan untuk manipulasi transaksi atau pencurian data sensitif dalam skala masif.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Editorial documentary style, empty mahogany desk with a single glowing terminal screen showing scrolling lines of code, soft gray tones, film grain., 35mm film still, soft window light, muted amber and gray tones, film grain",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Low frequency server hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "CYBERSECURITY THREATS",
+      "keyMetric": "High Execution Risk",
+      "visualClue": "Agen AI tanpa tanggung jawab"
+    },
+    {
+      "i": 14,
+      "chapter": "Konteks 72 Jam Terakhir",
+      "startSec": 208.1,
+      "estSec": 18.9,
+      "text": "Ini adalah peringatan bagi kita semua bahwa infrastruktur keuangan dunia tidak dirancang untuk berinteraksi dengan entitas non-manusia yang tidak memiliki protokol otentikasi yang ketat, dan kebijakan ini kemungkinan besar akan menjadi standar baru di seluruh industri perbankan global dalam waktu dekat.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Product photography, overhead flat lay of a brass balance scale, one side holding a microchip, the other side empty, pastel peach background, clean studio lighting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Metallic scale clicking sound, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "FINANCIAL INFRASTRUCTURE",
+      "keyMetric": "Authentication Protocol Gap",
+      "visualClue": "Infrastruktur keuangan rentan"
+    },
+    {
+      "i": 15,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 227,
+      "estSec": 15.7,
+      "text": "Ketidakmampuan agen AI dalam melakukan tugas dunia nyata juga terungkap lewat data mengejutkan yang dirilis baru-baru ini, di mana agen pengodean hanya mampu menyelesaikan kurang dari satu dari sepuluh tugas dalam simulasi lingkungan kerja.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Macro photography of a computer monitor displaying a complex bar chart with a red '10%' marker, shallow depth of field, cool blue ambient light.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Electronic data processing sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src3.jpg",
+      "contextTitle": "CODING AGENT FAILURE",
+      "keyMetric": "Under 10% Success",
+      "visualClue": "Agen AI gagal di lapangan"
+    },
+    {
+      "i": 16,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 242.7,
+      "estSec": 17.5,
+      "text": "Meskipun model-model ini berhasil meraih skor tinggi dalam tes yang terisolasi dan terstruktur, realitas di balik layar menunjukkan bahwa mereka gagal total ketika dihadapkan pada konteks yang kompleks, ketergantungan antar kode yang saling berkaitan, dan ambiguitas instruksi manusia.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D illustration of a tangled web of fiber optic cables, mint and coral colors, soft shadows, representing complex code dependencies in a workspace.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "Subtle mechanical clicking, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "COMPLEXITY GAP",
+      "keyMetric": "Real-world Failure Rate",
+      "visualClue": "Gagal hadapi ambiguitas kode"
+    },
+    {
+      "i": 17,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 260.2,
+      "estSec": 18.9,
+      "text": "Hal ini membuktikan bahwa kita masih jauh dari era di mana AI bisa menggantikan peran insinyur perangkat lunak secara utuh, karena kemampuan AI saat ini masih terjebak dalam pola pengenalan teks, bukan pemahaman mendalam tentang arsitektur sistem yang dinamis dan berubah-ubah.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a computer monitor displaying complex, broken code snippets and red error logs, reflecting the struggle of AI coding agents in a simulated workplace environment., 100mm macro lens, shallow depth of field, warm tungsten and amber lighting",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical keyboard typing rhythm, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src3.jpg",
+      "contextTitle": "AI CODING LIMITS",
+      "keyMetric": "10% TASK SUCCESS",
+      "visualClue": "AI belum mampu menggantikan insinyur"
+    },
+    {
+      "i": 18,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 279.1,
+      "estSec": 12,
+      "text": "Sementara itu, pembaruan besar pada grafik yang selama ini menjadi acuan utama dalam pengembangan AI telah memicu perdebatan sengit di kalangan peneliti.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle digital data hum, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src4.jpg",
+      "contextTitle": "GRAPH UPDATES",
+      "keyMetric": "DATA REVISION",
+      "visualClue": "Grafik acuan AI diperbarui"
+    },
+    {
+      "i": 19,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 291.1,
+      "estSec": 12,
+      "text": "Grafik yang sering disalahpahami ini kini menyajikan data baru yang lebih komprehensif mengenai batasan kemampuan sistem AI dibandingkan dengan kinerja kognitif manusia dalam berbagai domain spesifik.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a brass balance scale weighing a human brain model against a glowing silicon chip, illustrating the comparison between human cognition and AI capabilities.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic clicking of scales, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "COGNITIVE BENCHMARK",
+      "keyMetric": "HUMAN VS AI",
+      "visualClue": "Perbandingan kemampuan kognitif"
+    },
+    {
+      "i": 20,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 303.1,
+      "estSec": 18,
+      "text": "Pembaruan ini memaksa komunitas riset untuk mengakui bahwa kemajuan yang kita lihat selama ini bukanlah garis linear menuju kecerdasan umum, melainkan sekumpulan lonjakan performa yang sangat spesifik dan mudah runtuh ketika dihadapkan pada skenario di luar data latih mereka.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama showing a series of jagged, uneven performance spikes on a chart, with small blocks collapsing when pushed outside a defined boundary.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency digital glitch, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "PERFORMANCE SPIKES",
+      "keyMetric": "NON-LINEAR PROGRESS",
+      "visualClue": "Kemajuan AI tidak linear"
+    },
+    {
+      "i": 21,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 321.1,
+      "estSec": 14.8,
+      "text": "Ini adalah pengingat teknis yang krusial bagi para pemimpin industri agar tidak lagi menggunakan metrik yang menyesatkan untuk membenarkan investasi miliaran dolar ke dalam sistem yang masih memiliki kelemahan fundamental yang fatal.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Editorial documentary style: an empty, polished mahogany boardroom table with a single stack of financial reports and a fountain pen, symbolizing corporate investment scrutiny., 100mm macro lens, shallow depth of field, warm tungsten and amber lighting",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "ambient room tone silence, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "INDUSTRY METRICS",
+      "keyMetric": "BILLION DOLLAR RISK",
+      "visualClue": "Peringatan bagi pemimpin industri"
+    },
+    {
+      "i": 22,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 335.9,
+      "estSec": 12,
+      "text": "Dunia riset juga mendapatkan kabar menggembirakan sekaligus menantang dari OpenAI terkait penggunaan model GPT-6 Astra oleh Hebbia dalam riset keuangan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro lens shot of a server rack with blinking blue LED lights, representing the high-speed processing power of GPT-6 Astra models in a financial research setting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "server room cooling air, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "GPT-6 ASTRA",
+      "keyMetric": "FINANCIAL RESEARCH",
+      "visualClue": "Penggunaan model GPT-6 Astra"
+    },
+    {
+      "i": 23,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 347.9,
+      "estSec": 15.2,
+      "text": "Integrasi ini menunjukkan bahwa ketika AI digunakan sebagai alat bantu pendukung keputusan bagi analis manusia yang ahli, performanya bisa meningkat secara signifikan dalam hal kecepatan ekstraksi informasi dan sintesis data pasar yang kompleks.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Overhead flat lay of a clean desk with a tablet showing complex market data charts, next to a notebook with handwritten analytical notes and a cup of coffee.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft pencil scratching paper, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "DATA SYNTHESIS",
+      "keyMetric": "ANALYST SUPPORT",
+      "visualClue": "AI sebagai alat bantu analis"
+    },
+    {
+      "i": 24,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 363.1,
+      "estSec": 17.5,
+      "text": "Namun, keberhasilan ini tetap bergantung pada pengawasan manusia yang ketat, yang menegaskan bahwa peran AI saat ini seharusnya diposisikan sebagai kopilot yang memperluas kapasitas intelektual manusia, bukan sebagai pengganti yang beroperasi secara mandiri tanpa pengawasan atau kendali penuh.",
+      "visual": "T2V_GENERATION",
+      "prompt": "A pair of wooden mannequin hands resting on a keyboard, with one hand hovering over a physical 'STOP' toggle switch, emphasizing human oversight of AI systems., overhead flat lay, clean studio light, pastel peach and sky blue palette, clean product photography",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical switch click, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "HUMAN OVERSIGHT",
+      "keyMetric": "STRICT CONTROL",
+      "visualClue": "Pentingnya pengawasan manusia"
+    },
+    {
+      "i": 25,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 380.6,
+      "estSec": 20.8,
+      "text": "Namun, di balik semua kemajuan tersebut, ancaman keamanan dari penyedia layanan inferensi murah terus membayangi pengguna. Peneliti keamanan telah membongkar praktik curang di mana penyedia layanan ini mencuri kunci API dan memata-matai setiap input pengguna untuk dikumpulkan sebagai data pelatihan atau dijual ke pihak ketiga.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a glowing digital key icon being pulled into a dark, shadowy server rack, flickering neon blue light, high contrast, digital surveillance aesthetic., 100mm macro lens, shallow depth of field, warm tungsten and amber lighting",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "distorted digital glitch noise, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src7.png",
+      "contextTitle": "SECURITY THREATS",
+      "keyMetric": "DATA LEAKAGE RISK",
+      "visualClue": "Penyedia layanan mencuri data"
+    },
+    {
+      "i": 26,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 401.4,
+      "estSec": 13.8,
+      "text": "Ini adalah sisi gelap dari demokratisasi AI, di mana akses murah justru menjadi jebakan bagi pengguna yang tidak memahami risiko privasi dari data yang mereka kirimkan ke server pihak ketiga.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a golden coin trapdoor opening beneath a smartphone, mint and coral palette, clean flat design, minimalist office desk background.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "mechanical trapdoor clicking shut, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "DEMOCRATIZATION RISKS",
+      "keyMetric": "PRIVACY TRAP",
+      "visualClue": "Akses murah jadi jebakan"
+    },
+    {
+      "i": 27,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 415.2,
+      "estSec": 23.1,
+      "text": "Bagi Anda yang menggunakan layanan AI berbasis cloud, sangat disarankan untuk selalu memeriksa kebijakan privasi penyedia layanan dan menghindari penggunaan kunci API utama pada platform yang tidak memiliki reputasi keamanan yang teruji, karena sekali kunci Anda bocor, seluruh ekosistem digital yang terhubung dengan akun tersebut akan berada dalam bahaya besar.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Product photography of a physical brass padlock sitting on a laptop keyboard, soft pastel peach lighting, shallow depth of field, clean studio aesthetic.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "heavy metal lock clicking, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "CLOUD SECURITY",
+      "keyMetric": "API KEY SAFETY",
+      "visualClue": "Lindungi kunci API utama"
+    },
+    {
+      "i": 28,
+      "chapter": "Deep-Dive Berita AI",
+      "startSec": 438.3,
+      "estSec": 12,
+      "text": "Terakhir, peringatan keras datang dari organisasi METR yang menyatakan bahwa kecepatan perkembangan AI kini melampaui kemampuan para ahli untuk menguji keamanan sistem tersebut.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A complex, fast-moving line graph on a monitor screen, red lines spiking aggressively upward, blurred background of a high-tech laboratory, cinematic film grain., overhead flat lay, clean studio light, pastel peach and sky blue palette, clean product photography",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rapid electronic data pulses, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src6.png",
+      "contextTitle": "METR WARNING",
+      "keyMetric": "DEVELOPMENT VELOCITY",
+      "visualClue": "Perkembangan melampaui pengujian"
+    },
+    {
+      "i": 29,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 450.3,
+      "estSec": 14.3,
+      "text": "Kita sedang berada dalam perlombaan senjata teknologi di mana perusahaan pengembang meluncurkan model baru setiap beberapa bulan, sementara protokol keamanan dan kerangka kerja evaluasi risiko masih tertinggal puluhan langkah di belakang.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Editorial documentary style, empty wooden podium with a single microphone in a dimly lit hall, soft amber light, dust motes dancing in the air., 35mm film still, warm evening window light, muted neutral tones, film grain",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency room tone, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "TECH ARMS RACE",
+      "keyMetric": "SAFETY GAP",
+      "visualClue": "Protokol keamanan tertinggal jauh"
+    },
+    {
+      "i": 30,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 464.6,
+      "estSec": 14.8,
+      "text": "Jika tren ini terus berlanjut, kita berisiko meluncurkan sistem yang memiliki potensi dampak negatif yang tidak bisa kita kendalikan atau mitigasi secara efektif, yang pada akhirnya dapat membahayakan stabilitas infrastruktur kritis kita.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a circuit board with a glowing red warning light, shallow depth of field, cool blue ambient lighting, sharp focus on copper traces.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "faint electrical buzzing sound, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "CRITICAL INFRASTRUCTURE",
+      "keyMetric": "MITIGATION FAILURE",
+      "visualClue": "Risiko pada infrastruktur kritis"
+    },
+    {
+      "i": 31,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 479.4,
+      "estSec": 13.4,
+      "text": "Melihat korelasi dari ketujuh peristiwa ini, kita dapat menyimpulkan bahwa dunia teknologi sedang mengalami masa transisi yang traumatis dari fase spekulasi menuju fase regulasi dan verifikasi yang lebih ketat.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Paper-cut art style, layered silhouettes of gears and clockwork mechanisms in teal and magenta, soft shadows, handmade texture, clean composition.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rhythmic ticking of gears, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "INDUSTRY TRANSITION",
+      "keyMetric": "REGULATORY SHIFT",
+      "visualClue": "Transisi menuju regulasi ketat"
+    },
+    {
+      "i": 32,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 492.8,
+      "estSec": 16.6,
+      "text": "Dalam enam hingga dua belas bulan ke depan, kita akan melihat pergeseran besar di mana perusahaan-perusahaan tidak lagi berlomba untuk meluncurkan model dengan parameter terbesar, melainkan model yang paling aman, paling dapat diandalkan, dan paling transparan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Product photography, a clean glass shield protecting a glowing microchip, pastel sky blue background, soft studio lighting, minimalist composition.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft chime of success, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "FUTURE TRENDS",
+      "keyMetric": "TRANSPARENCY FOCUS",
+      "visualClue": "Model aman dan transparan"
+    },
+    {
+      "i": 33,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 509.4,
+      "estSec": 15.2,
+      "text": "Investasi akan mulai mengalir ke arah alat bantu verifikasi, sistem keamanan berbasis enkripsi, dan metodologi pengujian yang lebih ketat, karena pasar mulai menyadari bahwa kecerdasan tanpa kendali adalah sebuah kewajiban yang sangat mahal.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Isometric 3D diorama of a brass balance scale weighing a glowing microchip against a heavy iron padlock, mint and coral palette, soft studio lighting, clean minimalist background.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "metallic clinking and humming, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "INDUSTRI VERIFIKASI KEAMANAN",
+      "keyMetric": "KEAMANAN JADI PRIORITAS",
+      "visualClue": "investasi beralih ke keamanan"
+    },
+    {
+      "i": 34,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 524.6,
+      "estSec": 12.9,
+      "text": "Bagi Anda sebagai pengguna atau praktisi di industri ini, langkah konkret yang harus diambil adalah meningkatkan literasi keamanan data dan tidak lagi menelan mentah-mentah narasi tentang otomasi penuh.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "Close-up of a pair of hands typing on a mechanical keyboard, a smartphone screen nearby displays a padlock icon and a data encryption status bar, soft natural light., clean isometric 3D illustration, flat colors, soft shadows, light gray background",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "rhythmic mechanical keyboard clicks, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src7.png",
+      "contextTitle": "LITERASI KEAMANAN DATA",
+      "keyMetric": "KEAMANAN DATA PENTING",
+      "visualClue": "tingkatkan literasi keamanan data"
+    },
+    {
+      "i": 35,
+      "chapter": "Analisis & Prediksi Industri",
+      "startSec": 537.5,
+      "estSec": 18.5,
+      "text": "Peluang karier di masa depan tidak lagi terletak pada kemampuan menulis perintah atau *prompt engineering* sederhana, melainkan pada keahlian dalam mengaudit sistem AI, memahami arsitektur keamanan, dan mengintegrasikan AI ke dalam alur kerja manusia dengan cara yang aman serta produktif.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Macro photography of a wooden mannequin hand holding a magnifying glass over a complex circuit board, shallow depth of field, warm tungsten lighting, professional lab setting.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "subtle electronic circuit hum, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "PELUANG KARIER MASA DEPAN",
+      "keyMetric": "AUDIT SISTEM AI",
+      "visualClue": "audit sistem jadi kunci"
+    },
+    {
+      "i": 36,
+      "chapter": "Peluang & Penutup",
+      "startSec": 556,
+      "estSec": 12,
+      "text": "Jangan biarkan diri Anda terjebak dalam euforia teknologi yang tidak memberikan nilai tambah nyata bagi keamanan aset pribadi maupun profesional Anda.",
+      "visual": "STATIC_IMAGE_MOTION",
+      "prompt": "",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft paper rustling sound, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src4.jpg",
+      "contextTitle": "NILAI TAMBAH NYATA",
+      "keyMetric": "KEAMANAN ASET PRIBADI",
+      "visualClue": "hindari euforia teknologi"
+    },
+    {
+      "i": 37,
+      "chapter": "Peluang & Penutup",
+      "startSec": 568,
+      "estSec": 12,
+      "text": "Dunia kecerdasan buatan sedang bertransformasi menjadi sesuatu yang lebih serius dan terukur, dan Anda memiliki tanggung jawab untuk tetap kritis di tengah banjir informasi yang menyesatkan.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Editorial documentary style, 35mm film still of an empty conference room with a single spotlight on a podium, muted amber and gray tones, film grain.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "faint ambient room tone, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "TRANSFORMASI TEKNOLOGI",
+      "keyMetric": "KRITIS TERHADAP INFORMASI",
+      "visualClue": "dunia AI makin serius"
+    },
+    {
+      "i": 38,
+      "chapter": "Peluang & Penutup",
+      "startSec": 580,
+      "estSec": 17.1,
+      "text": "Apakah menurut Anda industri AI akan mampu memperbaiki standar keamanannya sebelum terjadi kegagalan sistemik yang lebih besar, atau justru kita sedang menuju gelembung yang akan pecah dalam waktu dekat? Saya sangat menantikan perspektif Anda di kolom komentar.",
+      "visual": "I2V_ANIMATE_IMAGE",
+      "prompt": "A monitor displaying a complex bar chart with a downward trend, cinematic volumetric light, dark office background, focus on the screen data.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "low frequency digital pulse, clean foley, no background music"
+      },
+      "srcImage": "content/long/2026-11-24/images/src3.jpg",
+      "contextTitle": "STANDAR KEAMANAN INDUSTRI",
+      "keyMetric": "KEGAGALAN SISTEMIK",
+      "visualClue": "apakah standar akan membaik"
+    },
+    {
+      "i": 39,
+      "chapter": "Peluang & Penutup",
+      "startSec": 597.1,
+      "estSec": 12,
+      "text": "Jangan lupa untuk menekan tombol subscribe dan nyalakan notifikasi agar Anda tidak tertinggal analisis mendalam berikutnya mengenai dinamika teknologi global yang terus berubah ini.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Paper-cut art style, layered paper showing a subscribe button icon and a notification bell, warm orange, magenta and teal colors, clean handmade texture.",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "soft bell chime sound, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "ANALISIS TEKNOLOGI GLOBAL",
+      "keyMetric": "Dinamika Teknologi",
+      "visualClue": "jangan ketinggalan analisis"
+    },
+    {
+      "i": 40,
+      "chapter": "Peluang & Penutup",
+      "startSec": 609.1,
+      "estSec": 12,
+      "text": "Terima kasih telah meluangkan waktu untuk memahami realitas di balik layar teknologi yang kita gunakan setiap hari, dan sampai jumpa di pembahasan selanjutnya.",
+      "visual": "T2V_GENERATION",
+      "prompt": "Cinematic wide shot of an empty, modern minimalist studio with a single chair, soft natural light streaming through a window, clean and professional atmosphere., 35mm film still, warm morning window light, warm neutral tones, shallow depth of field",
+      "faceless": true,
+      "negative_prompt": "human face, eyes, portrait, readable facial features, smiling, looking at camera, character model, distorted face, unreadable blurry text, intrusive watermark, copyright signature",
+      "audio": {
+        "music": false,
+        "ambient_sfx": true,
+        "audio_prompt": "faint wind outside window, clean foley, no background music"
+      },
+      "srcImage": null,
+      "contextTitle": "REALITAS TEKNOLOGI",
+      "keyMetric": "PEMBAHASAN SELANJUTNYA",
+      "visualClue": "terima kasih telah menyimak"
+    }
+  ],
+  "midrollAtSec": 284,
+  "estTotalSec": 621.1,
+  "sources": [
+    {
+      "title": "Binding of Isaac developer removes AI music from Repentance Plus",
+      "url": "https://www.theverge.com/games/1039770/binding-of-isaac-ai-music",
+      "publisher": "The Verge"
+    },
+    {
+      "title": "Banks Have Had It Up to Here With Your AI Agent",
+      "url": "https://www.wired.com/story/banks-are-cracking-down-on-ai-agents/",
+      "publisher": "Wired AI"
+    },
+    {
+      "title": "AI coding agents ace isolated tests but complete fewer than one in ten tasks in a simulated workplace",
+      "url": "https://the-decoder.com/ai-coding-agents-ace-isolated-tests-but-complete-fewer-than-one-in-ten-tasks-in-a-simulated-workplace/",
+      "publisher": "The Decoder"
+    },
+    {
+      "title": "The most misunderstood graph in AI just got a major update",
+      "url": "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update/",
+      "publisher": "MIT Tech Review"
+    },
+    {
+      "title": "Hebbia sees improvements in financial research with GPT-6 Astra",
+      "url": "https://openai.com/business/customer-stories/hebbia",
+      "publisher": "OpenAI Blog"
+    },
+    {
+      "title": "AI is getting better faster than experts can reliably test whether new systems are safe, METR warns",
+      "url": "https://the-decoder.com/ai-is-getting-better-faster-than-experts-can-reliably-test-whether-new-systems-are-safe-metr-warns/",
+      "publisher": "The Decoder"
+    },
+    {
+      "title": "Security researchers show how cheap AI inference providers steal keys and snoop on users",
+      "url": "https://the-decoder.com/security-researchers-show-how-cheap-ai-inference-providers-steal-keys-and-snoop-on-users/",
+      "publisher": "The Decoder"
+    }
+  ]
+}

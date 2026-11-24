@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-24",
+  "topicTitle": "Runtuhnya Ilusi Kecerdasan Buatan dan Realitas Keamanan Digital Terbaru",
+  "status": "READY_FOR_ASSETS",
+  "beats": 40,
+  "estTotalSec": 621.1,
+  "midrollAtSec": 284,
+  "t2vCount": 25,
+  "i2vCount": 12,
+  "staticCount": 3,
+  "images": 6,
+  "sources": 7,
+  "paragraphs": 12,
+  "storyboardBatchesExecuted": 5,
+  "storyboardTotalBatches": 5,
+  "storyboardLlmOkBatches": 5,
+  "storyboardFallbackBatches": [],
+  "storyboardPartialBatches": [],
+  "storyboardBudgetHit": false,
+  "storyboardBreakerHit": false
+}
