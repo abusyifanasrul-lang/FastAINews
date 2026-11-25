@@ -1,12 +1,12 @@
 import { fetchFeeds, filterRecent, isAiRelevant, dedupe, fetchOgImage, type NewsItem } from "./research.js";
 import { saveDraft, saveScript } from "./store.js";
-import { db, updateContentStatus, addRevision, getContentWithSources } from "./db.js";
+import { db, updateContentStatus, addRevision, getContentWithSources, saveNewsArchive } from "./db.js";
 import { generateScript, generateScriptWithFeedback } from "./llm.js";
 import { generateTtsChunks } from "./tts.js";
 import { renderVideos } from "./video.js";
 import { sendPreview } from "./telegram.js";
 import { mkdirSync, appendFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 
 const LOG_FILE = join(process.cwd(), "content", "revision.log");
 function logRev(msg: string) {
@@ -77,8 +77,9 @@ export async function runPipeline(opts: PipelineOptions = {}) {
   // 2b. Download gambar relevan (og:image) untuk tiap topik → content/<date>/images/
   const imgDir = join(process.cwd(), "content", date, "images");
   mkdirSync(imgDir, { recursive: true });
+  const toRel = (p: string | null) => (p ? relative(process.cwd(), p).replace(/\\/g, "/") : null);
   const withImg = await Promise.all(top.map(async (s, i) => {
-    const img = await fetchOgImage(s.url, join(imgDir, `src${i + 1}`));
+    const img = toRel(await fetchOgImage(s.url, join(imgDir, `src${i + 1}`)));
     return { ...s, imagePath: img };
   }));
   console.log(`[pipeline] ${withImg.filter(s => s.imagePath).length}/${withImg.length} gambar terdownload`);
@@ -90,6 +91,34 @@ export async function runPipeline(opts: PipelineOptions = {}) {
     topicTitle
   );
   console.log(`[pipeline] draft #${id} tersimpan (${top.length} sumber)`);
+
+  // 3b. Arsipkan seluruh kandidat AI <=72 jam ke news_archive (+ unduh og:image utk 4 cadangan teratas)
+  try {
+    const archivePool = dedupe(filterRecent(all, 72).filter(i => isAiRelevant(i.title)));
+    const pickedUrls = new Set(withImg.map(s => s.url));
+    const backupPool = pickDiverse(archivePool.filter(i => !pickedUrls.has(i.url)), 4);
+    const backupWithImg = await Promise.all(backupPool.map(async (s, i) => {
+      const img = toRel(await fetchOgImage(s.url, join(imgDir, `arch_${i + 1}`)));
+      return { ...s, imagePath: img };
+    }));
+    const backupMap = new Map(backupWithImg.map(b => [b.url, b.imagePath]));
+    const pickedMap = new Map(withImg.map(s => [s.url, s.imagePath]));
+
+    saveNewsArchive(
+      date,
+      archivePool.slice(0, 35).map(s => ({
+        title: s.title,
+        url: s.url,
+        publisher: s.publisher,
+        publishedAt: s.publishedAt,
+        imagePath: pickedMap.get(s.url) ?? backupMap.get(s.url) ?? null,
+        isShortPicked: pickedUrls.has(s.url),
+      })),
+    );
+    console.log(`[pipeline] news_archive tersimpan (${Math.min(archivePool.length, 35)} kandidat, ${backupWithImg.filter(b => b.imagePath).length} gambar cadangan)`);
+  } catch (archErr) {
+    console.warn(`[pipeline] arsip news_archive gagal (non-fatal): ${(archErr as Error).message}`);
+  }
 
   // 4. Naskah via LLM — dari semua topik terpilih
   const { script, topicTitle: llmTitle } = await generateScript(top);

@@ -14,6 +14,8 @@ export const RSS_FEEDS = [
   { url: "https://www.wired.com/feed/tag/ai/latest/rss", name: "Wired AI" },
   { url: "https://www.technologyreview.com/feed/", name: "MIT Tech Review" },
   { url: "https://the-decoder.com/feed/", name: "The Decoder" },
+  { url: "https://feeds.arstechnica.com/arstechnica/technology-lab", name: "Ars Technica" },
+  { url: "https://huggingface.co/blog/feed.xml", name: "Hugging Face Blog" },
   // blog resmi lab AI
   { url: "https://openai.com/news/rss.xml", name: "OpenAI Blog" },
   { url: "https://blog.google/technology/ai/rss/", name: "Google AI Blog" },
@@ -23,23 +25,39 @@ const parser = new Parser();
 
 export async function fetchFeeds(): Promise<NewsItem[]> {
   const items: NewsItem[] = [];
-  for (const feed of RSS_FEEDS) {
-    try {
-      const parsed = await parser.parseURL(feed.url);
+  const results = await Promise.allSettled(
+    RSS_FEEDS.map(async (feed) => {
+      const res = await fetch(feed.url, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36",
+          "Accept": "application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8",
+        },
+        signal: AbortSignal.timeout(10_000),
+      });
+      if (!res.ok) throw new Error(`Status code ${res.status}`);
+      const xml = await res.text();
+      const parsed = await parser.parseString(xml);
+      const out: NewsItem[] = [];
       for (const item of parsed.items) {
         const title = item.title?.trim();
         const url = item.link;
         if (!title || !url) continue;
-        items.push({
+        out.push({
           title,
           url,
           publisher: feed.name,
           publishedAt: item.isoDate ?? item.pubDate ?? new Date().toISOString(),
         });
       }
-    } catch (e) {
-      console.warn(`Feed gagal: ${feed.name} — ${(e as Error).message}`);
-      // 1 feed mati = skip, jangan gagal total (desain teknis section 13)
+      return out;
+    }),
+  );
+  for (let i = 0; i < results.length; i++) {
+    const r = results[i];
+    if (r.status === "fulfilled") {
+      items.push(...r.value);
+    } else {
+      console.warn(`Feed gagal: ${RSS_FEEDS[i].name} — ${(r.reason as Error)?.message ?? r.reason}`);
     }
   }
   return items;

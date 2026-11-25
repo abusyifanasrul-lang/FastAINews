@@ -1,11 +1,8 @@
-name: AI News Long Curate (3-harian / Throttle Interlock)
+name: AI News Long Curate (Manual Only — Studio Lokal Aktif)
 
 on:
-  schedule:
-    # Evaluasi harian pukul 19:00 UTC (03:00 WITA).
-    # Throttle Interlock di script mengontrol: jika publish tepat waktu -> eksekusi per 3 hari;
-    # jika publish mundur / baru terbit < 24 jam -> ditunda & digeser 24 jam berikutnya.
-    - cron: '0 19 * * *'
+  # Cron otomatis dinonaktifkan karena perakitan long-form (HyperFrames + Voice Clone + FFmpeg)
+  # dijalankan di Studio Lokal dengan penarikan arsip 3 hari dari origin/master.
   workflow_dispatch:
     inputs:
       date:

@@ -31,6 +31,23 @@ try {
   db.exec("ALTER TABLE contents ADD COLUMN telegram_file_id TEXT");
 }
 
+// migrasi: pastikan tabel news_archive tersedia pada DB lama
+db.exec(`
+  CREATE TABLE IF NOT EXISTS news_archive (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fetched_date TEXT NOT NULL,
+    title TEXT NOT NULL,
+    url TEXT NOT NULL UNIQUE,
+    publisher TEXT,
+    published_at TEXT,
+    image_path TEXT,
+    is_short_picked INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_news_archive_date ON news_archive(fetched_date);
+  CREATE INDEX IF NOT EXISTS idx_news_archive_pub ON news_archive(published_at);
+`);
+
 export function upsertContent(content: {
   date: string;
   status?: string;
@@ -267,14 +284,65 @@ export function updateLongContentPublishResult(id: number, gdriveUrl: string, yo
   `).run(gdriveUrl, youtubeId, durationSec, id);
 }
 
+export interface NewsArchiveRow {
+  id: number;
+  fetched_date: string;
+  title: string;
+  url: string;
+  publisher: string | null;
+  published_at: string | null;
+  image_path: string | null;
+  is_short_picked: number;
+}
+
+export function saveNewsArchive(
+  fetchedDate: string,
+  items: { title: string; url: string; publisher?: string; publishedAt?: string; imagePath?: string | null; isShortPicked?: boolean }[],
+) {
+  const stmt = db.prepare(`
+    INSERT INTO news_archive (fetched_date, title, url, publisher, published_at, image_path, is_short_picked)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(url) DO UPDATE SET
+      fetched_date = COALESCE(news_archive.fetched_date, excluded.fetched_date),
+      publisher = COALESCE(excluded.publisher, news_archive.publisher),
+      published_at = COALESCE(excluded.published_at, news_archive.published_at),
+      image_path = COALESCE(excluded.image_path, news_archive.image_path),
+      is_short_picked = MAX(news_archive.is_short_picked, excluded.is_short_picked)
+  `);
+  const tx = db.transaction(() => {
+    for (const it of items) {
+      if (!it.title || !it.url) continue;
+      stmt.run(
+        fetchedDate,
+        it.title,
+        it.url,
+        it.publisher ?? null,
+        it.publishedAt ?? null,
+        it.imagePath ?? null,
+        it.isShortPicked ? 1 : 0,
+      );
+    }
+  });
+  tx();
+}
+
+export function getArchivedNewsForLong(days = 4, beforeDate?: string): NewsArchiveRow[] {
+  const ref = beforeDate ?? new Date().toISOString().slice(0, 10);
+  return db.prepare(`
+    SELECT * FROM news_archive
+    WHERE fetched_date <= ? AND fetched_date >= date(?, '-' || ? || ' days')
+    ORDER BY published_at DESC, fetched_date DESC
+  `).all(ref, ref, days) as NewsArchiveRow[];
+}
+
 export function getRecentContentsForLong(limitDays = 3, beforeDate?: string): { content: ContentRow; sources: SourceRow[] }[] {
+  const lookback = limitDays + 2;
   const contents = beforeDate
     ? db.prepare(`
         SELECT * FROM contents 
-        WHERE date <= ? AND date >= date(?, '-5 days') AND script_text IS NOT NULL AND status != 'SKIPPED'
-        ORDER BY date DESC 
-        LIMIT ?
-      `).all(beforeDate, beforeDate, limitDays) as ContentRow[]
+        WHERE date <= ? AND date >= date(?, '-' || ? || ' days') AND script_text IS NOT NULL AND status != 'SKIPPED'
+        ORDER BY date DESC
+      `).all(beforeDate, beforeDate, lookback) as ContentRow[]
     : db.prepare(`
         SELECT * FROM contents 
         WHERE script_text IS NOT NULL AND status != 'SKIPPED'

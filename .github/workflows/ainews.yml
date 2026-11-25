@@ -106,13 +106,26 @@ jobs:
           done
           exit 1
 
-      - name: Commit DB changes
+      - name: Commit DB & rolling 5-day official images
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote set-url origin "https://x-access-token:${REPO_PAT}@github.com/abusyifanasrul-lang/FastAINews.git"
           git add -f content/ainews.db
-          git diff --staged --quiet || git commit -m "chore: update DB after pipeline [skip ci]"
+          shopt -s nullglob
+          CUTOFF=$(date -u -d "5 days ago" +%Y-%m-%d)
+          for d in content/20??-??-??/images; do
+            DAY=$(basename "$(dirname "$d")")
+            if [[ "$DAY" < "$CUTOFF" ]]; then
+              git rm -rf --ignore-unmatch "$d" >/dev/null 2>&1 || true
+              rm -rf "$d"
+            fi
+          done
+          for img in content/20??-??-??/images/src* content/20??-??-??/images/arch_*; do
+            git add -f "$img"
+          done
+          git diff --staged --quiet || git commit -m "chore: update DB & rolling 5-day images [skip ci]"
+          git pull --rebase --autostash origin master || true
           git push origin HEAD:master
         env:
           REPO_PAT: ${{ secrets.REPO_PAT }}

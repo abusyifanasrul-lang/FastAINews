@@ -69,8 +69,22 @@ CREATE TABLE IF NOT EXISTS long_contents (
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+CREATE TABLE IF NOT EXISTS news_archive (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  fetched_date TEXT NOT NULL,           -- YYYY-MM-DD
+  title TEXT NOT NULL,
+  url TEXT NOT NULL UNIQUE,
+  publisher TEXT,
+  published_at TEXT,
+  image_path TEXT,
+  is_short_picked INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
 CREATE INDEX IF NOT EXISTS idx_sources_content ON sources(content_id);
 CREATE INDEX IF NOT EXISTS idx_revisions_content ON revisions(content_id);
 CREATE INDEX IF NOT EXISTS idx_publications_content ON publications(content_id);
 CREATE INDEX IF NOT EXISTS idx_long_contents_date ON long_contents(date);
+CREATE INDEX IF NOT EXISTS idx_news_archive_date ON news_archive(fetched_date);
+CREATE INDEX IF NOT EXISTS idx_news_archive_pub ON news_archive(published_at);
 
